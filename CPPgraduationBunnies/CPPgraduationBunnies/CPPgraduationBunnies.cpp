@@ -312,7 +312,7 @@ void printBunnies(bunny *first, bool *p_stillHaveBunnies)
 	bunny *conductor;
 	
 	conductor = first;
-	printf("Still Have Bunnies: %d\n", *p_stillHaveBunnies);
+	printf("Still Have Bunnies: %s\n", *p_stillHaveBunnies ? "true" : "false");
 	printf("----------------------\n");
 	while (conductor != NULL)
 	{
@@ -320,7 +320,7 @@ void printBunnies(bunny *first, bool *p_stillHaveBunnies)
 		printf("   Sex: %c\n", conductor->sex);
 		printf(" Color: %s\n", conductor->color);
 		printf("   Age: %i\n", conductor->age);
-		printf("  RMVB: %d\n", conductor->rmvb);
+		printf("  RMVB: %s\n", conductor->rmvb ? "** YES **" : "no");
 		printf("----------------------\n");
 		conductor = conductor->next;
 	}
@@ -333,21 +333,21 @@ void killBunny(bunny *root, bunny *first, bunny *killThisOne, bStats *stats, boo
 	{
 		if (killThisOne->next == NULL)
 		{
-			printf("Killing bunny %s, who is the FINAL KILL.\n", killThisOne->name);
-			printf("All the bunnies are dead! Only ROOT exists now. These should be the final stats.\n");
+			//printf("Killing bunny %s, who is the FINAL KILL.\n", killThisOne->name);
+			//printf("All the bunnies are dead! Only ROOT exists now. These should be the final stats.\n");
 
 
 			first = root;
 			first->next = NULL;
 
-			printStats(stats);
-			printBunnies(root, p_stillHaveBunnies);
-			printf("Setting p_stillHaveBunnies to FALSE.\n");
+			//printStats(stats);
+			//printBunnies(root, p_stillHaveBunnies);
+			//printf("Setting p_stillHaveBunnies to FALSE.\n");
 			*p_stillHaveBunnies = false;
 
 			return;
 		}
-		printf("Killing bunny %s, who is FIRST in the list of bunnies. After the kill, stats are below.\n", killThisOne->name);
+		//printf("Killing bunny %s, who is FIRST in the list of bunnies. After the kill, stats are below.\n", killThisOne->name);
 
 
 		// copy next bunny to first bunny
@@ -362,8 +362,8 @@ void killBunny(bunny *root, bunny *first, bunny *killThisOne, bStats *stats, boo
 		first->next = first->next->next;
 		//free(killThisOne);
 
-		printStats(stats);
-		printBunnies(root, p_stillHaveBunnies);
+		//printStats(stats);
+		//printBunnies(root, p_stillHaveBunnies);
 
 		return;
 	}
@@ -372,7 +372,7 @@ void killBunny(bunny *root, bunny *first, bunny *killThisOne, bStats *stats, boo
 
 	struct bunny *prev = root;
 
-	printf("Killing bunny %s. After the kill, stats are below.\n", killThisOne->name);
+	//printf("Killing bunny %s. After the kill, stats are below.\n", killThisOne->name);
 	
 
 	while (prev->next != NULL && prev->next != killThisOne)
@@ -385,8 +385,8 @@ void killBunny(bunny *root, bunny *first, bunny *killThisOne, bStats *stats, boo
 	}
 	prev->next = prev->next->next;
 
-	printStats(stats);
-	printBunnies(root, p_stillHaveBunnies);
+	//printStats(stats);
+	//printBunnies(root, p_stillHaveBunnies);
 
 	//free(killThisOne);
 
@@ -407,24 +407,24 @@ void checkForDeaths(bunny *root, bunny *first, bStats *stats, bool *p_stillHaveB
 		{
 			actionTaken = true;
 
-			printf("Age is: %i  Sex is: %c. Updating stats. \n", conductor->age, conductor->sex);
+			//printf("Age is: %i  Sex is: %c. Updating stats. \n", conductor->age, conductor->sex);
 			// update stats before killing the bunny
 			stats->totalBunnies -= 1;
 			if (conductor->sex == 'M')
 			{
-				printf("Deducting Adult Male.\n");
+				//printf("Deducting Adult Male.\n");
 				stats->numAdultMales -= 1;
 				stats->numMales -= 1;
 			}
 			else
 			{
-				printf("Deducting Adult Female.\n");
+				//printf("Deducting Adult Female.\n");
 				stats->numAdultFemales -= 1;
 				stats->numFemales -= 1;
 			}
 			if (conductor->rmvb)
 			{
-				printf("Deducting RMVB.\n");
+				//printf("Deducting RMVB.\n");
 				stats->numRMVB -= 1;
 			}
 			// adjust colors stats in the future here
@@ -443,9 +443,9 @@ void checkForDeaths(bunny *root, bunny *first, bStats *stats, bool *p_stillHaveB
 	}
 	if (!actionTaken)
 	{
-		printf("No action taken. Here are the current stats.\n");
-		printStats(stats);
-		printBunnies(root, p_stillHaveBunnies);
+		//printf("No action taken. Here are the current stats.\n");
+		//printStats(stats);
+		//printBunnies(root, p_stillHaveBunnies);
 	}
 	
 }
@@ -576,9 +576,9 @@ int main()
 	while (last->next != NULL)
 		last = last->next;
 	printf("\n");
-	printf("The last bunny is: %s\n\n", last->name);
+	//printf("The last bunny is: %s\n\n", last->name);
 
-	printf("\n");
+	//printf("\n");
 
 	printStats(stats);
 
