@@ -643,7 +643,7 @@ void updateStats(indexes *idx, bStats *stats)
 		// move to next record
 		conductor = conductor->next;
 	}
-	if (idx->root == idx->first && idx->root == idx->last)
+	if (idx->root == idx->first)
 		stats->totalBunnies = 0;
 
 }
@@ -791,7 +791,11 @@ void takeTurn(indexes *idx, bStats *stats, bool *p_stillHaveBunnies)
 	printBunnies(idx);
 	printStats(stats);
 	printf("===================================  End of turn # %i  ====================================\n", stats->numTurns);
+	
+	
+	
 	//printf("\nPress any key to begin next turn.\n");
+	// future place for user input K - kill half of the bunnies, D - show the grid
 	//getchar();
 }
 
@@ -907,7 +911,7 @@ int main()
 
 	printf("\n");
 	printf("FINAL STATISTICS AT END OF GAME. THANK YOU FOR PLAYING.\n");
-	stats->totalBunnies = 0;
+	//stats->totalBunnies = 0;
 	printStats(stats);
 	//printBunnies(idx);
 
@@ -925,7 +929,7 @@ int main()
 	//	printf("%s\n", bunnyColors[i].bColor);
 	//printf("\n");
 
-	// drawBoard(board);
+	//drawBoard(board);
 
 	// end of program
 	printf("Press any key to exit...");
