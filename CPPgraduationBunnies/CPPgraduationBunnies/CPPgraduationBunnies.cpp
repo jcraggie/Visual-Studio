@@ -340,6 +340,7 @@ void giveBirth(indexes *idx, bStats *stats, int colorOfMom)
 	conductor = conductor->next;
 	conductor->next = NULL;
 
+
 	conductor->sex = getRandomSex();
 	printf("getting sex result is %c\n", conductor->sex);
 	if (conductor->sex == 'M')
