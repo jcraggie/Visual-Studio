@@ -663,7 +663,7 @@ void takeTurn(indexes *idx, bStats *stats, bool *p_stillHaveBunnies)
 	{
 		while (conductor != NULL)
 		{
-			if (conductor->sex = 'F' && conductor->age > 2)
+			if (conductor->sex == 'F' && conductor->age > 2)
 			{
 				printf("Bunny %s Age: %i Sex: %c Color: %s is giving birth!\n", conductor->name, conductor->age, conductor->sex, conductor->color);
 				mColor = conductor->colorNum;
