@@ -544,6 +544,11 @@ void checkForDeaths(indexes *idx, bStats *stats, bool *p_stillHaveBunnies)
 		actionTaken = false;
 		if (conductor->age >= 10)
 		{
+			if (conductor->sex == 'X')
+			{
+				if (conductor->age < 50)
+					return;
+			}
 			actionTaken = true;
 			killThisOne = conductor;
 			killBunny(idx, killThisOne, stats, p_stillHaveBunnies);
@@ -629,6 +634,60 @@ void updateStats(indexes *idx, bStats *stats)
 
 }
 
+void changeBunnyToRMVB(indexes *idx, int num)
+{
+	bunny *conductor;
+	int len = 0;
+	int i;
+
+
+	conductor = idx->first;
+
+	while (conductor != NULL)
+	{
+		conductor = conductor->next;
+		len++;
+	}
+
+	if (len < num)
+		return;
+
+	conductor = idx->first;
+
+	for (i = 1; i < (len - num + 1); ++i)
+		conductor = conductor->next;
+
+	conductor->rmvb = true;
+	conductor->sex = 'X';
+
+
+	printf("Changed # %i bunny %s to RMVB...\n", num, conductor->name);
+	return;
+
+}
+
+
+void checkForRMVB(indexes *idx, bStats  *stats)
+{
+	bunny *conductor;
+	int i;
+	int num;
+	int numRMVB;
+
+	numRMVB = stats->numRMVB;
+
+	if (numRMVB > 0)
+	{
+		for (i = 0; i < numRMVB; ++i)
+		{
+			num = getRandNum(1, stats->totalBunnies);
+			changeBunnyToRMVB(idx, num);
+			updateStats(idx, stats);
+		}
+	}
+
+
+}
 
 
 void takeTurn(indexes *idx, bStats *stats, bool *p_stillHaveBunnies)
@@ -675,6 +734,10 @@ void takeTurn(indexes *idx, bStats *stats, bool *p_stillHaveBunnies)
 			conductor = conductor->next;
 		}
 	}
+
+	checkForRMVB(idx, stats);
+
+
 	updateStats(idx, stats);
 	updateLastBunny(idx);
 	printf("\nPausing... Updating stats and last bunny. press any key for next turn.\n");
@@ -733,6 +796,8 @@ int main()
 	void increaseAge(indexes *idx, bStats *stats);
 	//void updateStats(bunny *root, bunny *first, bStats *stats);
 	void updateStats(indexes *idx, bStats *stats);
+	void checkForRMVB(indexes *idx, bStats  *stats);
+	void changeBunnyToRMVB(indexes *idx, int num);
 
 	stats = new bStats;
 
