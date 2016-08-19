@@ -144,19 +144,19 @@ void createRoot(indexes *idx)
 
 }
 
-//void updateLastBunny(bunny *root, bunny *last)
-//{
-//	bunny *conductor;
-//	conductor = root;
-//
-//	if (conductor != 0)
-//	{
-//		while (conductor->next != 0)
-//			conductor = conductor->next;
-//	}
-//	last = conductor;
-//
-//}
+void updateLastBunny(indexes *idx)
+{
+	bunny *conductor;
+	conductor = idx->root;
+
+	if (conductor != 0)
+	{
+		while (conductor->next != 0)
+			conductor = conductor->next;
+	}
+	idx->last = conductor;
+
+}
 
 char getRandomSex()
 {
@@ -238,6 +238,16 @@ void initializeFirstBunnies(indexes *idx, bStats *stats)
 		conductor->next = new bunny;
 		conductor = conductor->next;
 		conductor->next = NULL;	
+		if (i == 0)
+		{
+			idx->first = conductor;
+			idx->last = conductor;
+		}
+
+		if (i == MAX_START_BUNNIES - 1)
+		{
+			idx->last = conductor;
+		}
 
 		conductor->sex = getRandomSex();
 		if (conductor->sex == 'M')
@@ -339,6 +349,7 @@ void giveBirth(indexes *idx, bStats *stats, int colorOfMom)
 	conductor->next = new bunny;
 	conductor = conductor->next;
 	conductor->next = NULL;
+	idx->last = conductor; // update last bunny to new one just made
 
 
 	conductor->sex = getRandomSex();
@@ -484,9 +495,13 @@ void killBunny(indexes *idx, bunny *killThisOne, bStats *stats, bool *p_stillHav
 		//idx->first->col = idx->first->next->col;
 
 		killThisOne = idx->first->next;
+		idx->last = idx->first; // does this make the last one correct? should only be 1 bunny left at this point
 
 		if (idx->first->next != NULL)
+		{
 			idx->first->next = idx->first->next->next;
+			
+		}
 
 
 		printStats(stats);
@@ -661,7 +676,8 @@ void takeTurn(indexes *idx, bStats *stats, bool *p_stillHaveBunnies)
 		}
 	}
 	updateStats(idx, stats);
-	printf("\nPausing... press any key for next turn.\n");
+	updateLastBunny(idx);
+	printf("\nPausing... Updating stats and last bunny. press any key for next turn.\n");
 	getchar();
 }
 
@@ -706,7 +722,7 @@ int main()
 	bool isRMVB();
 	char getRandomSex();
 	void createRoot(indexes *idx);
-	//void updateLastBunny(bunny *root, bunny *last);
+	void updateLastBunny(indexes *idx);
 	void addNewBunny(indexes *idx);
 	// void initializeFirstBunnies(bunny *root, bunny *first, bunny *last, bStats *stats);
 	void initializeFirstBunnies(indexes *idx, bStats *stats);
@@ -753,10 +769,10 @@ int main()
 	initializeFirstBunnies(idx, stats);
 	printBunnies(idx);
 
-	giveBirth(idx, stats, 1);
-	updateStats(idx, stats);
+	//giveBirth(idx, stats, 1);
+	//updateStats(idx, stats);
 
-	idx->first = idx->root->next; // sets the first bunny to the record after ROOT
+	// idx->first = idx->root->next; // sets the first bunny to the record after ROOT
 
 	conductor = idx->first;
 	printf("5 BUNNIES IN OUR INITIAL LIST\n");
