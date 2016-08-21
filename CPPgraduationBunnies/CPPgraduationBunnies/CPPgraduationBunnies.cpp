@@ -46,6 +46,8 @@ void initializeBoard(char b[MAX_BOARD_ROWS][MAX_BOARD_COLUMS])
 
 
 
+
+
 struct bunny
 {
 	char           name[15];    // determined from a pre-defined list of names listOfNames
@@ -64,6 +66,8 @@ struct indexes
 	struct bunny   *root;
 	struct bunny   *first;
 	struct bunny   *last;
+	struct bunny   *current; // used to pass the address of the current bunny being worked with
+	char            board[MAX_BOARD_ROWS][MAX_BOARD_COLUMS];
 };
 
 
@@ -81,6 +85,16 @@ struct bStats
 	int              totalBunnies;
 	int              numTurns;
 };
+
+void initializeIdxBoard(indexes *idx)
+{
+	int r, c;
+
+	for (r = 0; r < MAX_BOARD_ROWS; ++r)
+		for (c = 0; c < MAX_BOARD_COLUMS; ++c)
+			idx->board[r][c] = '.';
+}
+
 
 void initializeStats(bStats *stats)
 {
@@ -202,13 +216,40 @@ bool isRMVB()
 	return (rand() % 100) < RMVB_PERCENT; // should return true only RMVB_PERCENT of the time
 }
 
+void placeBunnyOnBoard(indexes *idx, char marker)
+{
+	int r, c; 
+	
+
+	bunny *current;
+
+	r = getRandNum(0, MAX_BOARD_ROWS);
+	c = getRandNum(0, MAX_BOARD_COLUMS);
+
+	while (idx->board[r][c] != '.')
+	{
+		r = getRandNum(0, MAX_BOARD_ROWS);
+		c = getRandNum(0, MAX_BOARD_COLUMS);
+	}
+	
+	// save coords assinged to bunny's info
+	idx->current->row = r;
+	idx->current->col = c;
+
+	// place the marker on the board. marker is the sex of the bunny for now
+	idx->board[r][c] = marker;
+}
+
+
 void initializeFirstBunnies(indexes *idx, bStats *stats)
 {
 	void updateStats(indexes *idx, bStats *stats);
 	
 	int i;
+	//int r, c; // used for row and column assignments
 	int num; // used for random numbers when assigning values to bunny
 	bunny *conductor; // use this to naviate through the list
+	//bunny *current; // use this to save address of bunny being worked with
 	bool isJuv = false;
 	bool isAdult = false;
 	bool isMale = false;
@@ -232,6 +273,8 @@ void initializeFirstBunnies(indexes *idx, bStats *stats)
 		conductor->next = new bunny;
 		conductor = conductor->next;
 		conductor->next = NULL;	
+
+		idx->current = conductor;  // saves address of this bunny as current
 		if (i == 0)
 		{
 			idx->first = conductor;
@@ -272,6 +315,31 @@ void initializeFirstBunnies(indexes *idx, bStats *stats)
 		conductor->colorNum = num;
 		strcpy_s(conductor->color, bunnyColors[num].bColor);
 		// bool for color counters go here in the future
+
+		// assign to board, checking to see if assigned spot is taken
+
+		//r = getRandNum(0, MAX_BOARD_ROWS);
+		//c = getRandNum(0, MAX_BOARD_COLUMS);
+
+		//while (idx->board[r][c] != '.')
+		//{
+		//	r = getRandNum(0, MAX_BOARD_ROWS);
+		//	c = getRandNum(0, MAX_BOARD_COLUMS);
+		//}
+
+		//idx->board[r][c] = conductor->sex;
+
+		placeBunnyOnBoard(idx, conductor->sex);  // replaces above code to put the bunny on the board
+
+
+
+
+
+
+
+
+
+
 
 		// update counts below
 		updateStats(idx, stats);
@@ -321,6 +389,7 @@ void giveBirth(indexes *idx, bStats *stats, int colorOfMom)
 	//int i;
 	int num; // used for random numbers when assigning values to bunny
 	bunny *conductor; // use this to naviate through the list
+	//bunny *current;
 	bool isJuv = false;
 	bool isAdult = false;
 	bool isMale = false;
@@ -388,6 +457,9 @@ void giveBirth(indexes *idx, bStats *stats, int colorOfMom)
 	//}
 	//if (isaRMVB)
 	//	stats->numRMVB += 1;
+
+	idx->current = conductor;
+	placeBunnyOnBoard(idx, conductor->sex);
 
 	printf("          Bunny %s was born. ", conductor->name);
 	printf("Age: %i ", conductor->age);
@@ -460,7 +532,8 @@ void printBunnies(indexes *idx)
 		printf("   Sex: %c", conductor->sex);
 		printf(" Color: %s", conductor->color);
 		printf("   Age: %i", conductor->age);
-		printf("  RMVB: %s\n", conductor->rmvb ? "** YES **" : "no");
+		printf("  RMVB: %s", conductor->rmvb ? "** YES **" : "no");
+		printf(" Coords: %i,%i\n", conductor->row, conductor->col);
 		//printf("----------------------\n");
 		conductor = conductor->next;
 	}
@@ -469,6 +542,9 @@ void printBunnies(indexes *idx)
 void killBunny(indexes *idx, bunny *killThisOne, bStats *stats, bool *p_stillHaveBunnies)
 {
 	stats->numDeaths += 1;
+	printf("current is being killed. current's name is %s\n", idx->current->name);
+	idx->board[idx->current->row][idx->current->col] = '.';
+
 	// when bunny to kill is the first one
 	if (idx->first == killThisOne)
 	{
@@ -477,7 +553,7 @@ void killBunny(indexes *idx, bunny *killThisOne, bStats *stats, bool *p_stillHav
 			printf("--- Killing bunny %s, who is the FINAL bunny.\n", killThisOne->name);
 			printf("    All the bunnies are dead! Only ROOT exists now.\n");
 
-
+			
 			idx->first = idx->root;
 			idx->first->next = NULL;
 
@@ -503,14 +579,14 @@ void killBunny(indexes *idx, bunny *killThisOne, bStats *stats, bool *p_stillHav
 		//idx->first->row = idx->first->next->row;
 		//idx->first->col = idx->first->next->col;
 
-		killThisOne = idx->first->next;
-		idx->last = idx->first; // does this make the last one correct? should only be 1 bunny left at this point
+		//killThisOne = idx->first->next;
+		//idx->last = idx->first; // does this make the last one correct? should only be 1 bunny left at this point
 
-		if (idx->first->next != NULL)
-		{
-			idx->first->next = idx->first->next->next;
-			
-		}
+		//if (idx->first->next != NULL)
+		//{
+		//	idx->first->next = idx->first->next->next;
+		//	
+		//}
 
 
 		//printStats(stats);
@@ -560,6 +636,7 @@ void checkForDeaths(indexes *idx, bStats *stats, bool *p_stillHaveBunnies)
 			}
 			actionTaken = true;
 			killThisOne = conductor;
+			idx->current = killThisOne;
 			killBunny(idx, killThisOne, stats, p_stillHaveBunnies);
 
 			if (idx->first == idx->root)
@@ -799,7 +876,19 @@ void takeTurn(indexes *idx, bStats *stats, bool *p_stillHaveBunnies)
 	//getchar();
 }
 
+void drawIdxBoard(indexes *idx)
+{
+	int r, c;
 
+	//system("cls"); // clear the screen and re-draw
+
+	for (r = 0; r < MAX_BOARD_ROWS; ++r)
+	{
+		for (c = 0; c < MAX_BOARD_COLUMS; ++c)
+			printf("%c", idx->board[r][c]);
+		printf("\n");
+	}
+}
 
 
 
@@ -832,8 +921,8 @@ int main()
 
 	bStats *stats;
 
-	char board[MAX_BOARD_ROWS][MAX_BOARD_COLUMS]; // creates bunny board
-
+	// char board[MAX_BOARD_ROWS][MAX_BOARD_COLUMS]; // creates bunny board <- moved to idx
+	void initializeIdxBoard(indexes *idx);
 	void killBunny(indexes *idx, bunny *conductor, bStats *stats, bool *p_stillHaveBunnies);
 	void checkForDeaths(indexes *idx, bStats *stats, bool *p_stillHaveBunnies);
 	void printBunnies(indexes *idx);
@@ -852,6 +941,7 @@ int main()
 	void updateStats(indexes *idx, bStats *stats);
 	void checkForRMVB(indexes *idx, bStats  *stats);
 	bool changeBunnyToRMVB(indexes *idx, int num);
+	void placeBunnyOnBoard(indexes *idx, char marker);
 
 	stats = new bStats;
 
@@ -863,7 +953,7 @@ int main()
 
 
 
-	initializeBoard(board);
+	initializeIdxBoard(idx);
 	initializeStats(stats);
 
 	// INITIALIZE THE ROOT RECORD
@@ -930,6 +1020,7 @@ int main()
 	//printf("\n");
 
 	//drawBoard(board);
+	drawIdxBoard(idx);
 
 	// end of program
 	printf("Press any key to exit...");
