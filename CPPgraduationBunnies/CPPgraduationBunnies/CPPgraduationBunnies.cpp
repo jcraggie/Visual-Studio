@@ -20,7 +20,7 @@
 
 
 // DEFINE CONSTANTS
-#define MAX_NAMES         10
+#define MAX_NAMES         14
 #define MAX_COLORS         4
 #define MAX_START_BUNNIES  5
 #define MAX_BOARD_ROWS    80
@@ -28,6 +28,7 @@
 #define RMVB_PERCENT       2
 #define MAX_AGE_ADULTS    10
 #define MAX_AGE_RMVB      30
+#define OUTPUT_COL        90
 
 using namespace std;
 
@@ -124,7 +125,7 @@ struct bColors
 	char bColor[15];
 };
 
-const struct bNames bunnyNames[10] =
+const struct bNames bunnyNames[14] =
 {
 	{"Thumper       "},
 	{"Cottontail    "},
@@ -135,6 +136,10 @@ const struct bNames bunnyNames[10] =
 	{"Jack          "},
 	{"Jenny         "},
 	{"Barbara       "},
+	{"Tashi         "},
+	{"Jason         "},
+	{"Harry         "},
+	{"Russell       "},
 	{"Jessica       "}
 };
 
@@ -296,11 +301,26 @@ void initializeFirstBunnies(indexes *idx, bStats *stats)
 			idx->last = conductor;
 		}
 
+		conductor->age = getRandNum(0, 9);  // random age between 0 and 9 (10 is dead) (50 is max for rmvb's)
+		if (conductor->age < 2)
+			isJuv = true;
+		else
+			isAdult = true;
+		
 		conductor->sex = getRandomSex();
 		if (conductor->sex == 'M')
+		{
 			isMale = true;
+			if (conductor->age < 2)
+				conductor->sex = 'm';
+		}
 		if (conductor->sex == 'F')
+		{
 			isFemale = true;
+			if (conductor->age < 2)
+				conductor->sex = 'f';
+
+		}
 
 		conductor->rmvb = isRMVB(); // return 1 if yes, 0 if no
 		if (conductor->rmvb)
@@ -312,11 +332,7 @@ void initializeFirstBunnies(indexes *idx, bStats *stats)
 		}
 
 
-		conductor->age = getRandNum(0, 9);  // random age between 0 and 9 (10 is dead) (50 is max for rmvb's)
-		if (conductor->age < 2)
-			isJuv = true;
-		else
-			isAdult = true;
+
 
 		num = getRandNum(0,MAX_NAMES-1);
 		strcpy_s(conductor->name, bunnyNames[num].bName);
@@ -326,66 +342,14 @@ void initializeFirstBunnies(indexes *idx, bStats *stats)
 		strcpy_s(conductor->color, bunnyColors[num].bColor);
 		// bool for color counters go here in the future
 
-		// assign to board, checking to see if assigned spot is taken
-
-		//r = getRandNum(0, MAX_BOARD_ROWS);
-		//c = getRandNum(0, MAX_BOARD_COLUMS);
-
-		//while (idx->board[r][c] != '.')
-		//{
-		//	r = getRandNum(0, MAX_BOARD_ROWS);
-		//	c = getRandNum(0, MAX_BOARD_COLUMS);
-		//}
-
-		//idx->board[r][c] = conductor->sex;
 
 		placeBunnyOnBoard(idx, conductor->sex);  // replaces above code to put the bunny on the board
 
-
-
-
-
-
-
-
-
-
-
 		// update counts below
 		updateStats(idx, stats);
-		//stats->totalBunnies += 1;
-		//if (isMale)
-		//{
-		//	stats->numMales += 1;
-		//	if (isJuv)
-		//		stats->numJuvMales += 1;
-		//	else
-		//		stats->numAdultMales += 1;
 
-		//}
-		//if (isFemale)
-		//{
-		//	stats->numFemales += 1;
-		//	if (isJuv)
-		//		stats->numJuvFemales += 1;
-		//	else
-		//		stats->numAdultFemales += 1;
-
-		//}
-		//if (isaRMVB)
-		//	stats->numRMVB += 1;
-		
 	}
 	idx->last = conductor;
-
-	// trying to adjust last, but it does not update outside of this function
-	// investigate later
-
-	//last = root;
-	//while (last->next != NULL)
-	//	last = last->next;
-
-
 	
 }
 
@@ -424,10 +388,16 @@ void giveBirth(indexes *idx, bStats *stats, int colorOfMom)
 	conductor->sex = getRandomSex();
 	//printf("getting sex result is %c\n", conductor->sex);
 	if (conductor->sex == 'M')
+	{
 		isMale = true;
+		conductor->sex = 'm';
+	}
 	if (conductor->sex == 'F')
+	{
 		isFemale = true;
-	if (conductor->sex != 'M' && conductor->sex != 'F' && conductor->sex != 'X')
+		conductor->sex = 'f';
+	}
+	if (conductor->sex != 'm' && conductor->sex != 'f' && conductor->sex != 'X')
 	{
 		printf("sex error... pausing.\n");
 		getchar();
@@ -449,69 +419,48 @@ void giveBirth(indexes *idx, bStats *stats, int colorOfMom)
 	conductor->colorNum = colorOfMom;
 	strcpy_s(conductor->color, bunnyColors[colorOfMom].bColor);
 	
-
-	// bool for color counters go here in the future
-
-	// update counts below
-	//stats->totalBunnies += 1;
-
-	//if (isMale)
-	//{
-	//	stats->numJuvMales += 1;
-	//	stats->numMales += 1;
-	//}
-	//else if (isFemale)
-	//{
-	//	stats->numJuvFemales += 1;
-	//	stats->numFemales += 1;
-	//}
-	//if (isaRMVB)
-	//	stats->numRMVB += 1;
-
 	idx->current = conductor;
 	placeBunnyOnBoard(idx, conductor->sex);
 
-	//printf("          Bunny %s was born. ", conductor->name);
-	//printf("Age: %i ", conductor->age);
-	//printf("Sex: %c ", conductor->sex);
-	//printf("Color: %s ", conductor->color);
-	//printf("RMVB: %s\n", conductor->rmvb ? "true" : "false");
-	//printf("----------------------\n");
-
-	//printBunnies(idx);
-
-	//printf("press RETURN to continue...\n");
-	//getchar();
-	
-
 }
+
+void printStatsColumn(indexes *idx, bStats *stats)
+{
+	void Gotoxy(int x, int y);
+
+
+	int r, c;
+	r = idx->outputRow;
+	c = idx->outputCol;
+
+	Gotoxy(c, r);printf("---------------------     ");r++;
+	Gotoxy(c, r);printf("  BUNNY STATISTICS        ");r++;
+	Gotoxy(c, r);printf("---------------------     ");r++;
+	Gotoxy(c, r);printf("      Total Males: %i", stats->numMales);r++;
+	Gotoxy(c, r);printf("    Total Females: %i", stats->numFemales);r++;
+	Gotoxy(c, r);printf("             RMVB: %i", stats->numRMVB);r++;
+	Gotoxy(c, r);printf("    Total Bunnies: %i", stats->totalBunnies);r++;
+	Gotoxy(c, r);printf("                           ");r++;
+	Gotoxy(c, r);printf("      Adult Males: %i",stats->numAdultMales);r++;
+	Gotoxy(c, r);printf("    Adult Females: %i", stats->numAdultFemales);r++;
+	Gotoxy(c, r);printf("                           ");r++;
+	Gotoxy(c, r);printf("   Juvenlie Males: %i", stats->numJuvMales);r++;
+	Gotoxy(c, r);printf(" Juvenile Females: %i", stats->numJuvFemales);r++;
+	Gotoxy(c, r);printf("                           ");r++;
+	Gotoxy(c, r);printf("           Births: %i", stats->numBirths);r++;
+	Gotoxy(c, r);printf("           Deaths: %i", stats->numDeaths);r++;
+	Gotoxy(c, r);printf("                           ");r++;
+	Gotoxy(c, r);printf("Total turns taken: %i", stats->numTurns);r++;
+	Gotoxy(c, r);printf("---------------------       ");r++;
+	Gotoxy(c, r);printf("                            ");r++;
+
+	idx->outputRow = r;
+}
+
+
 
 void printStats(bStats *stats)
 {
-	//bStats *stat;
-	//stat = stats;
-	//printf("---------------------\n");
-	//printf("  BUNNY STATISTICS\n");
-	//printf("---------------------\n");
-	//printf("      Total Males: %i\n", stats->numMales);
-	//printf("    Total Females: %i\n", stats->numFemales);
-	//printf("             RMVB: %i\n", stats->numRMVB);
-	//printf("    Total Bunnies: %i\n", stats->totalBunnies);
-	//printf("\n");
-	//printf("      Adult Males: %i\n",stats->numAdultMales);
-	//printf("    Adult Females: %i\n", stats->numAdultFemales);
-	//printf("\n");
-	//printf("   Juvenlie Males: %i\n", stats->numJuvMales);
-	//printf(" Juvenile Females: %i\n", stats->numJuvFemales);
-	//printf("\n");
-	//printf("           Births: %i\n", stats->numBirths);
-	//printf("           Deaths: %i\n", stats->numDeaths);
-	//printf("\n");
-	//printf("Total turns taken: %i\n", stats->numTurns);
-	//printf("---------------------\n");
-	//printf("\n");
-
-
 	printf("-----------------------------------------------------------------------------------------\n");
 	printf("  BUNNY STATISTICS AS OF TURN %i                                Total Bunnies: %i\n", stats->numTurns, stats->totalBunnies);
 	printf("-----------------------------------------------------------------------------------------\n");
@@ -532,7 +481,7 @@ void printBunnies(indexes *idx)
 	bunny *conductor;
 	
 	conductor = idx->first;
-	//printf("Still Have Bunnies: %s\n", *p_stillHaveBunnies ? "true" : "false");
+
 	printf("----------------------\n");
 	printf("CURRENT BUNNY LIST\n");
 	printf("----------------------\n");
@@ -570,69 +519,38 @@ void killBunny(indexes *idx, bunny *killThisOne, bStats *stats, bool *p_stillHav
 	{
 		if (killThisOne->next == NULL)
 		{
-			//printf("--- Killing bunny %s, who is the FINAL bunny.\n", killThisOne->name);
-			//printf("    All the bunnies are dead! Only ROOT exists now.\n");
-
+			//killing the FINAL bunny. All the bunnies are dead! Only ROOT exists now.
 			
 			idx->first = idx->root;
 			idx->first->next = NULL;
 
 			*p_stillHaveBunnies = false; // game over!
-			//stats->totalBunnies = 0;
-			//printBunnies(idx);
+
 			return;
 		}
-		//printf("--- Killing bunny %s, who is FIRST in the list of bunnies.\n", killThisOne->name);
-		
-
+		// Kiling the FIRST bunny in the list of bunnies.
 		// copy next bunny to first bunny
 
-		idx->first = idx->first->next; // does this replace the lines below?
-		//printBunnies(idx);
-
-		//strcpy_s(idx->first->name, idx->first->next->name);
-		//idx->first->age = idx->first->next->age;
-		//idx->first->sex = idx->first->next->sex;
-		//idx->first->colorNum = idx->first->next->colorNum;
-		//strcpy_s(idx->first->color, idx->first->next->color);
-		//idx->first->rmvb = idx->first->next->rmvb;
-		//idx->first->row = idx->first->next->row;
-		//idx->first->col = idx->first->next->col;
-
-		//killThisOne = idx->first->next;
-		//idx->last = idx->first; // does this make the last one correct? should only be 1 bunny left at this point
-
-		//if (idx->first->next != NULL)
-		//{
-		//	idx->first->next = idx->first->next->next;
-		//	
-		//}
-
-
-		//printStats(stats);
-		//printBunnies(idx);
+		idx->first = idx->first->next;
 
 		return;
 	}
 
-
-
 	struct bunny *prev = idx->root;
 
-	//printf("--- Killing bunny %s\n", killThisOne->name);
-	
+	// killing a bunny
 
 	while (prev->next != NULL && prev->next != killThisOne)
 		prev = prev->next;
 
 	if (prev->next == NULL)
 	{
-		// printf("Can't find the bunny to be killed in the list.\n");
+		// can't find the bunny in the list
 		return;
 	}
-	prev->next = prev->next->next;
-	//printBunnies(idx);
-
+	
+	// skipping current bunny. previous bunny's NEXT set to bunny after the one being killed
+	prev->next = prev->next->next; 
 
 	return;
 }
@@ -669,9 +587,7 @@ void checkForDeaths(indexes *idx, bStats *stats, bool *p_stillHaveBunnies)
 	}
 	if (!actionTaken)
 	{
-		//printf("No action taken. Here are the current stats.\n");
-		//printStats(stats);
-		//printBunnies(idx);
+		// No action taken this round.
 		return;
 	}
 	
@@ -681,11 +597,30 @@ void increaseAge(indexes *idx, bStats *stats)
 {
 	bunny *conductor;
 	conductor = idx->first;
+	void Gotoxy(int x, int y);
 
 	while (conductor != NULL)
 	{
 		// increase ages for all bunnies
 		conductor->age += 1;
+		if (conductor->age > 1)
+		{
+			if (conductor->sex == 'm' || conductor->sex == 'f')
+			{
+				if (conductor->sex == 'm')
+				{
+					conductor->sex = 'M';
+					Gotoxy(conductor->col, conductor->row);
+					printf("%c",conductor->sex);
+				}
+				else
+				{
+					conductor->sex = 'F';
+					Gotoxy(conductor->col, conductor->row);
+					printf("%c", conductor->sex);
+				}
+			}
+		}
 		conductor = conductor->next;
 	}
 
@@ -706,14 +641,11 @@ void updateStats(indexes *idx, bStats *stats)
 	stats->numRMVB = 0;
 	stats->totalBunnies = 0;
 
-	//printf("updating stats\n");
-	//getchar();
-
 	while (conductor != NULL)
 	{
 		stats->totalBunnies += 1;
 
-		if (conductor->sex == 'M')
+		if (conductor->sex == 'M' || conductor->sex == 'm')
 		{
 			stats->numMales += 1;
 			if (conductor->age > 1)
@@ -722,7 +654,7 @@ void updateStats(indexes *idx, bStats *stats)
 				stats->numJuvMales += 1;
 		}
 
-		if (conductor->sex == 'F')
+		if (conductor->sex == 'F' || conductor->sex == 'f')
 		{
 			stats->numFemales += 1;
 			if (conductor->age > 1)
@@ -734,24 +666,20 @@ void updateStats(indexes *idx, bStats *stats)
 		if (conductor->rmvb)
 			stats->numRMVB += 1;
 
-
-
-
 		// move to next record
 		conductor = conductor->next;
 	}
 	if (idx->root == idx->first)
-		stats->totalBunnies = 0;
+		stats->totalBunnies = 0;  // since the only record is the root, there are no bunnies in the list
 
 }
 
 bool changeBunnyToRMVB(indexes *idx, int num)
 {
 	bunny *conductor;
+	void Gotoxy(int x, int y);
 	int len = 0;
 	int i;
-	// madeChange = false;
-
 
 	conductor = idx->first;
 
@@ -760,8 +688,6 @@ bool changeBunnyToRMVB(indexes *idx, int num)
 		conductor = conductor->next;
 		len++;
 	}
-	// printf("Length of list: %i\n", len);
-
 
 	if (len < num)
 		return false;
@@ -771,18 +697,16 @@ bool changeBunnyToRMVB(indexes *idx, int num)
 	for (i = 1; i < (len - num + 1); ++i)
 		conductor = conductor->next;
 
-	while (conductor->rmvb == true) // trying to not change existing RMVB to RMVB
+	while (conductor->rmvb == true) // don't change an existing RMVB
 	{
-		//printf("--- This bunny is already RMVB: #%i named \n. Getting another random bunny #.", i);
 		return false;
 	}
 
 	conductor->rmvb = true;
 	conductor->sex = 'X';
+	Gotoxy(conductor->col, conductor->row);
+	printf("%c", conductor->sex);
 
-
-	//printf("--- Changed # %i bunny %s to RMVB...\n", num, conductor->name);
-	// printf("----------------------\n");
 	return true;
 
 }
@@ -800,7 +724,6 @@ void checkForRMVB(indexes *idx, bStats  *stats)
 	numRMVB = stats->numRMVB;
 	numRegularBunnies = stats->totalBunnies - stats->numRMVB;
 
-	//printf("--- There are %i RMVB bunnies and there are %i regular bunnies.\n", stats->numRMVB, numRegularBunnies);
 	if (numRegularBunnies < numRMVB)
 	{
 		conductor = idx->first;
@@ -830,8 +753,9 @@ void checkForRMVB(indexes *idx, bStats  *stats)
 
 
 }
-//moves the cursor in the console window
-void Gotoxy(int x, int y)
+
+
+void Gotoxy(int x, int y)   //moves the cursor in the console window
 {
 	COORD point;
 	point.X = x+3;
@@ -844,28 +768,16 @@ void takeTurn(indexes *idx, bStats *stats, bool *p_stillHaveBunnies)
 	bunny *conductor;
 
 	void drawIdxBoard(indexes *idx);
+	void clearSideOutput(indexes *idx);
 
 	int mColor;
 
-	//system("cls");
 
-	//printf("===================================  Start of turn # %i  ==================================\n", stats->numTurns + 1);
-	//printBunnies(idx);
-	//printStats(stats);
-
-	//printf("--- Now increasing age of all bunnies.\n");
-	//printf("----------------------\n");
 	increaseAge(idx, stats);
 	updateStats(idx, stats);
-	//printf("Stats after updating ages.\n");
-	//printStats(stats);
 
-	//printf("--- Checking for bunnies to kill.\n");
-	//printf("----------------------\n");
 	checkForDeaths(idx, stats, p_stillHaveBunnies);
 	updateStats(idx, stats);
-	//printf("Stats after killing bunnies...\n");
-	//printStats(stats);
 
 	conductor = idx->first;
 
@@ -876,12 +788,10 @@ void takeTurn(indexes *idx, bStats *stats, bool *p_stillHaveBunnies)
 		{
 			if (conductor->sex == 'F' && conductor->age > 2)
 			{
-				//printf("--- Giving birth is Bunny %s Age: %i Sex: %c Color: %s\n", conductor->name, conductor->age, conductor->sex, conductor->color);
-				mColor = conductor->colorNum;
+				// giving birth
+				mColor = conductor->colorNum;  // saves the color of Mom
 				giveBirth(idx, stats, mColor);
 				updateStats(idx, stats);
-				//printf("Stats after birth...\n");
-				//printStats(stats);
 			}
 			conductor = conductor->next;
 		}
@@ -893,26 +803,31 @@ void takeTurn(indexes *idx, bStats *stats, bool *p_stillHaveBunnies)
 	stats->numTurns += 1;
 	updateStats(idx, stats);
 	updateLastBunny(idx);
-	
-	//printBunnies(idx);
-	//printStats(stats);
-	//printf("===================================  End of turn # %i  ====================================\n", stats->numTurns);
-	
-	
-	
-	//printf("\nPress any key to begin next turn.\n");
-	// future place for user input K - kill half of the bunnies, D - show the grid
-	getchar();
 
-	// clear output lines
-	for (int clearRow = 0; clearRow <= idx->outputRow; ++clearRow)
+	printStatsColumn(idx, stats);
+
+	Gotoxy(-3,-1);  // moves cursor to top, left so the console windows is always at the top
+	getchar(); // press any key to being next turn
+
+	clearSideOutput(idx);  // clears the existing output information on right side of board, ready for next turn's info
+
+}
+void clearSideOutput(indexes *idx)
+{
+	int r, c;
+	c = idx->outputCol;
+	Gotoxy(90, 50);
+	printf("output rows are: %i", idx->outputRow);
+	//r = 0;
+
+	for (r = 0; r <= idx->outputRow; ++r)
 	{
-		Gotoxy(clearRow, idx->outputCol);
-		printf("                                ");
+		Gotoxy(c, r);
+		printf("                                 ");
 	}
-	idx->outputRow = 0;
 
-	//drawIdxBoard(idx);
+	idx->outputRow = 0;
+	return;
 }
 
 void drawIdxBoard(indexes *idx)
@@ -978,16 +893,10 @@ int main()
 
 	int i;
 
-	//bunny *root;	// this is the start of the list. this record will never change and will have the name "ROOT"
-	//bunny *first;
-	//bunny *last;
 	bunny *conductor;
-
 	indexes *idx;
-
 	bStats *stats;
 
-	// char board[MAX_BOARD_ROWS][MAX_BOARD_COLUMS]; // creates bunny board <- moved to idx
 	void initializeIdxBoard(indexes *idx);
 	void killBunny(indexes *idx, bunny *conductor, bStats *stats, bool *p_stillHaveBunnies);
 	void checkForDeaths(indexes *idx, bStats *stats, bool *p_stillHaveBunnies);
@@ -996,105 +905,59 @@ int main()
 	char getRandomSex();
 	void createRoot(indexes *idx);
 	void updateLastBunny(indexes *idx);
-	// void initializeFirstBunnies(bunny *root, bunny *first, bunny *last, bStats *stats);
 	void initializeFirstBunnies(indexes *idx, bStats *stats);
 	void initializeStats(bStats *stats);
 	void printStats(bStats *stats);
 	void takeTurn(indexes *idx, bStats *stats, bool *p_stillHaveBunnies);
 	void giveBirth(indexes *idx, bStats *stats, int colorOfMom);
 	void increaseAge(indexes *idx, bStats *stats);
-	//void updateStats(bunny *root, bunny *first, bStats *stats);
 	void updateStats(indexes *idx, bStats *stats);
 	void checkForRMVB(indexes *idx, bStats  *stats);
 	bool changeBunnyToRMVB(indexes *idx, int num);
 	void placeBunnyOnBoard(indexes *idx, char marker);
+	void printStatsColumn(indexes *idx, bStats *stats);
+	void clearSideOutput(indexes *idx);
 	void Gotoxy(int x, int y);
-
-	stats = new bStats;
-
 	bool haveBunnies = true;
-
 	bool *p_stillHaveBunnies = &haveBunnies;
 
+	stats = new bStats;
+	
 	idx = new indexes;
 	idx->outputCol = 90;
 	idx->outputRow = 0;
-
-
+	
 	initializeIdxBoard(idx);
 	initializeStats(stats);
 	drawIdxBoard(idx);
 	Gotoxy(0, 0);
 	printf("*");
+	idx->outputCol = OUTPUT_COL;
 
 	// INITIALIZE THE ROOT RECORD
-
-	//root = new bunny;    // create ROOT record at head of the list. This record will not change and be named ROOT. this will NOT be a bunny
+	// create ROOT record at head of the list. This record will not change and be named ROOT. this will NOT be a bunny
 	createRoot(idx);
 
 	idx->first = idx->root; // first bunny record should start here. 
-	idx->last = idx->root;
-	idx->root->next = NULL; // 0 incdiates this is the end of the list
-
-	//strcpy_s(idx->root->name, "ROOT");
-
-	//idx->root = root;
-	//idx->first = root;
-	//idx->last = root;
+	idx->last = idx->root;  // last record is here, too
+	idx->root->next = NULL; // next record with NULL means it is the last record in the list
 
 	// END INITIALIZATION
 
-	// ALL TESTING DONE BELOW HERE
-
 	initializeFirstBunnies(idx, stats);
-	//printBunnies(idx);
-
-	//giveBirth(idx, stats, 1);
-	//updateStats(idx, stats);
-
-	// idx->first = idx->root->next; // sets the first bunny to the record after ROOT
-
 	conductor = idx->first;
-	//printf("5 BUNNIES IN OUR INITIAL LIST\n");
-
-	//printBunnies(idx);
-	//printStats(stats);
 
 	i = 0;
-	
-	
 
 	while (haveBunnies)
 	{
 		i++;
-		//printf("Turn %i:  \n", i);
 		takeTurn(idx, stats, p_stillHaveBunnies);
 	}
-	//printf("\n");
 
-	//printf("\n");
 	Gotoxy(0, 95);
 	printf("FINAL STATISTICS AT END OF GAME. THANK YOU FOR PLAYING.\n");
-	//stats->totalBunnies = 0;
 	printStats(stats);
-	//printBunnies(idx);
-
-
-
-	//// testing printing bunny names - used for debugging only
-	//printf("NAME DICTIONARY LIST\n");
-	//for (i = 0; i < MAX_NAMES; ++i)
-	//	printf("%s\n", bunnyNames[i].bName);
-	//printf("\n");
-
-	//// testing printing colors - used for debugging only
-	//printf("COLOR LIST\n");
-	//for (i = 0; i < MAX_COLORS; ++i)
-	//	printf("%s\n", bunnyColors[i].bColor);
-	//printf("\n");
-
-	//drawBoard(board);
-	//drawIdxBoard(idx);
 
 	// end of program
 	printf("Press any key to exit...");
