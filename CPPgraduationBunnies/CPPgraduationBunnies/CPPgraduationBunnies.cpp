@@ -17,6 +17,7 @@
 #include <iostream>
 #include <time.h>
 #include <Windows.h>
+#include <iomanip>
 
 
 // DEFINE CONSTANTS
@@ -190,13 +191,6 @@ char getRandomSex()
 
 	sex_num = getRandNum(min, max);
 
-	if (sex_num < 0 || sex_num > 1)
-	{
-		printf("invalid sex!\n");
-		printf("pausing for error...\n");
-		getchar();
-	}
-
 	if (sex_num == 0)
 		return 'F';
 	else if (sex_num == 1)
@@ -248,10 +242,12 @@ void placeBunnyOnBoard(indexes *idx, char marker)
 	// place the marker on the board. marker is the sex of the bunny for now
 	idx->board[r][c] = marker;
 	Gotoxy(idx->outputCol, idx->outputRow);
-	printf("Place: %3i,%3i", r, c);
+	cout << "Place: " << setw(3) << r << ","<< setw(3) << c;
+	//printf("Place: %3i,%3i", r, c);
 	idx->outputRow += 1;
 	Gotoxy(c, r);
-	printf("%c", marker);
+	cout << marker;
+	//printf("%c", marker);
 	//getchar();
 }
 
@@ -397,11 +393,6 @@ void giveBirth(indexes *idx, bStats *stats, int colorOfMom)
 		isFemale = true;
 		conductor->sex = 'f';
 	}
-	if (conductor->sex != 'm' && conductor->sex != 'f' && conductor->sex != 'X')
-	{
-		printf("sex error... pausing.\n");
-		getchar();
-	}
 
 	conductor->rmvb = isRMVB();
 	if (conductor->rmvb)
@@ -428,6 +419,7 @@ void printStatsColumn(indexes *idx, bStats *stats)
 {
 	void Gotoxy(int x, int y);
 
+	Gotoxy(0, 0);
 
 	int r, c;
 	r = idx->outputRow;
@@ -505,13 +497,15 @@ void killBunny(indexes *idx, bunny *killThisOne, bStats *stats, bool *p_stillHav
 	r = idx->current->row;
 	c = idx->current->col;
 	stats->numDeaths += 1;
-	//printf("current is being killed. current's name is %s\n", idx->current->name);
+	// killing current;
 	idx->board[r][c] = '.';
 	Gotoxy(idx->outputCol, idx->outputRow);
-	printf(" Kill: %3i,%3i", r, c);
+	cout << " Kill: " << setw(3) << r << "," << setw(3) << c;
+	//printf(" Kill: %3i,%3i", r, c);
 	idx->outputRow += 1;
 	Gotoxy(c, r);
-	printf("%c", '.');
+	cout << ".";
+	//printf("%c", '.');
 	//getchar();
 
 	// when bunny to kill is the first one
@@ -560,6 +554,7 @@ void checkForDeaths(indexes *idx, bStats *stats, bool *p_stillHaveBunnies)
 	bunny *conductor;
 	bunny *killThisOne;
 	conductor = idx->first;
+	void Gotoxy(int x, int y);
 	bool actionTaken = false;
 
 	while (conductor != NULL)
@@ -587,6 +582,9 @@ void checkForDeaths(indexes *idx, bStats *stats, bool *p_stillHaveBunnies)
 	}
 	if (!actionTaken)
 	{
+		Gotoxy(idx->outputCol, idx->outputRow);
+		cout << "No deaths.";
+		idx->outputRow += 1;
 		// No action taken this round.
 		return;
 	}
@@ -598,6 +596,10 @@ void increaseAge(indexes *idx, bStats *stats)
 	bunny *conductor;
 	conductor = idx->first;
 	void Gotoxy(int x, int y);
+
+	Gotoxy(idx->outputCol, idx->outputRow);
+	cout << "Advancing age of all bunnies.";
+	idx->outputRow += 1;
 
 	while (conductor != NULL)
 	{
@@ -611,18 +613,21 @@ void increaseAge(indexes *idx, bStats *stats)
 				{
 					conductor->sex = 'M';
 					Gotoxy(conductor->col, conductor->row);
-					printf("%c",conductor->sex);
+					cout << conductor->sex;
+					//printf("%c",conductor->sex);
 				}
 				else
 				{
 					conductor->sex = 'F';
 					Gotoxy(conductor->col, conductor->row);
-					printf("%c", conductor->sex);
+					cout << conductor->sex;
+					//printf("%c", conductor->sex);
 				}
 			}
 		}
 		conductor = conductor->next;
 	}
+	
 
 }
 
@@ -705,7 +710,8 @@ bool changeBunnyToRMVB(indexes *idx, int num)
 	conductor->rmvb = true;
 	conductor->sex = 'X';
 	Gotoxy(conductor->col, conductor->row);
-	printf("%c", conductor->sex);
+	cout << conductor->sex;
+	//printf("%c", conductor->sex);
 
 	return true;
 
@@ -720,6 +726,7 @@ void checkForRMVB(indexes *idx, bStats  *stats)
 	int numRMVB;
 	int numRegularBunnies = 0;
 	bool okToChange = true;
+	void Gotoxy(int x, int y);
 
 	numRMVB = stats->numRMVB;
 	numRegularBunnies = stats->totalBunnies - stats->numRMVB;
@@ -727,10 +734,14 @@ void checkForRMVB(indexes *idx, bStats  *stats)
 	if (numRegularBunnies < numRMVB)
 	{
 		conductor = idx->first;
+		if (stats->numMales == 0 && stats->numFemales == 0)
+			return;
 
 		while (conductor != NULL)
 		{
 			conductor->sex = 'X';
+			Gotoxy(conductor->col, conductor->row);
+			cout << "X";
 			conductor = conductor->next;
 		}
 		updateStats(idx, stats);
@@ -772,42 +783,51 @@ void takeTurn(indexes *idx, bStats *stats, bool *p_stillHaveBunnies)
 
 	int mColor;
 
-
-	increaseAge(idx, stats);
-	updateStats(idx, stats);
-
-	checkForDeaths(idx, stats, p_stillHaveBunnies);
-	updateStats(idx, stats);
-
-	conductor = idx->first;
-
-	if (stats->numAdultMales > 0 && stats->numAdultFemales > 0) // have to have at least 1 adult male and 1 adult female to have babies
-
+	do
 	{
-		while (conductor != NULL)
+
+
+		clearSideOutput(idx);
+		increaseAge(idx, stats);
+		updateStats(idx, stats);
+
+		checkForDeaths(idx, stats, p_stillHaveBunnies);
+		updateStats(idx, stats);
+
+		conductor = idx->first;
+
+		if (stats->numAdultMales > 0 && stats->numAdultFemales > 0) // have to have at least 1 adult male and 1 adult female to have babies
+
 		{
-			if (conductor->sex == 'F' && conductor->age > 2)
+			while (conductor != NULL)
 			{
-				// giving birth
-				mColor = conductor->colorNum;  // saves the color of Mom
-				giveBirth(idx, stats, mColor);
-				updateStats(idx, stats);
+				if (conductor->sex == 'F' && conductor->age > 2)
+				{
+					// giving birth
+					mColor = conductor->colorNum;  // saves the color of Mom
+					giveBirth(idx, stats, mColor);
+					updateStats(idx, stats);
+				}
+				conductor = conductor->next;
 			}
-			conductor = conductor->next;
 		}
-	}
 
-	checkForRMVB(idx, stats);
+		checkForRMVB(idx, stats);
 
-	// end of turn
-	stats->numTurns += 1;
-	updateStats(idx, stats);
-	updateLastBunny(idx);
+		// end of turn
+		stats->numTurns += 1;
+		updateStats(idx, stats);
+		updateLastBunny(idx);
 
-	printStatsColumn(idx, stats);
+		printStatsColumn(idx, stats);
 
-	Gotoxy(-3,-1);  // moves cursor to top, left so the console windows is always at the top
-	getchar(); // press any key to being next turn
+		Gotoxy(-3, -1);  // moves cursor to top, left so the console windows is always at the top
+		//clearSideOutput(idx);
+	} while (stats->numMales == 0 && stats->numFemales == 0 && stats->numRMVB != 0);
+
+
+	cin.get();
+	//getchar(); // press any key to being next turn
 
 	clearSideOutput(idx);  // clears the existing output information on right side of board, ready for next turn's info
 
@@ -816,14 +836,15 @@ void clearSideOutput(indexes *idx)
 {
 	int r, c;
 	c = idx->outputCol;
-	Gotoxy(90, 50);
-	printf("output rows are: %i", idx->outputRow);
+	//Gotoxy(90, 50);
+	//printf("output rows are: %i", idx->outputRow);
 	//r = 0;
 
 	for (r = 0; r <= idx->outputRow; ++r)
 	{
 		Gotoxy(c, r);
-		printf("                                 ");
+		cout << "                                 ";
+		//printf("                                 ");
 	}
 
 	idx->outputRow = 0;
@@ -839,53 +860,51 @@ void drawIdxBoard(indexes *idx)
 	for (i = 0; i < MAX_BOARD_COLUMS; ++i)
 	{
 		if (i == 0)
-			printf("   0");
+			cout << "   0";
+		//printf("   0");
 		else
 			if (i % 10 == 0)
-				printf("%i", i / 10);
+				cout << i / 10;
+		//printf("%i", i / 10);
 			else
-				printf(" ");
+				cout << " ";
+				//printf(" ");
 	}
-	printf("\n");
+	cout << "\n";
+	//printf("\n");
 
 	for (r = 0; r < MAX_BOARD_ROWS; ++r)
 	{
-		printf("%2i ", r);
+		cout << setw(2) << r << " ";
+		//printf("%2i ", r);
 		for (c = 0; c < MAX_BOARD_COLUMS; ++c)
 		{
-			printf("%c", idx->board[r][c]);
+			cout << idx->board[r][c];
+			//printf("%c", idx->board[r][c]);
 		}
-		printf(" %i\n", r);
+		cout << setw(3) << r << "\n";
+		//printf(" %i\n", r);
 	}
 
 	for (i = 0; i < MAX_BOARD_COLUMS; ++i)
 	{
 		if (i == 0)
-			printf("   0");
+			cout << "   0";
+		//printf("   0");
 		else
 			if (i % 10 == 0)
-				printf("%i", i / 10);
+				cout << i / 10;
+		//printf("%i", i / 10);
 			else
-				printf(" ");
+				cout << " ";
+				//printf(" ");
 	}
-	printf("\n");
+	cout << "\n";
+	//printf("\n");
 }
 
 
 
-void drawBoard(char b[MAX_BOARD_ROWS][MAX_BOARD_COLUMS])
-{
-	int r, c;
-
-	system("cls"); // clear the screen and re-draw
-
-	for (r = 0; r < MAX_BOARD_ROWS; ++r)
-	{
-		for (c = 0; c < MAX_BOARD_COLUMS; ++c)
-			printf("%c", b[r][c]);
-		printf("\n");
-	}
-}
 
 int main()
 {
@@ -956,13 +975,16 @@ int main()
 	}
 
 	Gotoxy(0, 95);
-	printf("FINAL STATISTICS AT END OF GAME. THANK YOU FOR PLAYING.\n");
+	cout << "FINAL STATISTICS AT END OF GAME. THANK YOU FOR PLAYING.\n";
+	//printf("FINAL STATISTICS AT END OF GAME. THANK YOU FOR PLAYING.\n");
 	printStats(stats);
 
 	// end of program
-	printf("Press any key to exit...");
-	getchar();
-	getchar();
+	cout << "Press any key to exit.";
+	cin.get();
+	//printf("Press any key to exit...");
+	//getchar();
+	//getchar();
 
 
     return 0;
