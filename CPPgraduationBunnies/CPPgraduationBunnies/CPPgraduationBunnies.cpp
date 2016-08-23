@@ -224,7 +224,7 @@ void placeBunnyOnBoard(indexes *idx, char marker)
 	
 	void Gotoxy(int x, int y);
 
-	bunny *current;
+	//bunny *current;
 
 	r = getRandNum(0, MAX_BOARD_ROWS-1);
 	c = getRandNum(0, MAX_BOARD_COLUMS-1);
@@ -823,7 +823,11 @@ void takeTurn(indexes *idx, bStats *stats, bool *p_stillHaveBunnies)
 
 		Gotoxy(-3, -1);  // moves cursor to top, left so the console windows is always at the top
 		//clearSideOutput(idx);
-	} while (stats->numMales == 0 && stats->numFemales == 0 && stats->numRMVB != 0);
+
+
+
+	
+	} while (stats->numMales == 0 && stats->numFemales == 0 && stats->numRMVB != 0); // automate the loop when no females are left becuase there will be no more births
 
 
 	cin.get();
@@ -903,7 +907,26 @@ void drawIdxBoard(indexes *idx)
 	//printf("\n");
 }
 
+void displayMenu(indexes *idx, bStats *stats)
+{
+	void Gotoxy(int x, int y);
 
+	Gotoxy(0, 0);
+
+	int r, c;
+	r = idx->outputRow;
+	c = idx->outputCol;
+	
+	Gotoxy(c, r);cout << "--------------------- "; r++;
+	Gotoxy(c, r);cout << "     MAIN MENU        "; r++;
+	Gotoxy(c, r);cout << "--------------------- "; r++;
+	Gotoxy(c, r);cout << "(L)ist of bunnies     "; r++;
+	Gotoxy(c, r);cout << "(S)tatistics          "; r++;
+	Gotoxy(c, r);cout << "                      "; r++;
+	Gotoxy(c, r);cout << "Enter your selection: "; r++;
+
+	idx->outputRow = r;
+}
 
 
 int main()
