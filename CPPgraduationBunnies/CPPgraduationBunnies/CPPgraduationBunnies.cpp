@@ -383,6 +383,7 @@ void giveBirth(indexes *idx, bStats *stats, int colorOfMom)
 {
 	void printBunnies(indexes *idx);
 	bool checkNewCoords(int babyRow, int babyCol);
+	void Gotoxy(int x, int y);
 
 	stats->numBirths += 1;
 	//int i;
@@ -415,7 +416,9 @@ void giveBirth(indexes *idx, bStats *stats, int colorOfMom)
 	conductor = conductor->next;
 	conductor->next = NULL;
 	idx->last = conductor; // update last bunny to new one just made
-
+	idx->current = conductor;
+	babyRow = idx->mom->row;
+	babyCol = idx->mom->col;
 
 	conductor->sex = getRandomSex();
 
@@ -446,12 +449,12 @@ void giveBirth(indexes *idx, bStats *stats, int colorOfMom)
 	conductor->colorNum = colorOfMom;
 	strcpy_s(conductor->color, bunnyColors[colorOfMom].bColor);
 	
-	idx->current = conductor;
-	babyRow = idx->mom->row;
-	babyCol = idx->mom->col;
+
 	//
 	do
 	{
+		babyRow = idx->mom->row;
+		babyCol = idx->mom->col;
 		directionOfBirth = getRandNum(0, 3);
 		switch (directionOfBirth)
 		{
@@ -467,7 +470,8 @@ void giveBirth(indexes *idx, bStats *stats, int colorOfMom)
 			triedLeft = true;
 			babyCol -= 1;
 			break;
-		case 3:babyCol += 1;
+		case 3:
+			babyCol += 1;
 			triedRight = true;
 			break;
 		default:
@@ -475,19 +479,33 @@ void giveBirth(indexes *idx, bStats *stats, int colorOfMom)
 		}
 		if (triedUp && triedDown && triedLeft && triedRight)
 		{
+			Gotoxy(idx->outputCol, idx->outputRow);
+			cout << "Tried all directions.";
+			idx->outputRow += 1;
 			triedAllDirections = true;
 			canGiveBirth = false;
+			break;
 		}
 
 
-	} while (checkNewCoords(babyRow, babyCol));
+	} while (!checkNewCoords(babyRow, babyCol) && !triedAllDirections);
 
 
 	if (canGiveBirth)
 	{
-		idx->current->row = babyRow;
-		idx->current->col = babyCol;
+		Gotoxy(idx->outputCol, idx->outputRow);
+		cout << "Baby row,col: " << babyRow << "," << babyCol;
+		idx->outputRow += 1;
+
+		conductor->row = babyRow;
+		conductor->col = babyCol;
 		placeBunnyOnBoard(idx, conductor->sex);
+	}
+	else
+	{
+		Gotoxy(idx->outputCol, idx->outputRow);
+		cout << "Can't give birth. " << babyRow << "," << babyCol;
+		idx->outputRow += 1;
 	}
 
 }
@@ -547,21 +565,22 @@ void printStats(bStats *stats)
 
 void printBunnies(indexes *idx)
 {
+	void Gotoxy(int x, int y);
 	bunny *conductor;
 	
 	conductor = idx->first;
 
-	cout << "----------------------\n";
-	cout << "CURRENT BUNNY LIST\n";
-	cout << "----------------------\n";
+	Gotoxy(idx->outputCol, idx->outputRow); cout << "----------------------\n"; idx->outputRow += 1;
+	Gotoxy(idx->outputCol, idx->outputRow); cout << "CURRENT BUNNY LIST\n"; idx->outputRow += 1;
+	Gotoxy(idx->outputCol, idx->outputRow); cout << "----------------------\n"; idx->outputRow += 1;
 	while (conductor != NULL)
 	{
-		cout << "  Name: " << conductor->name;
-		cout << "   Sex: " << conductor->sex;
-		cout << " Color: " << conductor->color;
-		cout << "   Age: " << conductor->age;
-		cout << "  RMVB: " << conductor->rmvb ? "** YES **" : "no";
-		cout << "Coords: " << conductor->row << "," << conductor->col << endl;
+		Gotoxy(idx->outputCol, idx->outputRow); cout << "  Name: " << conductor->name;
+		//cout << "   Sex: " << conductor->sex;
+		//cout << " Color: " << conductor->color;
+		//cout << "   Age: " << conductor->age;
+		//cout << "  RMVB: " << conductor->rmvb ? "** YES **" : "no";
+		cout << "Coords: " << conductor->row << "," << conductor->col; idx->outputRow += 1;
 
 		conductor = conductor->next;
 	}
@@ -753,6 +772,8 @@ void updateStats(indexes *idx, bStats *stats)
 	if (idx->root == idx->first)
 		stats->totalBunnies = 0;  // since the only record is the root, there are no bunnies in the list
 
+
+	//printBunnies(idx);
 }
 
 bool changeBunnyToRMVB(indexes *idx, int num)
@@ -863,7 +884,6 @@ bool checkNewCoords(int newRow, int newCol) // return TRUE if new coords are wit
 void moveAllBunnies(indexes *idx)
 {
 	bunny *conductor;
-	//int cR, cC;
 	int mR, mC;    // moveRow and moveCol
 	int direction; // move up, down, left, right based on random # 0, 1, 2, 3
 	bool getNewDirection = true;
@@ -879,9 +899,8 @@ void moveAllBunnies(indexes *idx)
 		{
 			mR = conductor->row;
 			mC = conductor->col;
-
-			// get direction to move
-			direction = getRandNum(0, 3);
+			
+			direction = getRandNum(0, 3);      // get direction to move
 
 			// get new coords based on direction
 			switch (direction)
@@ -899,7 +918,6 @@ void moveAllBunnies(indexes *idx)
 				mC = conductor->col + 1;
 				break;
 			default:
-				cout << "Invalid random number for move coordinates.\n";
 				break;
 			}
 
@@ -924,9 +942,10 @@ void moveAllBunnies(indexes *idx)
 
 void checkForBirths(indexes *idx, bStats *stats)
 {
+	void Gotoxy(int x, int y);
 	bunny *conductor;
 	conductor = idx->first;
-	int mColor;
+	//int mColor;
 
 	if (stats->numAdultMales > 0 && stats->numAdultFemales > 0) // have to have at least 1 adult male and 1 adult female to have babies
 
@@ -937,9 +956,11 @@ void checkForBirths(indexes *idx, bStats *stats)
 			{
 				// giving birth
 				idx->mom = conductor; // saves mom to pass to giveBirth and check coordinates, etc.
-				mColor = conductor->colorNum;  // saves the color of Mom - now that I have idx->mom I may could get rid of this mColor var
-				
-				giveBirth(idx, stats, mColor);
+				//mColor = conductor->colorNum;  // saves the color of Mom - now that I have idx->mom I may could get rid of this mColor var
+				Gotoxy(idx->outputCol, idx->outputRow);
+				cout << "Mom's coords: " << idx->mom->row << "," << idx->mom->col;
+				idx->outputRow += 1;
+				giveBirth(idx, stats, idx->mom->colorNum);
 				updateStats(idx, stats);
 			}
 			conductor = conductor->next;
@@ -991,6 +1012,9 @@ void takeTurn(indexes *idx, bStats *stats, bool *p_stillHaveBunnies)
 		//}
 
 		checkForRMVB(idx, stats);
+
+
+
 		moveAllBunnies(idx);
 		// end of turn
 		stats->numTurns += 1;
@@ -1007,7 +1031,7 @@ void takeTurn(indexes *idx, bStats *stats, bool *p_stillHaveBunnies)
 	
 	} while (stats->numMales == 0 && stats->numFemales == 0 && stats->numRMVB != 0); // automate the loop when no females are left becuase there will be no more births
 
-
+	//printBunnies(idx);
 	displayMenu(idx, stats);
 	//getchar(); // press any key to being next turn
 
@@ -1022,7 +1046,7 @@ void clearSideOutput(indexes *idx)
 	for (r = 0; r <= idx->outputRow; ++r)
 	{
 		Gotoxy(c, r);
-		cout << "                                 ";
+		cout << "                                      ";
 
 	}
 
@@ -1171,6 +1195,8 @@ int main()
 
 	initializeFirstBunnies(idx, stats);
 	conductor = idx->first;
+	printBunnies(idx);
+	cin.get();
 
 	i = 0;
 
