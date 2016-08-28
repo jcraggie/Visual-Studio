@@ -382,15 +382,14 @@ void initializeFirstBunnies(indexes *idx, bStats *stats)
 void giveBirth(indexes *idx, bStats *stats, int colorOfMom)
 {
 	void printBunnies(indexes *idx);
-	bool checkNewCoords(int babyRow, int babyCol);
+	void printCurrentBunny(indexes *idx);
+	bool checkNewCoords(indexes *idx, int babyRow, int babyCol);
 	void Gotoxy(int x, int y);
 
-	stats->numBirths += 1;
-	//int i;
 	int num; // used for random numbers when assigning values to bunny
 	int directionOfBirth; // used to determine which directon from mom to try and give birth. 0-3 = up, down, left, right
 	bunny *conductor; // use this to naviate through the list
-	//bunny *current;
+	bunny *newBaby;   // use this to clarify new baby below
 	bool isJuv = false;
 	bool isAdult = false;
 	bool isMale = false;
@@ -403,54 +402,8 @@ void giveBirth(indexes *idx, bStats *stats, int colorOfMom)
 	bool triedAllDirections = false, canGiveBirth = true;
 
 	//initialize color counters in the future here
-	
-	// get to end of the list
-	conductor = idx->root;
-	while (conductor->next != NULL)
-		conductor = conductor->next;
-	idx->last = conductor;
 
-	conductor = idx->last;
-	// create new bunny
-	conductor->next = new bunny;
-	conductor = conductor->next;
-	conductor->next = NULL;
-	idx->last = conductor; // update last bunny to new one just made
-	idx->current = conductor;
-	babyRow = idx->mom->row;
-	babyCol = idx->mom->col;
 
-	conductor->sex = getRandomSex();
-
-	if (conductor->sex == 'M')
-	{
-		isMale = true;
-		conductor->sex = 'm';
-	}
-	if (conductor->sex == 'F')
-	{
-		isFemale = true;
-		conductor->sex = 'f';
-	}
-
-	conductor->rmvb = isRMVB();
-	if (conductor->rmvb)
-	{
-		isaRMVB = true;
-		conductor->sex = 'X';
-		isMale = false;
-		isFemale = false;
-	}
-	conductor->age = 0;
-
-	num = getRandNum(0, MAX_NAMES - 1);
-	strcpy_s(conductor->name, bunnyNames[num].bName);
-
-	conductor->colorNum = colorOfMom;
-	strcpy_s(conductor->color, bunnyColors[colorOfMom].bColor);
-	
-
-	//
 	do
 	{
 		babyRow = idx->mom->row;
@@ -479,34 +432,99 @@ void giveBirth(indexes *idx, bStats *stats, int colorOfMom)
 		}
 		if (triedUp && triedDown && triedLeft && triedRight)
 		{
-			Gotoxy(idx->outputCol, idx->outputRow);
-			cout << "Tried all directions.";
-			idx->outputRow += 1;
+			//Gotoxy(idx->outputCol, idx->outputRow);
+			//cout << "Tried all directions.";
+			//idx->outputRow += 1;
 			triedAllDirections = true;
 			canGiveBirth = false;
 			break;
 		}
 
 
-	} while (!checkNewCoords(babyRow, babyCol) && !triedAllDirections);
+	} while (!checkNewCoords(idx, babyRow, babyCol) && !triedAllDirections);
+
+	if (!canGiveBirth)
+		return;
+
+
+
+
+
+
+
+
+	
+	// get to end of the list where new bunny will be inserted
+	conductor = idx->root;
+	while (conductor->next != NULL)
+		conductor = conductor->next;
+	idx->last = conductor;
+
+	conductor = idx->last;
+	// create new bunny	
+	stats->numBirths += 1;
+	conductor->next = new bunny;
+	conductor = conductor->next;
+	conductor->next = NULL;
+	idx->last = conductor; // update last bunny to new one just made
+	idx->current = conductor;
+	
+	newBaby = conductor;
+	babyRow = idx->mom->row;
+	babyCol = idx->mom->col;
+
+	newBaby->sex = getRandomSex();
+
+	if (newBaby->sex == 'M')
+	{
+		isMale = true;
+		newBaby->sex = 'm';
+	}
+	if (newBaby->sex == 'F')
+	{
+		isFemale = true;
+		newBaby->sex = 'f';
+	}
+
+	newBaby->rmvb = isRMVB();
+	if (newBaby->rmvb)
+	{
+		isaRMVB = true;
+		newBaby->sex = 'X';
+		isMale = false;
+		isFemale = false;
+	}
+	newBaby->age = 0;
+
+	num = getRandNum(0, MAX_NAMES - 1);
+	strcpy_s(newBaby->name, bunnyNames[num].bName);
+
+	newBaby->colorNum = colorOfMom;
+	strcpy_s(newBaby->color, bunnyColors[colorOfMom].bColor);
+	
+
+	//
+
 
 
 	if (canGiveBirth)
 	{
 		Gotoxy(idx->outputCol, idx->outputRow);
-		cout << "Baby row,col: " << babyRow << "," << babyCol;
+		cout << "Birth to " << newBaby->name << babyRow << "," << babyCol;
 		idx->outputRow += 1;
 
-		conductor->row = babyRow;
-		conductor->col = babyCol;
-		placeBunnyOnBoard(idx, conductor->sex);
+		newBaby->row = babyRow;
+		newBaby->col = babyCol;
+		idx->current = newBaby;
+		printCurrentBunny(idx);
+		placeBunnyOnBoard(idx, newBaby->sex);
 	}
-	else
-	{
-		Gotoxy(idx->outputCol, idx->outputRow);
-		cout << "Can't give birth. " << babyRow << "," << babyCol;
-		idx->outputRow += 1;
-	}
+	//else
+	//{
+	//	Gotoxy(idx->outputCol, idx->outputRow);
+	//	cout << "Can't give birth. " << babyRow << "," << babyCol;
+	//	idx->outputRow += 1;
+	//}
 
 }
 
@@ -578,12 +596,31 @@ void printBunnies(indexes *idx)
 		Gotoxy(idx->outputCol, idx->outputRow); cout << "  Name: " << conductor->name;
 		//cout << "   Sex: " << conductor->sex;
 		//cout << " Color: " << conductor->color;
-		//cout << "   Age: " << conductor->age;
+		cout << "   Age: " << conductor->age;
 		//cout << "  RMVB: " << conductor->rmvb ? "** YES **" : "no";
-		cout << "Coords: " << conductor->row << "," << conductor->col; idx->outputRow += 1;
+		cout << " Coords: " << conductor->row << "," << conductor->col; idx->outputRow += 1;
 
 		conductor = conductor->next;
 	}
+}
+
+void printCurrentBunny(indexes *idx)
+{
+	void Gotoxy(int x, int y);
+	bunny *current;
+
+	current = idx->current;
+
+	//Gotoxy(idx->outputCol, idx->outputRow); cout << "----------------------\n"; idx->outputRow += 1;
+	//Gotoxy(idx->outputCol, idx->outputRow); cout << "CURRENT BUNNY LIST\n"; idx->outputRow += 1;
+	//Gotoxy(idx->outputCol, idx->outputRow); cout << "----------------------\n"; idx->outputRow += 1;
+	//Gotoxy(idx->outputCol, idx->outputRow); cout << "  Name: " << current->name;
+	//cout << "   Sex: " << conductor->sex;
+	//cout << " Color: " << conductor->color;
+	//cout << "   Age: " << conductor->age;
+	//cout << "  RMVB: " << conductor->rmvb ? "** YES **" : "no";
+	//cout << "Coords: " << current->row << "," << current->col; idx->outputRow += 1;
+
 }
 
 void killBunny(indexes *idx, bunny *killThisOne, bStats *stats, bool *p_stillHaveBunnies)
@@ -592,8 +629,14 @@ void killBunny(indexes *idx, bunny *killThisOne, bStats *stats, bool *p_stillHav
 	int r, c;
 	r = idx->current->row;
 	c = idx->current->col;
+
+	//Gotoxy(idx->outputCol, idx->outputRow);
+	//cout << r << "," << c;
+	//idx->outputRow += 1;
+
 	stats->numDeaths += 1;
 	// killing current;
+
 	idx->board[r][c] = '.';
 	//Gotoxy(idx->outputCol, idx->outputRow);
 	//cout << " Kill: " << setw(3) << r << "," << setw(3) << c;
@@ -871,13 +914,22 @@ void Gotoxy(int x, int y)   //moves the cursor in the console window x = column,
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), point);
 }
 
-bool checkNewCoords(int newRow, int newCol) // return TRUE if new coords are within the boundries, else returns FALSE
+bool checkNewCoords(indexes *idx, int newRow, int newCol) 
 {
+	// check to see if new coords are outside the grid
 	if (newRow < 0 || newRow >= MAX_BOARD_ROWS || newCol < 0 || newCol >= MAX_BOARD_COLUMS)
 	{
 		return false;
 	}
-	else return true;
+	else
+	{
+		// check to see if new coords are occupied or not
+		if (idx->board[newRow][newCol] != '.')
+			return false;
+		else
+			return true;
+	}
+
 
 }
 
@@ -887,6 +939,9 @@ void moveAllBunnies(indexes *idx)
 	int mR, mC;    // moveRow and moveCol
 	int direction; // move up, down, left, right based on random # 0, 1, 2, 3
 	bool getNewDirection = true;
+	bool triedUp = false, triedDown = false, triedLeft = false, triedRight = false;
+	bool triedAllDirections = false;
+	bool canMove = true;
 	
 	conductor = idx->first;
 
@@ -906,23 +961,41 @@ void moveAllBunnies(indexes *idx)
 			switch (direction)
 			{
 			case 0:
+				triedUp = true;
 				mR = conductor->row - 1;
 				break;
 			case 1:
+				triedDown = true;
 				mR = conductor->row + 1;
 				break;
 			case 2:
+				triedLeft = true;
 				mC = conductor->col - 1;
 				break;
 			case 3:
+				triedRight = true;
 				mC = conductor->col + 1;
 				break;
 			default:
 				break;
 			}
 
+			if (triedUp && triedDown && triedLeft && triedRight)
+			{
+				//Gotoxy(idx->outputCol, idx->outputRow);
+				//cout << "Tried moving all directions...";
+				//idx->outputRow += 1;
+				triedAllDirections = true;
+				canMove = false;
+				break;
+			}
 
-		} while (!checkNewCoords(mR, mC));
+			//Gotoxy(idx->outputCol, idx->outputRow);
+			//cout << "Trying these coords: " << mR << "," << mC;
+			//idx->outputRow += 1;
+
+
+		} while (!checkNewCoords(idx, mR, mC) && !triedAllDirections);
 		
 
 		Gotoxy(conductor->col, conductor->row);  // move to current coord
@@ -957,9 +1030,9 @@ void checkForBirths(indexes *idx, bStats *stats)
 				// giving birth
 				idx->mom = conductor; // saves mom to pass to giveBirth and check coordinates, etc.
 				//mColor = conductor->colorNum;  // saves the color of Mom - now that I have idx->mom I may could get rid of this mColor var
-				Gotoxy(idx->outputCol, idx->outputRow);
-				cout << "Mom's coords: " << idx->mom->row << "," << idx->mom->col;
-				idx->outputRow += 1;
+				//Gotoxy(idx->outputCol, idx->outputRow);
+				//cout << "Mom's coords: " << idx->mom->row << "," << idx->mom->col;
+				//idx->outputRow += 1;
 				giveBirth(idx, stats, idx->mom->colorNum);
 				updateStats(idx, stats);
 			}
@@ -988,10 +1061,25 @@ void takeTurn(indexes *idx, bStats *stats, bool *p_stillHaveBunnies)
 		increaseAge(idx, stats);
 		updateStats(idx, stats);
 
+		//Gotoxy(idx->outputCol, idx->outputRow);
+		//cout << "Bunnies after increase age:";
+		//idx->outputRow += 1;
+		//printBunnies(idx);
+
 		checkForDeaths(idx, stats, p_stillHaveBunnies);
 		updateStats(idx, stats);
+		
+		//Gotoxy(idx->outputCol, idx->outputRow);
+		//cout << "Bunnies after check for deaths:";
+		//idx->outputRow += 1;
+		//printBunnies(idx);
 
 		checkForBirths(idx, stats); // created this function based on commented section below
+
+		//Gotoxy(idx->outputCol, idx->outputRow);
+		//cout << "Bunnies after check for births:";
+		//idx->outputRow += 1;
+		//printBunnies(idx);
 
 		//conductor = idx->first;
 
@@ -1013,7 +1101,10 @@ void takeTurn(indexes *idx, bStats *stats, bool *p_stillHaveBunnies)
 
 		checkForRMVB(idx, stats);
 
-
+		//Gotoxy(idx->outputCol, idx->outputRow);
+		//cout << "Bunnies after check for RMVB:";
+		//idx->outputRow += 1;
+		//printBunnies(idx);
 
 		moveAllBunnies(idx);
 		// end of turn
@@ -1026,12 +1117,19 @@ void takeTurn(indexes *idx, bStats *stats, bool *p_stillHaveBunnies)
 		Gotoxy(-3, -1);  // moves cursor to top, left so the console windows is always at the top
 		//clearSideOutput(idx);
 
-
+		//Gotoxy(idx->outputCol, idx->outputRow);
+		//cout << "Bunnies after move all bunnies:";
+		//idx->outputRow += 1;
+		//printBunnies(idx);
 
 	
 	} while (stats->numMales == 0 && stats->numFemales == 0 && stats->numRMVB != 0); // automate the loop when no females are left becuase there will be no more births
 
+	//Gotoxy(idx->outputCol, idx->outputRow);
+	//cout << "Bunnies at end of turn:";
+	//idx->outputRow += 1;
 	//printBunnies(idx);
+
 	displayMenu(idx, stats);
 	//getchar(); // press any key to being next turn
 
@@ -1046,7 +1144,7 @@ void clearSideOutput(indexes *idx)
 	for (r = 0; r <= idx->outputRow; ++r)
 	{
 		Gotoxy(c, r);
-		cout << "                                      ";
+		cout << "                                                ";
 
 	}
 
@@ -1147,6 +1245,7 @@ int main()
 	void killBunny(indexes *idx, bunny *conductor, bStats *stats, bool *p_stillHaveBunnies);
 	void checkForDeaths(indexes *idx, bStats *stats, bool *p_stillHaveBunnies);
 	void printBunnies(indexes *idx);
+	void printCurrentBunny(indexes *idx);
 	bool isRMVB();
 	char getRandomSex();
 	void createRoot(indexes *idx);
