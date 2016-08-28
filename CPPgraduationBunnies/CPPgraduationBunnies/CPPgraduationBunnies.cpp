@@ -1,3 +1,7 @@
+// 2016-08-28 05:43 working on checkForBunniesNextToRMVB
+// appears to get stuck in a loop when it finds a bunny to change, but does not change it.
+
+
 // CPPgraduationBunnies.cpp : Defines the entry point for the console application.
 //
 
@@ -240,7 +244,7 @@ void placeBunnyOnBoard(indexes *idx, char marker)
 	idx->current->col = c;
 
 	// place the marker on the board. marker is the sex of the bunny for now
-	idx->board[r][c] = marker;
+	idx->board[r][c] = marker; // THIS IS A GOOD PLACE FOR BREAKPOINT DURING DEBUGGING
 	//Gotoxy(idx->outputCol, idx->outputRow);
 	//cout << "Place: " << setw(3) << r << ","<< setw(3) << c;
 
@@ -470,8 +474,8 @@ void giveBirth(indexes *idx, bStats *stats, int colorOfMom)
 	idx->current = conductor;
 	
 	newBaby = conductor;
-	babyRow = idx->mom->row;
-	babyCol = idx->mom->col;
+	//babyRow = idx->mom->row;
+	//babyCol = idx->mom->col;
 
 	newBaby->sex = getRandomSex();
 
@@ -871,7 +875,7 @@ void checkForRMVB(indexes *idx, bStats  *stats)
 	numRMVB = stats->numRMVB;
 	numRegularBunnies = stats->totalBunnies - stats->numRMVB;
 
-	if (numRegularBunnies < numRMVB)
+	if (numRegularBunnies < numRMVB) // if the number of regular bunnies is now less than the number of RMVB, change remaining bunnies to RMVB
 	{
 		conductor = idx->first;
 		if (stats->numMales == 0 && stats->numFemales == 0)
@@ -904,6 +908,152 @@ void checkForRMVB(indexes *idx, bStats  *stats)
 
 
 }
+
+bool testBlankBoardSpace(indexes *idx, int r, int c)
+{
+	if (idx->board[r][c] == '.')
+		return true;
+	else
+		return false;
+}
+
+bool testRealBunnyBoardSpace(indexes *idx, int r, int c)
+{
+	if (idx->board[r][c] == 'M'|| idx->board[r][c] == 'F' || idx->board[r][c] == 'm' || idx->board[r][c] == 'f')
+		return true;
+	else
+		return false;
+}
+
+bool testRMVBBoardSpace(indexes *idx, int r, int c)
+{
+	if (idx->board[r][c] == 'X')
+		return true;
+	else
+		return false;
+}
+
+void checkForBunniesNextToRMVB(indexes *idx, bStats  *stats)
+{
+	bunny *conductor;
+	bunny *conductor2; // used to loop through all bunnies to match coords of real bunny to change to RMVB once coords are found
+	int i;
+	int num;
+	int numRMVB;
+	int tR, tC; // used to test direction from RMVB and see if there is a regular bunny there
+	int numRegularBunnies = 0;
+	int direction; // used for random number 0-3 for up, down, left, right to test to see if there is a regular bunny in those directions of RMVB
+	bool foundBunnyToChange = false;
+	bool okToChange = true;
+	void Gotoxy(int x, int y);
+
+	// bools below used to determine if there is a bunny around the RMVB to change
+	bool triedUp = false, triedDown = false, triedLeft = false, triedRight = false;
+	bool triedAllDirections = false;
+
+	numRMVB = stats->numRMVB;
+
+	if (numRMVB == 0)
+		return;
+
+
+	numRegularBunnies = stats->totalBunnies - stats->numRMVB;
+
+	if (numRegularBunnies < numRMVB) // if the number of regular bunnies is now less than the number of RMVB, change remaining bunnies to RMVB
+	{
+		conductor = idx->first;
+		if (stats->numMales == 0 && stats->numFemales == 0)
+			return;
+
+		while (conductor != NULL)
+		{
+			conductor->sex = 'X';
+			Gotoxy(conductor->col, conductor->row);
+			cout << "X";
+			conductor = conductor->next;
+		}
+		updateStats(idx, stats);
+		return;
+	}
+
+	conductor = idx->first; // reset conductor to loop through all bunnies, testing to see if there is a regular bunny next to an RMVB bunny. if so, change 1 of them to RMVB
+
+	while (conductor != NULL)
+	{
+		if (conductor->sex == 'X')
+			do
+			{
+				direction = getRandNum(0, 3);
+				tR = conductor->row;
+				tC = conductor->col;
+				switch (direction)
+				{
+				case 0:
+					triedUp = true;
+					tR -= 1;
+					break;
+				case 1:
+					triedDown = true;
+					tR += 1;
+					break;
+				case 2:
+					triedLeft = true;
+					tC -= 1;
+					break;
+				case 3:
+					triedRight = true;
+					tC += 1;
+					break;
+				default:
+					break;
+
+				}
+
+				if (testBlankBoardSpace(idx, tR, tC))
+					foundBunnyToChange = false;
+				else if (testRMVBBoardSpace(idx, tR, tC))
+					foundBunnyToChange = false;
+				else if (testRealBunnyBoardSpace(idx, tR, tC))
+					foundBunnyToChange = true;
+
+				
+
+			} while (!foundBunnyToChange && !triedAllDirections);
+
+
+
+			if (foundBunnyToChange)
+			{
+				idx->board[tR][tC] = 'X';
+				conductor2 = idx->first;
+				while (conductor2 != NULL)
+				{
+					if (conductor2->row == tR && conductor2->col == tC)
+					{
+						conductor2->sex = 'X';
+						updateStats(idx, stats);
+						break;
+					}
+
+					conductor2 = conductor2->next;
+				}
+
+
+			}
+
+		conductor = conductor->next; // check next bunny
+	}
+
+
+	updateStats(idx, stats);
+
+
+}
+
+
+
+
+
 
 
 void Gotoxy(int x, int y)   //moves the cursor in the console window x = column, y = row
@@ -1058,6 +1208,7 @@ void takeTurn(indexes *idx, bStats *stats, bool *p_stillHaveBunnies)
 
 
 		clearSideOutput(idx);
+		moveAllBunnies(idx);
 		increaseAge(idx, stats);
 		updateStats(idx, stats);
 
@@ -1099,14 +1250,15 @@ void takeTurn(indexes *idx, bStats *stats, bool *p_stillHaveBunnies)
 		//	}
 		//}
 
-		checkForRMVB(idx, stats);
+		// checkForRMVB(idx, stats);
+		checkForBunniesNextToRMVB(idx, stats);
 
 		//Gotoxy(idx->outputCol, idx->outputRow);
 		//cout << "Bunnies after check for RMVB:";
 		//idx->outputRow += 1;
 		//printBunnies(idx);
 
-		moveAllBunnies(idx);
+
 		// end of turn
 		stats->numTurns += 1;
 		updateStats(idx, stats);
@@ -1259,6 +1411,7 @@ int main()
 	void updateStats(indexes *idx, bStats *stats);
 	void checkForRMVB(indexes *idx, bStats  *stats);
 	bool changeBunnyToRMVB(indexes *idx, int num);
+	void checkForBunniesNextToRMVB(indexes *idx, bStats  *stats);
 	void placeBunnyOnBoard(indexes *idx, char marker);
 	void placeRandomBunnyOnBoard(indexes *idx, char marker);
 	void printStatsColumn(indexes *idx, bStats *stats);
@@ -1268,6 +1421,9 @@ int main()
 	bool *p_stillHaveBunnies = &haveBunnies;
 	void moveAllBunnies(indexes *idx);
 	void checkForBirths(indexes *idx, bStats *stats);
+	bool testBlankBoardSpace(indexes *idx, int r, int c);
+	bool testRealBunnyBoardSpace(indexes *idx, int r, int c);
+	bool testRMVBBoardSpace(indexes *idx, int r, int c);
 
 	stats = new bStats;
 	
