@@ -26,9 +26,35 @@ public:
 	// constructor with default values
 	Bunny(string name = "NEW", int age = 0, char sex = 'f', int colorNum = 0, string color = "brown", int row = 0, int col = 0);
 
+	// destructor
+	~Bunny();
+
 	// public static variables used for list of bunnies and statistics
 	static int numBunnies;
 
+	// structure for names
+	struct bunnyNameList
+	{
+		string bunnyName;
+	};
+
+	const struct bunnyNameList bNames[14] =
+	{
+		{"Thumper"},
+		{"Cottontail"},
+		{"Peter"},
+		{"Beatrix"},
+		{"Brer Rabbit"},
+		{"Trix"},
+		{"Jack"},
+		{"Jenny"},
+		{"Barbara"},
+		{"Tashi"},
+		{"Jason"},
+		{"Harry"},
+		{"Russell"},
+		{"Jessica"}
+	};
 
 	// public getters
 	string getName() const;
@@ -53,6 +79,7 @@ public:
 	void printBunny() const;
 	void printAllStats() const;
 	int getRandomNum(int min, int max);
+	string getRandomName();
 	char getRandomSex();
 
 
@@ -69,6 +96,10 @@ Bunny::Bunny(string name, int age, char sex, int colorNum, string color, int row
 	this->color = color;
 	this->row = row;
 	this->col = col;
+}
+
+Bunny::~Bunny()
+{
 }
 
 // public static variable definitions and initializations
@@ -160,7 +191,6 @@ int Bunny::getRandomNum(int min, int max)
 
 char Bunny::getRandomSex()
 {
-	//vector<Bunny>::iterator it;
 	int min, max;
 	int sexNum; // 0 or 1
 	char sexChar; // used to return the sex M or F is older than 1 or m, f if aged 0 or 1
@@ -185,4 +215,19 @@ char Bunny::getRandomSex()
 			sexChar = 'm';
 	}
 	return sexChar;
+}
+
+string Bunny::getRandomName()
+{
+	int min, max;
+	int nameNum;
+	const int MAX_NUM_NAMES = 14;
+
+	min = 0;
+	max = MAX_NUM_NAMES;
+
+	nameNum = min + (rand() % (int)(max - min + 1));
+
+	return Bunny::bNames[nameNum].bunnyName;
+
 }

@@ -51,20 +51,13 @@ int main()
 	for (int i = 0; i < 5; ++i)
 	{
 		newBunny = new Bunny;
-		newBunny->numBunnies += 1;
+		newBunny->numBunnies += 1;         // increase the count of bunnies
+
+		newBunny->setName( newBunny->getRandomName() );
 
 		newBunny->setAge( newBunny->getRandomNum(0,9) );
 
 		newBunny->setSex( newBunny->getRandomSex() );
-
-		//if (newBunny->getAge() < 2)
-		//{
-		//	if (newBunny->getSex() == 'F')
-		//		newBunny->setSex('f');
-		//	else
-		//		newBunny->setSex('m');
-		//}
-
 
 		if ( convertToRMVB() )              // see if bunny converts to RMVB
 			newBunny->setSex('X');          // if TRUE, set sex to X
