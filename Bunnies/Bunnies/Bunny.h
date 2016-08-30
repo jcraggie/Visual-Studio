@@ -19,18 +19,10 @@ private:
 
 public:
 	// constructor with default values
-	Bunny(string name = "NEW", int age = 0, char sex = "f", int colorNum = 0, string color = "brown", int row = 0, int col = 0);
+	Bunny(string name = "NEW", int age = 0, char sex = 'f', int colorNum = 0, string color = "brown", int row = 0, int col = 0);
 
 	// public static variables used for list of bunnies and statistics
-	static std::vector<Bunny *> bunnyAddrs;
-	Bunny()
-	{
-		bunnyAddrs.push_back(this);
-	}
-	~Bunny()
-	{
-		bunnyAddrs.erase(this);
-	}
+	static int numBunnies;
 
 
 	// public getters
@@ -52,8 +44,9 @@ public:
 	void setCol(int col);
 
 	// public functions
-	int increaseAge() const;
-
+	void increaseAge();
+	void printBunny() const;
+	void printAllStats() const;
 
 
 };
@@ -70,6 +63,11 @@ Bunny::Bunny(string name, int age, char sex, int colorNum, string color, int row
 	this->row = row;
 	this->col = col;
 }
+
+// public static variable definitions and initializations
+int Bunny::numBunnies = 0;
+
+
 
 // public getters
 string Bunny::getName() const {
@@ -130,6 +128,21 @@ void Bunny::setCol(int col) {
 }
 
 // public functions
-int Bunny::increaseAge() const {
-	return age + 1;
+void Bunny::increaseAge() {
+	++age;
+}
+
+void Bunny::printBunny() const {
+	cout << "Name: " << name;
+	cout << " Age: " << age;
+	cout << " Sex: " << sex;
+	cout << " colorNum: " << colorNum;
+	cout << " Color: " << color;
+	cout << " Coords: " << row << "," << col;
+	cout << endl;
+}
+
+void Bunny::printAllStats() const {
+	cout << "TOTAL BUNNIES: " << numBunnies;
+	cout << endl;
 }
