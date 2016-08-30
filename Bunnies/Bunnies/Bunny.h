@@ -2,7 +2,12 @@
 
 #include <string>
 #include <vector>
+#include <time.h>   // required to generate random numbers
+#include <stdlib.h> // required by srand
+
 using namespace std;
+
+
 
 // Bunny class declaration
 class Bunny
@@ -47,6 +52,8 @@ public:
 	void increaseAge();
 	void printBunny() const;
 	void printAllStats() const;
+	int getRandomNum(int min, int max);
+	char getRandomSex();
 
 
 };
@@ -145,4 +152,37 @@ void Bunny::printBunny() const {
 void Bunny::printAllStats() const {
 	cout << "TOTAL BUNNIES: " << numBunnies;
 	cout << endl;
+}
+int Bunny::getRandomNum(int min, int max)
+{
+	return min + (rand() % (int)(max - min + 1));
+}
+
+char Bunny::getRandomSex()
+{
+	//vector<Bunny>::iterator it;
+	int min, max;
+	int sexNum; // 0 or 1
+	char sexChar; // used to return the sex M or F is older than 1 or m, f if aged 0 or 1
+
+	min = 0; // (F)emale
+	max = 1; // (M)ale
+
+	// WRITE SEPARATE FUNCTION TO DETERMINE SEX BASED ON AGE i.e. updateSex
+
+	sexNum = Bunny::getRandomNum(min, max);
+
+	if (sexNum == 0)
+		sexChar = 'F';
+	else
+		sexChar = 'M';
+
+	if (age < 2)
+	{
+		if (sex == 'F')
+			sexChar = 'f';
+		else
+			sexChar = 'm';
+	}
+	return sexChar;
 }

@@ -6,31 +6,13 @@
 #include <iostream>
 #include <time.h> // used for random number generator
 #include "Bunny.h" // created by JCR
-#define _WIN32_WINNT 0x0500
+#define _WIN32_WINNT 0x0500 // need to define this before including windows.h used for console resizing
 #include <Windows.h>
 using namespace std;
 
-int getRandomNum(int min, int max)
-{
-	return min + (rand() % (int)(max - min + 1));
-}
 
-char getRandomSex()
-{
-	//vector<Bunny>::iterator it;
-	int min, max;
-	int sexNum; // 0 or 1
-	
-	min = 0; // (F)emale
-	max = 1; // (M)ale
 
-	sexNum = getRandomNum(min, max);
 
-	if (sexNum == 0)
-		return 'F';
-	else 
-		return 'M';
-}
 
 
 
@@ -71,15 +53,19 @@ int main()
 		newBunny = new Bunny;
 		newBunny->numBunnies += 1;
 
-		newBunny->setAge(getRandomNum(0, 9));
-		newBunny->setSex(getRandomSex());
-		if (newBunny->getAge() < 2)
-		{
-			if (newBunny->getSex() == 'F')
-				newBunny->setSex('f');
-			else
-				newBunny->setSex('m');
-		}
+		newBunny->setAge( newBunny->getRandomNum(0,9) );
+
+		newBunny->setSex( newBunny->getRandomSex() );
+
+		//if (newBunny->getAge() < 2)
+		//{
+		//	if (newBunny->getSex() == 'F')
+		//		newBunny->setSex('f');
+		//	else
+		//		newBunny->setSex('m');
+		//}
+
+
 		if ( convertToRMVB() )              // see if bunny converts to RMVB
 			newBunny->setSex('X');          // if TRUE, set sex to X
 
