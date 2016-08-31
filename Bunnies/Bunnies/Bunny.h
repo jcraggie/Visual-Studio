@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include <iomanip>  // used for formatting cout, like setw
 #include <time.h>   // required to generate random numbers
 #include <stdlib.h> // required by srand
 
@@ -30,6 +31,7 @@ public:
 	~Bunny();
 
 	// public static variables used for list of bunnies and statistics
+	static char gameBoard[80][80];  // this is the 80 x 80 game board where the bunnies dwell
 	static int numBunnies;
 
 	// structure for names
@@ -81,6 +83,8 @@ public:
 	int getRandomNum(int min, int max);
 	string getRandomName();
 	char getRandomSex();
+	void intializeGameboard();
+	void printGameBoard();
 
 
 };
@@ -104,7 +108,7 @@ Bunny::~Bunny()
 
 // public static variable definitions and initializations
 int Bunny::numBunnies = 0;
-
+char Bunny::gameBoard[80][80] = { '.' };
 
 
 // public getters
@@ -170,13 +174,35 @@ void Bunny::increaseAge() {
 	++age;
 }
 
+void Bunny::intializeGameboard() {
+
+	// create a blank game board filled with .
+	int r, c;
+
+	for (r = 0; r < 80; ++r)
+		for (c = 0; c < 80; ++c)
+			gameBoard[r][c] = '.';
+}
+
+void Bunny::printGameBoard() {
+	int r, c;
+	for (r = 0; r < 80; ++r)
+	{
+		for (c = 0; c < 80; ++c)
+			cout << '.';
+		cout << endl;
+	}
+	cout << endl;
+}
+
 void Bunny::printBunny() const {
-	cout << "Name: " << name;
-	cout << " Age: " << age;
-	cout << " Sex: " << sex;
-	cout << " colorNum: " << colorNum;
-	cout << " Color: " << color;
-	cout << " Coords: " << row << "," << col;
+	
+	cout << "Name: " << setw(15) << name;
+	cout << "    Age: " << setw(2) << age;
+	cout << "    Sex: " << setw(2) << sex;
+	cout << "    colorNum: " << setw(2) << colorNum;
+	cout << "    Color: " << setw(8) << color;
+	cout << "    Coords: " << setw(2) << row << "," << setw(2) << col;
 	cout << endl;
 }
 
@@ -221,7 +247,7 @@ string Bunny::getRandomName()
 {
 	int min, max;
 	int nameNum;
-	const int MAX_NUM_NAMES = 14;
+	const int MAX_NUM_NAMES = 13;
 
 	min = 0;
 	max = MAX_NUM_NAMES;
