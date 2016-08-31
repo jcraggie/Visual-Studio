@@ -24,7 +24,7 @@ bool convertToRMVB()
 	return(rand() % 100) < RMVB_PERCENT;
 }
 
-void printBunnyList(vector<Bunny> bunnyList)
+void printBunnyList(vector<Bunny>& bunnyList)
 {
 	 // print list of bunnies
 	vector<Bunny>::iterator it;
@@ -33,6 +33,18 @@ void printBunnyList(vector<Bunny> bunnyList)
 	{
 		it->printBunny();
 	}
+}
+
+void increaseAllAges(vector<Bunny>& bunnyList)
+{
+	vector<Bunny>::iterator it;
+	for (it = bunnyList.begin(); it != bunnyList.end(); ++it)
+	{
+		//DEBUG cout << "from amin: old age is: " << it->getAge();
+		it->increaseAge();
+		//DEBUG cout << "  from main: new age is: " << it->getAge() << endl;
+	}
+	//DEBUG printBunnyList(bunnyList);
 }
 
 
@@ -55,6 +67,7 @@ int main()
 
 	// construct first bunny
 	vector<Bunny> bunnyList;
+
 	vector<Bunny>::iterator it; // used to iterate through list
 	int cnt = 0;
 
@@ -93,8 +106,8 @@ int main()
 
 	//bunnyList.push_back(*newBunny); //save new bunny address in list
 
-	//DEBUG printBunnyList(bunnyList);
-
+	printBunnyList(bunnyList);
+	cout << endl;
 
 	// end list iteration
 	//it = bunnyList.begin();
@@ -102,12 +115,17 @@ int main()
 	//cout << "Now starting to test functions by passing 1 instance of Bunny." << endl;
 
 	// test increase age of all bunnies then print list
-	for (it = bunnyList.begin(); it != bunnyList.end(); ++it)
-	{
-		it->increaseAge();
-		//it->printBunny();
-	}
-	cout << endl;
+	increaseAllAges(bunnyList);
+
+	//cout << "Testing bunny age increase." << endl;
+
+	//for (it = bunnyList.begin(); it != bunnyList.end(); ++it)
+	//{
+	//	it->increaseAge();
+	//}
+	//cout << endl;
+
+	printBunnyList(bunnyList);
 
 	it = bunnyList.begin();
 	it->printGameBoard();

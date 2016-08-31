@@ -78,7 +78,7 @@ public:
 
 	// public functions
 	void increaseAge();
-	void printBunny() const;
+	void printBunny();
 	void printAllStats() const;
 	int getRandomNum(int min, int max);
 	string getRandomName();
@@ -174,7 +174,12 @@ void Bunny::setCol(int col) {
 
 // public functions
 void Bunny::increaseAge() {
-	++age;
+	int a;
+	a = getAge();
+	//cout << "first age : " << a;
+	++a;
+	//cout << "  after aging: " << a << endl;
+	setAge(a);
 }
 
 void Bunny::intializeGameboard() {
@@ -198,7 +203,7 @@ void Bunny::printGameBoard() {
 	cout << endl;
 }
 
-void Bunny::printBunny() const {
+void Bunny::printBunny() {
 	
 	cout << "Name: " << setw(15) << name;
 	cout << "    Age: " << setw(2) << age;
