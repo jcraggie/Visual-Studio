@@ -54,7 +54,6 @@ int main()
 
 
 	// construct first bunny
-	//Bunny bunny;
 	vector<Bunny> bunnyList;
 	vector<Bunny>::iterator it; // used to iterate through list
 	int cnt = 0;
@@ -79,7 +78,8 @@ int main()
 		if ( convertToRMVB() )              // see if bunny converts to RMVB
 			newBunny->setSex('X');          // if TRUE, set sex to X
 
-
+		newBunny->assignCoordinates();
+		newBunny->placeBunnyOnBoard();
 
 		bunnyList.push_back(*newBunny);       // save new bunny address in list		
 
@@ -93,7 +93,7 @@ int main()
 
 	//bunnyList.push_back(*newBunny); //save new bunny address in list
 
-	//printBunnyList(bunnyList);
+	//DEBUG printBunnyList(bunnyList);
 
 
 	// end list iteration

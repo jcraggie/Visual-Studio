@@ -85,6 +85,9 @@ public:
 	char getRandomSex();
 	void intializeGameboard();
 	void printGameBoard();
+	void assignCoordinates();
+	void placeBunnyOnBoard();
+
 
 
 };
@@ -189,7 +192,7 @@ void Bunny::printGameBoard() {
 	for (r = 0; r < 80; ++r)
 	{
 		for (c = 0; c < 80; ++c)
-			cout << '.';
+			cout << gameBoard[r][c];
 		cout << endl;
 	}
 	cout << endl;
@@ -252,8 +255,35 @@ string Bunny::getRandomName()
 	min = 0;
 	max = MAX_NUM_NAMES;
 
-	nameNum = min + (rand() % (int)(max - min + 1));
+	nameNum = Bunny::getRandomNum(min, max);
 
 	return Bunny::bNames[nameNum].bunnyName;
 
+}
+
+void Bunny::assignCoordinates()
+{
+	int r, c;
+	int min = 0, max = 79;
+
+	do
+	{
+		r = Bunny::getRandomNum(min, max);
+		c = Bunny::getRandomNum(min, max);
+	} while (gameBoard[r][c] != '.');
+	
+	this->setRow(r);
+	this->setCol(c);
+
+}
+
+void Bunny::placeBunnyOnBoard()
+{
+	int r, c;
+
+	r = this->getRow();
+	c = this->getCol();
+	//DEBUG cout << "testing coords " << r << "," << c << " sex: " << this->getSex() << "game board char: ";
+	this->gameBoard[r][c] = this->getSex();
+	//DEBUG cout << gameBoard[r][c] << endl;
 }
