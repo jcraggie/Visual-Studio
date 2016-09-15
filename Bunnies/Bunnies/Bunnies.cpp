@@ -47,6 +47,22 @@ void increaseAllAges(vector<Bunny>& bunnyList)
 	//DEBUG printBunnyList(bunnyList);
 }
 
+void killBunny(vector<Bunny>& bunnyList)
+{
+	vector<Bunny>::iterator it;
+	for (it = bunnyList.begin(); it != bunnyList.end();)
+	{
+		if (it->getAge() >= 10)
+		{
+			it = bunnyList.erase(it);
+		}
+		else 
+		{
+			++it;
+		}
+	}
+}
+
 
 int main()
 {
@@ -116,6 +132,11 @@ int main()
 
 	// test increase age of all bunnies then print list
 	increaseAllAges(bunnyList);
+	printBunnyList(bunnyList);
+	//killBunny(bunnyList);
+	cout << "after killing bunnies..." << endl;
+	printBunnyList(bunnyList);
+
 
 	//cout << "Testing bunny age increase." << endl;
 

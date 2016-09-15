@@ -87,6 +87,7 @@ public:
 	void printGameBoard();
 	void assignCoordinates();
 	void placeBunnyOnBoard();
+	void killBunny();
 
 
 
@@ -291,4 +292,9 @@ void Bunny::placeBunnyOnBoard()
 	//DEBUG cout << "testing coords " << r << "," << c << " sex: " << this->getSex() << "game board char: ";
 	this->gameBoard[r][c] = this->getSex();
 	//DEBUG cout << gameBoard[r][c] << endl;
+}
+
+void Bunny::killBunny()
+{
+	// not sure about this funciton. may try it in cpp program
 }
