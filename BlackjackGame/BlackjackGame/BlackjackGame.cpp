@@ -1,4 +1,9 @@
 // BlackjackGame.cpp : Defines the entry point for the console application.
+// from book Beginning C++ Through Game Programming, 4th Edition by Michael Dawson
+// 
+// Entered and customized by Jason C. Rogers
+// Beginning 2016-09-14
+// Finished XXXX-XX-XX
 //
 
 #include "stdafx.h"
@@ -561,7 +566,7 @@ ostream& operator<<(ostream& os, const GenericPlayer& aGenericPlayer)
 	}
 	else
 	{
-		os << "<empty>"''
+		os << "<empty>";
 	}
 
 	return os;
