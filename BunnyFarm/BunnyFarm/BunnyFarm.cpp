@@ -57,11 +57,13 @@ public:
 
 private:
 	Bunny* m_pHead; // pointer to a Bunny object which represents the first bunny in the list
+	Bunny* m_pLast; // pointer to the last Bunny object in the list
 };
 
 // farm constructor
 BunnyFarm::BunnyFarm() :
-	m_pHead(0)
+	m_pHead(0),
+	m_pLast(0)
 {}
 
 // farm destructor
@@ -83,20 +85,28 @@ void BunnyFarm::AddBunny()
 	// if list is empty, make head of list this new bunny
 	if (m_pHead == 0)
 	{
-		m_pHead = pNewBunny;
+		m_pHead = pNewBunny; // since list was empty, the first (head) is the new bunny
+		m_pLast = pNewBunny; // since list was empty, last is also the new bunny
 	}
 
 	// otherwise find the end of the list and add the player there
 	else
 	{
-		Bunny* pIter = m_pHead;
-		while (pIter->GetNext() != 0)
-		{
-			pIter = pIter->GetNext(); // iterates through the list to get to the end
-		}
-		pIter->SetNext(pNewBunny);
+		Bunny* pIter = m_pLast;
+		m_pLast->SetNext(pNewBunny);
+		m_pLast = pNewBunny;
 	}
+	//{
+	//	Bunny* pIter = m_pHead;
+	//	while (pIter->GetNext() != 0)
+	//	{
+	//		pIter = pIter->GetNext(); // iterates through the list to get to the end
+	//	}
+	//	pIter->SetNext(pNewBunny);
+	//}
 }
+
+
 
 // delBunny removes the bunny at the head of the list
 void BunnyFarm::DelBunny()
