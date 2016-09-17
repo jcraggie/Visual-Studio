@@ -8,6 +8,8 @@
 #include <string>
 #include <vector>
 
+#include <time.h>
+
 using namespace std;
 
 class Bunny
@@ -77,9 +79,31 @@ BunnyFarm::~BunnyFarm()
 void BunnyFarm::AddBunny()
 {
 	// create a new bunny node
-	cout << "Please enter the name of the new bunny: ";
+	//cout << "Please enter the name of the new bunny: ";
+	int min = 0, max = 14;
+	int rnd = min + (rand() % (int)(max - min + 1));
+	string bunnyNames[14] =
+	{
+		{ "Thumper" },
+		{ "Cottontail" },
+		{ "Peter" },
+		{ "Beatrix" },
+		{ "Brer Rabbit" },
+		{ "Trix" },
+		{ "Payton" },
+		{ "Jenny" },
+		{ "Barbara" },
+		{ "Tashi" },
+		{ "Jason" },
+		{ "Harry" },
+		{ "Russell" },
+		{ "Ryan" }
+	};
 	string name;
-	cin >> name;
+	
+	
+	name = bunnyNames[rnd];
+	//cin >> name;
 	Bunny* pNewBunny = new Bunny(name); // instantiate a new Bunny object on the heap, setting the object's pointer data member to 0 (null)
 
 	// if list is empty, make head of list this new bunny
@@ -92,18 +116,11 @@ void BunnyFarm::AddBunny()
 	// otherwise find the end of the list and add the player there
 	else
 	{
-		Bunny* pIter = m_pLast;
-		m_pLast->SetNext(pNewBunny);
-		m_pLast = pNewBunny;
+		Bunny* pIter = m_pLast;       // go to the last bunny
+		m_pLast->SetNext(pNewBunny);  // set next to point to the new bunny. last becomes "next to last"
+		m_pLast = pNewBunny;          // set last bunny to the new bunny
 	}
-	//{
-	//	Bunny* pIter = m_pHead;
-	//	while (pIter->GetNext() != 0)
-	//	{
-	//		pIter = pIter->GetNext(); // iterates through the list to get to the end
-	//	}
-	//	pIter->SetNext(pNewBunny);
-	//}
+
 }
 
 
@@ -155,9 +172,35 @@ ostream& operator<<(ostream& os, const BunnyFarm& aBunnyFarm)
 	return os;
 }
 
+int getRandNum(int min, int max)
+{
+	return min + (rand() % (int)(max - min + 1));
+}
+
+string bunnyNames[14] =
+{
+	{ "Thumper"        },
+	{ "Cottontail"     },
+	{ "Peter"          },
+	{ "Beatrix"        },
+	{ "Brer Rabbit"    },
+	{ "Trix"           },
+	{ "Payton"         },
+	{ "Jenny"          },
+	{ "Barbara"        },
+	{ "Tashi"          },
+	{ "Jason"          },
+	{ "Harry"          },
+	{ "Russell"        },
+	{ "Ryan"           }
+};
+
 
 int main()
 {
+
+	srand((unsigned)time(NULL)); // generate random seed each time the program runs
+
 	BunnyFarm myBunnyFarm; // instantiates a new BunnyFarm
 	int choice;
 
@@ -168,7 +211,9 @@ int main()
 		cout << "0 - Exit the program." << endl;
 		cout << "1 - Add a bunny to the farm." << endl;
 		cout << "2 - Delete a bunny from the farm." << endl;
-		cout << "3 - Clear the bunny farm." << endl << endl;
+		cout << "3 - Clear the bunny farm." << endl;
+		cout << "9 - Add first 5 bunnies to farm." << endl;
+		cout << endl;
 		cout << "Enter your choice: ";
 		cin >> choice;
 
