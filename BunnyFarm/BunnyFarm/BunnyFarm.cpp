@@ -80,7 +80,7 @@ void BunnyFarm::AddBunny()
 {
 	// create a new bunny node
 	//cout << "Please enter the name of the new bunny: ";
-	int min = 0, max = 14;
+	int min = 0, max = 13;
 	int rnd = min + (rand() % (int)(max - min + 1));
 	string bunnyNames[14] =
 	{
