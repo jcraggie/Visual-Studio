@@ -9,30 +9,57 @@
 #include <vector>
 
 #include <time.h>
+#include <iomanip>
+
 
 using namespace std;
+// prototypes
+int getRandNum(int min, int max); 
+char getRandomSex(int age);
 
 class Bunny
 {
 public:
-	Bunny(const string& name = "");
+	Bunny(const string& name = "", const int& age = 0, const char& sex = ' ');
 	string GetName() const;
+	int GetAge() const;
+	char GetSex() const;
+
+
 	Bunny* GetNext() const;
 	void SetNext(Bunny* next);
 
 private:
-	string m_Name;
-	Bunny* m_pNext; // pointer to next bunny in the list
+	string         m_Name;    // determined from a pre-defined list of names listOfNames
+	int            m_Age;     // 0-10 ages 1 year with each turn / dies at 10 years unless rmvb, which die at age 50
+	char           m_Sex;     // ADULT (M)ale (F)emale OR JUVENILE (m)ale (f)emale OR (X) indicates rmvb and does not breed        
+	string         m_Color;   // white, brown, black, spotted
+	bool           m_IsRMVB;  // radioactive_mutant_vampire_bunny (RMVB) true / false
+	int            m_row;     // row coord of bunny on 80 x 80 grid
+	int            m_col;     // col coord of bunny on 80 x 80 grid
+	Bunny*         m_pNext;   // pointer to next bunny in the list
 };
 
-Bunny::Bunny(const string& name) : // constructor used to assign the name passed to the class to m_PetName
+Bunny::Bunny(const string& name, const int& age, const char& sex) : // constructor used to assign the name passed to the class to m_Name
 	m_Name(name),
+	m_Age(age),
+	m_Sex(sex),
 	m_pNext(0)
 {} // empty constructor body
 
 string Bunny::GetName() const
 {
 	return m_Name;
+}
+
+int Bunny::GetAge() const
+{
+	return m_Age;
+}
+
+char Bunny::GetSex() const
+{
+	return m_Sex;
 }
 
 Bunny* Bunny::GetNext() const
@@ -79,9 +106,9 @@ BunnyFarm::~BunnyFarm()
 void BunnyFarm::AddBunny()
 {
 	// create a new bunny node
-	//cout << "Please enter the name of the new bunny: ";
-	int min = 0, max = 13;
-	int rnd = min + (rand() % (int)(max - min + 1));
+
+	int min = 0, maxNames = 13;
+	int rnd;
 	string bunnyNames[14] =
 	{
 		{ "Thumper" },
@@ -100,11 +127,16 @@ void BunnyFarm::AddBunny()
 		{ "Ryan" }
 	};
 	string name;
-	
-	
-	name = bunnyNames[rnd];
-	//cin >> name;
-	Bunny* pNewBunny = new Bunny(name); // instantiate a new Bunny object on the heap, setting the object's pointer data member to 0 (null)
+	int age;
+	char sex;
+
+	rnd = ::getRandNum(min, maxNames);	
+	name = bunnyNames[rnd]; // assign a random name from list of names
+	age = ::getRandNum(0, 9);
+	sex = ::getRandomSex(age);
+
+
+	Bunny* pNewBunny = new Bunny(name, age, sex); // instantiate a new Bunny object on the heap, setting the object's pointer data member to 0 (null)
 
 	// if list is empty, make head of list this new bunny
 	if (m_pHead == 0)
@@ -113,7 +145,7 @@ void BunnyFarm::AddBunny()
 		m_pLast = pNewBunny; // since list was empty, last is also the new bunny
 	}
 
-	// otherwise find the end of the list and add the player there
+	// otherwise go to the end of the list and add the player there
 	else
 	{
 		Bunny* pIter = m_pLast;       // go to the last bunny
@@ -165,7 +197,7 @@ ostream& operator<<(ostream& os, const BunnyFarm& aBunnyFarm)
 	{
 		while (pIter != 0)
 		{
-			os << pIter->GetName() << endl;
+			os << setw(10) << pIter->GetName() << " " << setw(3) << pIter->GetAge() << " " << setw(3) << pIter->GetSex() << endl;
 			pIter = pIter->GetNext();
 		}
 	}
@@ -177,23 +209,37 @@ int getRandNum(int min, int max)
 	return min + (rand() % (int)(max - min + 1));
 }
 
-string bunnyNames[14] =
+char getRandomSex(int age)
 {
-	{ "Thumper"        },
-	{ "Cottontail"     },
-	{ "Peter"          },
-	{ "Beatrix"        },
-	{ "Brer Rabbit"    },
-	{ "Trix"           },
-	{ "Payton"         },
-	{ "Jenny"          },
-	{ "Barbara"        },
-	{ "Tashi"          },
-	{ "Jason"          },
-	{ "Harry"          },
-	{ "Russell"        },
-	{ "Ryan"           }
-};
+	int min, max;
+	int sex_num;
+
+	min = 0; // (F)emale
+	max = 1; // (M)ale
+
+	sex_num = getRandNum(min, max);
+
+	if (age > 1)
+	{
+		if (sex_num == 0)
+		{
+			return 'F';
+		}
+		else
+		{
+			return 'M';
+		}
+	}
+	else
+		if (sex_num == 0)
+		{
+			return 'f';
+		}
+		else
+		{
+			return 'm';
+		}
+}
 
 
 int main()
