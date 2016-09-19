@@ -8,8 +8,27 @@
 #include <string>
 #include <vector>
 
+//the following line is necessary for the
+//  GetConsoleWindow() function to work!
+//it basically says that you are running this
+//  program on Windows 2000 or higher
+#define _WIN32_WINNT 0x0500
+
+//it is important that the above line be typed
+//  BEFORE <windows.h> is included
+
+
+
+#include <Windows.h>
 #include <time.h>
 #include <iomanip>
+
+
+// global constants
+const int MAX_BOARD_ROW = 79;
+const int MAX_BOARD_COL = 79;
+const int OUTPUT_COL    = 90;
+
 
 
 using namespace std;
@@ -17,13 +36,24 @@ using namespace std;
 int getRandNum(int min, int max); 
 char getRandomSex(int age);
 
+void Gotoxy(int x, int y)   //moves the cursor in the console window x = column, y = row
+{
+	COORD point;
+	point.X = x+3;
+	point.Y = y+1;
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), point);
+}
+
+
 class Bunny
 {
 public:
-	Bunny(const string& name = "", const int& age = 0, const char& sex = ' ');
+	Bunny(const string& name = "", const int& age = 0, const char& sex = ' ', const int& r = 0, const int& c = 0);
 	string GetName() const;
 	int GetAge() const;
 	char GetSex() const;
+	int GetRow() const;
+	int GetCol() const;
 
 
 	Bunny* GetNext() const;
@@ -35,15 +65,17 @@ private:
 	char           m_Sex;     // ADULT (M)ale (F)emale OR JUVENILE (m)ale (f)emale OR (X) indicates rmvb and does not breed        
 	string         m_Color;   // white, brown, black, spotted
 	bool           m_IsRMVB;  // radioactive_mutant_vampire_bunny (RMVB) true / false
-	int            m_row;     // row coord of bunny on 80 x 80 grid
-	int            m_col;     // col coord of bunny on 80 x 80 grid
+	int            m_Row;     // row coord of bunny on 80 x 80 grid
+	int            m_Col;     // col coord of bunny on 80 x 80 grid
 	Bunny*         m_pNext;   // pointer to next bunny in the list
 };
 
-Bunny::Bunny(const string& name, const int& age, const char& sex) : // constructor used to assign the name passed to the class to m_Name
+Bunny::Bunny(const string& name, const int& age, const char& sex, const int& r, const int& c) : // constructor used to assign the name passed to the class to m_Name
 	m_Name(name),
 	m_Age(age),
 	m_Sex(sex),
+	m_Row(r),
+	m_Col(c),
 	m_pNext(0)
 {} // empty constructor body
 
@@ -62,6 +94,16 @@ char Bunny::GetSex() const
 	return m_Sex;
 }
 
+int Bunny::GetRow() const
+{
+	return m_Row;
+}
+
+int Bunny::GetCol() const
+{
+	return m_Col;
+}
+
 Bunny* Bunny::GetNext() const
 {
 	return m_pNext;
@@ -75,31 +117,151 @@ void Bunny::SetNext(Bunny* next)
 
 class BunnyFarm
 {
-	friend ostream& operator<<(ostream& os, const BunnyFarm& aBunnyFarm);
+	friend ostream& operator<<(ostream& os, BunnyFarm& aBunnyFarm);
 
 public:
-	BunnyFarm();      // constructor
-	~BunnyFarm();     // destructor
-	void AddBunny();  // addBunny instantiates a Bunny object on the heap and adds it to the end of the list
-	void DelBunny();  // delBunny removes the first Bunny object in the list
-	void ClearFarm(); // clearFarm removes all the bunny objects from the farm list, freeing the allocated memory
+	BunnyFarm();        // constructor
+	~BunnyFarm();       // destructor
+	char Board[79][79]; // 80 x 80 game board
+	int  oRow;          // output row
+	const int oCol = 90;           // output col
+
+	void InitBoard();   // initialize game board with '.'
+	void DrawBoard();   // draw the game board;
+	bool CheckCoords(int r, int c); // check the random coords assigned to see if they are already taken
+	void MainMenu();    // writes the menu to the screen
+	void AddBunny();    // addBunny instantiates a Bunny object on the heap and adds it to the end of the list
+	void DelBunny();    // delBunny removes the first Bunny object in the list
+	void ClearFarm();   // clearFarm removes all the bunny objects from the farm list, freeing the allocated memory
+	void ListBunnies(BunnyFarm& rMyBunnyFarm); // lists all the bunnies and their attributes
+	void ClearOutput(); // clears the output side
 
 private:
-	Bunny* m_pHead; // pointer to a Bunny object which represents the first bunny in the list
-	Bunny* m_pLast; // pointer to the last Bunny object in the list
+	Bunny* m_pHead;     // pointer to a Bunny object which represents the first bunny in the list
+	Bunny* m_pLast;     // pointer to the last Bunny object in the list
 };
 
 // farm constructor
 BunnyFarm::BunnyFarm() :
 	m_pHead(0),
 	m_pLast(0)
-{}
+{
+	oRow = 0;
+}
 
 // farm destructor
 // calls clearFarm which removes all the bunny objects from the farm list, freeing the allocated memory
 BunnyFarm::~BunnyFarm()
 {
 	ClearFarm();
+}
+
+void BunnyFarm::ClearOutput()
+{
+	int& r = oRow;
+	int c = oCol;
+
+	for (int i = 0; i < 82; ++i)
+	{
+		Gotoxy(c, r); cout << "                                           " << endl; r++;
+	}
+	r = 0; // reset output row
+}
+
+void BunnyFarm::ListBunnies(BunnyFarm& rMyBunnyFarm)
+{
+	int& r = oRow;
+	int c = oCol;
+
+	r = 0;
+	ClearOutput();
+	//Gotoxy(r, c); cout << "ListBunnies" << endl; r++;
+	Gotoxy(r, c); cout << rMyBunnyFarm; r++;
+}
+
+void BunnyFarm::InitBoard()
+{
+	//const int MAX_BOARD_ROW    = 79;
+	//const int MAX_BOARD_COL = 79;
+	int r, c;
+
+	for (r = 0; r < MAX_BOARD_ROW; ++r)
+		for (c = 0; c < MAX_BOARD_COL; ++c)
+			Board[r][c] = '.';
+}
+
+void BunnyFarm::DrawBoard()
+{
+	int r, c, i;
+
+	//system("cls"); // clear the screen and re-draw
+	cout << endl;
+	for (i = 0; i < MAX_BOARD_COL; ++i)
+	{
+		if (i == 0)
+			cout << "   0";
+		else
+			if (i % 10 == 0)
+				cout << i / 10;
+			else
+				cout << " ";
+	}
+	cout << "\n";
+
+
+	for (r = 0; r < MAX_BOARD_ROW; ++r)
+	{
+		cout << setw(2) << r << " ";
+
+		for (c = 0; c < MAX_BOARD_COL; ++c)
+		{
+			cout << Board[r][c];
+
+		}
+		cout << setw(3) << r << "\n";
+
+	}
+
+	for (i = 0; i < MAX_BOARD_COL; ++i)
+	{
+		if (i == 0)
+			cout << "   0";
+		else
+			if (i % 10 == 0)
+				cout << i / 10;
+			else
+				cout << " ";
+	}
+	cout << "\n";
+
+}
+
+bool BunnyFarm::CheckCoords(int r, int c)
+{
+	if (Board[r][c] = '.')
+	{
+		return true;  // is empty and valid
+	}
+	else
+	{
+		return false; // is not empty and invalid
+	}
+}
+
+void BunnyFarm::MainMenu()
+{
+	int& r = oRow;
+	int c = oCol;
+
+	Gotoxy(c, r); cout << "BUNNY FARM MENU" << endl; r++;
+	Gotoxy(c, r); cout << "0 - Exit the program." << endl; r++;
+	Gotoxy(c, r); cout << "1 - Add a bunny to the farm." << endl; r++;
+	Gotoxy(c, r); cout << "2 - Delete a bunny from the farm." << endl; r++;
+	Gotoxy(c, r); cout << "3 - Clear the bunny farm." << endl; r++;
+	Gotoxy(c, r); cout << "4 - List bunnies." << endl; r++;
+	Gotoxy(c, r); cout << "9 - Add first 5 bunnies to farm." << endl; r++;
+	Gotoxy(c, r); cout << endl; r++;
+	Gotoxy(c, r); cout << "Enter your choice: "; r++;
 }
 
 // addBunny adds a player to the end of the list in the bunnyFarm
@@ -129,14 +291,27 @@ void BunnyFarm::AddBunny()
 	string name;
 	int age;
 	char sex;
+	int r, c;
+	bool goodCoords = false;
+	
 
 	rnd = ::getRandNum(min, maxNames);	
 	name = bunnyNames[rnd]; // assign a random name from list of names
 	age = ::getRandNum(0, 9);
 	sex = ::getRandomSex(age);
 
+	while (!goodCoords)
+	{
+		r = ::getRandNum(0, MAX_BOARD_ROW);
+		c = ::getRandNum(0, MAX_BOARD_COL);
+		goodCoords = CheckCoords(r, c);
+	}
+	Board[r][c] = sex; // update the board
 
-	Bunny* pNewBunny = new Bunny(name, age, sex); // instantiate a new Bunny object on the heap, setting the object's pointer data member to 0 (null)
+
+
+
+	Bunny* pNewBunny = new Bunny(name, age, sex, r, c); // instantiate a new Bunny object on the heap, setting the object's pointer data member to 0 (null)
 
 	// if list is empty, make head of list this new bunny
 	if (m_pHead == 0)
@@ -183,21 +358,36 @@ void BunnyFarm::ClearFarm()
 }
 
 // operator<<() function overloads the << operator so I can display a BunnyFarm objecct by sending it to cout
-ostream& operator<<(ostream& os, const BunnyFarm& aBunnyFarm)
+ostream& operator<<(ostream& os, BunnyFarm& aBunnyFarm)
 {
 	Bunny* pIter = aBunnyFarm.m_pHead;
+	string name;
+	int age;
+	char sex;
+	int row;
+	int col;
+	int& r = aBunnyFarm.oRow;
+	int c = aBunnyFarm.oCol;
 
-	os << endl << "Here's who is on the Bunny Farm:" << endl;
+
+	//os << endl << "Here's who is on the Bunny Farm:" << endl;
 
 	if (pIter == 0) // if farm is empty send appropriate message
 	{
-		os << "The farm is empty!" << endl;
+		Gotoxy(c, r); os << "The farm is empty!" << endl; r++;
 	}
 	else // otherwise cycle through all the bunnies on the farm, creating an output stream os of all the names
 	{
 		while (pIter != 0)
 		{
-			os << setw(10) << pIter->GetName() << " " << setw(3) << pIter->GetAge() << " " << setw(3) << pIter->GetSex() << endl;
+			name = pIter->GetName();
+			age = pIter->GetAge();
+			sex = pIter->GetSex();
+			row = pIter->GetRow();
+			col = pIter->GetCol();
+
+			Gotoxy(c, r); os << setw(12) << name << " " << setw(3) << age << " " << setw(3) << sex << " " << setw(2) << row << "," << setw(2) << col << endl;
+			r++;
 			pIter = pIter->GetNext();
 		}
 	}
@@ -245,36 +435,51 @@ char getRandomSex(int age)
 int main()
 {
 
+	HWND console = GetConsoleWindow();
+	RECT r;
+	GetWindowRect(console, &r); //stores the console's current dimensions
+
+								//MoveWindow(window_handle, x, y, width, height, redraw_window);
+	//MoveWindow(console, r.left, r.top, 1500, 1050, TRUE);
+	MoveWindow(console, 0, 0, 1500, 1050, TRUE);
+
 	srand((unsigned)time(NULL)); // generate random seed each time the program runs
 
 	BunnyFarm myBunnyFarm; // instantiates a new BunnyFarm
+	BunnyFarm& rMyBunnyFarm = myBunnyFarm;
+	//pMyBunnyFarm = myBunnyFarm; // pointer to myBunnyFarm
+
 	int choice;
+
+	myBunnyFarm.InitBoard();
+	myBunnyFarm.DrawBoard();
 
 	do
 	{
-		cout << myBunnyFarm;
-		cout << endl << "BUNNY FARM MENU" << endl;
-		cout << "0 - Exit the program." << endl;
-		cout << "1 - Add a bunny to the farm." << endl;
-		cout << "2 - Delete a bunny from the farm." << endl;
-		cout << "3 - Clear the bunny farm." << endl;
-		cout << "9 - Add first 5 bunnies to farm." << endl;
-		cout << endl;
-		cout << "Enter your choice: ";
+		//cout << myBunnyFarm;
+		myBunnyFarm.ListBunnies(rMyBunnyFarm);
+
+		myBunnyFarm.MainMenu();
 		cin >> choice;
+		cin.get(); // gets ENTER from above cin >>
 
 		switch (choice)
 		{
 		case 0: cout << "Goodbye." << endl; break;
 		case 1: myBunnyFarm.AddBunny(); break;
-		case 2: myBunnyFarm.DelBunny();break;
+		case 2: myBunnyFarm.DelBunny(); break;
 		case 3: myBunnyFarm.ClearFarm(); break;
+		case 4: break;
+
 		default: cout << "That was not a valid choice." << endl;
 		}
 	} while (choice != 0);
 
+	// restore output window size to same size as when starting program
+	MoveWindow(console, r.left, r.top, r.right - r.left, r.bottom - r.top, TRUE);
+
 	cout << endl << endl << "Press any key to end.";
-	getchar();
+	cin.get();
 	return 0;
 }
 
