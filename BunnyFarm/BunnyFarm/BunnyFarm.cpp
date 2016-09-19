@@ -4,6 +4,7 @@
 // 
 
 #include "stdafx.h"
+#include <stdio.h>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -25,8 +26,8 @@
 
 
 // global constants
-const int MAX_BOARD_ROW = 79;
-const int MAX_BOARD_COL = 79;
+const int MAX_BOARD_ROW = 80;
+const int MAX_BOARD_COL = 80;
 const int OUTPUT_COL    = 90;
 
 
@@ -122,7 +123,7 @@ class BunnyFarm
 public:
 	BunnyFarm();        // constructor
 	~BunnyFarm();       // destructor
-	char Board[79][79]; // 80 x 80 game board
+	char Board[MAX_BOARD_ROW][MAX_BOARD_COL]; // 80 x 80 game board
 	int  oRow;          // output row
 	const int oCol = 90;           // output col
 
@@ -176,7 +177,9 @@ void BunnyFarm::ListBunnies(BunnyFarm& rMyBunnyFarm)
 	r = 0;
 	ClearOutput();
 	//Gotoxy(r, c); cout << "ListBunnies" << endl; r++;
-	Gotoxy(r, c); cout << rMyBunnyFarm; r++;
+	Gotoxy(c, r); cout << rMyBunnyFarm; r++;
+	Gotoxy(c, r); cout << endl << "Press any key to continue..."; r++;
+	cin.get();
 }
 
 void BunnyFarm::InitBoard()
@@ -195,11 +198,13 @@ void BunnyFarm::DrawBoard()
 	int r, c, i;
 
 	//system("cls"); // clear the screen and re-draw
-	cout << endl;
+	//cout << endl;
+	::Gotoxy(0, 0);
+
 	for (i = 0; i < MAX_BOARD_COL; ++i)
 	{
 		if (i == 0)
-			cout << "   0";
+			cout << "0";
 		else
 			if (i % 10 == 0)
 				cout << i / 10;
@@ -252,6 +257,9 @@ void BunnyFarm::MainMenu()
 {
 	int& r = oRow;
 	int c = oCol;
+
+	ClearOutput();
+	r = 0; // reset output row to the top of the screen
 
 	Gotoxy(c, r); cout << "BUNNY FARM MENU" << endl; r++;
 	Gotoxy(c, r); cout << "0 - Exit the program." << endl; r++;
@@ -307,7 +315,8 @@ void BunnyFarm::AddBunny()
 		goodCoords = CheckCoords(r, c);
 	}
 	Board[r][c] = sex; // update the board
-
+	Gotoxy(0, 0);
+	DrawBoard();
 
 
 
@@ -343,9 +352,13 @@ void BunnyFarm::DelBunny()
 	else // otherwise, the first bunny in the list is removed.
 	{
 		Bunny* pTemp = m_pHead;         // temp points to the first bunny in the list
+		int r = pTemp->GetRow();
+		int c = pTemp->GetCol();
+		Board[r][c] = '.';
 		m_pHead = m_pHead->GetNext();   // sets m_pHead to the next bunny in the list
 		delete pTemp;                   // destroys the Bunny object pointed to by pTemp
 	}
+	DrawBoard();
 }
 
 // ClearFarm removes all the bunnies from the farm
@@ -355,6 +368,9 @@ void BunnyFarm::ClearFarm()
 	{
 		DelBunny();
 	}
+	//InitBoard();
+	//DrawBoard();
+	ClearOutput();
 }
 
 // operator<<() function overloads the << operator so I can display a BunnyFarm objecct by sending it to cout
@@ -456,8 +472,7 @@ int main()
 
 	do
 	{
-		//cout << myBunnyFarm;
-		myBunnyFarm.ListBunnies(rMyBunnyFarm);
+		//myBunnyFarm.ListBunnies(rMyBunnyFarm); // use this to print a list of bunnies from main()
 
 		myBunnyFarm.MainMenu();
 		cin >> choice;
@@ -469,17 +484,23 @@ int main()
 		case 1: myBunnyFarm.AddBunny(); break;
 		case 2: myBunnyFarm.DelBunny(); break;
 		case 3: myBunnyFarm.ClearFarm(); break;
-		case 4: break;
+		case 4: myBunnyFarm.ListBunnies(rMyBunnyFarm); break;
 
 		default: cout << "That was not a valid choice." << endl;
 		}
 	} while (choice != 0);
 
-	// restore output window size to same size as when starting program
-	MoveWindow(console, r.left, r.top, r.right - r.left, r.bottom - r.top, TRUE);
+	
+	
+	system("cls");
 
 	cout << endl << endl << "Press any key to end.";
 	cin.get();
+
+
+	// restore output window size to same size as when starting program
+	MoveWindow(console, r.left, r.top, r.right - r.left, r.bottom - r.top, TRUE);
+
 	return 0;
 }
 
