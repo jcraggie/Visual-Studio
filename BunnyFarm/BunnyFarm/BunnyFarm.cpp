@@ -52,6 +52,7 @@ public:
 	Bunny(const string& name = "", const int& age = 0, const char& sex = ' ', const int& r = 0, const int& c = 0);
 	string GetName() const;
 	int GetAge() const;
+	void SetAge(int age);
 	char GetSex() const;
 	int GetRow() const;
 	int GetCol() const;
@@ -88,6 +89,11 @@ string Bunny::GetName() const
 int Bunny::GetAge() const
 {
 	return m_Age;
+}
+
+void Bunny::SetAge(int age)
+{
+	m_Age = age;
 }
 
 char Bunny::GetSex() const
@@ -129,7 +135,9 @@ public:
 
 	void InitBoard();   // initialize game board with '.'
 	void DrawBoard();   // draw the game board;
+	void InitBunnies(); // initialize first 5 bunnies
 	bool CheckCoords(int r, int c); // check the random coords assigned to see if they are already taken
+	void AdvBunnyAges(); // increase age of all bunnies
 	void MainMenu();    // writes the menu to the screen
 	void AddBunny();    // addBunny instantiates a Bunny object on the heap and adds it to the end of the list
 	void DelBunny();    // delBunny removes the first Bunny object in the list
@@ -156,6 +164,31 @@ BunnyFarm::~BunnyFarm()
 {
 	ClearFarm();
 }
+
+void BunnyFarm::InitBunnies()
+{
+	for (int i = 0; i < 5; ++i)
+	{
+		AddBunny();
+	}
+}
+
+void BunnyFarm::AdvBunnyAges()
+{
+	Bunny* pIter = m_pHead;
+	int age;
+
+	while (pIter != 0)
+	{
+		age = pIter->GetAge();
+		age += 1;
+		pIter->SetAge(age);
+		pIter = pIter->GetNext();
+	}
+
+}
+
+
 
 void BunnyFarm::ClearOutput()
 {
@@ -270,7 +303,7 @@ void BunnyFarm::MainMenu()
 	Gotoxy(c, r); cout << "2 - Delete a bunny from the farm." << endl; r++;
 	Gotoxy(c, r); cout << "3 - Clear the bunny farm." << endl; r++;
 	Gotoxy(c, r); cout << "4 - List bunnies." << endl; r++;
-	Gotoxy(c, r); cout << "9 - Add first 5 bunnies to farm." << endl; r++;
+	Gotoxy(c, r); cout << "5 - Advance all bunny ages." << endl; r++;
 	Gotoxy(c, r); cout << endl; r++;
 	Gotoxy(c, r); cout << "Enter your choice: "; r++;
 }
@@ -472,6 +505,7 @@ int main()
 
 	myBunnyFarm.InitBoard();
 	myBunnyFarm.DrawBoard();
+	myBunnyFarm.InitBunnies();
 
 	do
 	{
@@ -488,6 +522,7 @@ int main()
 		case 2: myBunnyFarm.DelBunny(); break;
 		case 3: myBunnyFarm.ClearFarm(); break;
 		case 4: myBunnyFarm.ListBunnies(rMyBunnyFarm); break;
+		case 5: myBunnyFarm.AdvBunnyAges(); break;
 
 		default: cout << "That was not a valid choice." << endl;
 		}
