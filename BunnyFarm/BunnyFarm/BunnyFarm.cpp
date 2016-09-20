@@ -143,10 +143,26 @@ void Bunny::SetNext(Bunny* next)
 class BunnyFarm
 {
 	friend ostream& operator<<(ostream& os, BunnyFarm& aBunnyFarm);
+	friend ostream& operator<<(ostream& oStats, BunnyFarm& aBunnyFarm);
 
 public:
 	BunnyFarm();        // constructor
 	~BunnyFarm();       // destructor
+
+	int s_NumAdultMales;
+	int s_NumAdultFemales;
+	int s_NumJuvMales;
+	int s_NumJuvFemales;
+	int s_NumMales;
+	int s_NumFemales;
+	int s_NumBirths;
+	int s_NumDeaths;
+	int s_NumRMVB;
+	int s_TotalBunnies;
+	int s_NumOfTurns;
+
+
+
 	char Board[MAX_BOARD_ROW][MAX_BOARD_COL]; // 80 x 80 game board
 	int  oRow;          // output row
 	const int oCol = 90;           // output col
@@ -154,6 +170,7 @@ public:
 	void InitBoard();   // initialize game board with '.'
 	void DrawBoard();   // draw the game board;
 	void InitBunnies(); // initialize first 5 bunnies
+	void InitStats(); // initialize stats
 	bool CheckCoords(int r, int c); // check the random coords assigned to see if they are already taken
 	void AdvBunnyAges(); // increase age of all bunnies
 	void MainMenu();    // writes the menu to the screen
@@ -165,6 +182,7 @@ public:
 	void CheckForBunnyDeaths(); // checks all bunnies for age 10. if 10, remove them from the list and board
 	void ClearFarm();   // clearFarm removes all the bunny objects from the farm list, freeing the allocated memory
 	void ListBunnies(BunnyFarm& rMyBunnyFarm); // lists all the bunnies and their attributes
+	void PrintStats();
 	void ClearOutput(); // clears the output side
 
 private:
@@ -185,6 +203,57 @@ BunnyFarm::BunnyFarm() :
 BunnyFarm::~BunnyFarm()
 {
 	ClearFarm();
+}
+
+void BunnyFarm::PrintStats()
+{
+	int& r = oRow;
+	int c = oCol;
+
+	int tM = s_NumMales;
+	int tF = s_NumFemales;
+	int tR = s_NumRMVB;
+	int nJM = s_NumJuvMales;
+	int nJF = s_NumJuvFemales;
+	int nAM = s_NumAdultMales;
+	int nAF = s_NumAdultFemales;
+	int tB = s_TotalBunnies;
+	int nB = s_NumBirths;
+	int nD = s_NumDeaths;
+	int tT = s_NumOfTurns;
+
+	ClearOutput();
+
+	Gotoxy(c, r); cout << setw(20) << "Total Males: " << setw(4) << tM << endl; r++;
+	Gotoxy(c, r); cout << setw(20) << "Total Females: " << setw(4) << tF << endl; r++;
+	Gotoxy(c, r); cout << setw(20) << "RMVB: " << setw(4) << tR << endl; r++;
+	Gotoxy(c, r); cout << setw(20) << "Total Bunnies: " << setw(4) << tB << endl; r++;
+	Gotoxy(c, r); cout << setw(20) << "Adult Males: " << setw(4) << nAM << endl; r++;
+	Gotoxy(c, r); cout << setw(20) << "Adult Females: " << setw(4) << nAF << endl; r++;
+	Gotoxy(c, r); cout << setw(20) << "Juvenile Males: " << setw(4) << nJM << endl; r++;
+	Gotoxy(c, r); cout << setw(20) << "Juvenile Females: " << setw(4) << nJF << endl; r++;
+	Gotoxy(c, r); cout << setw(20) << "Births: " << setw(4) << nB << endl; r++;
+	Gotoxy(c, r); cout << setw(20) << "Deaths: " << setw(4) << nD << endl; r++;
+	Gotoxy(c, r); cout << setw(20) << "Total turns taken: " << setw(4) << tT << endl; r++;
+
+	Gotoxy(c, r); cout << "Press any key to continue..."; r++;
+	cin.get();
+	ClearOutput();
+}
+
+void BunnyFarm::InitStats()
+{
+	s_NumAdultMales = 0;
+	s_NumAdultFemales = 0;
+	s_NumJuvMales = 0;
+	s_NumJuvFemales = 0;
+	s_NumMales = 0;
+	s_NumFemales = 0;
+	s_NumBirths = 0;
+	s_NumDeaths = 0;
+	s_NumRMVB = 0;
+	s_TotalBunnies = 0;
+	s_NumOfTurns = 0;
 }
 
 void BunnyFarm::InitBunnies()
@@ -213,10 +282,14 @@ void BunnyFarm::AdvBunnyAges()
 			if (sex == 'm')
 			{
 				sex = 'M';
+				s_NumAdultMales += 1;
+				s_NumJuvMales -= 1;
 			}
 			else if (sex == 'f')
 			{
 				sex = 'F';
+				s_NumAdultFemales += 1;
+				s_NumJuvFemales -= 1;
 			}
 			r = pIter->GetRow();
 			c = pIter->GetCol();
@@ -426,6 +499,7 @@ void BunnyFarm::MainMenu()
 	Gotoxy(c, r); cout << "5 - Advance all bunny ages." << endl; r++;
 	Gotoxy(c, r); cout << "6 - Check for bunny deaths." << endl; r++;
 	Gotoxy(c, r); cout << "7 - Move all bunnies." << endl; r++;
+	Gotoxy(c, r); cout << "8 - Print stats." << endl; r++;
 	Gotoxy(c, r); cout << endl; r++;
 	Gotoxy(c, r); cout << "Enter your choice: "; r++;
 }
@@ -466,6 +540,26 @@ void BunnyFarm::AddBunny()
 	age = ::getRandNum(0, 9);
 	sex = ::getRandomSex(age);
 
+	switch (sex)
+	{
+	case 'm':
+		s_NumJuvMales += 1;
+		s_NumMales += 1;
+		break;
+	case 'M':
+		s_NumAdultMales += 1;
+		s_NumMales += 1;
+		break;
+	case 'f':
+		s_NumJuvFemales += 1;
+		s_NumFemales += 1;
+		break;
+	case 'F':
+		s_NumAdultFemales += 1;
+		s_NumFemales += 1;
+		break;
+	}
+
 	while (!goodCoords)
 	{
 		r = ::getRandNum(0, MAX_BOARD_ROW-1);
@@ -494,7 +588,7 @@ void BunnyFarm::AddBunny()
 		m_pLast->SetNext(pNewBunny);  // set next to point to the new bunny. last becomes "next to last"
 		m_pLast = pNewBunny;          // set last bunny to the new bunny
 	}
-
+	s_TotalBunnies += 1;
 }
 
 
@@ -516,6 +610,8 @@ void BunnyFarm::DelFirstBunny()
 		m_pHead = m_pHead->GetNext();   // sets m_pHead to the next bunny in the list
 		delete pTemp;                   // destroys the Bunny object pointed to by pTemp
 	}
+	s_TotalBunnies -= 1;
+	s_NumDeaths += 1;
 	DrawBoard();
 }
 // DelBunny removes the bunny at the head of the list
@@ -530,6 +626,8 @@ void BunnyFarm::DelBunny(Bunny* delThisBunny, Bunny* prevBunny)
 	//m_pHead = m_pHead->GetNext();   // sets m_pHead to the next bunny in the list
 	delete pTemp;                   // destroys the Bunny object pointed to by pTemp
 	
+	s_TotalBunnies -= 1;
+	s_NumDeaths += 1;
 	DrawBoard();
 }
 
@@ -563,8 +661,10 @@ void BunnyFarm::CheckForBunnyDeaths()
 				DelBunny(pThis, pPrev);
 			}
 			else
+			{
 				pPrev = pThis;
-			//pPrev = pPrev->GetNext();
+			}
+
 			pThis = pPrev->GetNext();
 		}
 	}
@@ -581,6 +681,7 @@ void BunnyFarm::ClearFarm()
 	//InitBoard();
 	//DrawBoard();
 	ClearOutput();
+	InitStats();
 }
 
 // operator<<() function overloads the << operator so I can display a BunnyFarm objecct by sending it to cout
@@ -619,6 +720,8 @@ ostream& operator<<(ostream& os, BunnyFarm& aBunnyFarm)
 	}
 	return os;
 }
+
+
 
 int getRandNum(int min, int max)
 {
@@ -679,7 +782,9 @@ int main()
 
 	myBunnyFarm.InitBoard();
 	myBunnyFarm.DrawBoard();
+	myBunnyFarm.InitStats();
 	myBunnyFarm.InitBunnies();
+	
 
 	do
 	{
@@ -699,6 +804,7 @@ int main()
 		case 5: myBunnyFarm.AdvBunnyAges(); break;
 		case 6: myBunnyFarm.CheckForBunnyDeaths(); break;
 		case 7: myBunnyFarm.MoveAllBunnies(); break;
+		case 8: myBunnyFarm.PrintStats(); break;
 
 		default: cout << "That was not a valid choice." << endl;
 		}
