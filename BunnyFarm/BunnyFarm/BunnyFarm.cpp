@@ -54,6 +54,7 @@ public:
 	int GetAge() const;
 	void SetAge(int age);
 	char GetSex() const;
+	void SetSex(char sex);
 	int GetRow() const;
 	int GetCol() const;
 
@@ -99,6 +100,11 @@ void Bunny::SetAge(int age)
 char Bunny::GetSex() const
 {
 	return m_Sex;
+}
+
+void Bunny::SetSex(char sex)
+{
+	m_Sex = sex;
 }
 
 int Bunny::GetRow() const
@@ -177,15 +183,34 @@ void BunnyFarm::AdvBunnyAges()
 {
 	Bunny* pIter = m_pHead;
 	int age;
+	char sex;
+	int r, c;
 
 	while (pIter != 0)
 	{
 		age = pIter->GetAge();
 		age += 1;
 		pIter->SetAge(age);
+		sex = pIter->GetSex();
+		if (age == 2)
+		{
+			if (sex == 'm')
+			{
+				sex = 'M';
+			}
+			else if (sex == 'f')
+			{
+				sex = 'F';
+			}
+			r = pIter->GetRow();
+			c = pIter->GetCol();
+			Board[r][c] = sex;
+			DrawBoard();
+			pIter->SetSex(sex);
+		}
+
 		pIter = pIter->GetNext();
 	}
-
 }
 
 
@@ -346,8 +371,8 @@ void BunnyFarm::AddBunny()
 
 	while (!goodCoords)
 	{
-		r = ::getRandNum(0, MAX_BOARD_ROW);
-		c = ::getRandNum(0, MAX_BOARD_COL);
+		r = ::getRandNum(0, MAX_BOARD_ROW-1);
+		c = ::getRandNum(0, MAX_BOARD_COL-1);
 		goodCoords = CheckCoords(r, c);
 	}
 	Board[r][c] = sex; // update the board
