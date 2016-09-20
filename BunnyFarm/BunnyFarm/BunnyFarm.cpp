@@ -56,7 +56,9 @@ public:
 	char GetSex() const;
 	void SetSex(char sex);
 	int GetRow() const;
+	void SetRow(int r);
 	int GetCol() const;
+	void SetCol(int c);
 
 
 	Bunny* GetNext() const;
@@ -112,9 +114,19 @@ int Bunny::GetRow() const
 	return m_Row;
 }
 
+void Bunny::SetRow(int r)
+{
+	m_Row = r;
+}
+
 int Bunny::GetCol() const
 {
 	return m_Col;
+}
+
+void Bunny::SetCol(int c)
+{
+	m_Col = c;
 }
 
 Bunny* Bunny::GetNext() const
@@ -148,6 +160,8 @@ public:
 	void AddBunny();    // addBunny instantiates a Bunny object on the heap and adds it to the end of the list
 	void DelFirstBunny();    // DelFirstBunny removes the first Bunny object in the list
 	void DelBunny(Bunny* delThisBunny, Bunny* prevBunny);     // deletes a bunny
+	void MoveAllBunnies(); // move all bunnies in a random direction
+	bool CheckNewCoords(int mR, int mC); // checks new coordinates for valid coords
 	void CheckForBunnyDeaths(); // checks all bunnies for age 10. if 10, remove them from the list and board
 	void ClearFarm();   // clearFarm removes all the bunny objects from the farm list, freeing the allocated memory
 	void ListBunnies(BunnyFarm& rMyBunnyFarm); // lists all the bunnies and their attributes
@@ -215,7 +229,86 @@ void BunnyFarm::AdvBunnyAges()
 	}
 }
 
+bool BunnyFarm::CheckNewCoords(int mR, int mC)
+{
+	if (mR < 0 || mR >= MAX_BOARD_ROW || mC < 0 || mC >= MAX_BOARD_COL)
+	{
+		return false;
+	}
+	else
+	{
+		if (Board[mR][mC] != '.')
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
+}
 
+void BunnyFarm::MoveAllBunnies()
+{
+	Bunny* pIter = m_pHead;
+
+	char marker;
+	int direction; // 0, 1, 2, 3 used for up, down, left, right
+	bool triedUp = false, triedDown = false, triedLeft = false, triedRight = false;
+	bool triedAllDirections = false;
+	bool canMove = false;
+	int r, c; 
+	int mR, mC; // used to test proposed movement coordinates
+
+	while (pIter != 0)
+	{
+		do
+		{
+			r = pIter->GetRow();
+			c = pIter->GetCol();
+			mR = r;
+			mC = c;
+			marker = pIter->GetSex();
+			direction = ::getRandNum(0, 3);
+
+			switch (direction)
+			{
+			case 0:
+				triedUp = true;
+				mR -= 1;
+				break;
+			case 1:
+				triedDown = true;
+				mR += 1;
+				break;
+			case 2:
+				triedLeft = true;
+				mC -= 1;
+				break;
+			case 3:
+				triedRight = true;
+				mC += 1;
+				break;
+			default:
+				break;
+			}
+			if (triedUp && triedDown && triedLeft && triedRight)
+			{
+				triedAllDirections = true;
+				canMove = false;
+				break;
+			}
+		} while (!CheckNewCoords(mR, mC) && !triedAllDirections);
+
+		Board[r][c] = '.';
+		Board[mR][mC] = marker;
+		pIter->SetRow(mR);
+		pIter->SetCol(mC);
+
+		pIter = pIter->GetNext();
+	}
+	DrawBoard();
+}
 
 void BunnyFarm::ClearOutput()
 {
@@ -332,6 +425,7 @@ void BunnyFarm::MainMenu()
 	Gotoxy(c, r); cout << "4 - List bunnies." << endl; r++;
 	Gotoxy(c, r); cout << "5 - Advance all bunny ages." << endl; r++;
 	Gotoxy(c, r); cout << "6 - Check for bunny deaths." << endl; r++;
+	Gotoxy(c, r); cout << "7 - Move all bunnies." << endl; r++;
 	Gotoxy(c, r); cout << endl; r++;
 	Gotoxy(c, r); cout << "Enter your choice: "; r++;
 }
@@ -604,6 +698,7 @@ int main()
 		case 4: myBunnyFarm.ListBunnies(rMyBunnyFarm); break;
 		case 5: myBunnyFarm.AdvBunnyAges(); break;
 		case 6: myBunnyFarm.CheckForBunnyDeaths(); break;
+		case 7: myBunnyFarm.MoveAllBunnies(); break;
 
 		default: cout << "That was not a valid choice." << endl;
 		}
