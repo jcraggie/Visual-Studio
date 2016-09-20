@@ -162,6 +162,8 @@ void BunnyFarm::ClearOutput()
 	int& r = oRow;
 	int c = oCol;
 
+	r = 0;
+
 	for (int i = 0; i < 82; ++i)
 	{
 		Gotoxy(c, r); cout << "                                           " << endl; r++;
@@ -178,8 +180,9 @@ void BunnyFarm::ListBunnies(BunnyFarm& rMyBunnyFarm)
 	ClearOutput();
 	//Gotoxy(r, c); cout << "ListBunnies" << endl; r++;
 	Gotoxy(c, r); cout << rMyBunnyFarm; r++;
-	Gotoxy(c, r); cout << endl << "Press any key to continue..."; r++;
+	Gotoxy(c, r); cout << "Press any key to continue..."; r++;
 	cin.get();
+	ClearOutput();
 }
 
 void BunnyFarm::InitBoard()
