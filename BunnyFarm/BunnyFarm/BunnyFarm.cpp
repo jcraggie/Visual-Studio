@@ -146,7 +146,9 @@ public:
 	void AdvBunnyAges(); // increase age of all bunnies
 	void MainMenu();    // writes the menu to the screen
 	void AddBunny();    // addBunny instantiates a Bunny object on the heap and adds it to the end of the list
-	void DelBunny();    // delBunny removes the first Bunny object in the list
+	void DelFirstBunny();    // DelFirstBunny removes the first Bunny object in the list
+	void DelBunny(Bunny* delThisBunny, Bunny* prevBunny);     // deletes a bunny
+	void CheckForBunnyDeaths(); // checks all bunnies for age 10. if 10, remove them from the list and board
 	void ClearFarm();   // clearFarm removes all the bunny objects from the farm list, freeing the allocated memory
 	void ListBunnies(BunnyFarm& rMyBunnyFarm); // lists all the bunnies and their attributes
 	void ClearOutput(); // clears the output side
@@ -325,10 +327,11 @@ void BunnyFarm::MainMenu()
 	Gotoxy(c, r); cout << "BUNNY FARM MENU" << endl; r++;
 	Gotoxy(c, r); cout << "0 - Exit the program." << endl; r++;
 	Gotoxy(c, r); cout << "1 - Add a bunny to the farm." << endl; r++;
-	Gotoxy(c, r); cout << "2 - Delete a bunny from the farm." << endl; r++;
+	Gotoxy(c, r); cout << "2 - Delete first bunny from the farm." << endl; r++;
 	Gotoxy(c, r); cout << "3 - Clear the bunny farm." << endl; r++;
 	Gotoxy(c, r); cout << "4 - List bunnies." << endl; r++;
 	Gotoxy(c, r); cout << "5 - Advance all bunny ages." << endl; r++;
+	Gotoxy(c, r); cout << "6 - Check for bunny deaths." << endl; r++;
 	Gotoxy(c, r); cout << endl; r++;
 	Gotoxy(c, r); cout << "Enter your choice: "; r++;
 }
@@ -402,8 +405,8 @@ void BunnyFarm::AddBunny()
 
 
 
-// delBunny removes the bunny at the head of the list
-void BunnyFarm::DelBunny()
+// DelFirstBunny removes the bunny at the head of the list
+void BunnyFarm::DelFirstBunny()
 {
 	// test m_pHead. if it is 0, then the farm is empty
 	if (m_pHead == 0)
@@ -421,13 +424,65 @@ void BunnyFarm::DelBunny()
 	}
 	DrawBoard();
 }
+// DelBunny removes the bunny at the head of the list
+void BunnyFarm::DelBunny(Bunny* delThisBunny, Bunny* prevBunny)
+{
+	
+	Bunny* pTemp = delThisBunny;         // temp points to the first bunny in the list
+	int r = pTemp->GetRow();
+	int c = pTemp->GetCol();
+	Board[r][c] = '.';
+	//prevBunny->SetNext(pTemp->GetNext());
+	//m_pHead = m_pHead->GetNext();   // sets m_pHead to the next bunny in the list
+	delete pTemp;                   // destroys the Bunny object pointed to by pTemp
+	
+	DrawBoard();
+}
+
+void BunnyFarm::CheckForBunnyDeaths()
+{
+	Bunny* pThis = m_pHead;
+	Bunny* pPrev = m_pHead;
+
+	int age;
+	if (pThis == 0)
+		return;
+	while (pThis != 0)
+	{
+		while (pThis->GetAge() == 10)
+		{
+			DelFirstBunny();
+			pThis = m_pHead;
+			if (pThis == 0)
+				return;
+		}
+
+		pPrev = m_pHead;
+		pThis = m_pHead->GetNext();
+
+		while (pThis != 0)
+		{
+			age = pThis->GetAge();
+			if (age == 10)
+			{
+				pPrev->SetNext(pThis->GetNext()); // set prev bunny's next to this bunny's next
+				DelBunny(pThis, pPrev);
+			}
+			else
+				pPrev = pThis;
+			//pPrev = pPrev->GetNext();
+			pThis = pPrev->GetNext();
+		}
+	}
+}
+
 
 // ClearFarm removes all the bunnies from the farm
 void BunnyFarm::ClearFarm()
 {
 	while (m_pHead != 0)
 	{
-		DelBunny();
+		DelFirstBunny();
 	}
 	//InitBoard();
 	//DrawBoard();
@@ -544,10 +599,11 @@ int main()
 		{
 		case 0: cout << "Goodbye." << endl; break;
 		case 1: myBunnyFarm.AddBunny(); break;
-		case 2: myBunnyFarm.DelBunny(); break;
+		case 2: myBunnyFarm.DelFirstBunny(); break;
 		case 3: myBunnyFarm.ClearFarm(); break;
 		case 4: myBunnyFarm.ListBunnies(rMyBunnyFarm); break;
 		case 5: myBunnyFarm.AdvBunnyAges(); break;
+		case 6: myBunnyFarm.CheckForBunnyDeaths(); break;
 
 		default: cout << "That was not a valid choice." << endl;
 		}
