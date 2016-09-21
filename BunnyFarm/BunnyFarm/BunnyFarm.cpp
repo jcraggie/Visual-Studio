@@ -176,7 +176,7 @@ public:
 	bool CheckCoords(int r, int c); // check the random coords assigned to see if they are already taken
 	void AdvBunnyAges(); // increase age of all bunnies
 	void MainMenu();    // writes the menu to the screen
-	void AddBunny(bool birth);    // addBunny instantiates a Bunny object on the heap and adds it to the end of the list
+	void AddBunny(bool birth, int momR, int momC);    // addBunny instantiates a Bunny object on the heap and adds it to the end of the list
 	void DelFirstBunny();    // DelFirstBunny removes the first Bunny object in the list
 	void DelBunny(Bunny* delThisBunny, Bunny* prevBunny);     // deletes a bunny
 	void MoveAllBunnies(); // move all bunnies in a random direction
@@ -189,6 +189,7 @@ public:
 	void ClearOutput(); // clears the output side
 	void TakeTurn(); // move all bunnies, advance ages, check for deaths, breed
 	void UpdateStats(); // update all the statistics
+	bool FindCoords(int r, int c, int& mR, int& mC);
 
 private:
 	Bunny* m_pHead;     // pointer to a Bunny object which represents the first bunny in the list
@@ -226,6 +227,7 @@ void BunnyFarm::TakeTurn()
 		CheckForBunnyDeaths();
 		BreedBunnies();
 	}
+
 	UpdateStats();
 }
 
@@ -233,20 +235,30 @@ void BunnyFarm::TakeTurn()
 
 void BunnyFarm::BreedBunnies()
 {
-	int numBirths = 0;
+	Bunny* pIter = m_pHead;
+	bool okToBreed = false;
+	int momR, momC;
 	bool birth = true;
 
 	if (s_NumAdultMales >= 1 && s_NumAdultFemales >= 1)
 	{
-		numBirths = s_NumAdultFemales; // this is how many new bunnies to breed
+		while (pIter != 0)
+		{
+			if (pIter->GetSex() == 'F')
+			{
+				momR = pIter->GetRow();
+				momC = pIter->GetCol();
+				AddBunny(birth, momR, momC);
+			}
+
+
+			pIter = pIter->GetNext();
+		}
 	}
 	else
 		return;
 
-	for (int i = 0; i < numBirths; ++i)
-	{
-		AddBunny(birth);
-	}
+
 	UpdateStats();
 }
 
@@ -364,7 +376,7 @@ void BunnyFarm::InitBunnies()
 {
 	for (int i = 0; i < 5; ++i)
 	{
-		AddBunny(false);
+		AddBunny(false,0,0);
 	}
 	UpdateStats();
 }
@@ -422,6 +434,59 @@ bool BunnyFarm::CheckNewCoords(int mR, int mC)
 	}
 }
 
+bool BunnyFarm::FindCoords(int r, int c, int& mR, int& mC)
+{
+	bool triedUp = false, triedDown = false, triedLeft = false, triedRight = false;
+	bool triedAllDirections = false;
+	int checkR, checkC;
+	bool found = false;
+	//char marker;
+	int direction;
+
+	do
+	{
+		checkR = r;
+		checkC = c;
+		direction = ::getRandNum(0, 3);
+
+		switch (direction)
+		{
+		case 0:
+			triedUp = true;
+			checkR -= 1;
+			break;
+		case 1:
+			triedDown = true;
+			checkR += 1;
+			break;
+		case 2:
+			triedLeft = true;
+			checkC -= 1;
+			break;
+		case 3:
+			triedRight = true;
+			checkC += 1;
+			break;
+		default:
+			break;
+		}
+		if (triedUp && triedDown && triedLeft && triedRight)
+		{
+			triedAllDirections = true;
+			found = false;
+			//return false;
+		}
+		found = CheckNewCoords(checkR, checkC);
+	} while (!found && !triedAllDirections);
+	if (found = true)
+	{
+		mR = checkR;
+		mC = checkC;
+		return true;
+	}
+	return false;
+}
+
 void BunnyFarm::MoveAllBunnies()
 {
 	Bunny* pIter = m_pHead;
@@ -445,34 +510,7 @@ void BunnyFarm::MoveAllBunnies()
 			marker = pIter->GetSex();
 			direction = ::getRandNum(0, 3);
 
-			switch (direction)
-			{
-			case 0:
-				triedUp = true;
-				mR -= 1;
-				break;
-			case 1:
-				triedDown = true;
-				mR += 1;
-				break;
-			case 2:
-				triedLeft = true;
-				mC -= 1;
-				break;
-			case 3:
-				triedRight = true;
-				mC += 1;
-				break;
-			default:
-				break;
-			}
-			if (triedUp && triedDown && triedLeft && triedRight)
-			{
-				triedAllDirections = true;
-				canMove = false;
-				break;
-			}
-		} while (!CheckNewCoords(mR, mC) && !triedAllDirections);
+		} while (!FindCoords(r,c,mR, mC) );
 
 		Board[r][c] = '.';
 		Board[mR][mC] = marker;
@@ -607,7 +645,7 @@ void BunnyFarm::MainMenu()
 }
 
 // addBunny adds a player to the end of the list in the bunnyFarm
-void BunnyFarm::AddBunny(bool birth)
+void BunnyFarm::AddBunny(bool birth, int momR, int momC)
 {
 	// create a new bunny node
 
@@ -635,6 +673,7 @@ void BunnyFarm::AddBunny(bool birth)
 	char sex;
 	int r, c;
 	bool goodCoords = false;
+	bool found = false;
 	
 
 	rnd = ::getRandNum(min, maxNames);	
@@ -651,32 +690,24 @@ void BunnyFarm::AddBunny(bool birth)
 
 	sex = ::getRandomSex(age);
 
-	//switch (sex)
-	//{
-	//case 'm':
-	//	s_NumJuvMales += 1;
-	//	s_NumMales += 1;
-	//	break;
-	//case 'M':
-	//	s_NumAdultMales += 1;
-	//	s_NumMales += 1;
-	//	break;
-	//case 'f':
-	//	s_NumJuvFemales += 1;
-	//	s_NumFemales += 1;
-	//	break;
-	//case 'F':
-	//	s_NumAdultFemales += 1;
-	//	s_NumFemales += 1;
-	//	break;
-	//}
-
 	while (!goodCoords)
 	{
-		r = ::getRandNum(0, MAX_BOARD_ROW-1);
-		c = ::getRandNum(0, MAX_BOARD_COL-1);
+		if (birth)
+		{
+			r = momR;
+			c = momC;
+			found = FindCoords(momR, momC, r, c);
+		}
+		else
+		{
+			r = ::getRandNum(0, MAX_BOARD_ROW - 1);
+			c = ::getRandNum(0, MAX_BOARD_COL - 1);
+			found = true;
+		}
 		goodCoords = CheckCoords(r, c);
 	}
+	if (!found)
+		return;
 	Board[r][c] = sex; // update the board
 	Gotoxy(0, 0);
 	DrawBoard();
@@ -700,7 +731,7 @@ void BunnyFarm::AddBunny(bool birth)
 		m_pLast = pNewBunny;          // set last bunny to the new bunny
 	}
 	//s_TotalBunnies += 1;
-	//UpdateStats();
+	UpdateStats();
 }
 
 
@@ -983,7 +1014,7 @@ int main()
 		switch (choice)
 		{
 		case 0: cout << "Goodbye." << endl; break;
-		case 1: myBunnyFarm.AddBunny(false); break;
+		case 1: myBunnyFarm.AddBunny(false, 0,0); break;
 		case 2: myBunnyFarm.TakeTurn(); break;
 		case 3: myBunnyFarm.ClearFarm(); break;
 		case 4: myBunnyFarm.ListBunnies(rMyBunnyFarm); break;
