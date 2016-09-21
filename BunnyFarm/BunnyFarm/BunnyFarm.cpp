@@ -190,6 +190,7 @@ public:
 	void TakeTurn(); // move all bunnies, advance ages, check for deaths, breed
 	void UpdateStats(); // update all the statistics
 	bool FindCoords(int r, int c, int& mR, int& mC);
+	bool AnyBlanksAroundBunny(int r, int c); // test to see if there are any blank spaces around bunny
 
 private:
 	Bunny* m_pHead;     // pointer to a Bunny object which represents the first bunny in the list
@@ -223,9 +224,9 @@ void BunnyFarm::TakeTurn()
 	for (int i = 0; i < numTurns; ++i)
 	{
 		MoveAllBunnies();
-		AdvBunnyAges();
-		CheckForBunnyDeaths();
 		BreedBunnies();
+		AdvBunnyAges();
+		CheckForBunnyDeaths();		
 	}
 
 	UpdateStats();
@@ -374,10 +375,16 @@ void BunnyFarm::InitStats()
 
 void BunnyFarm::InitBunnies()
 {
-	for (int i = 0; i < 5; ++i)
-	{
-		AddBunny(false,0,0);
-	}
+	//for (int i = 0; i < 5; ++i)
+	//{
+	//	AddBunny(false,0,0);
+	//}
+	// above lines are correct. below lines are for testing only.
+	AddBunny(false, 10, 10);
+	AddBunny(false, 9, 10);
+	AddBunny(false, 11, 10);
+	AddBunny(false, 10, 9);
+	AddBunny(false, 10, 11);
 	UpdateStats();
 }
 
@@ -417,7 +424,7 @@ void BunnyFarm::AdvBunnyAges()
 
 bool BunnyFarm::CheckNewCoords(int mR, int mC)
 {
-	if (mR < 0 || mR >= MAX_BOARD_ROW || mC < 0 || mC >= MAX_BOARD_COL)
+	if (mR < 0 || mR >= MAX_BOARD_ROW || mC < 0 || mC >= MAX_BOARD_COL) // if the coordinates are outside the bounds of the board
 	{
 		return false;
 	}
@@ -470,13 +477,17 @@ bool BunnyFarm::FindCoords(int r, int c, int& mR, int& mC)
 		default:
 			break;
 		}
-		if (triedUp && triedDown && triedLeft && triedRight)
+		if (CheckNewCoords(checkR, checkC)) // if proposed coords are valid then
+		{
+			found = true; // valid coords have been found!
+		}
+		else if (triedUp && triedDown && triedLeft && triedRight)
 		{
 			triedAllDirections = true;
 			found = false;
-			//return false;
+			return false;
 		}
-		found = CheckNewCoords(checkR, checkC);
+		
 	} while (!found && !triedAllDirections);
 	if (found = true)
 	{
@@ -484,8 +495,61 @@ bool BunnyFarm::FindCoords(int r, int c, int& mR, int& mC)
 		mC = checkC;
 		return true;
 	}
-	return false;
+	else
+		return false;
+
+
+	// testing code below to replace code above
+
+
+
+
+
+
+
+
 }
+
+bool BunnyFarm::AnyBlanksAroundBunny(int r, int c)
+{
+	bool found = false;
+	if (r + 1 < MAX_BOARD_ROW)
+	{
+		if (Board[r + 1][c] == '.')
+		{
+			found = true;
+		}
+		else if (r - 1 >= 0)
+		{
+			if (Board[r - 1][c] == '.')
+			{
+				found = true;
+			}
+
+			else if (c + 1 < MAX_BOARD_COL)
+			{
+				if (Board[r][c + 1] == '.')
+				{
+					found = true;
+				}
+				else if (c - 1 >= 0)
+				{
+					if (Board[r][c - 1] == '.')
+					{
+						found = true;
+					}
+				}
+			}
+		}
+	}
+	else
+		found = false;
+
+	return found;
+}
+
+
+
 
 void BunnyFarm::MoveAllBunnies()
 {
@@ -501,22 +565,25 @@ void BunnyFarm::MoveAllBunnies()
 
 	while (pIter != 0)
 	{
-		do
+		r = pIter->GetRow();
+		c = pIter->GetCol();
+
+		if (AnyBlanksAroundBunny(r, c))
 		{
-			r = pIter->GetRow();
-			c = pIter->GetCol();
-			mR = r;
-			mC = c;
-			marker = pIter->GetSex();
-			direction = ::getRandNum(0, 3);
+			do
+			{
+				mR = r;
+				mC = c;
+				marker = pIter->GetSex();
+				direction = ::getRandNum(0, 3);
+				FindCoords(r, c, mR, mC);
+			} while (!FindCoords(r, c, mR, mC));
 
-		} while (!FindCoords(r,c,mR, mC) );
-
-		Board[r][c] = '.';
-		Board[mR][mC] = marker;
-		pIter->SetRow(mR);
-		pIter->SetCol(mC);
-
+			Board[r][c] = '.';
+			Board[mR][mC] = marker;
+			pIter->SetRow(mR);
+			pIter->SetCol(mC);
+		}
 		pIter = pIter->GetNext();
 	}
 	DrawBoard();
@@ -700,8 +767,11 @@ void BunnyFarm::AddBunny(bool birth, int momR, int momC)
 		}
 		else
 		{
-			r = ::getRandNum(0, MAX_BOARD_ROW - 1);
-			c = ::getRandNum(0, MAX_BOARD_COL - 1);
+			r = momR;
+			c = momC;
+			// below lines are for regular program. above lines are for testing only
+			//r = ::getRandNum(0, MAX_BOARD_ROW - 1);
+			//c = ::getRandNum(0, MAX_BOARD_COL - 1);
 			found = true;
 		}
 		goodCoords = CheckCoords(r, c);
