@@ -38,6 +38,7 @@ using namespace std;
 // prototypes
 int getRandNum(int min, int max); 
 char getRandomSex(int age);
+bool isRMVB();
 
 void Gotoxy(int x, int y)   //moves the cursor in the console window x = column, y = row
 {
@@ -51,12 +52,14 @@ void Gotoxy(int x, int y)   //moves the cursor in the console window x = column,
 class Bunny
 {
 public:
-	Bunny(const string& name = "", const int& age = 0, const char& sex = ' ', const int& r = 0, const int& c = 0);
+	Bunny(const string& name = "", const int& age = 0, const char& sex = ' ', const bool& isRMVB = false, const int& r = 0, const int& c = 0);
 	string GetName() const;
 	int GetAge() const;
 	void SetAge(int age);
 	char GetSex() const;
 	void SetSex(char sex);
+	bool GetRMVB() const;
+	void SetRMVB(bool isRMVB);
 	int GetRow() const;
 	void SetRow(int r);
 	int GetCol() const;
@@ -77,10 +80,11 @@ private:
 	Bunny*         m_pNext;   // pointer to next bunny in the list
 };
 
-Bunny::Bunny(const string& name, const int& age, const char& sex, const int& r, const int& c) : // constructor used to assign the name passed to the class to m_Name
+Bunny::Bunny(const string& name, const int& age, const char& sex, const bool& isRMVB, const int& r, const int& c) : // constructor used to assign the name passed to the class to m_Name
 	m_Name(name),
 	m_Age(age),
 	m_Sex(sex),
+	m_IsRMVB(isRMVB),
 	m_Row(r),
 	m_Col(c),
 	m_pNext(0)
@@ -109,6 +113,16 @@ char Bunny::GetSex() const
 void Bunny::SetSex(char sex)
 {
 	m_Sex = sex;
+}
+
+bool Bunny::GetRMVB() const
+{
+	return m_IsRMVB;
+}
+
+void Bunny::SetRMVB(bool isRMVB)
+{
+	m_IsRMVB = isRMVB;
 }
 
 int Bunny::GetRow() const
@@ -227,7 +241,8 @@ void BunnyFarm::TakeTurn()
 		MoveAllBunnies();
 		BreedBunnies();
 		AdvBunnyAges();
-		CheckForBunnyDeaths();		
+		CheckForBunnyDeaths();
+		s_NumOfTurns += 1;
 	}
 
 	UpdateStats();
@@ -790,6 +805,7 @@ void BunnyFarm::AddBunny(bool birth, int momR, int momC)
 	string name;
 	int age;
 	char sex;
+	bool isRMVB = false;
 	int r, c;
 	bool goodCoords = false;
 	//bool found = false;
@@ -823,6 +839,13 @@ void BunnyFarm::AddBunny(bool birth, int momR, int momC)
 
 	sex = ::getRandomSex(age);
 
+	if (::isRMVB())
+	{
+		sex = 'X';
+		isRMVB = true;
+	}
+
+
 	while (!goodCoords)
 	{
 		if (birth)
@@ -850,7 +873,7 @@ void BunnyFarm::AddBunny(bool birth, int momR, int momC)
 
 
 
-	Bunny* pNewBunny = new Bunny(name, age, sex, r, c); // instantiate a new Bunny object on the heap, setting the object's pointer data member to 0 (null)
+	Bunny* pNewBunny = new Bunny(name, age, sex, isRMVB, r, c); // instantiate a new Bunny object on the heap, setting the object's pointer data member to 0 (null)
 
 	// if list is empty, make head of list this new bunny
 	if (m_pHead == 0)
@@ -941,40 +964,40 @@ void BunnyFarm::DelBunny(Bunny* delThisBunny, Bunny* prevBunny)
 	//prevBunny->SetNext(pTemp->GetNext());
 	//m_pHead = m_pHead->GetNext();   // sets m_pHead to the next bunny in the list
 
-	/*if (pTemp->GetAge() > 1)
-	{
-		if (pTemp->GetSex() == 'M')
-		{
-			s_NumAdultMales -= 1;
-			s_NumMales -= 1;
-		}
-		else if (pTemp->GetSex() == 'F')
-		{
-			s_NumAdultFemales -= 1;
-			s_NumFemales -= 1;
-		}
-		else
-		{
-			s_NumRMVB -= 1;
-		}
-	}
-	else
-	{
-		if (pTemp->GetSex() == 'm')
-		{
-			s_NumJuvMales -= 1;
-			s_NumMales -= 1;
-		}
-		else if (pTemp->GetSex() == 'f')
-		{
-			s_NumJuvFemales -= 1;
-			s_NumFemales -= 1;
-		}
-		else
-		{
-			s_NumRMVB -= 1;
-		}
-	}*/
+	//if (pTemp->GetAge() > 1)
+	//{
+	//	if (pTemp->GetSex() == 'M')
+	//	{
+	//		s_NumAdultMales -= 1;
+	//		s_NumMales -= 1;
+	//	}
+	//	else if (pTemp->GetSex() == 'F')
+	//	{
+	//		s_NumAdultFemales -= 1;
+	//		s_NumFemales -= 1;
+	//	}
+	//	else
+	//	{
+	//		s_NumRMVB -= 1;
+	//	}
+	//}
+	//else
+	//{
+	//	if (pTemp->GetSex() == 'm')
+	//	{
+	//		s_NumJuvMales -= 1;
+	//		s_NumMales -= 1;
+	//	}
+	//	else if (pTemp->GetSex() == 'f')
+	//	{
+	//		s_NumJuvFemales -= 1;
+	//		s_NumFemales -= 1;
+	//	}
+	//	else
+	//	{
+	//		s_NumRMVB -= 1;
+	//	}
+	//}
 
 	delete pTemp;                   // destroys the Bunny object pointed to by pTemp
 	
@@ -1044,6 +1067,7 @@ ostream& operator<<(ostream& os, BunnyFarm& aBunnyFarm)
 	string name;
 	int age;
 	char sex;
+	bool isRMVB;
 	int row;
 	int col;
 	int& r = aBunnyFarm.oRow;
@@ -1063,10 +1087,17 @@ ostream& operator<<(ostream& os, BunnyFarm& aBunnyFarm)
 			name = pIter->GetName();
 			age = pIter->GetAge();
 			sex = pIter->GetSex();
+			isRMVB = pIter->GetRMVB();
 			row = pIter->GetRow();
 			col = pIter->GetCol();
 
-			Gotoxy(c, r); os << setw(12) << name << " " << setw(3) << age << " " << setw(3) << sex << " " << setw(2) << row << "," << setw(2) << col << endl;
+			//Gotoxy(c, r); os << setw(12) << name << " " << setw(3) << age << " " << setw(3) << sex << " " << setw(2) << row << "," << setw(2) << col << endl;
+			Gotoxy(c, r); os << setw(12) << name << " ";
+			os << setw(3) << age << " ";
+			os << setw(3) << sex << " ";
+			os << setw(6) << boolalpha << isRMVB << " ";
+			os << setw(2) << row << "," << setw(2) << col << endl;
+			
 			r++;
 			pIter = pIter->GetNext();
 		}
@@ -1079,6 +1110,12 @@ ostream& operator<<(ostream& os, BunnyFarm& aBunnyFarm)
 int getRandNum(int min, int max)
 {
 	return min + (rand() % (int)(max - min + 1));
+}
+
+bool isRMVB()
+{
+	const int RMVB_PERCENT = 2;
+	return (rand() % 100) < RMVB_PERCENT; // returns true RMVB_PERCENT of the time
 }
 
 char getRandomSex(int age)
