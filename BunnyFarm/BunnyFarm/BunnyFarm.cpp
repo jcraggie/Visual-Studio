@@ -1184,11 +1184,15 @@ void BunnyFarm::CheckForBunnyDeaths()
 	Bunny* pPrev = m_pHead;
 
 	int age;
+	char sex;
 	if (pThis == 0)
 		return;
 	while (pThis != 0)
 	{
-		while ( (pThis->GetAge() == 10 && pThis->GetSex() != 'X') || (pThis->GetAge() == 50 && pThis->GetSex() == 'X') )
+		age = pThis->GetAge();
+		sex = pThis->GetSex();
+
+		while ( (age == 10 && sex != 'X') || (age == 50 && sex == 'X') )
 		{
 			DelFirstBunny();
 			pThis = m_pHead;
@@ -1202,7 +1206,9 @@ void BunnyFarm::CheckForBunnyDeaths()
 		while (pThis != 0)
 		{
 			age = pThis->GetAge();
-			if (age == 10)
+			sex = pThis->GetSex();
+
+			if ( (age == 10 && sex != 'X') || (age == 50 && sex == 'X') )
 			{
 				pPrev->SetNext(pThis->GetNext()); // set prev bunny's next to this bunny's next
 				DelBunny(pThis, pPrev);
