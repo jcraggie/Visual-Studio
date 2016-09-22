@@ -176,6 +176,9 @@ public:
 	int s_NumRMVB;
 	int s_TotalBunnies;
 	int s_NumOfTurns;
+	vector<int> RowsToChange; // row nums to change to RMVB - corresponds to col vector below
+	vector<int> ColsToChange; // col nums to change to RMVB - corresponds to row vector above
+	vector<Bunny*> ChangeToRMVB;
 
 
 
@@ -195,8 +198,10 @@ public:
 	void DelBunny(Bunny* delThisBunny, Bunny* prevBunny);     // deletes a bunny
 	void MoveAllBunnies(); // move all bunnies in a random direction
 	bool CheckNewCoords(int mR, int mC); // checks new coordinates for valid coords
+	bool CheckRMVBCoords(int mR, int mC); // checks new coordinates for valid RMVB conversion of bunny
 	void CheckForBunnyDeaths(); // checks all bunnies for age 10. if 10, remove them from the list and board
 	void BreedBunnies(); // reproduce bunnies based on number of adult males and females. requires at least 1 adult male and 1 adult female.
+	void ConvertRMVBs(); // convert bunnies adjacent to existing RMVBs to RMVBs
 	void ClearFarm();   // clearFarm removes all the bunny objects from the farm list, freeing the allocated memory
 	void ListBunnies(BunnyFarm& rMyBunnyFarm); // lists all the bunnies and their attributes
 	void PrintStats();
@@ -204,8 +209,9 @@ public:
 	void TakeTurn(); // move all bunnies, advance ages, check for deaths, breed
 	void UpdateStats(); // update all the statistics
 	//bool FindCoords(int r, int c, int& mR, int& mC); // replacing this fx with GetAdjCoords
-	bool GetAdjCoords(int r, int c, int& mR, int& mC); // used to find empty adj coords from given coords
+	bool GetAdjCoords(bool checkingForRMVB, int r, int c, int& mR, int& mC); // used to find empty adj coords from given coords
 	bool AnyBlanksAroundBunny(int r, int c); // test to see if there are any blank spaces around bunny
+	bool AnyBunnyAroundRMVB(int r, int c); // test to see if there are any bunnies around an RMVB bunny
 
 private:
 	Bunny* m_pHead;     // pointer to a Bunny object which represents the first bunny in the list
@@ -238,10 +244,16 @@ void BunnyFarm::TakeTurn()
 
 	for (int i = 0; i < numTurns; ++i)
 	{
+		ConvertRMVBs();
+		Gotoxy(c, r); cout << "Just updated RVMBs.Press key to update board."; cin.get(); r++;
+		DrawBoard();
+		Gotoxy(c, r); cout << "Updated board. Press any key to continue turn."; cin.get(); r++;
 		MoveAllBunnies();
+		
 		BreedBunnies();
 		AdvBunnyAges();
 		CheckForBunnyDeaths();
+
 		s_NumOfTurns += 1;
 	}
 
@@ -282,6 +294,91 @@ void BunnyFarm::BreedBunnies()
 
 	UpdateStats();
 }
+
+void BunnyFarm::ConvertRMVBs()
+{
+	Bunny* pIter = m_pHead;
+	
+	bool okToBreed = false;
+	int rmvbR, rmvbC;
+	int adjR, adjC;
+	bool birth = true;
+	bool findAdjRMVB = false;
+
+	RowsToChange.clear();
+	ColsToChange.clear();
+	ChangeToRMVB.clear();
+	if (s_NumRMVB > 0)
+	{
+		
+
+		while (pIter != 0)
+		{
+			if (pIter->GetSex() == 'X')
+			{
+				rmvbR = pIter->GetRow();
+				rmvbC = pIter->GetCol();
+				findAdjRMVB = AnyBunnyAroundRMVB(rmvbR, rmvbC);
+				if (findAdjRMVB)
+				{
+					adjR = rmvbR;
+					adjC = rmvbC;
+					GetAdjCoords(true, rmvbR, rmvbC, adjR, adjC); // using true since checking for RMVB situation and not bunny situation
+					// need to find the pIter of the chosen bunny to change to RMVB... maybe try to match the coords found above?
+					Bunny* rmvbIter = m_pHead;
+					while (rmvbIter != 0)
+					{
+						if (rmvbIter->GetRow() == adjR)
+							if (rmvbIter->GetCol() == adjC)
+							{
+								int& r = oRow;
+								int c = oCol;
+								// found iter of adj bunny based on coords.... update this one to RMVB
+								//rmvbIter->SetSex('X');
+								//rmvbIter->SetRMVB(true);
+								//Board[adjR][adjC] = 'X';
+								// above is not best. save the vector of bunny pointers and update them once all have been identified
+								ChangeToRMVB.push_back(rmvbIter);
+								Gotoxy(c, r); cout << "Just pushed..." << endl; r++;
+								//RowsToChange.push_back(adjR);
+								//ColsToChange.push_back(adjC);
+							}
+						rmvbIter = rmvbIter->GetNext();
+					}
+					//pIter->SetSex('X');
+					//pIter->SetRMVB(true);
+					//pIter->SetRow(adjR);
+					//pIter->SetCol(adjC);
+					//Board[adjR][adjC] = 'X';
+				}
+			}
+
+			pIter = pIter->GetNext();
+		}
+		int iR, iC; // use these to iterate through the vectors and change the bunnies at iR,iC to RMVB
+		int numBunniesToChange = ChangeToRMVB.size();
+		int& r = oRow;
+		int c = oCol;
+		Gotoxy(c, r); cout << "Changing " << numBunniesToChange << " bunnies to RMVB." << endl; r++;
+		for (int i = 0; i < numBunniesToChange; ++i)
+		{
+			iR = ChangeToRMVB[i]->GetRow();
+			iC = ChangeToRMVB[i]->GetCol();
+			Gotoxy(c, r); cout << "Changing " << iR << "," << iC << " to RVMB" << endl; r++;
+			ChangeToRMVB[i]->SetSex('X');
+			ChangeToRMVB[i]->SetRMVB(true);
+			Board[iR][iC] = 'X';
+			
+		}
+		UpdateStats();
+	}
+	//else
+	//	return;
+
+
+	UpdateStats();
+}
+
 
 void BunnyFarm::UpdateStats()
 {
@@ -461,7 +558,28 @@ bool BunnyFarm::CheckNewCoords(int mR, int mC)
 	}
 }
 
-bool BunnyFarm::GetAdjCoords(int momR, int momC, int& adjR, int& adjC)
+bool BunnyFarm::CheckRMVBCoords(int mR, int mC)
+{
+	if (mR < 0 || mR >= MAX_BOARD_ROW || mC < 0 || mC >= MAX_BOARD_COL) // if the coordinates are outside the bounds of the board
+	{
+		return false;
+	}
+	else
+	{
+		if (Board[mR][mC] == '.' || Board[mR][mC] == 'X')
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
+}
+
+
+
+bool BunnyFarm::GetAdjCoords(bool checkingForRMVB, int momR, int momC, int& adjR, int& adjC)
 {
 	// assume that the coordinates of the mom DO have a blank space around them. no need to test for that.
 	// given mom's r,c coords, find adj blank adjR and adjC coords
@@ -469,8 +587,11 @@ bool BunnyFarm::GetAdjCoords(int momR, int momC, int& adjR, int& adjC)
 	bool triedUp = false, triedDown = false, triedLeft = false, triedRight = false;
 	bool triedAllDirections = false;
 	int checkR, checkC;
+	bool checkCoords = false;
 	bool found = false;
 	int direction;
+	int& r = oRow;
+	int c = oCol;
 
 	do
 	{
@@ -500,8 +621,21 @@ bool BunnyFarm::GetAdjCoords(int momR, int momC, int& adjR, int& adjC)
 		default:
 			break;
 		}
-		if (CheckNewCoords(checkR, checkC)) // if proposed coords are valid then
+
+		if (checkingForRMVB)
 		{
+			Gotoxy(c, r); cout << "Checking coords " << checkR << "," << checkC << endl; r++;
+			checkCoords = CheckRMVBCoords(checkR, checkC);
+		}
+		else 
+			checkCoords = CheckNewCoords(checkR, checkC);
+
+
+
+		if (checkCoords) // if proposed coords are valid then
+		{
+			if (checkingForRMVB)
+				Gotoxy(c, r); cout << "Changing" << momR << "," << momC << " to RMVB " << checkR << "," << checkC << endl; r++;
 			found = true; // valid coords have been found!
 		}
 		else if (triedUp && triedDown && triedLeft && triedRight)
@@ -514,8 +648,8 @@ bool BunnyFarm::GetAdjCoords(int momR, int momC, int& adjR, int& adjC)
 	} while (!found && !triedAllDirections);
 	if (found = true)
 	{
-		adjR = checkR;
-		adjC = checkC;
+		adjR = checkR; // returns reference
+		adjC = checkC; // returns reference
 		return true;
 	}
 	else
@@ -618,6 +752,43 @@ bool BunnyFarm::AnyBlanksAroundBunny(int r, int c)
 	return found;
 }
 
+bool BunnyFarm::AnyBunnyAroundRMVB(int r, int c)
+{
+	bool found = false;
+	if (r + 1 < MAX_BOARD_ROW)
+	{
+		if (Board[r + 1][c] != '.' && Board[r + 1][c] != 'X')
+		{
+			found = true;
+		}
+		else if (r - 1 >= 0)
+		{
+			if (Board[r - 1][c] != '.' && Board[r - 1][c] != 'X')
+			{
+				found = true;
+			}
+
+			else if (c + 1 < MAX_BOARD_COL)
+			{
+				if (Board[r][c + 1] != '.' && Board[r][c + 1] != 'X')
+				{
+					found = true;
+				}
+				else if (c - 1 >= 0)
+				{
+					if (Board[r][c - 1] != '.' && Board[r][c - 1] != 'X')
+					{
+						found = true;
+					}
+				}
+			}
+		}
+	}
+	else
+		found = false;
+
+	return found;
+}
 
 
 
@@ -643,7 +814,7 @@ void BunnyFarm::MoveAllBunnies()
 			mR = r;
 			mC = c;
 			marker = pIter->GetSex();
-			GetAdjCoords(r, c, mR, mC);
+			GetAdjCoords(false, r, c, mR, mC); // false is for checking RMVBs
 			Board[r][c] = '.';
 			Board[mR][mC] = marker;
 			pIter->SetRow(mR);
@@ -852,7 +1023,7 @@ void BunnyFarm::AddBunny(bool birth, int momR, int momC)
 		{
 			r = momR;
 			c = momC;
-			GetAdjCoords(momR, momC, r, c);
+			GetAdjCoords(false, momR, momC, r, c);
 		}
 		else
 		{
@@ -1017,7 +1188,7 @@ void BunnyFarm::CheckForBunnyDeaths()
 		return;
 	while (pThis != 0)
 	{
-		while (pThis->GetAge() == 10)
+		while ( (pThis->GetAge() == 10 && pThis->GetSex() != 'X') || (pThis->GetAge() == 50 && pThis->GetSex() == 'X') )
 		{
 			DelFirstBunny();
 			pThis = m_pHead;
@@ -1114,7 +1285,7 @@ int getRandNum(int min, int max)
 
 bool isRMVB()
 {
-	const int RMVB_PERCENT = 2;
+	const int RMVB_PERCENT = 10;
 	return (rand() % 100) < RMVB_PERCENT; // returns true RMVB_PERCENT of the time
 }
 
