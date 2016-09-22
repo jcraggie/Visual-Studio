@@ -189,7 +189,8 @@ public:
 	void ClearOutput(); // clears the output side
 	void TakeTurn(); // move all bunnies, advance ages, check for deaths, breed
 	void UpdateStats(); // update all the statistics
-	bool FindCoords(int r, int c, int& mR, int& mC);
+	//bool FindCoords(int r, int c, int& mR, int& mC); // replacing this fx with GetAdjCoords
+	bool GetAdjCoords(int r, int c, int& mR, int& mC); // used to find empty adj coords from given coords
 	bool AnyBlanksAroundBunny(int r, int c); // test to see if there are any blank spaces around bunny
 
 private:
@@ -240,6 +241,7 @@ void BunnyFarm::BreedBunnies()
 	bool okToBreed = false;
 	int momR, momC;
 	bool birth = true;
+	bool ableToGiveBirth = false;
 
 	if (s_NumAdultMales >= 1 && s_NumAdultFemales >= 1)
 	{
@@ -249,9 +251,12 @@ void BunnyFarm::BreedBunnies()
 			{
 				momR = pIter->GetRow();
 				momC = pIter->GetCol();
-				AddBunny(birth, momR, momC);
+				ableToGiveBirth = AnyBlanksAroundBunny(momR, momC);
+				if (ableToGiveBirth)
+				{
+					AddBunny(birth, momR, momC);
+				}
 			}
-
 
 			pIter = pIter->GetNext();
 		}
@@ -375,16 +380,16 @@ void BunnyFarm::InitStats()
 
 void BunnyFarm::InitBunnies()
 {
-	//for (int i = 0; i < 5; ++i)
-	//{
-	//	AddBunny(false,0,0);
-	//}
+	for (int i = 0; i < 5; ++i)
+	{
+		AddBunny(false,0,0);
+	}
 	// above lines are correct. below lines are for testing only.
-	AddBunny(false, 10, 10);
-	AddBunny(false, 9, 10);
-	AddBunny(false, 11, 10);
-	AddBunny(false, 10, 9);
-	AddBunny(false, 10, 11);
+	//AddBunny(false, 10, 10);
+	//AddBunny(false, 9, 10);
+	//AddBunny(false, 11, 10);
+	//AddBunny(false, 10, 9);
+	//AddBunny(false, 10, 11);
 	UpdateStats();
 }
 
@@ -441,19 +446,22 @@ bool BunnyFarm::CheckNewCoords(int mR, int mC)
 	}
 }
 
-bool BunnyFarm::FindCoords(int r, int c, int& mR, int& mC)
+bool BunnyFarm::GetAdjCoords(int momR, int momC, int& adjR, int& adjC)
 {
+	// assume that the coordinates of the mom DO have a blank space around them. no need to test for that.
+	// given mom's r,c coords, find adj blank adjR and adjC coords
+
 	bool triedUp = false, triedDown = false, triedLeft = false, triedRight = false;
 	bool triedAllDirections = false;
 	int checkR, checkC;
 	bool found = false;
-	//char marker;
 	int direction;
 
 	do
 	{
-		checkR = r;
-		checkC = c;
+		checkR = momR;
+		checkC = momC;
+
 		direction = ::getRandNum(0, 3);
 
 		switch (direction)
@@ -487,28 +495,75 @@ bool BunnyFarm::FindCoords(int r, int c, int& mR, int& mC)
 			found = false;
 			return false;
 		}
-		
+
 	} while (!found && !triedAllDirections);
 	if (found = true)
 	{
-		mR = checkR;
-		mC = checkC;
+		adjR = checkR;
+		adjC = checkC;
 		return true;
 	}
 	else
 		return false;
-
-
-	// testing code below to replace code above
-
-
-
-
-
-
-
-
 }
+
+//bool BunnyFarm::FindCoords(int r, int c, int& mR, int& mC)
+//{
+//	bool triedUp = false, triedDown = false, triedLeft = false, triedRight = false;
+//	bool triedAllDirections = false;
+//	int checkR, checkC;
+//	bool found = false;
+//	//char marker;
+//	int direction;
+//
+//	do
+//	{
+//		checkR = r;
+//		checkC = c;
+//		direction = ::getRandNum(0, 3);
+//
+//		switch (direction)
+//		{
+//		case 0:
+//			triedUp = true;
+//			checkR -= 1;
+//			break;
+//		case 1:
+//			triedDown = true;
+//			checkR += 1;
+//			break;
+//		case 2:
+//			triedLeft = true;
+//			checkC -= 1;
+//			break;
+//		case 3:
+//			triedRight = true;
+//			checkC += 1;
+//			break;
+//		default:
+//			break;
+//		}
+//		if (CheckNewCoords(checkR, checkC)) // if proposed coords are valid then
+//		{
+//			found = true; // valid coords have been found!
+//		}
+//		else if (triedUp && triedDown && triedLeft && triedRight)
+//		{
+//			triedAllDirections = true;
+//			found = false;
+//			return false;
+//		}
+//		
+//	} while (!found && !triedAllDirections);
+//	if (found = true)
+//	{
+//		mR = checkR;
+//		mC = checkC;
+//		return true;
+//	}
+//	else
+//		return false;
+//}
 
 bool BunnyFarm::AnyBlanksAroundBunny(int r, int c)
 {
@@ -570,15 +625,10 @@ void BunnyFarm::MoveAllBunnies()
 
 		if (AnyBlanksAroundBunny(r, c))
 		{
-			do
-			{
-				mR = r;
-				mC = c;
-				marker = pIter->GetSex();
-				direction = ::getRandNum(0, 3);
-				FindCoords(r, c, mR, mC);
-			} while (!FindCoords(r, c, mR, mC));
-
+			mR = r;
+			mC = c;
+			marker = pIter->GetSex();
+			GetAdjCoords(r, c, mR, mC);
 			Board[r][c] = '.';
 			Board[mR][mC] = marker;
 			pIter->SetRow(mR);
@@ -715,6 +765,8 @@ void BunnyFarm::MainMenu()
 void BunnyFarm::AddBunny(bool birth, int momR, int momC)
 {
 	// create a new bunny node
+	// if birth is true, then coords are next to mom's
+	// if birth is false, then coords are random
 
 	int min = 0, maxNames = 13;
 	int rnd;
@@ -740,11 +792,25 @@ void BunnyFarm::AddBunny(bool birth, int momR, int momC)
 	char sex;
 	int r, c;
 	bool goodCoords = false;
-	bool found = false;
+	//bool found = false;
+	bool canGiveBirth = false;
 	
+	if (birth)
+	{
+		canGiveBirth = AnyBlanksAroundBunny(momR, momC);
+		if (canGiveBirth)
+		{
+
+		}
+		else
+			return; // unable to give birth
+	}
+
+	// continue adding bunny since either canGiveBirth or this is not a birth, but a random bunny
 
 	rnd = ::getRandNum(min, maxNames);	
 	name = bunnyNames[rnd]; // assign a random name from list of names
+
 	if (birth) // if true, then this is a birth and age should be 0
 	{
 		age = 0;
@@ -763,21 +829,21 @@ void BunnyFarm::AddBunny(bool birth, int momR, int momC)
 		{
 			r = momR;
 			c = momC;
-			found = FindCoords(momR, momC, r, c);
+			GetAdjCoords(momR, momC, r, c);
 		}
 		else
 		{
-			r = momR;
-			c = momC;
+			//r = momR;
+			//c = momC;
 			// below lines are for regular program. above lines are for testing only
-			//r = ::getRandNum(0, MAX_BOARD_ROW - 1);
-			//c = ::getRandNum(0, MAX_BOARD_COL - 1);
-			found = true;
+			r = ::getRandNum(0, MAX_BOARD_ROW - 1);
+			c = ::getRandNum(0, MAX_BOARD_COL - 1);
+			//found = true;
 		}
 		goodCoords = CheckCoords(r, c);
 	}
-	if (!found)
-		return;
+	//if (!found)
+	//	return;
 	Board[r][c] = sex; // update the board
 	Gotoxy(0, 0);
 	DrawBoard();
