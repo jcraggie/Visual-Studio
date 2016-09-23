@@ -178,7 +178,7 @@ void Bunny::SetNext(Bunny* next)
 class BunnyFarm
 {
 	friend ostream& operator<<(ostream& os, BunnyFarm& aBunnyFarm);
-	friend ostream& operator<<(ostream& oStats, BunnyFarm& aBunnyFarm);
+	//friend ostream& operator<<(ostream& oStats, BunnyFarm& aBunnyFarm);
 
 public:
 	BunnyFarm();        // constructor
@@ -259,15 +259,22 @@ void BunnyFarm::CullBunnyFluffle()
 	int totalToCull = s_TotalBunnies / 2;
 	int tBunnies = totalToCull;
 	int cullBunnyNum;
+	int&r = oRow;
+	int c = oCol;
+
+	//Gotoxy(c, r); cout << "Culling " << totalToCull << " bunnies." << endl; r++;
 
 	for (int i = 0; i < totalToCull; ++i)
 	{
+		
 		cullBunnyNum = getRandNum(0, tBunnies); // get a random # between 0 and tBunnies, which is the running total of the number of bunnies left
+		//Gotoxy(c, r); cout << "     Random # " << cullBunnyNum << " picked." << endl; r++;
 		for (int j = 0; j < cullBunnyNum - 1; ++j) // using cullBunnyNum - 1 to get the PREVIOUS bunny. this way I can link previous to next easily
 		{
 			pPrev = pPrev->GetNext();
+			//Gotoxy(c, r); cout << "Getting bunny " << j << " as pPrev. getNext will return " << j + 1 << endl; r++;
 		}
-
+		//Gotoxy(c, r); cout << "     cullBunnyNum is " << cullBunnyNum << " and -1 is " << cullBunnyNum - 1 << endl; r++;
 		pThis = pPrev->GetNext();
 		pPrev->SetNext(pThis->GetNext());
 		int delR, delC;
@@ -276,11 +283,14 @@ void BunnyFarm::CullBunnyFluffle()
 		Board[delR][delC] = '.';
 		delete pThis;
 		tBunnies -= 1; // decrease tBunnies since we killed one.
-	}
+		//Gotoxy(c, r); cout << "tBunnies (total bunnes left to cull) is now " << tBunnies << endl; r++;
 
+		pThis = m_pHead;
+		pPrev = m_pHead;
+	}
+	//Gotoxy(c, r); cout << "press any key..."; cin.get(); r++;
 	DrawBoard();
 	UpdateStats();
-
 }
 
 void BunnyFarm::TakeTurn()
