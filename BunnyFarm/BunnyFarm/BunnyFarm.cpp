@@ -5,13 +5,14 @@
 // 2016-09-20 pm - working on BreedBunnies()
 // 2016-09-22 latest update - all appears to be working; tons of debugging cin and cout; 
 //            TO DO LIST
-//            Cull at 1000 bunnies/RMVB (population)
-//            Cull menu item
 //            Menu to auto play to end
 //            remove all debugging items and unneeded comments
-//            BONUS - learn to write info to a file to play back later
+//
 //            BONUS - add 3rd column for output log ( bunny born, bunny died, bunny turned into rmvb, bunnies moved, etc.
 //                    keep detailed log in vector<string> and output 3rd column is short (bred 3 bunnies, killed 10 bunnies, etc.)
+//            BONUS - learn to write info to a file to play back later
+
+// output menu column is 90 - 135. start log column at 140
 
 // how to cull
 // when total bunnies = 1000 or menu item is executed, randomly kill 1/2 of the population (total bunnies / 2)
@@ -198,10 +199,14 @@ public:
 	vector<int> RowsToChange; // row nums to change to RMVB - corresponds to col vector below
 	vector<int> ColsToChange; // col nums to change to RMVB - corresponds to row vector above
 	vector<Bunny*> ChangeToRMVB;
+	vector<string> BunnyLog;
 
 	char Board[MAX_BOARD_ROW][MAX_BOARD_COL]; // 80 x 80 game board
 	int  oRow;          // output row
 	const int oCol = 90;           // output col
+	const int lCol = 140;          // log output col
+	int lRow;          // log output row
+
 
 	void InitBoard();   // initialize game board with '.'
 	void DrawBoard();   // draw the game board;
@@ -229,6 +234,8 @@ public:
 	bool AnyBlanksAroundBunny(int r, int c); // test to see if there are any blank spaces around bunny
 	bool AnyBunnyAroundRMVB(int r, int c); // test to see if there are any bunnies around an RMVB bunny
 	void CullBunnyFluffle();
+	void CheckIfCullingNeeded(); // check to see if population has reached 1000. if so, cull bunnies
+	void SendInfoToLog(const string logEntry);
 
 private:
 	Bunny* m_pHead;     // pointer to a Bunny object which represents the first bunny in the list
@@ -247,12 +254,22 @@ BunnyFarm::BunnyFarm() :
 // calls clearFarm which removes all the bunny objects from the farm list, freeing the allocated memory
 BunnyFarm::~BunnyFarm()
 {
+	SendInfoToLog("Clearing the farm.");
 	ClearFarm();
+}
+
+void BunnyFarm::SendInfoToLog(const string logEntry)
+{
+	int& lR = lRow;
+	int lC = lCol;
+
+	BunnyLog.push_back(logEntry);
+	Gotoxy(lC, lR); cout << logEntry << endl; lR++;
+
 }
 
 void BunnyFarm::CullBunnyFluffle()
 {
-	//vector<Bunny*> vBunnies; // used to pick random bunnies
 	Bunny* pThis = m_pHead;
 	Bunny* pPrev = m_pHead;
 	//int i = 0;
@@ -262,19 +279,18 @@ void BunnyFarm::CullBunnyFluffle()
 	int&r = oRow;
 	int c = oCol;
 
-	//Gotoxy(c, r); cout << "Culling " << totalToCull << " bunnies." << endl; r++;
+	SendInfoToLog("Culling the farm of " + to_string(totalToCull) + ".");
 
 	for (int i = 0; i < totalToCull; ++i)
 	{
 		
 		cullBunnyNum = getRandNum(0, tBunnies); // get a random # between 0 and tBunnies, which is the running total of the number of bunnies left
-		//Gotoxy(c, r); cout << "     Random # " << cullBunnyNum << " picked." << endl; r++;
+
 		for (int j = 0; j < cullBunnyNum - 1; ++j) // using cullBunnyNum - 1 to get the PREVIOUS bunny. this way I can link previous to next easily
 		{
 			pPrev = pPrev->GetNext();
-			//Gotoxy(c, r); cout << "Getting bunny " << j << " as pPrev. getNext will return " << j + 1 << endl; r++;
 		}
-		//Gotoxy(c, r); cout << "     cullBunnyNum is " << cullBunnyNum << " and -1 is " << cullBunnyNum - 1 << endl; r++;
+
 		pThis = pPrev->GetNext();
 		pPrev->SetNext(pThis->GetNext());
 		int delR, delC;
@@ -283,15 +299,24 @@ void BunnyFarm::CullBunnyFluffle()
 		Board[delR][delC] = '.';
 		delete pThis;
 		tBunnies -= 1; // decrease tBunnies since we killed one.
-		//Gotoxy(c, r); cout << "tBunnies (total bunnes left to cull) is now " << tBunnies << endl; r++;
 
 		pThis = m_pHead;
 		pPrev = m_pHead;
 	}
-	//Gotoxy(c, r); cout << "press any key..."; cin.get(); r++;
+
 	DrawBoard();
 	UpdateStats();
 }
+
+void BunnyFarm::CheckIfCullingNeeded()
+{
+	if (s_TotalBunnies >= 1000)
+	{
+		CullBunnyFluffle();
+	}
+}
+
+
 
 void BunnyFarm::TakeTurn()
 {
@@ -304,11 +329,13 @@ void BunnyFarm::TakeTurn()
 
 	for (int i = 0; i < numTurns; ++i)
 	{
+		SendInfoToLog("Taking turn #" + to_string(i) + ".");
 		ConvertRMVBs();
 		MoveAllBunnies();		
 		BreedBunnies();
 		AdvBunnyAges();
 		CheckForBunnyDeaths();
+		CheckIfCullingNeeded();
 
 		s_NumOfTurns += 1;
 	}
@@ -406,6 +433,7 @@ void BunnyFarm::ConvertRMVBs()
 		{
 			iR = ChangeToRMVB[i]->GetRow();
 			iC = ChangeToRMVB[i]->GetCol();
+			SendInfoToLog("Converting " + ChangeToRMVB[i]->GetName() + " at " + to_string(iR) + "," + to_string(iC) + " to RMVB.");
 			ChangeToRMVB[i]->SetSex('X');
 			ChangeToRMVB[i]->SetRMVB(true);
 			Board[iR][iC] = 'X';
@@ -472,6 +500,7 @@ void BunnyFarm::UpdateStats()
 		pIter = pIter->GetNext();
 	}
 
+	SendInfoToLog("Updating the statistics.");
 }
 
 void BunnyFarm::PrintStats()
@@ -526,6 +555,8 @@ void BunnyFarm::InitStats()
 	s_NumRMVB = 0;
 	s_TotalBunnies = 0;
 	s_NumOfTurns = 0;
+
+	SendInfoToLog("Initializing the statistics.");
 }
 
 void BunnyFarm::InitBunnies()
@@ -540,6 +571,7 @@ void BunnyFarm::InitBunnies()
 	//AddBunny(false, 11, 10);
 	//AddBunny(false, 10, 9);
 	//AddBunny(false, 10, 11);
+	SendInfoToLog("Initializing the bunnies.");
 	UpdateStats();
 }
 
@@ -575,6 +607,7 @@ void BunnyFarm::AdvBunnyAges()
 
 		pIter = pIter->GetNext();
 	}
+	SendInfoToLog("Advancing the ages of all bunnies.");
 }
 
 bool BunnyFarm::CheckNewCoords(int mR, int mC)
@@ -799,6 +832,7 @@ void BunnyFarm::MoveAllBunnies()
 		}
 		pIter = pIter->GetNext();
 	}
+	SendInfoToLog("Moving all bunnies to an adjacent space.");
 	DrawBoard();
 }
 
@@ -811,7 +845,7 @@ void BunnyFarm::ClearOutput()
 
 	for (int i = 0; i < 82; ++i)
 	{
-		Gotoxy(c, r); cout << "                                           " << endl; r++;
+		Gotoxy(c, r); cout << "                                             " << endl; r++;
 	}
 	r = 0; // reset output row
 }
@@ -823,6 +857,7 @@ void BunnyFarm::ListBunnies(BunnyFarm& rMyBunnyFarm)
 
 	r = 0;
 	ClearOutput();
+	SendInfoToLog("Printing the bunny list.");
 	Gotoxy(c, r); cout << rMyBunnyFarm; r++; r++;
 	Gotoxy(c, r); cout << "Press any key to continue..."; r++;
 	cin.get();
@@ -836,6 +871,8 @@ void BunnyFarm::InitBoard()
 	for (r = 0; r < MAX_BOARD_ROW; ++r)
 		for (c = 0; c < MAX_BOARD_COL; ++c)
 			Board[r][c] = '.';
+
+	SendInfoToLog("Initializing the game board.");
 }
 
 void BunnyFarm::DrawBoard()
@@ -882,6 +919,7 @@ void BunnyFarm::DrawBoard()
 	}
 	cout << "\n";
 
+	SendInfoToLog("Drawing the game board.");
 }
 
 bool BunnyFarm::CheckCoords(int r, int c)
@@ -1015,7 +1053,14 @@ void BunnyFarm::AddBunny(bool birth, int momR, int momC)
 	Gotoxy(0, 0);
 	DrawBoard();
 
-
+	if (birth)
+	{
+		SendInfoToLog("Birth: " + name + " " + to_string(age) + " " + sex + " " + to_string(isRMVB) + " " + to_string(r) + "," + to_string(c));
+	}
+	else
+	{
+		SendInfoToLog("Adding: " + name + " " + to_string(age) + " " + sex + " " + to_string(isRMVB) + " " + to_string(r) + "," + to_string(c));
+	}
 
 	Bunny* pNewBunny = new Bunny(name, age, sex, isRMVB, r, c); // instantiate a new Bunny object on the heap, setting the object's pointer data member to 0 (null)
 
@@ -1042,9 +1087,11 @@ void BunnyFarm::AddBunny(bool birth, int momR, int momC)
 // DelFirstBunny removes the bunny at the head of the list
 void BunnyFarm::DelFirstBunny()
 {
+	SendInfoToLog("Starting DelFirstBunny function.");
 	// test m_pHead. if it is 0, then the farm is empty
 	if (m_pHead == 0)
 	{
+		SendInfoToLog("The bunny farm is empty. No bunnies to delete!");
 		cout << "The Bunny Farm is empty. No bunnies to remove!" << endl;
 	}
 	else // otherwise, the first bunny in the list is removed.
@@ -1054,7 +1101,7 @@ void BunnyFarm::DelFirstBunny()
 		int c = pTemp->GetCol();
 		Board[r][c] = '.';
 		m_pHead = m_pHead->GetNext();   // sets m_pHead to the next bunny in the list
-
+		SendInfoToLog("Deleting " + pTemp->GetName() + " at coords " + to_string(pTemp->GetRow()) + "," + to_string(pTemp->GetCol()) + ".");
 		delete pTemp;                   // destroys the Bunny object pointed to by pTemp
 	}
 	UpdateStats();
@@ -1064,12 +1111,12 @@ void BunnyFarm::DelFirstBunny()
 // DelBunny removes the bunny at the head of the list
 void BunnyFarm::DelBunny(Bunny* delThisBunny, Bunny* prevBunny)
 {
-	
+	SendInfoToLog("Starting DelBunny function.");
 	Bunny* pTemp = delThisBunny;         // temp points to the first bunny in the list
 	int r = pTemp->GetRow();
 	int c = pTemp->GetCol();
 	Board[r][c] = '.';
-
+	SendInfoToLog("Deleting " + pTemp->GetName() + " at coords " + to_string(pTemp->GetRow()) + "," + to_string(pTemp->GetCol()) + ".");
 	delete pTemp;                   // destroys the Bunny object pointed to by pTemp
 	
 	UpdateStats();
@@ -1084,6 +1131,9 @@ void BunnyFarm::CheckForBunnyDeaths()
 
 	int age;
 	char sex;
+
+	SendInfoToLog("Starting CheckForBunnyDeaths function.");
+
 	if (pThis == 0)
 		return;
 	while (pThis != 0)
@@ -1093,6 +1143,7 @@ void BunnyFarm::CheckForBunnyDeaths()
 
 		while ( (age == 10 && sex != 'X') || (age == 50 && sex == 'X') )
 		{
+			SendInfoToLog("Deleting " + pThis->GetName() + " at coords " + to_string(pThis->GetRow()) + "," + to_string(pThis->GetCol()));
 			DelFirstBunny();
 			pThis = m_pHead;
 			if (pThis == 0)
@@ -1112,6 +1163,7 @@ void BunnyFarm::CheckForBunnyDeaths()
 			if ( (age == 10 && sex != 'X') || (age == 50 && sex == 'X') )
 			{
 				pPrev->SetNext(pThis->GetNext()); // set prev bunny's next to this bunny's next
+				SendInfoToLog("Deleting " + pThis->GetName() + " at coords " + to_string(pThis->GetRow()) + "," + to_string(pThis->GetCol()));
 				DelBunny(pThis, pPrev);
 			}
 			else
@@ -1130,6 +1182,7 @@ void BunnyFarm::ClearFarm()
 {
 	while (m_pHead != 0)
 	{
+		SendInfoToLog("Clearing the entire farm.");
 		DelFirstBunny();
 	}
 
