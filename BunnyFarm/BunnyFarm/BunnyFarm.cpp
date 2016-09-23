@@ -3,6 +3,23 @@
 // using concepts and ideas from Beginning C++ Through Game Programming 4th Edition by Michael Dawson
 // 
 // 2016-09-20 pm - working on BreedBunnies()
+// 2016-09-22 latest update - all appears to be working; tons of debugging cin and cout; 
+//            TO DO LIST
+//            Cull at 1000 bunnies/RMVB (population)
+//            Cull menu item
+//            Menu to auto play to end
+//            remove all debugging items and unneeded comments
+//            BONUS - learn to write info to a file to play back later
+//            BONUS - add 3rd column for output log ( bunny born, bunny died, bunny turned into rmvb, bunnies moved, etc.
+//                    keep detailed log in vector<string> and output 3rd column is short (bred 3 bunnies, killed 10 bunnies, etc.)
+
+// how to cull
+// when total bunnies = 1000 or menu item is executed, randomly kill 1/2 of the population (total bunnies / 2)
+// how to randomize killings..... 
+// maybe create vector of bunnies and pick (total bunnies/2) random iterations -- ?? how to create the vector - maybe pIter through list of bunnies
+// don't think the above is practical... lots of coding to update linked list
+// how about generating a random # between 0 and total bunnies, then pIter through the list rnd times, then DelBunny. Generate another # and repeat.
+// 2016-09-22 pm... working on cull routine
 
 
 #include "stdafx.h"
@@ -35,6 +52,8 @@ const int OUTPUT_COL    = 90;
 
 
 using namespace std;
+
+
 // prototypes
 int getRandNum(int min, int max); 
 char getRandomSex(int age);
@@ -180,8 +199,6 @@ public:
 	vector<int> ColsToChange; // col nums to change to RMVB - corresponds to row vector above
 	vector<Bunny*> ChangeToRMVB;
 
-
-
 	char Board[MAX_BOARD_ROW][MAX_BOARD_COL]; // 80 x 80 game board
 	int  oRow;          // output row
 	const int oCol = 90;           // output col
@@ -208,10 +225,10 @@ public:
 	void ClearOutput(); // clears the output side
 	void TakeTurn(); // move all bunnies, advance ages, check for deaths, breed
 	void UpdateStats(); // update all the statistics
-	//bool FindCoords(int r, int c, int& mR, int& mC); // replacing this fx with GetAdjCoords
 	bool GetAdjCoords(bool checkingForRMVB, int r, int c, int& mR, int& mC); // used to find empty adj coords from given coords
 	bool AnyBlanksAroundBunny(int r, int c); // test to see if there are any blank spaces around bunny
 	bool AnyBunnyAroundRMVB(int r, int c); // test to see if there are any bunnies around an RMVB bunny
+	void CullBunnyFluffle();
 
 private:
 	Bunny* m_pHead;     // pointer to a Bunny object which represents the first bunny in the list
@@ -233,6 +250,39 @@ BunnyFarm::~BunnyFarm()
 	ClearFarm();
 }
 
+void BunnyFarm::CullBunnyFluffle()
+{
+	//vector<Bunny*> vBunnies; // used to pick random bunnies
+	Bunny* pThis = m_pHead;
+	Bunny* pPrev = m_pHead;
+	//int i = 0;
+	int totalToCull = s_TotalBunnies / 2;
+	int tBunnies = totalToCull;
+	int cullBunnyNum;
+
+	for (int i = 0; i < totalToCull; ++i)
+	{
+		cullBunnyNum = getRandNum(0, tBunnies); // get a random # between 0 and tBunnies, which is the running total of the number of bunnies left
+		for (int j = 0; j < cullBunnyNum - 1; ++j) // using cullBunnyNum - 1 to get the PREVIOUS bunny. this way I can link previous to next easily
+		{
+			pPrev = pPrev->GetNext();
+		}
+
+		pThis = pPrev->GetNext();
+		pPrev->SetNext(pThis->GetNext());
+		int delR, delC;
+		delR = pThis->GetRow();
+		delC = pThis->GetCol();
+		Board[delR][delC] = '.';
+		delete pThis;
+		tBunnies -= 1; // decrease tBunnies since we killed one.
+	}
+
+	DrawBoard();
+	UpdateStats();
+
+}
+
 void BunnyFarm::TakeTurn()
 {
 	int numTurns = 0;
@@ -245,11 +295,7 @@ void BunnyFarm::TakeTurn()
 	for (int i = 0; i < numTurns; ++i)
 	{
 		ConvertRMVBs();
-		Gotoxy(c, r); cout << "Just updated RVMBs.Press key to update board."; cin.get(); r++;
-		DrawBoard();
-		Gotoxy(c, r); cout << "Updated board. Press any key to continue turn."; cin.get(); r++;
-		MoveAllBunnies();
-		
+		MoveAllBunnies();		
 		BreedBunnies();
 		AdvBunnyAges();
 		CheckForBunnyDeaths();
@@ -333,23 +379,10 @@ void BunnyFarm::ConvertRMVBs()
 							{
 								int& r = oRow;
 								int c = oCol;
-								// found iter of adj bunny based on coords.... update this one to RMVB
-								//rmvbIter->SetSex('X');
-								//rmvbIter->SetRMVB(true);
-								//Board[adjR][adjC] = 'X';
-								// above is not best. save the vector of bunny pointers and update them once all have been identified
 								ChangeToRMVB.push_back(rmvbIter);
-								Gotoxy(c, r); cout << "Just pushed..." << endl; r++;
-								//RowsToChange.push_back(adjR);
-								//ColsToChange.push_back(adjC);
 							}
 						rmvbIter = rmvbIter->GetNext();
 					}
-					//pIter->SetSex('X');
-					//pIter->SetRMVB(true);
-					//pIter->SetRow(adjR);
-					//pIter->SetCol(adjC);
-					//Board[adjR][adjC] = 'X';
 				}
 			}
 
@@ -359,12 +392,10 @@ void BunnyFarm::ConvertRMVBs()
 		int numBunniesToChange = ChangeToRMVB.size();
 		int& r = oRow;
 		int c = oCol;
-		Gotoxy(c, r); cout << "Changing " << numBunniesToChange << " bunnies to RMVB." << endl; r++;
 		for (int i = 0; i < numBunniesToChange; ++i)
 		{
 			iR = ChangeToRMVB[i]->GetRow();
 			iC = ChangeToRMVB[i]->GetCol();
-			Gotoxy(c, r); cout << "Changing " << iR << "," << iC << " to RVMB" << endl; r++;
 			ChangeToRMVB[i]->SetSex('X');
 			ChangeToRMVB[i]->SetRMVB(true);
 			Board[iR][iC] = 'X';
@@ -372,10 +403,7 @@ void BunnyFarm::ConvertRMVBs()
 		}
 		UpdateStats();
 	}
-	//else
-	//	return;
-
-
+	DrawBoard();
 	UpdateStats();
 }
 
@@ -624,7 +652,6 @@ bool BunnyFarm::GetAdjCoords(bool checkingForRMVB, int momR, int momC, int& adjR
 
 		if (checkingForRMVB)
 		{
-			Gotoxy(c, r); cout << "Checking coords " << checkR << "," << checkC << endl; r++;
 			checkCoords = CheckRMVBCoords(checkR, checkC);
 		}
 		else 
@@ -634,8 +661,6 @@ bool BunnyFarm::GetAdjCoords(bool checkingForRMVB, int momR, int momC, int& adjR
 
 		if (checkCoords) // if proposed coords are valid then
 		{
-			if (checkingForRMVB)
-				Gotoxy(c, r); cout << "Changing" << momR << "," << momC << " to RMVB " << checkR << "," << checkC << endl; r++;
 			found = true; // valid coords have been found!
 		}
 		else if (triedUp && triedDown && triedLeft && triedRight)
@@ -655,64 +680,6 @@ bool BunnyFarm::GetAdjCoords(bool checkingForRMVB, int momR, int momC, int& adjR
 	else
 		return false;
 }
-
-//bool BunnyFarm::FindCoords(int r, int c, int& mR, int& mC)
-//{
-//	bool triedUp = false, triedDown = false, triedLeft = false, triedRight = false;
-//	bool triedAllDirections = false;
-//	int checkR, checkC;
-//	bool found = false;
-//	//char marker;
-//	int direction;
-//
-//	do
-//	{
-//		checkR = r;
-//		checkC = c;
-//		direction = ::getRandNum(0, 3);
-//
-//		switch (direction)
-//		{
-//		case 0:
-//			triedUp = true;
-//			checkR -= 1;
-//			break;
-//		case 1:
-//			triedDown = true;
-//			checkR += 1;
-//			break;
-//		case 2:
-//			triedLeft = true;
-//			checkC -= 1;
-//			break;
-//		case 3:
-//			triedRight = true;
-//			checkC += 1;
-//			break;
-//		default:
-//			break;
-//		}
-//		if (CheckNewCoords(checkR, checkC)) // if proposed coords are valid then
-//		{
-//			found = true; // valid coords have been found!
-//		}
-//		else if (triedUp && triedDown && triedLeft && triedRight)
-//		{
-//			triedAllDirections = true;
-//			found = false;
-//			return false;
-//		}
-//		
-//	} while (!found && !triedAllDirections);
-//	if (found = true)
-//	{
-//		mR = checkR;
-//		mC = checkC;
-//		return true;
-//	}
-//	else
-//		return false;
-//}
 
 bool BunnyFarm::AnyBlanksAroundBunny(int r, int c)
 {
@@ -846,8 +813,7 @@ void BunnyFarm::ListBunnies(BunnyFarm& rMyBunnyFarm)
 
 	r = 0;
 	ClearOutput();
-	//Gotoxy(r, c); cout << "ListBunnies" << endl; r++;
-	Gotoxy(c, r); cout << rMyBunnyFarm; r++;
+	Gotoxy(c, r); cout << rMyBunnyFarm; r++; r++;
 	Gotoxy(c, r); cout << "Press any key to continue..."; r++;
 	cin.get();
 	ClearOutput();
@@ -855,8 +821,6 @@ void BunnyFarm::ListBunnies(BunnyFarm& rMyBunnyFarm)
 
 void BunnyFarm::InitBoard()
 {
-	//const int MAX_BOARD_ROW    = 79;
-	//const int MAX_BOARD_COL = 79;
 	int r, c;
 
 	for (r = 0; r < MAX_BOARD_ROW; ++r)
@@ -868,8 +832,6 @@ void BunnyFarm::DrawBoard()
 {
 	int r, c, i;
 
-	//system("cls"); // clear the screen and re-draw
-	//cout << endl;
 	::Gotoxy(0, 0);
 
 	for (i = 0; i < MAX_BOARD_COL; ++i)
@@ -943,6 +905,8 @@ void BunnyFarm::MainMenu()
 	Gotoxy(c, r); cout << "7 - Move all bunnies." << endl; r++;
 	Gotoxy(c, r); cout << "8 - Breed bunnies." << endl; r++;
 	Gotoxy(c, r); cout << "9 - Print stats." << endl; r++;
+	Gotoxy(c, r); cout << "I - Initialize bunnies." << endl; r++;
+	Gotoxy(c, r); cout << "K - Cull bunny farm." << endl; r++;
 	Gotoxy(c, r); cout << endl; r++;
 	Gotoxy(c, r); cout << "Enter your choice: "; r++;
 }
@@ -1036,8 +1000,7 @@ void BunnyFarm::AddBunny(bool birth, int momR, int momC)
 		}
 		goodCoords = CheckCoords(r, c);
 	}
-	//if (!found)
-	//	return;
+
 	Board[r][c] = sex; // update the board
 	Gotoxy(0, 0);
 	DrawBoard();
@@ -1082,45 +1045,9 @@ void BunnyFarm::DelFirstBunny()
 		Board[r][c] = '.';
 		m_pHead = m_pHead->GetNext();   // sets m_pHead to the next bunny in the list
 
-		//if (pTemp->GetAge() > 1)
-		//{
-		//	if (pTemp->GetSex() == 'M')
-		//	{
-		//		s_NumAdultMales -= 1;
-		//		s_NumMales -= 1;
-		//	}
-		//	else if (pTemp->GetSex() == 'F')
-		//	{
-		//		s_NumAdultFemales -= 1;
-		//		s_NumFemales -= 1;
-		//	}
-		//	else
-		//	{
-		//		s_NumRMVB -= 1;
-		//	}
-		//}
-		//else
-		//{
-		//	if (pTemp->GetSex() == 'm')
-		//	{
-		//		s_NumJuvMales -= 1;
-		//		s_NumMales -= 1;
-		//	}
-		//	else if (pTemp->GetSex() == 'f')
-		//	{
-		//		s_NumJuvFemales -= 1;
-		//		s_NumFemales -= 1;
-		//	}
-		//	else
-		//	{
-		//		s_NumRMVB -= 1;
-		//	}
-		//}
-
 		delete pTemp;                   // destroys the Bunny object pointed to by pTemp
 	}
 	UpdateStats();
-	//s_TotalBunnies -= 1;
 	s_NumDeaths += 1;
 	DrawBoard();
 }
@@ -1132,47 +1059,9 @@ void BunnyFarm::DelBunny(Bunny* delThisBunny, Bunny* prevBunny)
 	int r = pTemp->GetRow();
 	int c = pTemp->GetCol();
 	Board[r][c] = '.';
-	//prevBunny->SetNext(pTemp->GetNext());
-	//m_pHead = m_pHead->GetNext();   // sets m_pHead to the next bunny in the list
-
-	//if (pTemp->GetAge() > 1)
-	//{
-	//	if (pTemp->GetSex() == 'M')
-	//	{
-	//		s_NumAdultMales -= 1;
-	//		s_NumMales -= 1;
-	//	}
-	//	else if (pTemp->GetSex() == 'F')
-	//	{
-	//		s_NumAdultFemales -= 1;
-	//		s_NumFemales -= 1;
-	//	}
-	//	else
-	//	{
-	//		s_NumRMVB -= 1;
-	//	}
-	//}
-	//else
-	//{
-	//	if (pTemp->GetSex() == 'm')
-	//	{
-	//		s_NumJuvMales -= 1;
-	//		s_NumMales -= 1;
-	//	}
-	//	else if (pTemp->GetSex() == 'f')
-	//	{
-	//		s_NumJuvFemales -= 1;
-	//		s_NumFemales -= 1;
-	//	}
-	//	else
-	//	{
-	//		s_NumRMVB -= 1;
-	//	}
-	//}
 
 	delete pTemp;                   // destroys the Bunny object pointed to by pTemp
 	
-	//s_TotalBunnies -= 1;
 	UpdateStats();
 	s_NumDeaths += 1;
 	DrawBoard();
@@ -1198,6 +1087,8 @@ void BunnyFarm::CheckForBunnyDeaths()
 			pThis = m_pHead;
 			if (pThis == 0)
 				return;
+			age = pThis->GetAge(); // after deleting first bunny, pThis is the new head and need to reset age and sex
+			sex = pThis->GetSex(); // resetting sex. see above
 		}
 
 		pPrev = m_pHead;
@@ -1231,8 +1122,7 @@ void BunnyFarm::ClearFarm()
 	{
 		DelFirstBunny();
 	}
-	//InitBoard();
-	//DrawBoard();
+
 	ClearOutput();
 	InitStats();
 }
@@ -1250,9 +1140,6 @@ ostream& operator<<(ostream& os, BunnyFarm& aBunnyFarm)
 	int& r = aBunnyFarm.oRow;
 	int c = aBunnyFarm.oCol;
 
-
-	//os << endl << "Here's who is on the Bunny Farm:" << endl;
-
 	if (pIter == 0) // if farm is empty send appropriate message
 	{
 		Gotoxy(c, r); os << "The farm is empty!" << endl; r++;
@@ -1268,7 +1155,6 @@ ostream& operator<<(ostream& os, BunnyFarm& aBunnyFarm)
 			row = pIter->GetRow();
 			col = pIter->GetCol();
 
-			//Gotoxy(c, r); os << setw(12) << name << " " << setw(3) << age << " " << setw(3) << sex << " " << setw(2) << row << "," << setw(2) << col << endl;
 			Gotoxy(c, r); os << setw(12) << name << " ";
 			os << setw(3) << age << " ";
 			os << setw(3) << sex << " ";
@@ -1291,7 +1177,7 @@ int getRandNum(int min, int max)
 
 bool isRMVB()
 {
-	const int RMVB_PERCENT = 10;
+	const int RMVB_PERCENT = 2; // default is 2%
 	return (rand() % 100) < RMVB_PERCENT; // returns true RMVB_PERCENT of the time
 }
 
@@ -1345,7 +1231,7 @@ int main()
 	BunnyFarm& rMyBunnyFarm = myBunnyFarm;
 	//pMyBunnyFarm = myBunnyFarm; // pointer to myBunnyFarm
 
-	int choice;
+	char choice;
 
 	myBunnyFarm.InitBoard();
 	myBunnyFarm.DrawBoard();
@@ -1360,23 +1246,26 @@ int main()
 		myBunnyFarm.MainMenu();
 		cin >> choice;
 		cin.get(); // gets ENTER from above cin >>
+		choice = toupper(choice); // convert input to uppercase. makes input easier on user.
 
 		switch (choice)
 		{
-		case 0: cout << "Goodbye." << endl; break;
-		case 1: myBunnyFarm.AddBunny(false, 0,0); break;
-		case 2: myBunnyFarm.TakeTurn(); break;
-		case 3: myBunnyFarm.ClearFarm(); break;
-		case 4: myBunnyFarm.ListBunnies(rMyBunnyFarm); break;
-		case 5: myBunnyFarm.AdvBunnyAges(); break;
-		case 6: myBunnyFarm.CheckForBunnyDeaths(); break;
-		case 7: myBunnyFarm.MoveAllBunnies(); break;
-		case 8: myBunnyFarm.BreedBunnies(); break;
-		case 9: myBunnyFarm.PrintStats(); break;
+		case '0': cout << "Goodbye." << endl; break;
+		case '1': myBunnyFarm.AddBunny(false, 0,0); break;
+		case '2': myBunnyFarm.TakeTurn(); break;
+		case '3': myBunnyFarm.ClearFarm(); break;
+		case '4': myBunnyFarm.ListBunnies(rMyBunnyFarm); break;
+		case '5': myBunnyFarm.AdvBunnyAges(); break;
+		case '6': myBunnyFarm.CheckForBunnyDeaths(); break;
+		case '7': myBunnyFarm.MoveAllBunnies(); break;
+		case '8': myBunnyFarm.BreedBunnies(); break;
+		case '9': myBunnyFarm.PrintStats(); break;
+		case 'I': myBunnyFarm.InitBunnies(); break;
+		case 'K': myBunnyFarm.CullBunnyFluffle(); break;
 
 		default: cout << "That was not a valid choice." << endl;
 		}
-	} while (choice != 0);
+	} while (choice != '0');
 
 	
 	
