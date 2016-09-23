@@ -44,6 +44,8 @@
 #include <time.h>
 #include <iomanip>
 
+#include <fstream>
+
 
 // global constants
 const int MAX_BOARD_ROW = 80;
@@ -1300,7 +1302,19 @@ int main()
 	myBunnyFarm.DrawBoard();
 	myBunnyFarm.InitStats();
 	myBunnyFarm.InitBunnies();
+
+	ofstream myfile;
+	myfile.open("example.txt");
+	myfile << "Writing this to a file.\n";
+	myfile.close();
+
+	cin.get();
 	
+	//cout << "Please enter input file name: ";
+	//string iname;
+	//cin >> iname;
+	//ifstream ist{ iname }; // ist is an input stream for the file named name
+	//if (!ist) error("can't open input file ", iname);
 
 	do
 	{
