@@ -100,30 +100,83 @@ int main()
 		cout << iterK->value << " ";
 	}
 	cout << endl;
+
+	cout << "The size of key is: " << key.size() << endl;
+
+	int keySize = key.size();
+	
+	//cout << key[0].c << " " << key[0].value << endl;
+
+
+	
+
+
 	// end of output
 
-	iterK = key.begin();
+	// -------------------- MISTAKE BELOW
+	//iterK = key.begin();
+	//for (int r = 0; r < 6; ++r)
+	//{
+	//	for (int c = 0; c < 6; ++c)
+	//	{
+	//		if (iterK == key.end())
+	//		{
+	//			break;
+	//		}
+	//		else
+	//		{
+	//			cipherGrid[r][c] = iterK->value;
+	//			++iterK; // need to test for iterK = key.end()
+	//		}
+	//		
+	//	}
+	//}
+	// ---------------------------ABOVE IS MISTAKE. THE INITIAL KEY IS NOT PART OF THE 6X6 CIPHER
+	
+	pos = 0;
+	int pos2;
+	int fibR, fibC, fibC2;
+	int val;
+
 	for (int r = 0; r < 6; ++r)
 	{
 		for (int c = 0; c < 6; ++c)
 		{
-			if (iterK == key.end())
+			if (r == 0)
 			{
-				break;
+				pos2 = pos + 1;
+				if (pos2 >= keySize)
+					pos2 = 0;
+				val = key[pos].value + key[pos2].value;
+				if (val > 9)
+					val = val % 10;
+				cipherGrid[r][c] = val;
+				pos += 1;
 			}
 			else
 			{
-				cipherGrid[r][c] = iterK->value;
-				++iterK; // need to test for iterK = key.end()
+				fibR = r - 1;
+				fibC = c;
+				fibC2 = fibC + 1;
+				if (fibC2 >= 6)
+					fibC2 = 0;
+				val = cipherGrid[fibR][fibC] + cipherGrid[fibR][fibC2];
+				if (val > 9)
+					val = val % 10;
+				cipherGrid[r][c] = val;
+				pos += 1;
 			}
+
 			
 		}
 	}
-	
+
+
+	// output grid
 	for (int r = 0; r < 6; ++r)
 	{
 		for (int c = 0; c < 6; ++c)
-			cout << cipherGrid[r][c];
+			cout << cipherGrid[r][c] << " ";
 		cout << endl;
 	}
 
