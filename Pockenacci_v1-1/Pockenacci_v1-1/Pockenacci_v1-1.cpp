@@ -55,8 +55,15 @@ int main()
 	vector<CKeyChar>::iterator iterK;
 	vector<CKeyChar> key;
 
+	int cipherGrid[6][6]{}; // 6x6 grid using int
+
+	//vector<vector<char>> cipherGrid(6, vector<char>(6)); // define 6x6 vector grid addressed as cipherGrid[r][c]
+	// std::string s = std::to_string(5); // use this to change an int to char;
+
 	int pos = 0;
 
+	// assign each character to a class CKeyChar object and assign a numerical position pos
+	// pos will be used to return the key to the original order after being alpha sorted below
 	for (iterC = vKey.begin(); iterC != vKey.end(); ++iterC)
 	{
 		CKeyChar* newKey = new CKeyChar;
@@ -66,30 +73,22 @@ int main()
 		key.push_back(*newKey);
 	}
 
-
-
-	//for (iterK = key.begin(); iterK != key.end(); ++iterK)
-	//{
-	//	cout << iterK->c << " pos " << iterK->pos << endl;
-	//}
-
-	//cout << endl << "Sorting now." << endl;
-
+	// sort by character. put original key characters in alpha order
 	std::sort(key.begin(), key.end(), SortByChar);
 
+	// assign numerical values to the sorted characters. duplicates go left to right.
 	pos = 0;
 	for (iterK = key.begin(); iterK != key.end(); ++iterK)
 	{
 		iterK->value = pos + 1;
-		//cout << "char: " << iterK->c << " pos: " << iterK->pos << " value: " << iterK->value << endl;
 		pos += 1;
 	}
 	cout << endl;
 
-	//cout << "returning to original order: " << endl;
-
+	// return the keys to the original order
 	std::sort(key.begin(), key.end(), OriginalOrder);
 
+	// output the key and it's value
 	for (iterK = key.begin(); iterK != key.end(); ++iterK)
 	{
 		cout << iterK->c << " ";
@@ -101,6 +100,40 @@ int main()
 		cout << iterK->value << " ";
 	}
 	cout << endl;
+	// end of output
+
+	iterK = key.begin();
+	for (int r = 0; r < 6; ++r)
+	{
+		for (int c = 0; c < 6; ++c)
+		{
+			if (iterK == key.end())
+			{
+				break;
+			}
+			else
+			{
+				cipherGrid[r][c] = iterK->value;
+				++iterK; // need to test for iterK = key.end()
+			}
+			
+		}
+	}
+	
+	for (int r = 0; r < 6; ++r)
+	{
+		for (int c = 0; c < 6; ++c)
+			cout << cipherGrid[r][c];
+		cout << endl;
+	}
+
+
+
+
+
+
+
+
 
 	return 0;
 }
