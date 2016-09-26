@@ -64,16 +64,9 @@ class Key
 public:
 	Key();
 	~Key();
-	struct tKey
-	{
-		char c;
-		int o_Order;
-		int s_Order;
-	};
 	void ClearKey();
 	void DelFirstKey();
 	void AddKeyChar(string keyString);
-	bool Compare_Rows(const tKey& a, const tKey &b);
 
 private:
 	KeyChar* m_pHead;
@@ -97,10 +90,9 @@ Key::~Key()
 void Key::AddKeyChar(string keyString)
 {
 	// need to parse out keyString and get all it's atributes
-	struct tKey;
 	string key = keyString;
-	vector<char> vKeyCharOriginal(key.begin(), key.end());
-	vector<char> vSortedKey = vKeyCharOriginal;
+	vector<char> vKey(key.begin(), key.end());
+	vector<char> vSortedKey = vKey;
 	vector<int>vKeyInt;
 	vector<char>::const_iterator iterC;
 	vector<int>::const_iterator iterI;
@@ -110,52 +102,20 @@ void Key::AddKeyChar(string keyString)
 	//char c;
 	//int sorted_pos;
 	//int value;
+
 	
 
 
-	cout << "------------- TESTING USING STRUCTURES -------------" << endl;
-	struct tKey
-	{
-		char c;
-		int o_Order;
-		int s_Order;
-	};
 
-	tKey tData[6];
-
-	for (iterC = vKeyCharOriginal.begin(); iterC != vKeyCharOriginal.end(); ++iterC)
-	{
-		tData[pos].c = *iterC;
-		tData[pos].o_Order = pos + 1;
-		++pos;
-	}
-
-	pos = 0;
-	for (pos = 0; pos < 6; ++pos)
-	{
-		cout << tData[pos].c << " is at tKey pos " << pos << " o_Order is " << tData[pos].o_Order << "." << endl;
-	}
-	cout << endl << endl;
-
-
-	std::sort(&tData[0], &tData[6]);
-
-	for (pos = 0; pos < 6; ++pos)
-	{
-		cout << tData[pos].c << " is at tKey pos " << pos << " o_Order is " << tData[pos].o_Order << "." << endl;
-	}
-	cout << endl << endl;
-
-	cout << "--------------- DONE TESTING STRUCTURE DATA -------------" << endl;
 
 	cout << key << " is the original key string keyString. " << keySize << " is the size of keyString." << endl;
 
-	for (iterC = vKeyCharOriginal.begin(); iterC != vKeyCharOriginal.end(); ++iterC)
+	for (iterC = vKey.begin(); iterC != vKey.end(); ++iterC)
 	{
 		pos++;
 		cout << *iterC << " is at position " << pos << "." << endl;
 	}
-	cout << " is the orginal key in the vector vKeyCharOriginal." << endl;
+	cout << " is the orginal key in the vector vKey." << endl;
 
 	sort(vSortedKey.begin(), vSortedKey.end());
 
@@ -164,37 +124,50 @@ void Key::AddKeyChar(string keyString)
 		cout << *iterC;
 	}
 	cout << " is the sorted key. " << endl;
-	return;
+	// return; // forces exit of loop only used for testing
 
 
 	// TESTING ... NOTHING BELOW return ABOVE IS EXECUTED.
-
-	int i = 1;
-	for (iterC = vSortedKey.begin(); iterC != vSortedKey.end(); ++iterC)
+	cout << endl << "Now using class for key: " << endl;
+	pos = 0;
+	for (iterC = vKey.begin(); iterC != vKey.end(); ++iterC)
 	{
-		vKeyInt.push_back(i);
-		i++;
+
+		KeyChar* pNewKeyChar = new KeyChar();
+
+		if (m_pHead == 0)
+		{
+			m_pHead = pNewKeyChar;
+			m_pLast = pNewKeyChar;
+		}
+		else
+		{
+			//KeyChar* pIter = m_pHead;
+			m_pLast->SetNext(pNewKeyChar);
+			m_pLast = pNewKeyChar;
+		}
+		KeyChar* pIter = m_pLast;
+
+		pIter->c = *iterC;
+		pIter->pos = pos + 1;
+		cout << "*iterC is " << *iterC << " and pos is " << pIter->pos << endl;
+		
+		pos += 1;
+	}
+	cout << endl;
+	KeyChar* pIter = m_pHead;
+	
+	while (pIter != 0)
+	{
+		cout << "Looping through class starting at m_pHead: " << pIter->c << " " << pIter->pos << endl;
+		pIter = pIter->GetNext();
 	}
 
-	KeyChar* pNewKeyChar = new KeyChar();
+	cout << endl << endl;
 
-	if (m_pHead == 0)
-	{
-		m_pHead = pNewKeyChar;
-		m_pLast = pNewKeyChar;
-	}
-	else
-	{
-		KeyChar* pIter = m_pHead;
-		m_pLast->SetNext(pNewKeyChar);
-		m_pLast = pNewKeyChar;
-	}
+	
 }
 
-bool Key::Compare_Rows(const tKey& a, const tKey &b)
-{
-	return a.c < b.c;
-}
 
 
 
