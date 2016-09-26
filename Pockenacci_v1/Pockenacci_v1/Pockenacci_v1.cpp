@@ -26,6 +26,8 @@
 
 using namespace std;
 
+
+
 class KeyChar
 {
 public:
@@ -62,9 +64,16 @@ class Key
 public:
 	Key();
 	~Key();
+	struct tKey
+	{
+		char c;
+		int o_Order;
+		int s_Order;
+	};
 	void ClearKey();
 	void DelFirstKey();
 	void AddKeyChar(string keyString);
+	bool Compare_Rows(const tKey& a, const tKey &b);
 
 private:
 	KeyChar* m_pHead;
@@ -88,7 +97,7 @@ Key::~Key()
 void Key::AddKeyChar(string keyString)
 {
 	// need to parse out keyString and get all it's atributes
-
+	struct tKey;
 	string key = keyString;
 	vector<char> vKeyCharOriginal(key.begin(), key.end());
 	vector<char> vSortedKey = vKeyCharOriginal;
@@ -98,9 +107,46 @@ void Key::AddKeyChar(string keyString)
 	vector<char>::const_iterator iterO;
 	int keySize = key.size();
 	int pos = 0;
-	char c;
-	int sorted_pos;
-	int value;
+	//char c;
+	//int sorted_pos;
+	//int value;
+	
+
+
+	cout << "------------- TESTING USING STRUCTURES -------------" << endl;
+	struct tKey
+	{
+		char c;
+		int o_Order;
+		int s_Order;
+	};
+
+	tKey tData[6];
+
+	for (iterC = vKeyCharOriginal.begin(); iterC != vKeyCharOriginal.end(); ++iterC)
+	{
+		tData[pos].c = *iterC;
+		tData[pos].o_Order = pos + 1;
+		++pos;
+	}
+
+	pos = 0;
+	for (pos = 0; pos < 6; ++pos)
+	{
+		cout << tData[pos].c << " is at tKey pos " << pos << " o_Order is " << tData[pos].o_Order << "." << endl;
+	}
+	cout << endl << endl;
+
+
+	std::sort(&tData[0], &tData[6]);
+
+	for (pos = 0; pos < 6; ++pos)
+	{
+		cout << tData[pos].c << " is at tKey pos " << pos << " o_Order is " << tData[pos].o_Order << "." << endl;
+	}
+	cout << endl << endl;
+
+	cout << "--------------- DONE TESTING STRUCTURE DATA -------------" << endl;
 
 	cout << key << " is the original key string keyString. " << keySize << " is the size of keyString." << endl;
 
@@ -119,6 +165,9 @@ void Key::AddKeyChar(string keyString)
 	}
 	cout << " is the sorted key. " << endl;
 	return;
+
+
+	// TESTING ... NOTHING BELOW return ABOVE IS EXECUTED.
 
 	int i = 1;
 	for (iterC = vSortedKey.begin(); iterC != vSortedKey.end(); ++iterC)
@@ -141,6 +190,14 @@ void Key::AddKeyChar(string keyString)
 		m_pLast = pNewKeyChar;
 	}
 }
+
+bool Key::Compare_Rows(const tKey& a, const tKey &b)
+{
+	return a.c < b.c;
+}
+
+
+
 
 void Key::ClearKey()
 {
