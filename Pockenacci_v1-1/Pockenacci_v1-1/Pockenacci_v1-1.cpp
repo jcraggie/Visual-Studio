@@ -1,4 +1,6 @@
-// Pockenacci_v1.cpp : Defines the entry point for the console application.
+// Pockenacci_v1-1.cpp : Defines the entry point for the console application.
+// v1-1 is rewriting using vector of classes
+//
 // taken from Github by justin troutman
 // printed off github 9/14/2016
 //
@@ -15,7 +17,6 @@
 // of the letter "E", which is the next letter in the alphabetical order. Since we go from left to right, the first "E" get the number "2",
 // while the 2nd "E" gets the number 3. When we finish the process, we get 5 2 1 4 3 6.
 //
-
 
 #include "stdafx.h"
 #include <stdio.h>
@@ -67,12 +68,12 @@ int main()
 
 
 
-	for (iterK = key.begin(); iterK != key.end(); ++iterK)
-	{
-		cout << iterK->c << " pos " << iterK->pos << endl;
-	}
+	//for (iterK = key.begin(); iterK != key.end(); ++iterK)
+	//{
+	//	cout << iterK->c << " pos " << iterK->pos << endl;
+	//}
 
-	cout << endl << "Sorting now." << endl;
+	//cout << endl << "Sorting now." << endl;
 
 	std::sort(key.begin(), key.end(), SortByChar);
 
@@ -80,18 +81,24 @@ int main()
 	for (iterK = key.begin(); iterK != key.end(); ++iterK)
 	{
 		iterK->value = pos + 1;
-		cout << "char: " << iterK->c << " pos: " << iterK->pos << " value: " << iterK->value << endl;
+		//cout << "char: " << iterK->c << " pos: " << iterK->pos << " value: " << iterK->value << endl;
 		pos += 1;
 	}
 	cout << endl;
 
-	cout << "returning to original order: " << endl;
+	//cout << "returning to original order: " << endl;
 
 	std::sort(key.begin(), key.end(), OriginalOrder);
 
 	for (iterK = key.begin(); iterK != key.end(); ++iterK)
 	{
-		cout << "char: " << iterK->c << " pos: " << iterK->pos << " value: " << iterK->value << endl;
+		cout << iterK->c << " ";
+	}
+	cout << endl;
+
+	for (iterK = key.begin(); iterK != key.end(); ++iterK)
+	{
+		cout << iterK->value << " ";
 	}
 	cout << endl;
 
