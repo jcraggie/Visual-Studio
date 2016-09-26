@@ -12,21 +12,20 @@ using namespace std;
 
 
 
-class KeyChar
+class CKeyChar
 {
 public:
 	char c;
 	int  pos;
-	int  sort_pos;
 	int  value;
 };
 
-bool SortByChar(const KeyChar& a, const KeyChar& b)
+bool SortByChar(const CKeyChar& a, const CKeyChar& b)
 {
 	return a.c < b.c;
 }
 
-bool OriginalOrder(const KeyChar& a, const KeyChar& b)
+bool OriginalOrder(const CKeyChar& a, const CKeyChar& b)
 {
 	return a.pos < b.pos;
 }
@@ -36,14 +35,14 @@ int main()
 	string keyString("SECRET");
 	vector<char> vKey(keyString.begin(), keyString.end()); // puts individual chars into vector vKey
 	vector<char>::const_iterator iterC;
-	vector<KeyChar>::iterator iterK;
-	vector<KeyChar> key;
+	vector<CKeyChar>::iterator iterK;
+	vector<CKeyChar> key;
 
 	int pos = 0;
 
 	for (iterC = vKey.begin(); iterC != vKey.end(); ++iterC)
 	{
-		KeyChar* newKey = new KeyChar;
+		CKeyChar* newKey = new CKeyChar;
 		newKey->c = *iterC;
 		newKey->pos = pos + 1;
 		pos += 1;
@@ -64,8 +63,8 @@ int main()
 	pos = 0;
 	for (iterK = key.begin(); iterK != key.end(); ++iterK)
 	{
-		iterK->sort_pos = pos + 1;
-		cout << "char: " << iterK->c << " pos: " << iterK->pos << " sort_pos: " << iterK->sort_pos << endl;
+		iterK->value = pos + 1;
+		cout << "char: " << iterK->c << " pos: " << iterK->pos << " value: " << iterK->value << endl;
 		pos += 1;
 	}
 	cout << endl;
@@ -76,7 +75,7 @@ int main()
 
 	for (iterK = key.begin(); iterK != key.end(); ++iterK)
 	{
-		cout << "char: " << iterK->c << " pos: " << iterK->pos << " sort_pos: " << iterK->sort_pos << endl;
+		cout << "char: " << iterK->c << " pos: " << iterK->pos << " value: " << iterK->value << endl;
 	}
 	cout << endl;
 
