@@ -469,8 +469,41 @@ int main()
 	}
 
 
+	// version 3-3 Mesasge Authentication Codes (Check yourself!) MAC
+	//
 
 
+	// creates the abcGrid used to look up values from the sBoxGrid also using the cipherGrid
+	char abcGrid[6][6]{};
+	int sBoxi = 0; // index used to iterate through the sBox array and put it in the abcGrid
+	for (int r = 0; r < 6; ++r)
+	{
+		for (int c = 0; c < 6; ++c)
+		{
+			abcGrid[r][c] = sBox[sBoxi];
+			sBoxi += 1;
+		}
+	}
+
+	// lookup each value from sBoxGrid in the abcGrid table. Need to capture the ROW and COLUMN when found
+	for (int r = 0; r < 6; ++r)
+	{
+		for (int c = 0; c < 6; ++c)
+		{
+			
+		}
+	}
+
+	
+
+	// output grid
+	cout << endl << "This is sBox grid abcGrid: " << endl;
+	for (int r = 0; r < 6; ++r)
+	{
+		for (int c = 0; c < 6; ++c)
+			cout << abcGrid[r][c] << " ";
+		cout << endl;
+	}
 
 
 
