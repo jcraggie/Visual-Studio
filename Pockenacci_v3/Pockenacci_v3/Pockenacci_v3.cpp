@@ -16,12 +16,39 @@
 // while the 2nd "E" gets the number 3. When we finish the process, we get 5 2 1 4 3 6.
 //
 // version 2 will be Loading Plaintext (A message to encrypt).
-// see notes below
+// now that we have a key, we need something to encrypt.
+// let's say we want to encrypt the message "THIS IS A SECRET MESSAGE THAT WE NEED TO HIDE"
+// we'll use a 6x6 grid becuase it nicely allows us to encrypt A-Z and 0 - 9 (36 possible characters). This means we can
+// encrypt 36 chars at a time, in a 6x6 "block". This type of cipher is called a "block cipher". We'll write our message from 
+// left to right, starting with the upper left most square.
+// This message just happens to be 36 characters for our example. If the message is shorter, you can pad it with random chars.
+// If it is longer, you'll need to split into multiple blocks.
+// first need to put plaintext message into 6x6 array of chars
 
 // version 3 - Permutations (Let's move things around)
+// we'll be shifting the columns down by the numbers in the first row of the key
+// we'll then shift the rows by the numbers in the second row of the key
+// NOTE
+// if shift # is 6, 7, 8, or 9 taking cipher and % 6 (mod 6) should yield the correct results.
+// shifting = shifting
+//     6          0
+//     7          1
+//     8          2
+//     9          3
 
+// version 3-2 - substitution (Let's change things completely).
+// now that we have shifted each column and each row, we cant to actually change their value.
+// this is done through what's called a substitution box, or S-BOX. This cipher uses two kinds:
+// one kind that simply changes tthe value of each letter, which is what we'll use now AND
+// one that's called a "look-up table", where values are mapped out using coordinates. that is later.
+// this key should be the 3rd row (row 2) in the cipherGrid..... 808688 based on SECRET being the key.
+// starting with 0,0 (T), we want to shift it's value forward in the alphabet by 8 spaces. The next letter
+// (E) will move foward 0 spaces. We re-use the 808688 key for EACH ROW in the grid. Also keep in mind our alphabet
+// is alphanumeric, so it doesn't end with Z. It is actually A-Z followed by 0-9. This makes up 36 characters, which
+// is why we've chosen a 6x6 grid. When doing your shifts, if you letter is Y and you need to shift it 3 spaces,
+// you would count like this.... Z, 0, 1. The new value for Y shifted 3 spaces is 1. 
 
-
+ 
 #include "stdafx.h"
 #include <stdio.h>
 #include <iostream>
@@ -105,7 +132,6 @@ void LookUpGrid(const char searchGrid[6][6], char findMe, int& fRow, int& fCol)
 			{
 				fRow = r;
 				fCol = c;
-				//cout << "Found " << findMe << "at " << fRow << "," << fCol << endl;
 				return;
 			}
 }
@@ -194,6 +220,49 @@ void ShiftGridRight(int cipher[6][6], int grid[6][6], int cipherRow)
 	}
 }
 
+void CreateCipher(vector<CKeyChar> key, int cipher[6][6])
+{
+	int keySize = key.size();
+
+	int pos = 0;
+	int pos2;
+	int fibR, fibC, fibC2;
+	int valu;
+
+	for (int r = 0; r < 6; ++r)
+	{
+		for (int c = 0; c < 6; ++c)
+		{
+			if (r == 0)
+			{
+				pos2 = pos + 1;
+				if (pos2 >= keySize)
+					pos2 = 0;
+				valu = key[pos].value + key[pos2].value;
+				if (valu > 9)
+					valu = valu % 10;
+				cipher[r][c] = valu;
+				pos += 1;
+			}
+			else
+			{
+				fibR = r - 1;
+				fibC = c;
+				fibC2 = fibC + 1;
+				if (fibC2 >= 6)
+					fibC2 = 0;
+				valu = cipher[fibR][fibC] + cipher[fibR][fibC2];
+				if (valu > 9)
+					valu = valu % 10;
+				cipher[r][c] = valu;
+				pos += 1;
+			}
+
+
+		}
+	}
+}
+
 int main()
 {
 	string keyString("SECRET");
@@ -201,6 +270,7 @@ int main()
 	vector<char>::const_iterator iterC;
 	vector<CKeyChar>::iterator iterK;
 	vector<CKeyChar> key;
+	vector<CKeyChar>* pKey;
 
 	int cipherGrid[6][6]{}; // 6x6 grid using int
 
@@ -233,72 +303,26 @@ int main()
 	std::sort(key.begin(), key.end(), OriginalOrder);
 
 	// output the key and it's value
+	// output the key chars
 	for (iterK = key.begin(); iterK != key.end(); ++iterK)
 	{
 		cout << iterK->c << " ";
 	}
 	cout << endl;
 
+	// output the key values
 	for (iterK = key.begin(); iterK != key.end(); ++iterK)
 	{
 		cout << iterK->value << " ";
 	}
 	cout << endl;
 
-	cout << "The size of key is: " << key.size() << endl;
-
-	int keySize = key.size();
-
-	pos = 0;
-	int pos2;
-	int fibR, fibC, fibC2;
-	int valu;
-
-	for (int r = 0; r < 6; ++r)
-	{
-		for (int c = 0; c < 6; ++c)
-		{
-			if (r == 0)
-			{
-				pos2 = pos + 1;
-				if (pos2 >= keySize)
-					pos2 = 0;
-				valu = key[pos].value + key[pos2].value;
-				if (valu > 9)
-					valu = valu % 10;
-				cipherGrid[r][c] = valu;
-				pos += 1;
-			}
-			else
-			{
-				fibR = r - 1;
-				fibC = c;
-				fibC2 = fibC + 1;
-				if (fibC2 >= 6)
-					fibC2 = 0;
-				valu = cipherGrid[fibR][fibC] + cipherGrid[fibR][fibC2];
-				if (valu > 9)
-					valu = valu % 10;
-				cipherGrid[r][c] = valu;
-				pos += 1;
-			}
-
-
-		}
-	}
+	CreateCipher(key, cipherGrid);
 	
 	OutputGrid(cipherGrid, "This is the cipherGrid:");
 
 
-	// version 2 will be Loading Plaintext (A message to encrypt).
-	// now that we have a key, we need something to encrypt.
-	// let's say we want to encrypt the message "THIS IS A SECRET MESSAGE THAT WE NEED TO HIDE"
-	// we'll use a 6x6 grid becuase it nicely allows us to encrypt A-Z and 0 - 9 (36 possible characters). This means we can
-	// encrypt 36 chars at a time, in a 6x6 "block". This type of cipher is called a "block cipher". We'll write our message from 
-	// left to right, starting with the upper left most square.
-	// This message just happens to be 36 characters for our example. If the message is shorter, you can pad it with random chars.
-	// If it is longer, you'll need to split into multiple blocks.
-	// first need to put plaintext message into 6x6 array of chars
+
 
 	string plainText = "THIS IS A SECRET MESSAGE THAT WE NEED TO HIDE";
 
@@ -337,15 +361,8 @@ int main()
 	}
 
 
-
-
-
 	// output grid
 	OutputGrid(textGrid, "This is the plain text message to be encrypted: ");
-
-	// version 3 - permutations
-	// we'll be shifting the columns down by the numbers in the first row of the key
-	// we'll then shift the rows by the numbers in the second row of the key
 
 	char shiftDown1[6][6]{};
 	
@@ -360,8 +377,7 @@ int main()
 	char currChar;
 
 
-	// do a table if shift # is 6, 7, 8, or 9
-	// taking cipher and % 6 (mod 6) should yield the correct results.
+	// if shift # is 6, 7, 8, or 9 taking cipher and % 6 (mod 6) should yield the correct results.
 	// shifting = shifting
 	//     6          0
 	//     7          1
@@ -397,17 +413,6 @@ int main()
 	OutputGrid(shiftRight1, "This is the shiftRight1 grid after shifting each column: ");
 
 
-	// version 3-2 - substitution (Let's change things completely).
-	// now that we have shifted each column and each row, we cant to actually change their value.
-	// this is done through what's called a substitution box, or S-BOX. This cipher uses two kinds:
-	// one kind that simply changes tthe value of each letter, which is what we'll use now AND
-	// one that's called a "look-up table", where values are mapped out using coordinates. that is later.
-	// this key should be the 3rd row (row 2) in the cipherGrid..... 808688 based on SECRET being the key.
-	// starting with 0,0 (T), we want to shift it's value forward in the alphabet by 8 spaces. The next letter
-	// (E) will move foward 0 spaces. We re-use the 808688 key for EACH ROW in the grid. Also keep in mind our alphabet
-	// is alphanumeric, so it doesn't end with Z. It is actually A-Z followed by 0-9. This makes up 36 characters, which
-	// is why we've chosen a 6x6 grid. When doing your shifts, if you letter is Y and you need to shift it 3 spaces,
-	// you would count like this.... Z, 0, 1. The new value for Y shifted 3 spaces is 1.
 
 
 	char sBox[36]
@@ -491,7 +496,7 @@ int main()
 	OutputGrid(macGrid, "This is first phase of the MAC:");
 
 
-	// version 3-4 shift MAC right
+	// version 3-4 shift MAC right, down, forward to get final MAC grid
 	int macGridRight[6][6]{};
 
 	CopyGrid(macGrid, macGridRight);
