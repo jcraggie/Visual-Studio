@@ -48,6 +48,14 @@
 // is why we've chosen a 6x6 grid. When doing your shifts, if you letter is Y and you need to shift it 3 spaces,
 // you would count like this.... Z, 0, 1. The new value for Y shifted 3 spaces is 1. 
 
+
+// version 3-3 Mesasge Authentication Codes (Check yourself!) MAC
+//
+
+
+
+
+
  
 #include "stdafx.h"
 #include <stdio.h>
@@ -263,6 +271,62 @@ void CreateCipher(vector<CKeyChar> key, int cipher[6][6])
 	}
 }
 
+void ShiftGridForward(int cipher[6][6], char grid[6][6], int whichCipher)
+{
+	int idx, newIdx;
+	int shiftNum;
+	char sBox[36]
+	{ 'A', 'B', 'C', 'D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
+		'0','1','2','3','4','5','6','7','8','9' };
+	for (int r = 0; r < 6; ++r) // iterate through each row
+	{
+		for (int c = 0; c < 6; ++c)
+		{
+			shiftNum = cipher[whichCipher][c]; // using 3rd row (row 2) of cipherGrid for s-box lookups. use this same crypto for all 6 rows.
+			for (int i = 0; i < 36; ++i)
+				if (sBox[i] == grid[r][c])
+				{
+					idx = i;
+					newIdx = (idx + shiftNum) % 36;
+
+					grid[r][c] = sBox[newIdx];
+					break;
+				}
+
+		}
+		
+	}
+}
+
+void ShiftGridForward(int cipher[6][6], int grid[6][6], int whichCipher)
+{
+	char sBox[36]
+	{ 'A', 'B', 'C', 'D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
+		'0','1','2','3','4','5','6','7','8','9' };
+	int sBoxInt[10]{ 0,1,2,3,4,5,6,7,8,9 };
+	int s = _countof(sBoxInt);
+	int shiftNum;
+	int idx, newIdx;
+	for (int r = 0; r < 6; ++r) // iterate through each row
+	{
+		for (int c = 0; c < 6; ++c)
+		{
+			shiftNum = cipher[whichCipher][c]; // using 3rd row (row 2) of cipherGrid for s-box lookups. use this same crypto for all 6 rows.
+
+			for (int i = 0; i < s; ++i)
+				if (sBoxInt[i] == grid[r][c])
+				{
+					idx = i;
+					newIdx = (idx + shiftNum) % s;
+					grid[r][c] = sBoxInt[newIdx];
+					break;
+				}
+
+		}
+
+	}
+}
+
 int main()
 {
 	string keyString("SECRET");
@@ -321,9 +385,6 @@ int main()
 	
 	OutputGrid(cipherGrid, "This is the cipherGrid:");
 
-
-
-
 	string plainText = "THIS IS A SECRET MESSAGE THAT WE NEED TO HIDE";
 
 	char textGrid[6][6];
@@ -376,15 +437,6 @@ int main()
 	char tempChar;
 	char currChar;
 
-
-	// if shift # is 6, 7, 8, or 9 taking cipher and % 6 (mod 6) should yield the correct results.
-	// shifting = shifting
-	//     6          0
-	//     7          1
-	//     8          2
-	//     9          3
-	
-
 	ShiftGridDown(cipherGrid, shiftDown1, 0);
 
 	// output grid
@@ -396,28 +448,13 @@ int main()
 
 	CopyGrid(shiftDown1, shiftRight1);
 
-
-	// do a table if shift # is 6, 7, 8, or 9
-	// taking cipher and % 6 (mod 6) should yield the correct results.
-	// shifting = shifting
-	//     6          0
-	//     7          1
-	//     8          2
-	//     9          3
-	//
-
 	// now need to shift each row right by num of chars in 2nd row (row 1) of the cipherGrid
 	ShiftGridRight(cipherGrid, shiftRight1, 1);
 
 	// output grid
 	OutputGrid(shiftRight1, "This is the shiftRight1 grid after shifting each column: ");
 
-
-
-
-	char sBox[36]
-	{ 'A', 'B', 'C', 'D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
-		'0','1','2','3','4','5','6','7','8','9' };
+	
 
 	cout << endl;
 
@@ -428,37 +465,15 @@ int main()
 	CopyGrid(shiftRight1, sBoxGrid);
 	
 	
-	// now need to shift each row right by num of chars in 2nd row (row 1) of the cipherGrid
-	int idx, newIdx;
-	for (int r = 0; r < 6; ++r) // iterate through each row
-	{
-		for (int c = 0; c < 6; ++c)
-		{
-			shiftNum = cipherGrid[2][c]; // using 3rd row (row 2) of cipherGrid for s-box lookups. use this same crypto for all 6 rows.
-			//cout << "Cipher is " << shiftNum;
-			for (int i = 0; i < 36; ++i)
-				if (sBox[i] == sBoxGrid[r][c])
-				{
-					//cout << "  Changing " << sBoxGrid[r][c] << " at " << r << "," << c << " to ";
-					idx = i;
-					newIdx = (idx + shiftNum) % 36;
+	// THIS DESCRIPTION IS WRONG. now need to shift each row right by num of chars in 2nd row (row 1) of the cipherGrid
 
-					sBoxGrid[r][c] = sBox[newIdx];
-					//cout << sBoxGrid[r][c] << endl;
-					break;
-				}
-
-		}
-		
-	}
+	ShiftGridForward(cipherGrid, sBoxGrid,2);
 
 	OutputGrid(sBoxGrid, "This is sBoxGrid after looking up each row in the sBox array: ");
 
-
-	// version 3-3 Mesasge Authentication Codes (Check yourself!) MAC
-	//
-
-
+	char sBox[36]
+	{ 'A', 'B', 'C', 'D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
+		'0','1','2','3','4','5','6','7','8','9' };
 	// creates the abcGrid used to look up values from the sBoxGrid also using the cipherGrid
 	char abcGrid[6][6]{};
 	int sBoxi = 0; // index used to iterate through the sBox array and put it in the abcGrid
@@ -517,31 +532,7 @@ int main()
 
 	CopyGrid(macGridDown, macGridForward);
 
-
-	int sBoxInt[10]{ 0,1,2,3,4,5,6,7,8,9 };
-
-	for (int r = 0; r < 6; ++r) // iterate through each row
-	{
-		for (int c = 0; c < 6; ++c)
-		{
-			shiftNum = cipherGrid[5][c]; // using 3rd row (row 2) of cipherGrid for s-box lookups. use this same crypto for all 6 rows.
-										 //cout << "Cipher is " << shiftNum;
-			for (int i = 0; i < 10; ++i)
-				if (sBoxInt[i] == macGridForward[r][c])
-				{
-					//cout << "  Changing " << sBoxGrid[r][c] << " at " << r << "," << c << " to ";
-					idx = i;
-					newIdx = (idx + shiftNum) % 10;
-
-					macGridForward[r][c] = sBoxInt[newIdx];
-					//cout << sBoxGrid[r][c] << endl;
-					break;
-				}
-
-		}
-
-	}
-
+	ShiftGridForward(cipherGrid, macGridForward,5);
 
 	OutputGrid(macGridForward, "This is the mac grid shifted forward:");
 
