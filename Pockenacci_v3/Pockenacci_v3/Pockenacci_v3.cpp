@@ -64,6 +64,17 @@ void CopyGrid(char orig[6][6], char newarr[6][6])
 	}
 }
 
+void CopyGrid(int orig[6][6], int newarr[6][6])
+{
+	for (int r = 0; r < 6; ++r)
+	{
+		for (int c = 0; c < 6; ++c)
+		{
+			newarr[r][c] = orig[r][c];
+		}
+	}
+}
+
 void OutputGrid(char grid[6][6], string msg)
 {
 	cout << endl << msg << endl;
@@ -134,6 +145,48 @@ void ShiftGridRight(int cipher[6][6], char grid[6][6], int cipherRow)
 			{
 				if (c - 1 < 0)
 					grid[r][c] = tempChar; // if at 0,c, get temp char and put here
+				else
+					grid[r][c] = grid[r][c - 1];
+			}
+		}
+	}
+}
+
+void ShiftGridDown(int cipher[6][6], int grid[6][6], int cipherRow)
+{
+	int shiftNum;
+	int tempInit;
+	for (int c = 0; c < 6; ++c) // shift each column down
+	{
+		shiftNum = cipher[cipherRow][c] % 6; // see table above - taking first row (row 0) of the cipherGrid for this shift
+		for (int i = 0; i < shiftNum; ++i) // shifting shiftNum times
+		{
+			tempInit = grid[5][c]; // hold last column item in temp. this will be moved to 0,c at the end
+			for (int r = 5; r >= 0; --r)
+			{
+				if (r - 1 < 0)
+					grid[r][c] = tempInit; // if at 0,c, get temp char and put here
+				else
+					grid[r][c] = grid[r - 1][c];
+			}
+		}
+	}
+}
+
+void ShiftGridRight(int cipher[6][6], int grid[6][6], int cipherRow)
+{
+	int shiftNum;
+	int tempInit;
+	for (int r = 0; r < 6; ++r) // shift each row right
+	{
+		shiftNum = cipher[cipherRow][r] % 6; // see table above - taking second row (row 1) of the cipherGrid for this shift
+		for (int i = 0; i < shiftNum; ++i) // shifting shiftNum times
+		{
+			tempInit = grid[r][5]; // hold last column item in temp. this will be moved to 0,c at the end
+			for (int c = 5; c >= 0; --c)
+			{
+				if (c - 1 < 0)
+					grid[r][c] = tempInit; // if at 0,c, get temp char and put here
 				else
 					grid[r][c] = grid[r][c - 1];
 			}
@@ -436,6 +489,58 @@ int main()
 	}
 
 	OutputGrid(macGrid, "This is first phase of the MAC:");
+
+
+	// version 3-4 shift MAC right
+	int macGridRight[6][6]{};
+
+	CopyGrid(macGrid, macGridRight);
+
+	ShiftGridRight(cipherGrid, macGridRight, 3);
+
+	OutputGrid(macGridRight, "This is the mac grid shifted right:");
+
+	int macGridDown[6][6]{};
+
+	CopyGrid(macGridRight, macGridDown);
+
+	ShiftGridDown(cipherGrid, macGridDown, 4);
+
+	OutputGrid(macGridDown, "This is the mac grid shifted down:");
+
+	int macGridForward[6][6]{};
+
+	CopyGrid(macGridDown, macGridForward);
+
+
+	int sBoxInt[10]{ 0,1,2,3,4,5,6,7,8,9 };
+
+	for (int r = 0; r < 6; ++r) // iterate through each row
+	{
+		for (int c = 0; c < 6; ++c)
+		{
+			shiftNum = cipherGrid[5][c]; // using 3rd row (row 2) of cipherGrid for s-box lookups. use this same crypto for all 6 rows.
+										 //cout << "Cipher is " << shiftNum;
+			for (int i = 0; i < 10; ++i)
+				if (sBoxInt[i] == macGridForward[r][c])
+				{
+					//cout << "  Changing " << sBoxGrid[r][c] << " at " << r << "," << c << " to ";
+					idx = i;
+					newIdx = (idx + shiftNum) % 10;
+
+					macGridForward[r][c] = sBoxInt[newIdx];
+					//cout << sBoxGrid[r][c] << endl;
+					break;
+				}
+
+		}
+
+	}
+
+
+	OutputGrid(macGridForward, "This is the mac grid shifted forward:");
+
+
 
 	return 0;
 }
