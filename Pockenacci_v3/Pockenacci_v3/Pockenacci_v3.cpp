@@ -29,6 +29,7 @@
 #include <vector>
 #include <algorithm>
 #include <array>
+#include <iomanip>
 
 using namespace std;
 
@@ -367,6 +368,106 @@ int main()
 			cout << shiftRight1[r][c] << " ";
 		cout << endl;
 	}
+
+	// version 3-2 - substitution (Let's change things completely).
+	// now that we have shifted each column and each row, we cant to actually change their value.
+	// this is done through what's called a substitution box, or S-BOX. This cipher uses two kinds:
+	// one kind that simply changes tthe value of each letter, which is what we'll use now AND
+	// one that's called a "look-up table", where values are mapped out using coordinates. that is later.
+	// this key should be the 3rd row (row 2) in the cipherGrid..... 808688 based on SECRET being the key.
+	// starting with 0,0 (T), we want to shift it's value forward in the alphabet by 8 spaces. The next letter
+	// (E) will move foward 0 spaces. We re-use the 808688 key for EACH ROW in the grid. Also keep in mind our alphabet
+	// is alphanumeric, so it doesn't end with Z. It is actually A-Z followed by 0-9. This makes up 36 characters, which
+	// is why we've chosen a 6x6 grid. When doing your shifts, if you letter is Y and you need to shift it 3 spaces,
+	// you would count like this.... Z, 0, 1. The new value for Y shifted 3 spaces is 1.
+
+
+	char sBox[36]
+	{ 'A', 'B', 'C', 'D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
+		'0','1','2','3','4','5','6','7','8','9' };
+
+	cout << endl;
+	// testing s-box lookup -------------------------------------------------
+	for (int i = 0; i < 36; ++i)
+	{
+		cout << setw(3) << sBox[i];
+	}
+	cout << endl;
+
+	for (int i = 0; i < 36; ++i)
+	{
+		cout << setw(3) << i;
+	}
+	cout << endl;
+
+	char chars[4]{ 0 }, cNew;
+	int idx, newIdx, j;
+
+	chars[0] = 'W';
+	chars[1] = 'Z';
+	chars[2] = '8';
+	chars[3] = 'K';
+	for (j = 0; j < 4; ++j)
+	{
+		for (int i = 0; i < 36; ++i)
+			if (sBox[i] == chars[j])
+			{
+				idx = i;
+				newIdx = (idx + 7) % 36;
+
+				cNew = sBox[newIdx];
+			}
+
+		cout << "Char c1: " << chars[j] << " is located at " << idx << " and 7 chars from that is " << cNew << " located at " << newIdx << endl;
+	}
+	// end s-box testing -----------------------------------------------------
+
+	// create sBox grid for lookups
+	// create new grid for shiftRight1 based on shiftDown1
+	char sBoxGrid[6][6]{};
+
+	for (int r = 0; r < 6; ++r)
+	{
+		for (int c = 0; c < 6; ++c)
+		{
+			sBoxGrid[r][c] = shiftRight1[r][c];
+		}
+	}
+	
+
+	// now need to shift each row right by num of chars in 2nd row (row 1) of the cipherGrid
+	for (int r = 0; r < 6; ++r) // iterate through each row
+	{
+		for (int c = 0; c < 6; ++c)
+		{
+			shiftNum = cipherGrid[2][c]; // using 3rd row (row 2) of cipherGrid for s-box lookups. use this same crypto for all 6 rows.
+			//cout << "Cipher is " << shiftNum;
+			for (int i = 0; i < 36; ++i)
+				if (sBox[i] == sBoxGrid[r][c])
+				{
+					//cout << "  Changing " << sBoxGrid[r][c] << " at " << r << "," << c << " to ";
+					idx = i;
+					newIdx = (idx + shiftNum) % 36;
+
+					sBoxGrid[r][c] = sBox[newIdx];
+					//cout << sBoxGrid[r][c] << endl;
+					break;
+				}
+
+		}
+		
+	}
+
+
+	// output grid
+	cout << endl << "This is sBoxGrid after looking up each row in the sBox array: " << endl;
+	for (int r = 0; r < 6; ++r)
+	{
+		for (int c = 0; c < 6; ++c)
+			cout << sBoxGrid[r][c] << " ";
+		cout << endl;
+	}
+
 
 
 
