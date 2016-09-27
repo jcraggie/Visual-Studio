@@ -284,8 +284,9 @@ int main()
 	char tempChar;
 	char currChar;
 
-	shiftNum = cipherGrid[0][currC] % 6;
+
 	// do a table if shift # is 6, 7, 8, or 9
+	// taking cipher and % 6 (mod 6) should yield the correct results.
 	// shifting = shifting
 	//     6          0
 	//     7          1
@@ -296,26 +297,18 @@ int main()
 
 	for (int c = 0; c < 6; ++c) // shift each column down
 	{
-		shiftNum = cipherGrid[0][c] % 6;
+		shiftNum = cipherGrid[0][c] % 6; // see table above - taking first row (row 0) of the cipherGrid for this shift
 		for (int i = 0; i < shiftNum; ++i) // shifting shiftNum times
 		{
-			//currChar = shiftDown1[0][c];
-			//nextChar = shiftDown1[1][c];
-			tempChar = shiftDown1[5][c];
+			tempChar = shiftDown1[5][c]; // hold last column item in temp. this will be moved to 0,c at the end
 			for (int r = 5; r >= 0; --r)
 			{
 				if (r - 1 < 0)
-					shiftDown1[r][c] = tempChar;
+					shiftDown1[r][c] = tempChar; // if at 0,c, get temp char and put here
 				else
 					shiftDown1[r][c] = shiftDown1[r - 1][c];
-
-
-				
 			}
-
 		}
-		//shiftNum = cipherGrid[0][c];
-
 	}
 
 
@@ -327,6 +320,57 @@ int main()
 			cout << shiftDown1[r][c] << " ";
 		cout << endl;
 	}
+
+	// create new grid for shiftRight1 based on shiftDown1
+	char shiftRight1[6][6]{};
+
+	for (int r = 0; r < 6; ++r)
+	{
+		for (int c = 0; c < 6; ++c)
+		{
+			shiftRight1[r][c] = shiftDown1[r][c];
+		}
+	}
+
+
+
+	// do a table if shift # is 6, 7, 8, or 9
+	// taking cipher and % 6 (mod 6) should yield the correct results.
+	// shifting = shifting
+	//     6          0
+	//     7          1
+	//     8          2
+	//     9          3
+	//
+	// now need to shift each row right by num of chars in 2nd row (row 1) of the cipherGrid
+	for (int r = 0; r < 6; ++r) // shift each row right
+	{
+		shiftNum = cipherGrid[1][r] % 6; // see table above - taking second row (row 1) of the cipherGrid for this shift
+		for (int i = 0; i < shiftNum; ++i) // shifting shiftNum times
+		{
+			tempChar = shiftRight1[r][5]; // hold last column item in temp. this will be moved to 0,c at the end
+			for (int c = 5; c >= 0; --c)
+			{
+				if (c - 1 < 0)
+					shiftRight1[r][c] = tempChar; // if at 0,c, get temp char and put here
+				else
+					shiftRight1[r][c] = shiftRight1[r][c - 1];
+			}
+		}
+	}
+
+	// output grid
+	cout << endl << "This is the shiftRight1 grid after shifting each column: " << endl;
+	for (int r = 0; r < 6; ++r)
+	{
+		for (int c = 0; c < 6; ++c)
+			cout << shiftRight1[r][c] << " ";
+		cout << endl;
+	}
+
+
+
+
 
 
 	return 0;
