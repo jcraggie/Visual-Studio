@@ -486,32 +486,42 @@ int main()
 	CreateCipherKeys(key);
 	OutputCipherKey(key);
 	CreateCipherGrid(key, cipherGrid);
-	OutputGrid(cipherGrid, "This is the cipherGrid:");
+	//OutputGrid(cipherGrid, "This is the cipherGrid:");
 	GetTextToEncrypt(plainText);
 	CreateTextGrid(plainText, textGrid);
-	OutputGrid(textGrid, "This is the plain text message to be encrypted: ");
-	CopyGrid(textGrid, shiftDown1);
-	ShiftGridDown(cipherGrid, shiftDown1, 0);
-	OutputGrid(shiftDown1, "This is the shiftDown1 grid after shifting each column: ");
-	CopyGrid(shiftDown1, shiftRight1);
-	ShiftGridRight(cipherGrid, shiftRight1, 1);
-	OutputGrid(shiftRight1, "This is the shiftRight1 grid after shifting each column: ");
-	CopyGrid(shiftRight1, shiftForward);
-	ShiftGridForward(cipherGrid, shiftForward,2);
-	OutputGrid(shiftForward, "This is shiftForward after looking up each row in the sBox array: ");
+	//OutputGrid(textGrid, "This is the plain text message to be encrypted: ");
+	
+	// NEXT - MOVE ALL BELOW TO FUNCTION CALLED ENCRYPT
+
+	//CopyGrid(textGrid, shiftDown1);
+	ShiftGridDown(cipherGrid, textGrid, 0);
+	//ShiftGridDown(cipherGrid, shiftDown1, 0);
+	//OutputGrid(shiftDown1, "This is the shiftDown1 grid after shifting each column: ");
+	//CopyGrid(shiftDown1, shiftRight1);
+	ShiftGridRight(cipherGrid, textGrid, 1);
+	//ShiftGridRight(cipherGrid, shiftRight1, 1);
+	//OutputGrid(shiftRight1, "This is the shiftRight1 grid after shifting each column: ");
+	//CopyGrid(shiftRight1, shiftForward);
+	ShiftGridForward(cipherGrid, textGrid,2);
+	//ShiftGridForward(cipherGrid, shiftForward,2);
+	//OutputGrid(shiftForward, "This is shiftForward after looking up each row in the sBox array: ");
+	OutputGrid(textGrid, "This is the final Cipher:");
 	CreateSBoxGrid(sBoxGrid, sBox);
-	OutputGrid(sBoxGrid, "This is sBoxGrid:");
-	CreateMACGrid(macGrid, sBoxGrid, cipherGrid, shiftForward);
-	OutputGrid(macGrid, "This is first phase of the MAC:");
-	CopyGrid(macGrid, macGridRight);
-	ShiftGridRight(cipherGrid, macGridRight, 3);
-	OutputGrid(macGridRight, "This is the mac grid shifted right:");
-	CopyGrid(macGridRight, macGridDown);
-	ShiftGridDown(cipherGrid, macGridDown, 4);
-	OutputGrid(macGridDown, "This is the mac grid shifted down:");
-	CopyGrid(macGridDown, macGridForward);
-	ShiftGridForward(cipherGrid, macGridForward,5);
-	OutputGrid(macGridForward, "This is the mac grid shifted forward:");
+	//OutputGrid(sBoxGrid, "This is sBoxGrid:");
+	CreateMACGrid(macGrid, sBoxGrid, cipherGrid, textGrid);
+	//OutputGrid(macGrid, "This is first phase of the MAC:");
+	//CopyGrid(macGrid, macGridRight);
+	ShiftGridRight(cipherGrid, macGrid, 3);
+	//ShiftGridRight(cipherGrid, macGridRight, 3);
+	//OutputGrid(macGridRight, "This is the mac grid shifted right:");
+	//CopyGrid(macGridRight, macGridDown);
+	ShiftGridDown(cipherGrid, macGrid, 4);
+	//ShiftGridDown(cipherGrid, macGridDown, 4);
+	//OutputGrid(macGridDown, "This is the mac grid shifted down:");
+	//CopyGrid(macGridDown, macGridForward);
+	ShiftGridForward(cipherGrid, macGrid, 5);
+	//ShiftGridForward(cipherGrid, macGridForward,5);
+	OutputGrid(macGrid, "This is the mac grid shifted forward:");
 
 
 
