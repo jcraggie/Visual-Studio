@@ -228,7 +228,7 @@ void ShiftGridRight(int cipher[6][6], int grid[6][6], int cipherRow)
 	}
 }
 
-void CreateCipher(vector<CKeyChar> key, int cipher[6][6])
+void CreateCipherGrid(vector<CKeyChar> key, int cipher[6][6])
 {
 	int keySize = key.size();
 
@@ -327,21 +327,15 @@ void ShiftGridForward(int cipher[6][6], int grid[6][6], int whichCipher)
 	}
 }
 
-int main()
+void PopulateKeyCharClass(vector<CKeyChar>& key, const string keyString)
 {
-	string keyString("SECRET");
-	vector<char> vKey(keyString.begin(), keyString.end()); // puts individual chars into vector vKey
-	vector<char>::const_iterator iterC;
-	vector<CKeyChar>::iterator iterK;
-	vector<CKeyChar> key;
-	vector<CKeyChar>* pKey;
-
-	int cipherGrid[6][6]{}; // 6x6 grid using int
-
-	int pos = 0;
-
 	// assign each character to a class CKeyChar object and assign a numerical position pos
 	// pos will be used to return the key to the original order after being alpha sorted below
+
+	vector<char> vKey(keyString.begin(), keyString.end()); // puts individual chars into vector vKey
+	vector<char>::const_iterator iterC;
+	int pos = 0;
+
 	for (iterC = vKey.begin(); iterC != vKey.end(); ++iterC)
 	{
 		CKeyChar* newKey = new CKeyChar;
@@ -350,6 +344,12 @@ int main()
 		pos += 1;
 		key.push_back(*newKey);
 	}
+}
+
+void CreateCipherKeys(vector<CKeyChar>& key)
+{
+	int pos;
+	vector<CKeyChar>::iterator iterK;
 
 	// sort by character. put original key characters in alpha order
 	std::sort(key.begin(), key.end(), SortByChar);
@@ -365,9 +365,12 @@ int main()
 
 	// return the keys to the original order
 	std::sort(key.begin(), key.end(), OriginalOrder);
+}
 
-	// output the key and it's value
-	// output the key chars
+void OutputCipherKey(vector<CKeyChar> key)
+{
+	vector<CKeyChar>::iterator iterK;
+
 	for (iterK = key.begin(); iterK != key.end(); ++iterK)
 	{
 		cout << iterK->c << " ";
@@ -380,14 +383,17 @@ int main()
 		cout << iterK->value << " ";
 	}
 	cout << endl;
+}
 
-	CreateCipher(key, cipherGrid);
-	
-	OutputGrid(cipherGrid, "This is the cipherGrid:");
+void GetTextToEncrypt(string & plainText)
+{
+	plainText = "THIS IS A SECRET MESSAGE THAT WE NEED TO HIDE";
+}
 
-	string plainText = "THIS IS A SECRET MESSAGE THAT WE NEED TO HIDE";
+void CreateTextGrid(string plainText, char textGrid[6][6])
+{
+	vector<char>::const_iterator iterC;
 
-	char textGrid[6][6];
 	vector<char> vPlainText(plainText.begin(), plainText.end()); // puts individual chars into vector vKey
 																 // can user iterC from earlier
 	vector<char> vNoSpacesText;
@@ -400,9 +406,8 @@ int main()
 		if (*iterC != ' ')
 			vNoSpacesText.push_back(*iterC);
 	}
-
-
-	// put plaintext into grid. need to figure out how to strip out the spaces
+	
+	// put plaintext into grid while removing spaces
 	iterC = vNoSpacesText.begin();
 	for (int r = 0; r < 6; ++r)
 	{
@@ -420,77 +425,24 @@ int main()
 
 		}
 	}
+}
 
-
-	// output grid
-	OutputGrid(textGrid, "This is the plain text message to be encrypted: ");
-
-	char shiftDown1[6][6]{};
-	
-	CopyGrid(textGrid, shiftDown1);
-
-	int shiftNum = 0;
-	int currR = 0;
-	int currC = 0; // remains constant for column shifts. only change when moving to next column shift
-	int nextR;
-	char nextChar;
-	char tempChar;
-	char currChar;
-
-	ShiftGridDown(cipherGrid, shiftDown1, 0);
-
-	// output grid
-	OutputGrid(shiftDown1, "This is the shiftDown1 grid after shifting each column: ");
-
-
-	// create new grid for shiftRight1 based on shiftDown1
-	char shiftRight1[6][6]{};
-
-	CopyGrid(shiftDown1, shiftRight1);
-
-	// now need to shift each row right by num of chars in 2nd row (row 1) of the cipherGrid
-	ShiftGridRight(cipherGrid, shiftRight1, 1);
-
-	// output grid
-	OutputGrid(shiftRight1, "This is the shiftRight1 grid after shifting each column: ");
-
-	
-
-	cout << endl;
-
-	// create sBox grid for lookups
-	// create new grid for shiftRight1 based on shiftDown1
-	char sBoxGrid[6][6]{};
-
-	CopyGrid(shiftRight1, sBoxGrid);
-	
-	
-	// THIS DESCRIPTION IS WRONG. now need to shift each row right by num of chars in 2nd row (row 1) of the cipherGrid
-
-	ShiftGridForward(cipherGrid, sBoxGrid,2);
-
-	OutputGrid(sBoxGrid, "This is sBoxGrid after looking up each row in the sBox array: ");
-
-	char sBox[36]
-	{ 'A', 'B', 'C', 'D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
-		'0','1','2','3','4','5','6','7','8','9' };
-	// creates the abcGrid used to look up values from the sBoxGrid also using the cipherGrid
-	char abcGrid[6][6]{};
-	int sBoxi = 0; // index used to iterate through the sBox array and put it in the abcGrid
+void CreateSBoxGrid(char sBoxGrid[6][6], char sBox[36])
+{
+	int sBoxIdx = 0; // index used to iterate through the sBox array and put it in the sBoxGrid
 
 	for (int r = 0; r < 6; ++r)
 	{
 		for (int c = 0; c < 6; ++c)
 		{
-			abcGrid[r][c] = sBox[sBoxi];
-			sBoxi += 1;
+			sBoxGrid[r][c] = sBox[sBoxIdx];
+			sBoxIdx += 1;
 		}
 	}
+}
 
-	OutputGrid(abcGrid, "This is abcGrid:");
-
-	// lookup each value from sBoxGrid in the abcGrid table. Need to capture the ROW and COLUMN when found
-	int macGrid[6][6]{};
+void CreateMACGrid(int macGrid[6][6], char sBoxGrid[6][6], int cipherGrid[6][6], char shiftForward[6][6])
+{
 	char findMe;
 	char macChar;
 	int macInt;
@@ -499,41 +451,66 @@ int main()
 	{
 		for (int c = 0; c < 6; ++c)
 		{
-			findMe = sBoxGrid[r][c];
-			LookUpGrid(abcGrid, findMe, fRow, fCol);
+			findMe = shiftForward[r][c];
+			LookUpGrid(sBoxGrid, findMe, fRow, fCol);
 			macInt = cipherGrid[fRow][fCol];
 			//cout << "macInt" << macInt << endl;
 			macGrid[r][c] = macInt;
-			
+
 		}
 	}
+}
 
-	OutputGrid(macGrid, "This is first phase of the MAC:");
+int main()
+{
+	string keyString("SECRET");
+	string plainText;
+	char textGrid[6][6];
+	char shiftDown1[6][6]{};
+	char shiftRight1[6][6]{};
+	char shiftForward[6][6]{};
+	char sBoxGrid[6][6]{};
+	vector<CKeyChar> key;
+	vector<CKeyChar>* pKey;
+	char sBox[36]
+	{ 'A', 'B', 'C', 'D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
+		'0','1','2','3','4','5','6','7','8','9' };
+	int cipherGrid[6][6]{}; // 6x6 grid using int
 
-
-	// version 3-4 shift MAC right, down, forward to get final MAC grid
+	int macGrid[6][6]{};
 	int macGridRight[6][6]{};
-
-	CopyGrid(macGrid, macGridRight);
-
-	ShiftGridRight(cipherGrid, macGridRight, 3);
-
-	OutputGrid(macGridRight, "This is the mac grid shifted right:");
-
 	int macGridDown[6][6]{};
-
-	CopyGrid(macGridRight, macGridDown);
-
-	ShiftGridDown(cipherGrid, macGridDown, 4);
-
-	OutputGrid(macGridDown, "This is the mac grid shifted down:");
-
 	int macGridForward[6][6]{};
 
+	PopulateKeyCharClass(key, keyString);
+	CreateCipherKeys(key);
+	OutputCipherKey(key);
+	CreateCipherGrid(key, cipherGrid);
+	OutputGrid(cipherGrid, "This is the cipherGrid:");
+	GetTextToEncrypt(plainText);
+	CreateTextGrid(plainText, textGrid);
+	OutputGrid(textGrid, "This is the plain text message to be encrypted: ");
+	CopyGrid(textGrid, shiftDown1);
+	ShiftGridDown(cipherGrid, shiftDown1, 0);
+	OutputGrid(shiftDown1, "This is the shiftDown1 grid after shifting each column: ");
+	CopyGrid(shiftDown1, shiftRight1);
+	ShiftGridRight(cipherGrid, shiftRight1, 1);
+	OutputGrid(shiftRight1, "This is the shiftRight1 grid after shifting each column: ");
+	CopyGrid(shiftRight1, shiftForward);
+	ShiftGridForward(cipherGrid, shiftForward,2);
+	OutputGrid(shiftForward, "This is shiftForward after looking up each row in the sBox array: ");
+	CreateSBoxGrid(sBoxGrid, sBox);
+	OutputGrid(sBoxGrid, "This is sBoxGrid:");
+	CreateMACGrid(macGrid, sBoxGrid, cipherGrid, shiftForward);
+	OutputGrid(macGrid, "This is first phase of the MAC:");
+	CopyGrid(macGrid, macGridRight);
+	ShiftGridRight(cipherGrid, macGridRight, 3);
+	OutputGrid(macGridRight, "This is the mac grid shifted right:");
+	CopyGrid(macGridRight, macGridDown);
+	ShiftGridDown(cipherGrid, macGridDown, 4);
+	OutputGrid(macGridDown, "This is the mac grid shifted down:");
 	CopyGrid(macGridDown, macGridForward);
-
 	ShiftGridForward(cipherGrid, macGridForward,5);
-
 	OutputGrid(macGridForward, "This is the mac grid shifted forward:");
 
 
