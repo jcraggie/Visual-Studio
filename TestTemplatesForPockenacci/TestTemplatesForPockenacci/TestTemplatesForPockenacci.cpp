@@ -356,21 +356,15 @@ void CreateCipherGrid(vector<CKeyChar> key, int cipher[6][6])
 		}
 	}
 }
-
 template <typename T>
-void ShiftGridForward(T grid[6][6], int const cipher[6][6], int whichCipherRow)
+T GetLookUp(T t1, T LookUp[37], int& aSize)
 {
-	int idx, newIdx;
-	T LookUp[37];
-	int shiftNum;
 	string typ1 = typeid(T).name();
-	int aSize = 0;
-
+	//int aSize = 0;
 	if (typ1 == "char")
 	{
 		for (char ichar = 'A'; ichar <= 'Z'; ++ichar)
 		{
-
 			LookUp[aSize] = ichar;
 			aSize += 1;
 		}
@@ -399,8 +393,20 @@ void ShiftGridForward(T grid[6][6], int const cipher[6][6], int whichCipherRow)
 		aSize = 10;
 	}
 
-	cout << "aSize is " << aSize << endl;
-	cout << "LookUp outside of IF stmt is: " << LookUp << endl << endl;
+	return 0;
+}
+
+
+template <typename T>
+void ShiftGridForward(T grid[6][6], int const cipher[6][6], int whichCipherRow)
+{
+	int idx, newIdx;
+	T LookUp[37];
+	int shiftNum;
+	string typ1 = typeid(T).name();
+	int aSize = 0;
+	GetLookUp(grid[0][0], LookUp, aSize);
+
 	for (int r = 0; r < 6; ++r) // iterate through each row
 	{
 		for (int c = 0; c < 6; ++c)
