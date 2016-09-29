@@ -1,3 +1,4 @@
+// TestTemplatesForPockenacci.cpp : Defines the entry point for the console application.
 // Pockeenacci_v3.cpp : Defines the entry point for the console application.
 // taken from Github by justin troutman
 // printed off github 9/14/2016
@@ -56,7 +57,7 @@
 
 
 
- 
+
 #include "stdafx.h"
 #include <stdio.h>
 #include <iostream>
@@ -565,7 +566,7 @@ void CreateTextGrid(string plainText, char textGrid[6][6])
 		if (*iterC != ' ')
 			vNoSpacesText.push_back(*iterC);
 	}
-	
+
 	// put plaintext into grid while removing spaces
 	iterC = vNoSpacesText.begin();
 	for (int r = 0; r < 6; ++r)
@@ -660,12 +661,12 @@ int main()
 	CreateCipherGrid(key, cipherGrid);
 	GetTextToEncrypt(plainText);
 	CreateTextGrid(plainText, textGrid);
-	
+
 	// NEXT - MOVE ALL BELOW TO FUNCTION CALLED ENCRYPT
 
 	ShiftGridDown(cipherGrid, textGrid, 0);
 	ShiftGridRight(cipherGrid, textGrid, 1);
-	ShiftGridForward(textGrid, cipherGrid,2);
+	ShiftGridForward(textGrid, cipherGrid, 2);
 	OutputGrid(textGrid, "This is the final Cipher:");
 	CreateSBoxGrid(sBoxGrid);
 	CreateMACGrid(macGrid, sBoxGrid, cipherGrid, textGrid);
@@ -679,7 +680,7 @@ int main()
 	ShiftGridBackward(cipherGrid, macGrid, 5);
 	ShiftGridUp(cipherGrid, macGrid, 4);
 	ShiftGridLeft(cipherGrid, macGrid, 3);
-	
+
 	DeCreateMACGrid(textGrid, sBoxGrid, cipherGrid, macGrid);
 	ShiftGridBackward(cipherGrid, textGrid, 2);
 	ShiftGridLeft(cipherGrid, textGrid, 1);
