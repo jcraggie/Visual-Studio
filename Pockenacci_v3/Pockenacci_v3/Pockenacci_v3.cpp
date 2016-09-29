@@ -144,41 +144,82 @@ void LookUpGrid(const char searchGrid[6][6], char findMe, int& fRow, int& fCol)
 			}
 }
 
-void ShiftGridDown(int cipher[6][6], char grid[6][6], int cipherRow)
+template <typename T>
+T GetLookUp(T t1, T LookUp[37], int& aSize)
+{
+	string typ1 = typeid(T).name();
+	//int aSize = 0;
+	if (typ1 == "char")
+	{
+		for (char ichar = 'A'; ichar <= 'Z'; ++ichar)
+		{
+			LookUp[aSize] = ichar;
+			aSize += 1;
+		}
+		for (char ichar = '0'; ichar <= '9'; ++ichar)
+		{
+			LookUp[aSize] = ichar;
+			aSize += 1;
+		}
+		LookUp[aSize] = '\0';
+		//LookUp[36]
+		//{ 'A', 'B', 'C', 'D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
+		//	'0','1','2','3','4','5','6','7','8','9' };
+		cout << " Type is: " << typ1 << " ";
+		cout << "LookUp is " << LookUp << endl;
+	}
+	else
+	{
+		for (aSize = 0; aSize <= 9; ++aSize)
+		{
+			LookUp[aSize] = aSize;
+		}
+		LookUp[aSize] = '\0';
+		//LookUp[10]{ 0,1,2,3,4,5,6,7,8,9 };
+		cout << " Type is: " << typ1 << " ";
+		cout << "LookUp is " << LookUp << endl;
+		aSize = 10;
+	}
+
+	return 0;
+}
+
+template <typename T>
+void ShiftGridDown(T grid[6][6], int const cipher[6][6], int cipherRow)
 {
 	int shiftNum;
-	char tempChar;
+	int temp;
 	for (int c = 0; c < 6; ++c) // shift each column down
 	{
 		shiftNum = cipher[cipherRow][c] % 6; // see table above - taking first row (row 0) of the cipherGrid for this shift
 		for (int i = 0; i < shiftNum; ++i) // shifting shiftNum times
 		{
-			tempChar = grid[5][c]; // hold last column item in temp. this will be moved to 0,c at the end
+			temp = grid[5][c]; // hold last column item in temp. this will be moved to 0,c at the end
 			for (int r = 5; r >= 0; --r)
 			{
 				if (r - 1 < 0)
-					grid[r][c] = tempChar; // if at 0,c, get temp char and put here
+					grid[r][c] = temp; // if at 0,c, get temp char and put here
 				else
 					grid[r][c] = grid[r - 1][c];
 			}
 		}
 	}
 }
-
-void ShiftGridUp(int cipher[6][6], char grid[6][6], int cipherRow)
+template <typename T>
+void ShiftGridUp(T grid[6][6], int const cipher[6][6], int cipherRow)
 {
 	int shiftNum;
-	char tempChar;
+	T temp;
 	for (int c = 0; c < 6; ++c) // shift each column down
 	{
 		shiftNum = cipher[cipherRow][c] % 6; // see table above - taking first row (row 0) of the cipherGrid for this shift
 		for (int i = 0; i < shiftNum; ++i) // shifting shiftNum times
 		{
-			tempChar = grid[0][c]; // hold last column item in temp. this will be moved to 0,c at the end
+			temp = grid[0][c]; // hold last column item in temp. this will be moved to 0,c at the end
 			for (int r = 0; r <= 5; ++r)
 			{
 				if (r + 1 > 5)
-					grid[r][c] = tempChar; // if at 0,c, get temp char and put here
+					grid[r][c] = temp; // if at 0,c, get temp char and put here
 				else
 					grid[r][c] = grid[r + 1][c];
 			}
@@ -186,132 +227,48 @@ void ShiftGridUp(int cipher[6][6], char grid[6][6], int cipherRow)
 	}
 }
 
-void ShiftGridRight(int cipher[6][6], char grid[6][6], int cipherRow)
+template <typename T>
+void ShiftGridRight(T grid[6][6], int cipher[6][6], int cipherRow)
 {
 	int shiftNum;
-	char tempChar;
+	T temp;
 	for (int r = 0; r < 6; ++r) // shift each row right
 	{
 		shiftNum = cipher[cipherRow][r] % 6; // see table above - taking second row (row 1) of the cipherGrid for this shift
 		for (int i = 0; i < shiftNum; ++i) // shifting shiftNum times
 		{
-			tempChar = grid[r][5]; // hold last column item in temp. this will be moved to 0,c at the end
+			temp = grid[r][5]; // hold last column item in temp. this will be moved to 0,c at the end
 			for (int c = 5; c >= 0; --c)
 			{
 				if (c - 1 < 0)
-					grid[r][c] = tempChar; // if at 0,c, get temp char and put here
+					grid[r][c] = temp; // if at 0,c, get temp char and put here
 				else
 					grid[r][c] = grid[r][c - 1];
 			}
 		}
 	}
 }
-
-void ShiftGridLeft(int cipher[6][6], char grid[6][6], int cipherRow)
+template <typename T>
+void ShiftGridLeft(T grid[6][6], int const cipher[6][6], int cipherRow)
 {
 	int shiftNum;
-	char tempChar;
+	T temp;
 	for (int r = 0; r < 6; ++r) // shift each row right
 	{
 		shiftNum = cipher[cipherRow][r] % 6; // see table above - taking second row (row 1) of the cipherGrid for this shift
 		for (int i = 0; i < shiftNum; ++i) // shifting shiftNum times
 		{
-			tempChar = grid[r][0]; // hold last column item in temp. this will be moved to 0,c at the end
+			temp = grid[r][0]; // hold last column item in temp. this will be moved to 0,c at the end
 			for (int c = 0; c <= 5; ++c)
 			{
 				if (c + 1 > 5)
-					grid[r][c] = tempChar; // if at 0,c, get temp char and put here
+					grid[r][c] = temp; // if at 0,c, get temp char and put here
 				else
 					grid[r][c] = grid[r][c + 1];
 			}
 		}
 	}
 }
-
-void ShiftGridDown(int cipher[6][6], int grid[6][6], int cipherRow)
-{
-	int shiftNum;
-	int tempInit;
-	for (int c = 0; c < 6; ++c) // shift each column down
-	{
-		shiftNum = cipher[cipherRow][c] % 6; // see table above - taking first row (row 0) of the cipherGrid for this shift
-		for (int i = 0; i < shiftNum; ++i) // shifting shiftNum times
-		{
-			tempInit = grid[5][c]; // hold last column item in temp. this will be moved to 0,c at the end
-			for (int r = 5; r >= 0; --r)
-			{
-				if (r - 1 < 0)
-					grid[r][c] = tempInit; // if at 0,c, get temp char and put here
-				else
-					grid[r][c] = grid[r - 1][c];
-			}
-		}
-	}
-}
-
-void ShiftGridUp(int cipher[6][6], int grid[6][6], int cipherRow)
-{
-	int shiftNum;
-	int tempInit;
-	for (int c = 0; c < 6; ++c) // shift each column down
-	{
-		shiftNum = cipher[cipherRow][c] % 6; // see table above - taking first row (row 0) of the cipherGrid for this shift
-		for (int i = 0; i < shiftNum; ++i) // shifting shiftNum times
-		{
-			tempInit = grid[0][c]; // hold last column item in temp. this will be moved to 0,c at the end
-			for (int r = 0; r <= 5; ++r)
-			{
-				if (r + 1 > 5)
-					grid[r][c] = tempInit; // if at 0,c, get temp char and put here
-				else
-					grid[r][c] = grid[r + 1][c];
-			}
-		}
-	}
-}
-
-void ShiftGridRight(int cipher[6][6], int grid[6][6], int cipherRow)
-{
-	int shiftNum;
-	int tempInit;
-	for (int r = 0; r < 6; ++r) // shift each row right
-	{
-		shiftNum = cipher[cipherRow][r] % 6; // see table above - taking second row (row 1) of the cipherGrid for this shift
-		for (int i = 0; i < shiftNum; ++i) // shifting shiftNum times
-		{
-			tempInit = grid[r][5]; // hold last column item in temp. this will be moved to 0,c at the end
-			for (int c = 5; c >= 0; --c)
-			{
-				if (c - 1 < 0)
-					grid[r][c] = tempInit; // if at 0,c, get temp char and put here
-				else
-					grid[r][c] = grid[r][c - 1];
-			}
-		}
-	}
-}
-
-void ShiftGridLeft(int cipher[6][6], int grid[6][6], int cipherRow)
-{
-	int shiftNum;
-	int tempInit;
-	for (int r = 0; r < 6; ++r) // shift each row right
-	{
-		shiftNum = cipher[cipherRow][r] % 6; // see table above - taking second row (row 1) of the cipherGrid for this shift
-		for (int i = 0; i < shiftNum; ++i) // shifting shiftNum times
-		{
-			tempInit = grid[r][0]; // hold last column item in temp. this will be moved to 0,c at the end
-			for (int c = 0; c <= 5; ++c)
-			{
-				if (c + 1 > 5)
-					grid[r][c] = tempInit; // if at 0,c, get temp char and put here
-				else
-					grid[r][c] = grid[r][c + 1];
-			}
-		}
-	}
-}
-
 
 void CreateCipherGrid(vector<CKeyChar> key, int cipher[6][6])
 {
@@ -357,53 +314,11 @@ void CreateCipherGrid(vector<CKeyChar> key, int cipher[6][6])
 }
 
 template <typename T>
-T GetLookUp(T t1, T LookUp[37], int& aSize)
-{
-	string typ1 = typeid(T).name();
-	//int aSize = 0;
-	if (typ1 == "char")
-	{
-		for (char ichar = 'A'; ichar <= 'Z'; ++ichar)
-		{
-			LookUp[aSize] = ichar;
-			aSize += 1;
-		}
-		for (char ichar = '0'; ichar <= '9'; ++ichar)
-		{
-			LookUp[aSize] = ichar;
-			aSize += 1;
-		}
-		LookUp[aSize] = '\0';
-		//LookUp[36]
-		//{ 'A', 'B', 'C', 'D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
-		//	'0','1','2','3','4','5','6','7','8','9' };
-		cout << " Type is: " << typ1 << " ";
-		cout << "LookUp is " << LookUp << endl;
-	}
-	else
-	{
-		for (aSize = 0; aSize <= 9; ++aSize)
-		{
-			LookUp[aSize] = aSize;
-		}
-		LookUp[aSize] = '\0';
-		//LookUp[10]{ 0,1,2,3,4,5,6,7,8,9 };
-		cout << " Type is: " << typ1 << " ";
-		cout << "LookUp is " << LookUp << endl;
-		aSize = 10;
-	}
-
-	return 0;
-}
-
-
-template <typename T>
 void ShiftGridForward(T grid[6][6], int const cipher[6][6], int whichCipherRow)
 {
 	int idx, newIdx;
 	T LookUp[37];
 	int shiftNum;
-	string typ1 = typeid(T).name();
 	int aSize = 0;
 	GetLookUp(grid[0][0], LookUp, aSize);
 
@@ -426,14 +341,13 @@ void ShiftGridForward(T grid[6][6], int const cipher[6][6], int whichCipherRow)
 
 	}
 }
-
-void ShiftGridBackward(int cipher[6][6], int grid[6][6], int whichCipher)
+template <typename T>
+void ShiftGridBackward(T grid[6][6], int const cipher [6][6], int whichCipher)
 {
-	char sBox[36]
-	{ 'A', 'B', 'C', 'D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
-		'0','1','2','3','4','5','6','7','8','9' };
-	int sBoxInt[10]{ 0,1,2,3,4,5,6,7,8,9 };
-	int s = _countof(sBoxInt);
+	T LookUp[37];
+	int aSize = 0;
+	GetLookUp(grid[0][0], LookUp, aSize);
+
 	int shiftNum;
 	int idx, newIdx;
 	for (int r = 0; r < 6; ++r) // iterate through each row
@@ -442,49 +356,16 @@ void ShiftGridBackward(int cipher[6][6], int grid[6][6], int whichCipher)
 		{
 			shiftNum = cipher[whichCipher][c]; // using 3rd row (row 2) of cipherGrid for s-box lookups. use this same crypto for all 6 rows.
 
-			for (int i = 0; i < s; ++i)
-				if (sBoxInt[i] == grid[r][c])
+			for (int i = 0; i < aSize; ++i)
+				if (LookUp[i] == grid[r][c])
 				{
 					idx = i;
 					newIdx = (idx - shiftNum);
 					if (newIdx < 0)
 					{
-						newIdx = s - abs(newIdx);
+						newIdx = aSize - abs(newIdx);
 					}
-					grid[r][c] = sBoxInt[newIdx];
-					break;
-				}
-
-		}
-
-	}
-}
-
-void ShiftGridBackward(int cipher[6][6], char grid[6][6], int whichCipher)
-{
-	int idx, newIdx;
-	int shiftNum;
-	char sBox[36]
-	{ 'A', 'B', 'C', 'D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
-		'0','1','2','3','4','5','6','7','8','9' };
-	int s = _countof(sBox);
-
-	for (int r = 0; r < 6; ++r) // iterate through each row
-	{
-		for (int c = 0; c < 6; ++c)
-		{
-			shiftNum = cipher[whichCipher][c]; // using 3rd row (row 2) of cipherGrid for s-box lookups. use this same crypto for all 6 rows.
-			for (int i = 0; i < s; ++i)
-				if (sBox[i] == grid[r][c])
-				{
-					idx = i;
-					newIdx = (idx - shiftNum);
-					if (newIdx < 0)
-					{
-						newIdx = s - abs(newIdx);
-					}
-
-					grid[r][c] = sBox[newIdx];
+					grid[r][c] = LookUp[newIdx];
 					break;
 				}
 
@@ -670,27 +551,27 @@ int main()
 	
 	// NEXT - MOVE ALL BELOW TO FUNCTION CALLED ENCRYPT
 
-	ShiftGridDown(cipherGrid, textGrid, 0);
-	ShiftGridRight(cipherGrid, textGrid, 1);
+	ShiftGridDown(textGrid, cipherGrid, 0);
+	ShiftGridRight(textGrid, cipherGrid, 1);
 	ShiftGridForward(textGrid, cipherGrid,2);
 	OutputGrid(textGrid, "This is the final Cipher:");
 	CreateSBoxGrid(sBoxGrid);
 	CreateMACGrid(macGrid, sBoxGrid, cipherGrid, textGrid);
-	ShiftGridRight(cipherGrid, macGrid, 3);
-	ShiftGridDown(cipherGrid, macGrid, 4);
+	ShiftGridRight(macGrid, cipherGrid, 3);
+	ShiftGridDown(macGrid, cipherGrid, 4);
 	ShiftGridForward(macGrid, cipherGrid, 5);
 	OutputGrid(macGrid, "This is the mac grid shifted forward:");
 
 	// DECRYPTING
 
-	ShiftGridBackward(cipherGrid, macGrid, 5);
-	ShiftGridUp(cipherGrid, macGrid, 4);
-	ShiftGridLeft(cipherGrid, macGrid, 3);
+	ShiftGridBackward(macGrid, cipherGrid, 5);
+	ShiftGridUp(macGrid, cipherGrid, 4);
+	ShiftGridLeft(macGrid, cipherGrid, 3);
 	
 	DeCreateMACGrid(textGrid, sBoxGrid, cipherGrid, macGrid);
-	ShiftGridBackward(cipherGrid, textGrid, 2);
-	ShiftGridLeft(cipherGrid, textGrid, 1);
-	ShiftGridUp(cipherGrid, textGrid, 0);
+	ShiftGridBackward(textGrid, cipherGrid, 2);
+	ShiftGridLeft(textGrid, cipherGrid, 1);
+	ShiftGridUp(textGrid, cipherGrid, 0);
 
 	OutputGrid(textGrid, "Original text grid.");
 
