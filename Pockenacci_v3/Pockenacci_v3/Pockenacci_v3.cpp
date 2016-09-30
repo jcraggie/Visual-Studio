@@ -165,8 +165,8 @@ T GetLookUp(T t1, T LookUp[37], int& aSize)
 		//LookUp[36]
 		//{ 'A', 'B', 'C', 'D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
 		//	'0','1','2','3','4','5','6','7','8','9' };
-		cout << " Type is: " << typ1 << " ";
-		cout << "LookUp is " << LookUp << endl;
+		//cout << " Type is: " << typ1 << " ";
+		//cout << "LookUp is " << LookUp << endl;
 	}
 	else
 	{
@@ -176,8 +176,8 @@ T GetLookUp(T t1, T LookUp[37], int& aSize)
 		}
 		LookUp[aSize] = '\0';
 		//LookUp[10]{ 0,1,2,3,4,5,6,7,8,9 };
-		cout << " Type is: " << typ1 << " ";
-		cout << "LookUp is " << LookUp << endl;
+		//cout << " Type is: " << typ1 << " ";
+		//cout << "LookUp is " << LookUp << endl;
 		aSize = 10;
 	}
 
@@ -432,35 +432,34 @@ void OutputCipherKey(vector<CKeyChar> key)
 	cout << endl;
 }
 
-void GetTextToEncrypt(string & plainText)
-{
-	plainText = "THIS IS A SECRET MESSAGE THAT WE NEED TO HIDE";
-}
-
-void CreateTextGrid(string plainText, char textGrid[6][6])
+void GetTextToEncrypt(string& plainText, vector<char>& noSpaceText)
 {
 	vector<char>::const_iterator iterC;
-
-	vector<char> vPlainText(plainText.begin(), plainText.end()); // puts individual chars into vector vKey
-																 // can user iterC from earlier
-	vector<char> vNoSpacesText;
-	vector<char>::iterator iterC2;
+	plainText = "THIS IS A SECRET MESSAGE THAT WE NEED TO HIDE";
+	cout << "The message to encode is: " << plainText << endl;
+	vector<char> vPlainText(plainText.begin(), plainText.end()); // puts individual chars into vector vPlainText
 
 	iterC = vPlainText.begin();
 
 	for (iterC = vPlainText.begin(); iterC != vPlainText.end(); ++iterC)
 	{
 		if (*iterC != ' ')
-			vNoSpacesText.push_back(*iterC);
+			noSpaceText.push_back(*iterC);
 	}
-	
-	// put plaintext into grid while removing spaces
-	iterC = vNoSpacesText.begin();
+
+}
+
+void CreateTextGrid(vector<char> noSpaceText, char textGrid[6][6])
+{
+	vector<char>::iterator iterC;
+
+	iterC = noSpaceText.begin();
+
 	for (int r = 0; r < 6; ++r)
 	{
 		for (int c = 0; c < 6; ++c)
 		{
-			if (iterC == vNoSpacesText.end())
+			if (iterC == noSpaceText.end())
 			{
 				break;
 			}
@@ -566,6 +565,7 @@ int main()
 	//string keyString("SECRET");
 	string keyString;
 	string plainText;
+	vector<char> noSpaceText;
 	char textGrid[6][6];
 	char sBoxGrid[6][6]{};
 	vector<CKeyChar> key;
@@ -580,8 +580,9 @@ int main()
 	CreateCipherKeys(key);
 	OutputCipherKey(key);
 	CreateCipherGrid(key, cipherGrid);
-	GetTextToEncrypt(plainText);
-	CreateTextGrid(plainText, textGrid);
+	GetTextToEncrypt(plainText, noSpaceText);
+	CreateTextGrid(noSpaceText, textGrid);
+	OutputGrid(textGrid, "This is the text to be encrypted in a 6xt6 block.");
 	
 	// NEXT - MOVE ALL BELOW TO FUNCTION CALLED ENCRYPT
 
