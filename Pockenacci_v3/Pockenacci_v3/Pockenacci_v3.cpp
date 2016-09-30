@@ -540,6 +540,8 @@ void GetKeyFromUser(string& keyString)
 	cout << "your message." << endl << endl;
 	do
 	{
+		slen = 0;
+		hasNums = false;
 		cout << "Enter your 6 character key: ";
 
 		getline(cin, keyString);
@@ -547,12 +549,14 @@ void GetKeyFromUser(string& keyString)
 		slen = keyString.length();
 		if (slen > 6)
 			cout << endl << "Your input is more than 6 characters. Please try again." << endl;
-		else if (string::npos != keyString.find_first_of("0123456789"))
+		else if (slen < 6)
+			cout << endl << "Your input is less than 6 characters. Please try again." << endl;
+		else if (string::npos != keyString.find_first_of("0123456789 "))
 		{
-			cout << endl << "Your input contains numbers. Please try again." << endl;
+			cout << endl << "Your input contains numbers and/or spaces. Please try again." << endl;
 			hasNums = true;
 		}
-	} while ((slen > 6) || (hasNums == true));
+	} while ((slen > 6) || (slen < 6) || (hasNums == true));
 }
 
 
