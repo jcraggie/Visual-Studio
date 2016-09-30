@@ -531,9 +531,36 @@ void DeCreateMACGrid(char shiftForward[6][6], char sBoxGrid[6][6], int cipherGri
 	}
 }
 
+void GetKeyFromUser(string& keyString)
+{
+	int slen;
+	bool hasNums = false;
+	cout << "You need a 6-alpha character key. Case does not matter. No spaces." << endl;
+	cout << "This will be used to generate a 36 alpha-numeric key grid used to encrypt" << endl;
+	cout << "your message." << endl << endl;
+	do
+	{
+		cout << "Enter your 6 character key: ";
+
+		getline(cin, keyString);
+		transform(keyString.begin(), keyString.end(), keyString.begin(), toupper);
+		slen = keyString.length();
+		if (slen > 6)
+			cout << endl << "Your input is more than 6 characters. Please try again." << endl;
+		else if (string::npos != keyString.find_first_of("0123456789"))
+		{
+			cout << endl << "Your input contains numbers. Please try again." << endl;
+			hasNums = true;
+		}
+	} while ((slen > 6) || (hasNums == true));
+}
+
+
+
 int main()
 {
-	string keyString("SECRET");
+	//string keyString("SECRET");
+	string keyString;
 	string plainText;
 	char textGrid[6][6];
 	char sBoxGrid[6][6]{};
@@ -541,6 +568,9 @@ int main()
 	vector<CKeyChar>* pKey;
 	int cipherGrid[6][6]{}; // 6x6 grid using int
 	int macGrid[6][6]{};
+
+	GetKeyFromUser(keyString);
+
 
 	PopulateKeyCharClass(key, keyString);
 	CreateCipherKeys(key);
