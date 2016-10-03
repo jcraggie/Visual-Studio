@@ -1,58 +1,58 @@
-7:00 PM	Connecticut	Houston	Connecticut	-28		6		AAC	AAC	9/29/2016	14	42	(6) Houston	(6) Houston	(6) Houston	(6) Houston	(6) Houston	TIE	1	1	0	0	CFB
-7:30 PM	Kansas	Texas Tech	Kansas	-28.5				Big12	Big12	9/29/2016	19	55	Texas Tech	Texas Tech	Kansas	Kansas	Texas Tech	Texas Tech	1	1	0	0	CFB
-8:00 PM	Stanford	Wash	Stanford	-3.5	7	10	7	Pac12	Pac12	9/30/2016	6	44	(7) Stanford	(7) Stanford	(7) Stanford	(7) Stanford	(10) Wash	(10) Wash	0	0	0	0	CFB
-9:15 PM	Toledo	BYU	Toledo	-3.5				MAC	IND	9/30/2016	53	55	Toledo	BYU	Toledo	BYU	BYU	Toledo	0	1	1	0	CFB
-11:00 AM	N'western	Iowa	N'western	-12				Big10	Big10	10/1/2016	38	31	Iowa	Iowa	Iowa	Iowa	N'western	N'western	0	0	0	0	CFB
-11:00 AM	Rutgers	Ohio St	Rutgers	-38.5		2		Big10	Big10	10/1/2016	0	58	(2) Ohio St	(2) Ohio St	(2) Ohio St	(2) Ohio St	(2) Ohio St	(2) Ohio St	1	1	1	1	CFB
-11:00 AM	Notre Dame	Syracuse	Syracuse	-13				IND	ACC	10/1/2016	50	33	Notre Dame	Notre Dame	Syracuse	Notre Dame	Notre Dame	Notre Dame	1	1	0	1	CFB
-11:00 AM	SMU	Temple	SMU	-12.5				AAC	AAC	10/1/2016	20	45	Temple	SMU	Temple	SMU	Temple	Temple	1	0	1	0	CFB
-11:00 AM	UCF	E Carolina	UCF	-6				AAC	AAC	10/1/2016	47	29	E Carolina	E Carolina	E Carolina	E Carolina	UCF	UCF	0	0	0	0	CFB
-11:00 AM	Miami	Georgia Tech	Georgia Tech	-5.5				ACC	ACC	10/1/2016	35	21	Miami	Miami	Miami	Miami	Miami	Miami	1	1	1	1	CFB
-11:00 AM	Georgia St	Appalachian State	Georgia St	-21				SunB	SunB	10/1/2016	3	17	Appalachian State	Appalachian State	Georgia St	Appalachian State	Appalachian State	Georgia St	1	1	1	0	CFB
-11:00 AM	Florida	Vanderbilt	Vanderbilt	-9.5	23			SEC	SEC	10/1/2016	13	6	(23) Florida	(23) Florida	(23) Florida	(23) Florida	(23) Florida	Vanderbilt	1	1	0	0	CFB
-11:00 AM	Texas	Oklahoma St	Texas	-3.5	22		22	Big12	Big12	10/1/2016	31	49	Oklahoma St	Oklahoma St	Oklahoma St	Oklahoma St	Oklahoma St	Oklahoma St	1	1	1	1	CFB
-11:00 AM	Baylor	Iowa State	Iowa State	-16.5	13			Big12	Big12	10/1/2016	45	42	(13) Baylor	(13) Baylor	(13) Baylor	(13) Baylor	(13) Baylor	Iowa State	1	1	0	0	CFB
-11:30 AM	Virginia	Duke	Virginia	-4				ACC	ACC	10/1/2016	34	20	Duke	Virginia	Duke	Virginia	Virginia	Virginia	0	1	0	1	CFB
-12:00 PM	Buffalo	Boston College	Buffalo	-17.5				MAC	ACC	10/1/2016	3	35	Boston College	Boston College	Buffalo	Boston College	Boston College	Boston College	1	1	0	1	CFB
-1:30 PM	Ohio	Miami Ohio	Miami Ohio	-3				MAC	MAC	10/1/2016	17	7	Ohio	Ohio	Miami Ohio	Ohio	Ohio	Ohio	1	1	0	1	CFB
-1:30 PM	Oregon St	Colorado	Oregon St	-16.5				Pac12	Pac12	10/1/2016	6	47	Colorado	Colorado	Colorado	Colorado	Colorado	Colorado	1	1	1	1	CFB
-2:00 PM	E Michigan	Bowling Green	E Michigan	-4.5				MAC	MAC	10/1/2016	28	25	Bowling Green	Bowling Green	Bowling Green	Bowling Green	E Michigan	E Michigan	0	0	0	0	CFB
-2:30 PM	Tulane	Mass	Mass	-2				AAC	IND	10/1/2016	31	24	Mass	Tulane	Mass	Tulane	Tulane	Tulane	0	1	0	1	CFB
-2:30 PM	Minn	Penn State	Minn	-3				Big10	Big10	10/1/2016	26	29	Penn State	Minn	Minn	Minn	Penn State	TIE	1	0	0	0	CFB
-2:30 PM	Kansas St	W Virginia	Kansas St	-3.5				Big12	Big12	10/1/2016	16	17	W Virginia	W Virginia	W Virginia	Kansas St	W Virginia	Kansas St	1	1	0	1	CFB
-2:30 PM	N Illinois	Ball St	N Illinois	-3.5				MAC	MAC	10/1/2016	31	24	N Illinois	Ball St	N Illinois	Ball St	N Illinois	N Illinois	1	0	1	0	CFB
-2:30 PM	Akron	Kent St	Kent St	-4				MAC	MAC	10/1/2016	31	27	Akron	Akron	Akron	Akron	Akron	TIE	1	1	0	0	CFB
-2:30 PM	Purdue	Maryland	Purdue	-9				Big10	Big10	10/1/2016	7	50	Maryland	Maryland	Maryland	Maryland	Maryland	Maryland	1	1	1	1	CFB
-2:30 PM	Illinois	Nebraska	Illinois	-21		15		Big10	Big10	10/1/2016	16	31	(15) Nebraska	(15) Nebraska	(15) Nebraska	(15) Nebraska	(15) Nebraska	Illinois	1	1	0	0	CFB
-2:30 PM	Wisconsin	Michigan	Wisconsin	-10.5	8	4	8	Big10	Big10	10/1/2016	7	14	(8) Wisconsin	(4) Michigan	(8) Wisconsin	(4) Michigan	(4) Michigan	(8) Wisconsin	0	1	1	0	CFB
-2:30 PM	N Carolina	Florida St	N Carolina	-12		12		ACC	ACC	10/1/2016	37	35	(12) Florida St	(12) Florida St	(12) Florida St	(12) Florida St	N Carolina	N Carolina	0	0	0	0	CFB
-2:30 PM	UL - Monroe	Auburn	UL - Monroe	-33.5				SunB	SEC	10/1/2016	7	58	Auburn	Auburn	Auburn	Auburn	Auburn	Auburn	1	1	1	1	CFB
-2:30 PM	Navy	Air Force	Navy	-7				PL	MtnW	10/1/2016	14	28	Air Force	Air Force	Navy	Air Force	Air Force	Air Force	1	1	0	1	CFB
-2:30 PM	Tennessee	Georgia	Georgia	-3	11	25	25	SEC	SEC	10/1/2016	34	31	(11) Tennessee	(11) Tennessee	(11) Tennessee	(11) Tennessee	(11) Tennessee	TIE	1	1	0	0	CFB
-2:30 PM	Wake Forest	NC State	Wake Forest	-9				ACC	ACC	10/1/2016	16	33	Wake Forest	NC State	Wake Forest	NC State	NC State	NC State	0	1	0	1	CFB
-3:00 PM	Texas A&M	S Carolina	S Carolina	-16	9			SEC	SEC	10/1/2016	24	13	(9) Texas A&M	(9) Texas A&M	(9) Texas A&M	(9) Texas A&M	(9) Texas A&M	S Carolina	1	1	0	0	CFB
-3:00 PM	SJSU	New Mexico	SJSU	-4.5				MtnW	MtnW	10/1/2016	41	48	New Mexico	New Mexico	New Mexico	New Mexico	New Mexico	New Mexico	1	1	1	1	CFB
-4:00 PM	Oklahoma	TCU	TCU	-1		21	21	Big12	Big12	10/1/2016	52	46	(21) TCU	Oklahoma	(21) TCU	Oklahoma	Oklahoma	Oklahoma	0	1	0	1	CFB
-4:00 PM	Troy	Idaho	Idaho	-12				SunB	SunB	10/1/2016	34	13	Troy	Troy	Idaho	Troy	Troy	Troy	1	1	0	1	CFB
-5:00 PM	Old Dominion	Charlotte	Charlotte	-9.5				CUSA	CUSA	10/1/2016	52	17	Old Dominion	Old Dominion	Old Dominion	Old Dominion	Old Dominion	Old Dominion	1	1	1	1	CFB
-5:00 PM	Utah	California	Utah	-1	18		18	Pac12	Pac12	10/1/2016	23	28	(18) Utah	California	(18) Utah	California	California	California	0	1	0	1	CFB
-6:00 PM	Memphis	Ole Miss	Memphis	-15		16		AAC	SEC	10/1/2016	28	48	(16) Ole Miss	(16) Ole Miss	Memphis	(16) Ole Miss	(16) Ole Miss	(16) Ole Miss	1	1	0	1	CFB
-6:00 PM	S Florida	Cincinnati	Cincinnati	-6				AAC	AAC	10/1/2016	45	20	S Florida	S Florida	S Florida	S Florida	S Florida	S Florida	1	1	1	1	CFB
-6:00 PM	M Tenn St	UNT	UNT	-14.5				CUSA	CUSA	10/1/2016	30	13	M Tenn St	M Tenn St	UNT	UNT	M Tenn St	M Tenn St	1	1	0	0	CFB
-6:00 PM	UTEP	La Tech	UTEP	-20				CUSA	CUSA	10/1/2016	7	28	La Tech	La Tech	La Tech	La Tech	La Tech	La Tech	1	1	1	1	CFB
-6:00 PM	Florida Atlantic	Fla Int'l	Fla Int'l	-5.5				CUSA	CUSA	10/1/2016	31	33	Florida Atlantic	Florida Atlantic	Florida Atlantic	Florida Atlantic	Fla Int'l	Fla Int'l	0	0	0	0	CFB
-6:00 PM	W Michigan	C Michigan	C Michigan	-3				MAC	MAC	10/1/2016	49	10	W Michigan	W Michigan	W Michigan	W Michigan	W Michigan	W Michigan	1	1	1	1	CFB
-6:00 PM	Rice	S Miss	Rice	-21.5				CUSA	CUSA	10/1/2016	28	44	S Miss	S Miss	Rice	S Miss	S Miss	Rice	1	1	1	0	CFB
-6:00 PM	Kentucky	Alabama	Kentucky	-34.5		1		SEC	SEC	10/1/2016	6	34	(1) Alabama	(1) Alabama	(1) Alabama	(1) Alabama	(1) Alabama	Kentucky	1	1	0	0	CFB
-6:30 PM	Marshall	Pittsburgh	Marshall	-17.5				CUSA	ACC	10/1/2016	27	43	Pittsburgh	Pittsburgh	Marshall	Pittsburgh	Pittsburgh	Marshall	1	1	1	0	CFB
-6:30 PM	Missouri	LSU	Missouri	-13.5				SEC	SEC	10/1/2016	7	42	LSU	LSU	LSU	LSU	LSU	LSU	1	1	1	1	CFB
-7:00 PM	Louisville	Clemson	Louisville	2.5	3	5	3	ACC	ACC	10/1/2016	36	42	(3) Louisville	(3) Louisville	(3) Louisville	(3) Louisville	(5) Clemson	(5) Clemson	0	0	0	0	CFB
-7:00 PM	Michigan St	Indiana	Indiana	-7.5	17			Big10	Big10	10/1/2016	21	24	(17) Michigan St	(17) Michigan St	Indiana	(17) Michigan St	Indiana	Indiana	0	0	1	0	CFB
-7:00 PM	SDSU	S Alabama	S Alabama	-20	19			MtnW	SunB	10/1/2016	24	42	(19) SDSU	(19) SDSU	(19) SDSU	(19) SDSU	S Alabama	S Alabama	0	0	0	0	CFB
-7:00 PM	UL - Lafayette	NM State	NM State	-6.5				SunB	SunB	10/1/2016	31	37	UL - Lafayette	UL - Lafayette	NM State	UL - Lafayette	NM State	NM State	0	0	1	0	CFB
-7:30 PM	Arizona St	USC	Arizona St	-8				Pac12	Pac12	10/1/2016	20	41	Arizona St	USC	Arizona St	Arizona St	USC	USC	0	1	0	0	CFB
-8:30 PM	Oregon	Wash St	Wash St	-1				Pac12	Pac12	10/1/2016	33	51	Wash St	Wash St	Wash St	Wash St	Wash St	Wash St	1	1	1	1	CFB
-9:15 PM	Wyoming	Colorado St	Wyoming	-7				MtnW	MtnW	10/1/2016	38	17	Wyoming	Colorado St	Wyoming	Colorado St	Wyoming	Wyoming	1	0	1	0	CFB
-9:15 PM	Utah St	Boise St	Utah St	-20.5		24		MtnW	MtnW	10/1/2016	10	21	(24) Boise St	(24) Boise St	(24) Boise St	(24) Boise St	(24) Boise St	Utah St	1	1	0	0	CFB
-9:30 PM	Arizona	UCLA	Arizona	-10				Pac12	Pac12	10/1/2016	24	45	UCLA	UCLA	Arizona	UCLA	UCLA	UCLA	1	1	0	1	CFB
-9:30 PM	Fresno St	UNLV	Fresno St	-7				MtnW	MtnW	10/1/2016	20	45	UNLV	UNLV	UNLV	UNLV	UNLV	UNLV	1	1	1	1	CFB
+7:00 PM	Connecticut	Houston	Connecticut	-28		6		AAC	AAC	9/29/2016	14	42	(6) Houston	(6) Houston	(6) Houston	(6) Houston	(6) Houston	TIE	1	1	0	0	CFB	2016	10
+7:30 PM	Kansas	Texas Tech	Kansas	-28.5				Big12	Big12	9/29/2016	19	55	Texas Tech	Texas Tech	Kansas	Kansas	Texas Tech	Texas Tech	1	1	0	0	CFB	2016	10
+8:00 PM	Stanford	Wash	Stanford	-3.5	7	10	7	Pac12	Pac12	9/30/2016	6	44	(7) Stanford	(7) Stanford	(7) Stanford	(7) Stanford	(10) Wash	(10) Wash	0	0	0	0	CFB	2016	10
+9:15 PM	Toledo	BYU	Toledo	-3.5				MAC	IND	9/30/2016	53	55	Toledo	BYU	Toledo	BYU	BYU	Toledo	0	1	1	0	CFB	2016	10
+11:00 AM	N'western	Iowa	N'western	-12				Big10	Big10	10/1/2016	38	31	Iowa	Iowa	Iowa	Iowa	N'western	N'western	0	0	0	0	CFB	2016	10
+11:00 AM	Rutgers	Ohio St	Rutgers	-38.5		2		Big10	Big10	10/1/2016	0	58	(2) Ohio St	(2) Ohio St	(2) Ohio St	(2) Ohio St	(2) Ohio St	(2) Ohio St	1	1	1	1	CFB	2016	10
+11:00 AM	Notre Dame	Syracuse	Syracuse	-13				IND	ACC	10/1/2016	50	33	Notre Dame	Notre Dame	Syracuse	Notre Dame	Notre Dame	Notre Dame	1	1	0	1	CFB	2016	10
+11:00 AM	SMU	Temple	SMU	-12.5				AAC	AAC	10/1/2016	20	45	Temple	SMU	Temple	SMU	Temple	Temple	1	0	1	0	CFB	2016	10
+11:00 AM	UCF	E Carolina	UCF	-6				AAC	AAC	10/1/2016	47	29	E Carolina	E Carolina	E Carolina	E Carolina	UCF	UCF	0	0	0	0	CFB	2016	10
+11:00 AM	Miami	Georgia Tech	Georgia Tech	-5.5				ACC	ACC	10/1/2016	35	21	Miami	Miami	Miami	Miami	Miami	Miami	1	1	1	1	CFB	2016	10
+11:00 AM	Georgia St	Appalachian State	Georgia St	-21				SunB	SunB	10/1/2016	3	17	Appalachian State	Appalachian State	Georgia St	Appalachian State	Appalachian State	Georgia St	1	1	1	0	CFB	2016	10
+11:00 AM	Florida	Vanderbilt	Vanderbilt	-9.5	23			SEC	SEC	10/1/2016	13	6	(23) Florida	(23) Florida	(23) Florida	(23) Florida	(23) Florida	Vanderbilt	1	1	0	0	CFB	2016	10
+11:00 AM	Texas	Oklahoma St	Texas	-3.5	22		22	Big12	Big12	10/1/2016	31	49	Oklahoma St	Oklahoma St	Oklahoma St	Oklahoma St	Oklahoma St	Oklahoma St	1	1	1	1	CFB	2016	10
+11:00 AM	Baylor	Iowa State	Iowa State	-16.5	13			Big12	Big12	10/1/2016	45	42	(13) Baylor	(13) Baylor	(13) Baylor	(13) Baylor	(13) Baylor	Iowa State	1	1	0	0	CFB	2016	10
+11:30 AM	Virginia	Duke	Virginia	-4				ACC	ACC	10/1/2016	34	20	Duke	Virginia	Duke	Virginia	Virginia	Virginia	0	1	0	1	CFB	2016	10
+12:00 PM	Buffalo	Boston College	Buffalo	-17.5				MAC	ACC	10/1/2016	3	35	Boston College	Boston College	Buffalo	Boston College	Boston College	Boston College	1	1	0	1	CFB	2016	10
+1:30 PM	Ohio	Miami Ohio	Miami Ohio	-3				MAC	MAC	10/1/2016	17	7	Ohio	Ohio	Miami Ohio	Ohio	Ohio	Ohio	1	1	0	1	CFB	2016	10
+1:30 PM	Oregon St	Colorado	Oregon St	-16.5				Pac12	Pac12	10/1/2016	6	47	Colorado	Colorado	Colorado	Colorado	Colorado	Colorado	1	1	1	1	CFB	2016	10
+2:00 PM	E Michigan	Bowling Green	E Michigan	-4.5				MAC	MAC	10/1/2016	28	25	Bowling Green	Bowling Green	Bowling Green	Bowling Green	E Michigan	E Michigan	0	0	0	0	CFB	2016	10
+2:30 PM	Tulane	Mass	Mass	-2				AAC	IND	10/1/2016	31	24	Mass	Tulane	Mass	Tulane	Tulane	Tulane	0	1	0	1	CFB	2016	10
+2:30 PM	Minn	Penn State	Minn	-3				Big10	Big10	10/1/2016	26	29	Penn State	Minn	Minn	Minn	Penn State	TIE	1	0	0	0	CFB	2016	10
+2:30 PM	Kansas St	W Virginia	Kansas St	-3.5				Big12	Big12	10/1/2016	16	17	W Virginia	W Virginia	W Virginia	Kansas St	W Virginia	Kansas St	1	1	0	1	CFB	2016	10
+2:30 PM	N Illinois	Ball St	N Illinois	-3.5				MAC	MAC	10/1/2016	31	24	N Illinois	Ball St	N Illinois	Ball St	N Illinois	N Illinois	1	0	1	0	CFB	2016	10
+2:30 PM	Akron	Kent St	Kent St	-4				MAC	MAC	10/1/2016	31	27	Akron	Akron	Akron	Akron	Akron	TIE	1	1	0	0	CFB	2016	10
+2:30 PM	Purdue	Maryland	Purdue	-9				Big10	Big10	10/1/2016	7	50	Maryland	Maryland	Maryland	Maryland	Maryland	Maryland	1	1	1	1	CFB	2016	10
+2:30 PM	Illinois	Nebraska	Illinois	-21		15		Big10	Big10	10/1/2016	16	31	(15) Nebraska	(15) Nebraska	(15) Nebraska	(15) Nebraska	(15) Nebraska	Illinois	1	1	0	0	CFB	2016	10
+2:30 PM	Wisconsin	Michigan	Wisconsin	-10.5	8	4	8	Big10	Big10	10/1/2016	7	14	(8) Wisconsin	(4) Michigan	(8) Wisconsin	(4) Michigan	(4) Michigan	(8) Wisconsin	0	1	1	0	CFB	2016	10
+2:30 PM	N Carolina	Florida St	N Carolina	-12		12		ACC	ACC	10/1/2016	37	35	(12) Florida St	(12) Florida St	(12) Florida St	(12) Florida St	N Carolina	N Carolina	0	0	0	0	CFB	2016	10
+2:30 PM	UL - Monroe	Auburn	UL - Monroe	-33.5				SunB	SEC	10/1/2016	7	58	Auburn	Auburn	Auburn	Auburn	Auburn	Auburn	1	1	1	1	CFB	2016	10
+2:30 PM	Navy	Air Force	Navy	-7				PL	MtnW	10/1/2016	14	28	Air Force	Air Force	Navy	Air Force	Air Force	Air Force	1	1	0	1	CFB	2016	10
+2:30 PM	Tennessee	Georgia	Georgia	-3	11	25	25	SEC	SEC	10/1/2016	34	31	(11) Tennessee	(11) Tennessee	(11) Tennessee	(11) Tennessee	(11) Tennessee	TIE	1	1	0	0	CFB	2016	10
+2:30 PM	Wake Forest	NC State	Wake Forest	-9				ACC	ACC	10/1/2016	16	33	Wake Forest	NC State	Wake Forest	NC State	NC State	NC State	0	1	0	1	CFB	2016	10
+3:00 PM	Texas A&M	S Carolina	S Carolina	-16	9			SEC	SEC	10/1/2016	24	13	(9) Texas A&M	(9) Texas A&M	(9) Texas A&M	(9) Texas A&M	(9) Texas A&M	S Carolina	1	1	0	0	CFB	2016	10
+3:00 PM	SJSU	New Mexico	SJSU	-4.5				MtnW	MtnW	10/1/2016	41	48	New Mexico	New Mexico	New Mexico	New Mexico	New Mexico	New Mexico	1	1	1	1	CFB	2016	10
+4:00 PM	Oklahoma	TCU	TCU	-1		21	21	Big12	Big12	10/1/2016	52	46	(21) TCU	Oklahoma	(21) TCU	Oklahoma	Oklahoma	Oklahoma	0	1	0	1	CFB	2016	10
+4:00 PM	Troy	Idaho	Idaho	-12				SunB	SunB	10/1/2016	34	13	Troy	Troy	Idaho	Troy	Troy	Troy	1	1	0	1	CFB	2016	10
+5:00 PM	Old Dominion	Charlotte	Charlotte	-9.5				CUSA	CUSA	10/1/2016	52	17	Old Dominion	Old Dominion	Old Dominion	Old Dominion	Old Dominion	Old Dominion	1	1	1	1	CFB	2016	10
+5:00 PM	Utah	California	Utah	-1	18		18	Pac12	Pac12	10/1/2016	23	28	(18) Utah	California	(18) Utah	California	California	California	0	1	0	1	CFB	2016	10
+6:00 PM	Memphis	Ole Miss	Memphis	-15		16		AAC	SEC	10/1/2016	28	48	(16) Ole Miss	(16) Ole Miss	Memphis	(16) Ole Miss	(16) Ole Miss	(16) Ole Miss	1	1	0	1	CFB	2016	10
+6:00 PM	S Florida	Cincinnati	Cincinnati	-6				AAC	AAC	10/1/2016	45	20	S Florida	S Florida	S Florida	S Florida	S Florida	S Florida	1	1	1	1	CFB	2016	10
+6:00 PM	M Tenn St	UNT	UNT	-14.5				CUSA	CUSA	10/1/2016	30	13	M Tenn St	M Tenn St	UNT	UNT	M Tenn St	M Tenn St	1	1	0	0	CFB	2016	10
+6:00 PM	UTEP	La Tech	UTEP	-20				CUSA	CUSA	10/1/2016	7	28	La Tech	La Tech	La Tech	La Tech	La Tech	La Tech	1	1	1	1	CFB	2016	10
+6:00 PM	Florida Atlantic	Fla Int'l	Fla Int'l	-5.5				CUSA	CUSA	10/1/2016	31	33	Florida Atlantic	Florida Atlantic	Florida Atlantic	Florida Atlantic	Fla Int'l	Fla Int'l	0	0	0	0	CFB	2016	10
+6:00 PM	W Michigan	C Michigan	C Michigan	-3				MAC	MAC	10/1/2016	49	10	W Michigan	W Michigan	W Michigan	W Michigan	W Michigan	W Michigan	1	1	1	1	CFB	2016	10
+6:00 PM	Rice	S Miss	Rice	-21.5				CUSA	CUSA	10/1/2016	28	44	S Miss	S Miss	Rice	S Miss	S Miss	Rice	1	1	1	0	CFB	2016	10
+6:00 PM	Kentucky	Alabama	Kentucky	-34.5		1		SEC	SEC	10/1/2016	6	34	(1) Alabama	(1) Alabama	(1) Alabama	(1) Alabama	(1) Alabama	Kentucky	1	1	0	0	CFB	2016	10
+6:30 PM	Marshall	Pittsburgh	Marshall	-17.5				CUSA	ACC	10/1/2016	27	43	Pittsburgh	Pittsburgh	Marshall	Pittsburgh	Pittsburgh	Marshall	1	1	1	0	CFB	2016	10
+6:30 PM	Missouri	LSU	Missouri	-13.5				SEC	SEC	10/1/2016	7	42	LSU	LSU	LSU	LSU	LSU	LSU	1	1	1	1	CFB	2016	10
+7:00 PM	Louisville	Clemson	Louisville	2.5	3	5	3	ACC	ACC	10/1/2016	36	42	(3) Louisville	(3) Louisville	(3) Louisville	(3) Louisville	(5) Clemson	(5) Clemson	0	0	0	0	CFB	2016	10
+7:00 PM	Michigan St	Indiana	Indiana	-7.5	17			Big10	Big10	10/1/2016	21	24	(17) Michigan St	(17) Michigan St	Indiana	(17) Michigan St	Indiana	Indiana	0	0	1	0	CFB	2016	10
+7:00 PM	SDSU	S Alabama	S Alabama	-20	19			MtnW	SunB	10/1/2016	24	42	(19) SDSU	(19) SDSU	(19) SDSU	(19) SDSU	S Alabama	S Alabama	0	0	0	0	CFB	2016	10
+7:00 PM	UL - Lafayette	NM State	NM State	-6.5				SunB	SunB	10/1/2016	31	37	UL - Lafayette	UL - Lafayette	NM State	UL - Lafayette	NM State	NM State	0	0	1	0	CFB	2016	10
+7:30 PM	Arizona St	USC	Arizona St	-8				Pac12	Pac12	10/1/2016	20	41	Arizona St	USC	Arizona St	Arizona St	USC	USC	0	1	0	0	CFB	2016	10
+8:30 PM	Oregon	Wash St	Wash St	-1				Pac12	Pac12	10/1/2016	33	51	Wash St	Wash St	Wash St	Wash St	Wash St	Wash St	1	1	1	1	CFB	2016	10
+9:15 PM	Wyoming	Colorado St	Wyoming	-7				MtnW	MtnW	10/1/2016	38	17	Wyoming	Colorado St	Wyoming	Colorado St	Wyoming	Wyoming	1	0	1	0	CFB	2016	10
+9:15 PM	Utah St	Boise St	Utah St	-20.5		24		MtnW	MtnW	10/1/2016	10	21	(24) Boise St	(24) Boise St	(24) Boise St	(24) Boise St	(24) Boise St	Utah St	1	1	0	0	CFB	2016	10
+9:30 PM	Arizona	UCLA	Arizona	-10				Pac12	Pac12	10/1/2016	24	45	UCLA	UCLA	Arizona	UCLA	UCLA	UCLA	1	1	0	1	CFB	2016	10
+9:30 PM	Fresno St	UNLV	Fresno St	-7				MtnW	MtnW	10/1/2016	20	45	UNLV	UNLV	UNLV	UNLV	UNLV	UNLV	1	1	1	1	CFB	2016	10

@@ -182,6 +182,12 @@ int main()
 				case 24:
 					newGame->SetGameType(word);
 					break;
+				case 25:
+					newGame->SetSeason(word);
+					break;
+				case 26:
+					newGame->SetSeason(word);
+					break;
 				}
 				word = "";
 			}
@@ -196,10 +202,17 @@ int main()
 	}
 	std::string awayRankAndTeam;
 	std::string homeRankAndTeam;
+	char JMCwinG{ ' ' }, JCRwinG{ ' ' }, JMCwinS{ ' ' }, JCRwinS{ ' ' };
 	cout << endl << endl << endl << "Looping through CGame class variable game: " << endl << endl;
 	for (iterG = game.begin(); iterG != game.end(); ++iterG)
 	{
-		cout << "--------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+		JMCwinG = ' ';
+		JCRwinG = ' ';
+		JMCwinS = ' ';
+		JCRwinS = ' ';
+		for (int i = 0; i < 173; ++i)
+			cout << '-';
+		cout << endl;
 		if (iterG->GetAwayRank() != "")
 			awayRankAndTeam = "#" + iterG->GetAwayRank() + " " + iterG->GetAwayTeam();
 		else
@@ -208,32 +221,39 @@ int main()
 			homeRankAndTeam = "#" + iterG->GetHomeRank() + " " + iterG->GetHomeTeam();
 		else
 			homeRankAndTeam = iterG->GetHomeRank() + " " + iterG->GetHomeTeam();
+		if (iterG->GetJMCwinGame() == 1)
+			JMCwinG = '*';
+		if (iterG->GetJCRwinGame() == 1)
+			JCRwinG = '*';
+		if (iterG->GetJMCwinSpread() == 1)
+			JMCwinS = '*';
+		if (iterG->GetJCRwinSpread() == 1)
+			JCRwinS = '*';
+
 		cout << right << setw(9) << iterG->GetTime();
-		cout << right << setw(7) << iterG->GetAwayConf();
-		//cout << setw(3) << iterG->GetAwayRank();
+		cout << right << " | " << setw(7) << iterG->GetAwayConf();
 		cout << right << setw(20) << awayRankAndTeam;
 		if (iterG->GetUDTeam() == iterG->GetAwayTeam())
 			cout << right << setw(2) << "+" << left << setw(3) << abs(iterG->GetUDPts()) << right;
 		else
 			cout << right << setw(5) << " ";
-		//cout << right << setw(7) << iterG->GetAwayConf();
-		cout << setw(3) << iterG->GetAwayScore();
-		cout << setw(20) << iterG->GetTeamGameWinner();
-		cout << setw(20) << iterG->GetJMCgamePick();
-		cout << setw(20) << iterG->GetJCRgamePick();
-		cout << setw(20) << iterG->GetJMCspreadPick();
-		cout << setw(20) << iterG->GetJCRspreadPick();
+		cout << " | " << setw(6) << iterG->GetAwayScore() << "   | ";
+		cout << setw(20) << iterG->GetTeamGameWinner() << " | ";
+		cout << setw(20) << iterG->GetJMCgamePick() << " " << JMCwinG << "|";
+		cout << setw(20) << iterG->GetJCRgamePick() << " " << JCRwinG << "|";
+		cout << setw(20) << iterG->GetJMCspreadPick() << " " << JMCwinS << "|";
+		cout << setw(20) << iterG->GetJCRspreadPick() << " " << JCRwinS << "|";
 		cout << endl;
-		//cout << setw(12) << iterG->GetHomeRank();
-		cout << right << setw(16) << iterG->GetHomeConf();
+
+		cout << right << setw(12) << " | " << setw(7) << iterG->GetHomeConf();
 		cout << right << setw(20) << homeRankAndTeam;
 		if (iterG->GetUDTeam() == iterG->GetHomeTeam())
 			cout << right << setw(2) << "+" << left << setw(3) << abs(iterG->GetUDPts()) << right;
 		else
 			cout << right << setw(5) << " ";
-		//cout << right << setw(7) << iterG->GetHomeConf();
-		cout << setw(3) << iterG->GetHomeScore();
-		cout << setw(20) << iterG->GetTeamSpreadWinner();
+		cout << " | " << setw(6) << iterG->GetHomeScore() << "   | ";
+		cout << setw(20) << iterG->GetTeamSpreadWinner() << " | ";
+		cout << setw(23) << "|" << setw(23) << "|" << setw(23) << "|" << setw(23) << "|";
 		cout << endl;
 	}
 

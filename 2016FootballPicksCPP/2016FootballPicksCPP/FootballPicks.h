@@ -32,6 +32,8 @@ public:
 	bool GetJMCwinSpread() const;
 	bool GetJCRwinSpread() const;
 	std::string GetGameType() const;
+	std::string GetSeason() const;
+	std::string GetSheet() const;
 
 	// setters
 	void SetTime(std::string time);
@@ -58,6 +60,8 @@ public:
 	void SetJMCwinSpread(bool JMCwinSpread);
 	void SetJCRwinSpread(bool JCRwinSpread);
 	void SetGameType(std::string gameType);
+	void SetSeason(std::string season);
+	void SetSheet(std::string sheet);
 private:
 	std::string m_Time;
 	std::string m_AwayTeam;
@@ -83,6 +87,8 @@ private:
 	bool m_JMCwinSpread;
 	bool m_JCRwinSpread;
 	std::string m_GameType; // CFB or NFL
+	std::string m_Season; // season year
+	std::string m_Sheet; // sheet number
 };
 
 CGame::CGame()
@@ -210,6 +216,16 @@ std::string CGame::GetGameType() const
 	return m_GameType;
 }
 
+std::string CGame::GetSeason() const
+{
+	return m_Season;
+}
+
+std::string CGame::GetSheet() const
+{
+	return m_Sheet;
+}
+
 
 
 void CGame::SetTime(std::string time)
@@ -331,5 +347,16 @@ void CGame::SetGameType(std::string gameType)
 {
 	m_GameType = gameType;
 }
+
+void CGame::SetSeason(std::string season)
+{
+	m_Season = season;
+}
+
+void CGame::SetSheet(std::string sheet)
+{
+	m_Sheet = sheet;
+}
+
 
 
