@@ -1,0 +1,58 @@
+7:00 PM	Connecticut	Houston	Connecticut	-28		6		AAC	AAC	09/29/2016											CFB
+7:30 PM	Kansas	Texas Tech	Kansas	-28.5				Big12	Big12	09/29/2016											CFB
+8:00 PM	Stanford	Wash	Stanford	-3.5	7	10	7	Pac12	Pac12	09/30/2016											CFB
+9:15 PM	Toledo	BYU	Toledo	-3.5				MAC	IND	09/30/2016											CFB
+11:00 AM	N'western	Iowa	N'western	-12				Big10	Big10	10/01/2016											CFB
+11:00 AM	Rutgers	Ohio St	Rutgers	-38.5		2		Big10	Big10	10/01/2016											CFB
+11:00 AM	Notre Dame	Syracuse	Syracuse	-13				IND	ACC	10/01/2016											CFB
+11:00 AM	SMU	Temple	SMU	-12.5				AAC	AAC	10/01/2016											CFB
+11:00 AM	UCF	E Carolina	UCF	-6				AAC	AAC	10/01/2016											CFB
+11:00 AM	Miami	Georgia Tech	Georgia Tech	-5.5				ACC	ACC	10/01/2016											CFB
+11:00 AM	Georgia St	Appalachian State	Georgia St	-21				SunB	SunB	10/01/2016											CFB
+11:00 AM	Florida	Vanderbilt	Vanderbilt	-9.5	23			SEC	SEC	10/01/2016											CFB
+11:00 AM	Texas	Oklahoma St	Texas	-3.5	22		22	Big12	Big12	10/01/2016											CFB
+11:00 AM	Baylor	Iowa State	Iowa State	-16.5	13			Big12	Big12	10/01/2016											CFB
+11:30 AM	Virginia	Duke	Virginia	-4				ACC	ACC	10/01/2016											CFB
+12:00 PM	Buffalo	Boston College	Buffalo	-17.5				MAC	ACC	10/01/2016											CFB
+1:30 PM	Ohio	Miami Ohio	Miami Ohio	-3				MAC	MAC	10/01/2016											CFB
+1:30 PM	Oregon St	Colorado	Oregon St	-16.5				Pac12	Pac12	10/01/2016											CFB
+2:00 PM	E Michigan	Bowling Green	E Michigan	-4.5				MAC	MAC	10/01/2016											CFB
+2:30 PM	Tulane	Mass	Mass	-2				AAC	IND	10/01/2016											CFB
+2:30 PM	Minn	Penn State	Minn	-3				Big10	Big10	10/01/2016											CFB
+2:30 PM	Kansas St	W Virginia	Kansas St	-3.5				Big12	Big12	10/01/2016											CFB
+2:30 PM	N Illinois	Ball St	N Illinois	-3.5				MAC	MAC	10/01/2016											CFB
+2:30 PM	Akron	Kent St	Kent St	-4				MAC	MAC	10/01/2016											CFB
+2:30 PM	Purdue	Maryland	Purdue	-9				Big10	Big10	10/01/2016											CFB
+2:30 PM	Illinois	Nebraska	Illinois	-21		15		Big10	Big10	10/01/2016											CFB
+2:30 PM	Wisconsin	Michigan	Wisconsin	-10.5	8	4	8	Big10	Big10	10/01/2016											CFB
+2:30 PM	N Carolina	Florida St	N Carolina	-12		12		ACC	ACC	10/01/2016											CFB
+2:30 PM	UL - Monroe	Auburn	UL - Monroe	-33.5				SunB	SEC	10/01/2016											CFB
+2:30 PM	Navy	Air Force	Navy	-7				PL	MtnW	10/01/2016											CFB
+2:30 PM	Tennessee	Georgia	Georgia	-3	11	25	25	SEC	SEC	10/01/2016											CFB
+2:30 PM	Wake Forest	NC State	Wake Forest	-9				ACC	ACC	10/01/2016											CFB
+3:00 PM	Texas A&M	S Carolina	S Carolina	-16	9			SEC	SEC	10/01/2016											CFB
+3:00 PM	SJSU	New Mexico	SJSU	-4.5				MtnW	MtnW	10/01/2016											CFB
+4:00 PM	Oklahoma	TCU	TCU	-1		21	21	Big12	Big12	10/01/2016											CFB
+4:00 PM	Troy	Idaho	Idaho	-12				SunB	SunB	10/01/2016											CFB
+5:00 PM	Old Dominion	Charlotte	Charlotte	-9.5				CUSA	CUSA	10/01/2016											CFB
+5:00 PM	Utah	California	Utah	-1	18		18	Pac12	Pac12	10/01/2016											CFB
+6:00 PM	Memphis	Ole Miss	Memphis	-15		16		AAC	SEC	10/01/2016											CFB
+6:00 PM	S Florida	Cincinnati	Cincinnati	-6				AAC	AAC	10/01/2016											CFB
+6:00 PM	M Tenn St	UNT	UNT	-14.5				CUSA	CUSA	10/01/2016											CFB
+6:00 PM	UTEP	La Tech	UTEP	-20				CUSA	CUSA	10/01/2016											CFB
+6:00 PM	Florida Atlantic	Fla Int'l	Fla Int'l	-5.5				CUSA	CUSA	10/01/2016											CFB
+6:00 PM	W Michigan	C Michigan	C Michigan	-3				MAC	MAC	10/01/2016											CFB
+6:00 PM	Rice	S Miss	Rice	-21.5				CUSA	CUSA	10/01/2016											CFB
+6:00 PM	Kentucky	Alabama	Kentucky	-34.5		1		SEC	SEC	10/01/2016											CFB
+6:30 PM	Marshall	Pittsburgh	Marshall	-17.5				CUSA	ACC	10/01/2016											CFB
+6:30 PM	Missouri	LSU	Missouri	-13.5				SEC	SEC	10/01/2016											CFB
+7:00 PM	Louisville	Clemson	Louisville	2.5	3	5	3	ACC	ACC	10/01/2016											CFB
+7:00 PM	Michigan St	Indiana	Indiana	-7.5	17			Big10	Big10	10/01/2016											CFB
+7:00 PM	SDSU	S Alabama	S Alabama	-20	19			MtnW	SunB	10/01/2016											CFB
+7:00 PM	UL - Lafayette	NM State	NM State	-6.5				SunB	SunB	10/01/2016											CFB
+7:30 PM	Arizona St	USC	Arizona St	-8				Pac12	Pac12	10/01/2016											CFB
+8:30 PM	Oregon	Wash St	Wash St	-1				Pac12	Pac12	10/01/2016											CFB
+9:15 PM	Wyoming	Colorado St	Wyoming	-7				MtnW	MtnW	10/01/2016											CFB
+9:15 PM	Utah St	Boise St	Utah St	-20.5		24		MtnW	MtnW	10/01/2016											CFB
+9:30 PM	Arizona	UCLA	Arizona	-10				Pac12	Pac12	10/01/2016											CFB
+9:30 PM	Fresno St	UNLV	Fresno St	-7				MtnW	MtnW	10/01/2016											CFB
