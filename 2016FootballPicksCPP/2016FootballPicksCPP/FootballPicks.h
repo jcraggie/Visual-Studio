@@ -12,6 +12,7 @@ public:
 	std::string GetAwayTeam() const;
 	std::string GetHomeTeam() const;
 	std::string GetUDTeam() const;
+	std::string GetUDline() const;
 	int GetUDPts() const;
 	std::string GetAwayRank() const;
 	std::string GetHomeRank() const;
@@ -40,6 +41,7 @@ public:
 	void SetAwayTeam(std::string awayTeam);
 	void SetHomeTeam(std::string homeTeam);
 	void SetUDTeam(std::string UDteam);
+	void SetUDline(std::string UDline);
 	void SetUDPts(int UDpts);
 	void SetAwayRank(std::string awayRank);
 	void SetHomeRank(std::string homeRank);
@@ -67,6 +69,7 @@ private:
 	std::string m_AwayTeam;
 	std::string m_HomeTeam;
 	std::string m_UDTeam;
+	std::string m_UDline;
 	int m_UDpts;
 	std::string m_AwayRank;
 	std::string m_HomeRank;
@@ -114,6 +117,11 @@ std::string CGame::GetHomeTeam() const
 std::string CGame::GetUDTeam() const
 {
 	return m_UDTeam;
+}
+
+std::string CGame::GetUDline() const
+{
+	return m_UDline;
 }
 
 int CGame::GetUDPts() const
@@ -246,6 +254,11 @@ void CGame::SetHomeTeam(std::string homeTeam)
 void CGame::SetUDTeam(std::string UDteam)
 {
 	m_UDTeam = UDteam;
+}
+
+void CGame::SetUDline(std::string UDline)
+{
+	m_UDline = UDline;
 }
 
 void CGame::SetUDPts(int UDpts)

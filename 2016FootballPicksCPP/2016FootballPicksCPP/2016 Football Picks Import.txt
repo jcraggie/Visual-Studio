@@ -1,0 +1,15 @@
+7:25 PM	Miami	Cincinnati	Miami	-7				AFC-E	AFC-N	9/29/2016	7	22	Cincinnati	Miami	Cincinnati	Miami	Cincinnati	Cincinnati	1	0	1	0	NFL	2016	11
+8:30 AM	Indianapolis	Jacksonville	Jacksonville	-1				AFC-S	AFC-S	10/2/2016	27	30	Indianapolis	Jacksonville	Indianapolis	Jacksonville	Jacksonville	Jacksonville	0	1	0	1	NFL	2016	11
+12:00 PM	Cleveland	Washington	Cleveland	-10				AFC-N	NFC-E	10/2/2016	20	31	Washington	Washington	Washington	Washington	Washington	Washington	1	1	1	1	NFL	2016	11
+12:00 PM	Buffalo	New England	Buffalo	NO LINE				AFC-E	AFC-E	10/2/2016	16	0	New England	New England	0	0	Buffalo		0	0	0	0	NFL	2016	11
+12:00 PM	Seattle	New York Jets	New York Jets	-3				NFC-W	AFC-E	10/2/2016	27	17	New York Jets	Seattle	New York Jets	Seattle	Seattle	Seattle	0	1	0	1	NFL	2016	11
+12:00 PM	Carolina	Atlanta	Atlanta	-3.5				NFC-S	NFC-S	10/2/2016	33	48	Carolina	Carolina	Atlanta	Carolina	Atlanta	Atlanta	0	0	1	0	NFL	2016	11
+12:00 PM	Detroit	Chicago	Chicago	-3				NFC-N	NFC-N	10/2/2016	14	17	Detroit	Detroit	Detroit	Chicago	Chicago	Chicago	0	0	0	1	NFL	2016	11
+12:00 PM	Tennessee	Houston	Tennessee	-6.5				AFC-S	AFC-S	10/2/2016	20	27	Houston	Houston	Tennessee	Houston	Houston	Houston	1	1	0	1	NFL	2016	11
+12:00 PM	Oakland	Baltimore	Oakland	-4				AFC-W	AFC-N	10/2/2016	28	27	Oakland	Baltimore	Oakland	Baltimore	Oakland	Oakland	1	0	1	0	NFL	2016	11
+3:05 PM	Denver	Tampa Bay	Tampa Bay	-3				AFC-W	NFC-S	10/2/2016	27	7	Denver	Denver	Denver	Denver	Denver	Denver	1	1	1	1	NFL	2016	11
+3:25 PM	Dallas	San Francisco	San Francisco	-3				NFC-E	NFC-W	10/2/2016	24	17	Dallas	Dallas	Dallas	Dallas	Dallas	Dallas	1	1	1	1	NFL	2016	11
+3:25 PM	New Orleans	San Diego	New Orleans	-4.5				NFC-S	AFC-W	10/2/2016	35	34	San Diego	San Diego	San Diego	New Orleans	New Orleans	New Orleans	0	0	0	1	NFL	2016	11
+3:25 PM	Los Angeles	Arizona	Los Angeles	-9.5				AFC-W	NFC-W	10/2/2016	17	13	Arizona	Arizona	Arizona	Arizona	Los Angeles	Los Angeles	0	0	0	0	NFL	2016	11
+7:30 PM	Kansas City	Pittsburgh	Kansas City	-4.5				AFC-W	AFC-N	10/2/2016	14	43	Pittsburgh	Pittsburgh	Pittsburgh	Pittsburgh	Pittsburgh	Pittsburgh	1	1	1	1	NFL	2016	11
+7:30 PM	New York Giants	Minnesota	New York Giants	-3.5				NFC-E	NFC-N	10/3/2016	0	0	Minnesota	Minnesota	Minnesota	Minnesota	PENDING	PENDING	0	0	0	0	NFL	2016	11
