@@ -1,5 +1,18 @@
 // 2016FootballPicksCPP.cpp : Defines the entry point for the console application.
 //
+// Files
+//		Load master list
+//		Load update file
+//		Save master list
+// Statistics
+//		By Year
+//		By Sheet
+//		All Time
+//		By CFB or NFL
+// Edit
+//		Create a game
+//		Edit a game
+//		Delete a game
 
 #include "stdafx.h"
 #include "FootballPicks.h"
@@ -9,6 +22,7 @@
 #include <vector>
 #include <algorithm>
 #include <iomanip>
+#include <sstream>
 
 using namespace std;
 
@@ -50,6 +64,8 @@ void ReadFile(vector<CGame>& game, string fileName)
 	string gameLine;
 	int wordCount;
 	int amt;
+	float flt;
+	stringstream ss;
 
 	ifstream myFile2(fileName);
 	//ifstream myFile2 ("2016gameData1.txt");
@@ -66,12 +82,14 @@ void ReadFile(vector<CGame>& game, string fileName)
 		CGame* newGame = new CGame;
 		gameLine = *iterC; // 1 word
 		wordCount = 0;
+		
 		//cout << "game size is: " << game.size() << endl;
 		//cout << "Word is: " << w << endl;
 		for (int i = 0; i < gameLine.size(); ++i) // loop through entire game line
 		{
-			if (gameLine[0] == '\t')
-				break;
+			//if (gameLine[0] == '\t' || gameLine[1] == '\t')
+			//	break;
+			ss.str("");
 			if (gameLine[i] != '\t') // if the char is not a tab
 			{
 				word.push_back(gameLine[i]); // push the char found to word. once encounter tab, word is done.
@@ -100,15 +118,22 @@ void ReadFile(vector<CGame>& game, string fileName)
 					if (word == "NL" || word == "NO LINE")
 					{
 						word = "NL";
-						amt = 0;
+						flt = 0.0;
+					}
+					else if (word == "PK")
+					{
+						word = "PK";
+						flt = 0.0;
 					}
 					else
 					{
-						amt = std::stoi(word);
-						amt = abs(amt);
-						word = to_string(amt);
+						flt = std::stof(word);
+						flt = abs(flt);
+						//word = to_string(flt);
+						ss << fixed << setprecision(1) << flt;
+						word = ss.str();
 					}
-					newGame->SetUDPts(amt);
+					newGame->SetUDPts(flt);
 					newGame->SetUDline(word);
 
 					break;
@@ -131,62 +156,70 @@ void ReadFile(vector<CGame>& game, string fileName)
 					newGame->SetDate(word);
 					break;
 				case 12:
+					newGame->SetGameType(word);
+					break;
+				case 13:
+					newGame->SetSeason(word);
+					break;
+				case 14:
+					newGame->SetSeason(word);
+					break;
+				case 15:
+					amt = std::stoi(word);
+					newGame->SetGameNum(amt);
+					break;
+				case 16:
+					newGame->SetGameID(word);
+					break;
+				case 17:
 					amt = std::stoi(word);
 					newGame->SetAwayScore(amt);
 					break;
-				case 13:
+				case 18:
 					amt = std::stoi(word);
 					newGame->SetHomeScore(amt);
 					break;
-				case 14:
+				case 19:
 					RemoveRanking(word);
 					newGame->SetJMCgamePick(word);
 					break;
-				case 15:
+				case 20:
 					RemoveRanking(word);
 					newGame->SetJCRgamePick(word);
 					break;
-				case 16:
+				case 21:
 					RemoveRanking(word);
 					newGame->SetJMCspreadPick(word);
 					break;
-				case 17:
+				case 22:
 					RemoveRanking(word);
 					newGame->SetJCRspreadPick(word);
 					break;
-				case 18:
+				case 23:
 					RemoveRanking(word);
 					newGame->SetTeamGameWinner(word);
 					break;
-				case 19:
+				case 24:
 					RemoveRanking(word);
 					newGame->SetTeamSpreadWinner(word);
 					break;
-				case 20:
+				case 25:
 					amt = std::stoi(word);
 					newGame->SetJMCwinGame(amt);
 					break;
-				case 21:
+				case 26:
 					amt = std::stoi(word);
 					newGame->SetJCRwinGame(amt);
 					break;
-				case 22:
+				case 27:
 					amt = std::stoi(word);
 					newGame->SetJMCwinSpread(amt);
 					break;
-				case 23:
+				case 28:
 					amt = std::stoi(word);
 					newGame->SetJCRwinSpread(amt);
 					break;
-				case 24:
-					newGame->SetGameType(word);
-					break;
-				case 25:
-					newGame->SetSeason(word);
-					break;
-				case 26:
-					newGame->SetSeason(word);
-					break;
+
 				}
 				word = "";
 			}
@@ -200,6 +233,16 @@ void ReadFile(vector<CGame>& game, string fileName)
 
 	}
 
+}
+
+void Statistics(vector<CGame> game)
+{
+	vector<CGame>::iterator iterG;
+
+	for (iterG = game.begin(); iterG != game.end(); ++iterG)
+	{
+
+	}
 }
 
 void PrintGames(vector<CGame> game)
@@ -222,14 +265,14 @@ void PrintGames(vector<CGame> game)
 		for (int i = 0; i < 173; ++i)
 			cout << '-';
 		cout << endl;
-		if (iterG->GetAwayRank() != "")
+		if (iterG->GetAwayRank() != "" && iterG->GetAwayRank() != "0")
 			awayRankAndTeam = "#" + iterG->GetAwayRank() + " " + iterG->GetAwayTeam();
 		else
-			awayRankAndTeam = iterG->GetAwayRank() + " " + iterG->GetAwayTeam();
-		if (iterG->GetHomeRank() != "")
+			awayRankAndTeam = " " + iterG->GetAwayTeam();
+		if (iterG->GetHomeRank() != "" && iterG->GetHomeRank() != "0")
 			homeRankAndTeam = "#" + iterG->GetHomeRank() + " " + iterG->GetHomeTeam();
 		else
-			homeRankAndTeam = iterG->GetHomeRank() + " " + iterG->GetHomeTeam();
+			homeRankAndTeam = " " + iterG->GetHomeTeam();
 		if (iterG->GetJMCwinGame() == 1)
 			JMCwinG = '*';
 		if (iterG->GetJCRwinGame() == 1)
@@ -256,7 +299,7 @@ void PrintGames(vector<CGame> game)
 		cout << right << setw(9) << iterG->GetTime();
 		cout << right << " | " << setw(7) << iterG->GetAwayConf();
 		cout << right << setw(20) << awayRankAndTeam;
-		cout << right << setw(5) << awayLineChars;
+		cout << right << setw(6) << awayLineChars;
 		cout << " | " << setw(6) << iterG->GetAwayScore() << "   | ";
 		cout << setw(20) << iterG->GetTeamGameWinner() << " | ";
 		cout << setw(20) << iterG->GetJMCgamePick() << " " << JMCwinG << "|";
@@ -267,7 +310,7 @@ void PrintGames(vector<CGame> game)
 
 		cout << right << setw(12) << " | " << setw(7) << iterG->GetHomeConf();
 		cout << right << setw(20) << homeRankAndTeam;
-		cout << right << setw(5) << homeLineChars;
+		cout << right << setw(6) << homeLineChars;
 		cout << " | " << setw(6) << iterG->GetHomeScore() << "   | ";
 		cout << setw(20) << iterG->GetTeamSpreadWinner() << " | ";
 		cout << setw(23) << "|" << setw(23) << "|" << setw(23) << "|" << setw(23) << "|";
@@ -294,6 +337,11 @@ void WriteFile(vector<CGame>& game, string fileName)
 		write << iterG->GetAwayConf() << '\t';
 		write << iterG->GetHomeConf() << '\t';
 		write << iterG->GetDate() << '\t';
+		write << iterG->GetGameType() << '\t';
+		write << iterG->GetSeason() << '\t';
+		write << iterG->GetSheet() << '\t';
+		write << iterG->GetGameNum() << '\t';
+		write << iterG->GetGameID() << '\t';
 		write << iterG->GetAwayScore() << '\t';
 		write << iterG->GetHomeScore() << '\t';
 		write << iterG->GetJMCgamePick() << '\t';
@@ -305,10 +353,7 @@ void WriteFile(vector<CGame>& game, string fileName)
 		write << iterG->GetJMCwinGame() << '\t';
 		write << iterG->GetJCRwinGame() << '\t';
 		write << iterG->GetJMCwinSpread() << '\t';
-		write << iterG->GetJCRwinSpread() << '\t';
-		write << iterG->GetGameType() << '\t';
-		write << iterG->GetSeason() << '\t';
-		write << iterG->GetSheet() << '\t';
+		write << iterG->GetJCRwinSpread();
 		write << '\n';
 	}
 	write.close();
@@ -321,12 +366,15 @@ int main()
 	vector<string> gameInfo;
 	vector<CGame> game;
 	vector<CGame>::iterator iterG;
-	string fileName;
+	string fileName, readFile, writeFile;
 
-	fileName = "2016 ExportText.txt";
+	//fileName = "2016 ExportText.txt";
 	//fileName = "2016 Football Picks Master Data.txt";
-	ReadFile(game, fileName);
+	readFile = "2016 TESTreadExisting.txt";
+	ReadFile(game, readFile);
 	//fileName = "2016 Football Picks Import.txt";
+	readFile = "2016 TESTimportNew.txt";
+	ReadFile(game, readFile);
 	//ReadFile(game, fileName);
 	PrintGames(game);
 

@@ -13,7 +13,7 @@ public:
 	std::string GetHomeTeam() const;
 	std::string GetUDTeam() const;
 	std::string GetUDline() const;
-	int GetUDPts() const;
+	float GetUDPts();
 	std::string GetAwayRank() const;
 	std::string GetHomeRank() const;
 	std::string GetUDrank() const;
@@ -35,6 +35,8 @@ public:
 	std::string GetGameType() const;
 	std::string GetSeason() const;
 	std::string GetSheet() const;
+	int GetGameNum() const;
+	std::string GetGameID() const;
 
 	// setters
 	void SetTime(std::string time);
@@ -42,7 +44,7 @@ public:
 	void SetHomeTeam(std::string homeTeam);
 	void SetUDTeam(std::string UDteam);
 	void SetUDline(std::string UDline);
-	void SetUDPts(int UDpts);
+	void SetUDPts(float UDpts);
 	void SetAwayRank(std::string awayRank);
 	void SetHomeRank(std::string homeRank);
 	void SetUDrank(std::string UDrank);
@@ -64,13 +66,16 @@ public:
 	void SetGameType(std::string gameType);
 	void SetSeason(std::string season);
 	void SetSheet(std::string sheet);
+	void SetGameNum(int gameNum);
+	void SetGameID(std::string gameID);
+
 private:
 	std::string m_Time;
 	std::string m_AwayTeam;
 	std::string m_HomeTeam;
 	std::string m_UDTeam;
 	std::string m_UDline;
-	int m_UDpts;
+	float m_UDpts;
 	std::string m_AwayRank;
 	std::string m_HomeRank;
 	std::string m_UDrank;
@@ -91,13 +96,20 @@ private:
 	bool m_JCRwinSpread;
 	std::string m_GameType; // CFB or NFL
 	std::string m_Season; // season year
-	std::string m_Sheet; // sheet number
+	std::string m_Sheet; // sheet name
+	int m_GameNum; // used to enumerate games on a sheet
+	std::string m_GameID;
+
 };
 
-CGame::CGame()
+CGame::CGame() :
+	m_AwayScore(0),
+	m_HomeScore(0)
 {
 
 }
+
+// CLASS GETTERS
 
 std::string CGame::GetTime() const
 {
@@ -124,7 +136,7 @@ std::string CGame::GetUDline() const
 	return m_UDline;
 }
 
-int CGame::GetUDPts() const
+float CGame::GetUDPts()
 {
 	return m_UDpts;
 }
@@ -234,7 +246,18 @@ std::string CGame::GetSheet() const
 	return m_Sheet;
 }
 
+int CGame::GetGameNum() const
+{
+	return m_GameNum;
+}
 
+std::string CGame::GetGameID() const
+{
+	return m_GameID;
+}
+
+
+// CLASS SETTERS
 
 void CGame::SetTime(std::string time)
 {
@@ -261,7 +284,7 @@ void CGame::SetUDline(std::string UDline)
 	m_UDline = UDline;
 }
 
-void CGame::SetUDPts(int UDpts)
+void CGame::SetUDPts(float UDpts)
 {
 	m_UDpts = UDpts;
 }
@@ -371,5 +394,14 @@ void CGame::SetSheet(std::string sheet)
 	m_Sheet = sheet;
 }
 
+void CGame::SetGameNum(int gameNum)
+{
+	m_GameNum = gameNum;
+}
+
+void CGame::SetGameID(std::string gameID)
+{
+	m_GameID = gameID;
+}
 
 
