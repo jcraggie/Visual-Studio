@@ -82,6 +82,11 @@ private:
 	std::string m_AwayConf;
 	std::string m_HomeConf;
 	std::string m_Date;
+	std::string m_GameType; // CFB or NFL
+	std::string m_Season; // season year
+	std::string m_Sheet; // sheet name
+	int m_GameNum; // used to enumerate games on a sheet
+	std::string m_GameID;
 	int m_AwayScore;
 	int m_HomeScore;
 	std::string m_JMCgamePick;
@@ -94,17 +99,25 @@ private:
 	bool m_JCRwinGame;
 	bool m_JMCwinSpread;
 	bool m_JCRwinSpread;
-	std::string m_GameType; // CFB or NFL
-	std::string m_Season; // season year
-	std::string m_Sheet; // sheet name
-	int m_GameNum; // used to enumerate games on a sheet
-	std::string m_GameID;
+
 
 };
 
 CGame::CGame() :
 	m_AwayScore(0),
-	m_HomeScore(0)
+	m_HomeScore(0),
+	m_JMCgamePick(" "),
+	m_JCRgamePick(" "),
+	m_JMCspreadPick(" "),
+	m_JCRspreadPick(" "),
+	m_WinnerGame(" "),
+	m_WinnerSpread(" "),
+	m_JMCwinGame(0),
+	m_JCRwinGame(0),
+	m_JMCwinSpread(0),
+	m_JCRwinSpread(0)
+
+
 {
 
 }

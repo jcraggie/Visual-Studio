@@ -69,9 +69,10 @@ void ReadFile(vector<CGame>& game, string fileName)
 
 	ifstream myFile2(fileName);
 	//ifstream myFile2 ("2016gameData1.txt");
-	while (myFile2)
+	//while (myFile2)
+	while (getline(myFile2,str))
 	{
-		getline(myFile2, str);
+		//getline(myFile2, str);
 		line.push_back(str);
 
 		//cout << str << endl;
@@ -85,12 +86,12 @@ void ReadFile(vector<CGame>& game, string fileName)
 		
 		//cout << "game size is: " << game.size() << endl;
 		//cout << "Word is: " << w << endl;
-		for (int i = 0; i < gameLine.size(); ++i) // loop through entire game line
+		for (int i = 0; i <= gameLine.size(); ++i) // loop through entire game line
 		{
 			//if (gameLine[0] == '\t' || gameLine[1] == '\t')
 			//	break;
 			ss.str("");
-			if (gameLine[i] != '\t') // if the char is not a tab
+			if (gameLine[i] != '\t' && i != gameLine.size()) // if the char is not a tab
 			{
 				word.push_back(gameLine[i]); // push the char found to word. once encounter tab, word is done.
 			}
@@ -162,7 +163,7 @@ void ReadFile(vector<CGame>& game, string fileName)
 					newGame->SetSeason(word);
 					break;
 				case 14:
-					newGame->SetSeason(word);
+					newGame->SetSheet(word);
 					break;
 				case 15:
 					amt = std::stoi(word);
@@ -225,11 +226,13 @@ void ReadFile(vector<CGame>& game, string fileName)
 			}
 
 
+
 		}
 		game.push_back(*newGame);
 		//cout << setw(15) << word;
 		word = "";
 		//cout << endl;
+
 
 	}
 
@@ -377,8 +380,8 @@ int main()
 	ReadFile(game, readFile);
 	//ReadFile(game, fileName);
 	PrintGames(game);
-
-	//WriteFile(game, "2016 ExportText.txt");
+	writeFile = "2016 TESTwriteFinal.txt";
+	WriteFile(game, writeFile);
 
     return 0;
 }
