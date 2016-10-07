@@ -363,6 +363,49 @@ void WriteFile(vector<CGame>& game, string fileName)
 	return;
 }
 
+void MainMenu()
+{
+	system("cls"); // clear output screen
+	cout << "R - Read Master File" << endl;
+	cout << "W - Write Master File" << endl;
+	cout << "I - Import New Data into Master File" << endl;
+	cout << "F - Change File Names" << endl;
+	cout << "P - Print Data to Screen" << endl;
+	cout << "X - Exit Program" << endl;
+}
+
+void GetStats(vector<CGame>& game)
+{
+	vector<CGame>::iterator iterG;
+
+	CGame::s_JMCgamesWon = 0;
+	CGame::s_JCRgamesWon = 0;
+	CGame::s_JMCspreadWon = 0;
+	CGame::s_JCRspreadWon = 0;
+
+	for (iterG = game.begin(); iterG != game.end(); ++iterG)
+	{
+		if (iterG->GetJMCwinGame())
+			CGame::s_JMCgamesWon += 1;
+		if (iterG->GetJCRwinGame())
+			CGame::s_JCRgamesWon += 1;
+		if (iterG->GetJMCwinSpread())
+			CGame::s_JMCspreadWon += 1;
+		if (iterG->GetJCRwinSpread())
+			CGame::s_JCRspreadWon += 1;
+	}
+}
+
+void PrintStats(vector<CGame>& game)
+{
+	cout << endl << endl;
+	cout << "JMC games won: " << CGame::s_JMCgamesWon << endl;
+	cout << "JCR games won: " << CGame::s_JCRgamesWon << endl;
+	cout << endl;
+	cout << "JMC spread won: " << CGame::s_JMCspreadWon << endl;
+	cout << "JCR spread won: " << CGame::s_JCRspreadWon << endl;
+}
+
 int main()
 {
 	string w;
@@ -371,17 +414,23 @@ int main()
 	vector<CGame>::iterator iterG;
 	string fileName, readFile, writeFile;
 
+	// THOUGHTS
+	// maybe have import files for each tab. that way you can recreate master file if needed or just read in 1 tab's data.
+
+
 	//fileName = "2016 ExportText.txt";
 	//fileName = "2016 Football Picks Master Data.txt";
-	readFile = "2016 TESTreadExisting.txt";
+	readFile = "2016 sheet 1.txt";
 	ReadFile(game, readFile);
+	GetStats(game);
 	//fileName = "2016 Football Picks Import.txt";
-	readFile = "2016 TESTimportNew.txt";
-	ReadFile(game, readFile);
+	//readFile = "2016 TESTimportNew.txt";
+	//ReadFile(game, readFile);
 	//ReadFile(game, fileName);
 	PrintGames(game);
-	writeFile = "2016 TESTwriteFinal.txt";
-	WriteFile(game, writeFile);
+	PrintStats(game);
+	//writeFile = "2016 TESTwriteFinal.txt";
+	//WriteFile(game, writeFile);
 
     return 0;
 }
