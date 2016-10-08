@@ -7,12 +7,12 @@ class CGame
 public:
 	CGame();
 
-	static int s_NumGamesPlayed;
-	static int s_NumSpreadPlayed;
-	static int s_JMCgamesWon;
-	static int s_JCRgamesWon;
-	static int s_JMCspreadWon;
-	static int s_JCRspreadWon;
+	static int s_NumGamesPlayed[100];
+	static int s_NumSpreadPlayed[100];
+	static int s_JMCgamesWon[100];
+	static int s_JCRgamesWon[100];
+	static int s_JMCspreadWon[100];
+	static int s_JCRspreadWon[100];
 
 	// getters
 	std::string GetTime() const;
@@ -129,12 +129,12 @@ CGame::CGame() :
 
 }
 
-int CGame::s_NumGamesPlayed;
-int CGame::s_NumSpreadPlayed;
-int CGame::s_JMCgamesWon;
-int CGame::s_JCRgamesWon;
-int CGame::s_JMCspreadWon;
-int CGame::s_JCRspreadWon;
+int CGame::s_NumGamesPlayed[100];
+int CGame::s_NumSpreadPlayed[100];
+int CGame::s_JMCgamesWon[100];
+int CGame::s_JCRgamesWon[100];
+int CGame::s_JMCspreadWon[100];
+int CGame::s_JCRspreadWon[100];
 
 // CLASS GETTERS
 

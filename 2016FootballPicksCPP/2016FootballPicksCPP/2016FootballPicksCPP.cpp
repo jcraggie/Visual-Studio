@@ -248,6 +248,149 @@ void Statistics(vector<CGame> game)
 	}
 }
 
+void PrintTopHorizGrid()
+{
+	char horizBar = (char)196;
+	char crossBar = (char)197;
+	char teeBar = (char)194;
+	char revTeeBar = (char)193;
+	char leftTopCorner = (char)218;
+	char leftBotCorner = (char)192;
+	char rightTopCorner = (char)191;
+	char rightBotCorner = (char)217;
+	char leftHorizTee = (char)195;
+	char rightHorizTee = (char)180;
+
+	cout << leftTopCorner;
+	for (int i = 0; i < 11; ++i)
+		cout << horizBar;
+	cout << teeBar;
+	for (int i = 0; i < 35; ++i)
+		cout << horizBar;
+	cout << teeBar;
+	for (int i = 0; i < 8; ++i)
+		cout << horizBar;
+	cout << teeBar;
+	for (int i = 0; i < 22; ++i)
+		cout << horizBar;
+	cout << teeBar;
+	for (int i = 0; i < 24; ++i)
+		cout << horizBar;
+	cout << teeBar;
+	for (int i = 0; i < 24; ++i)
+		cout << horizBar;
+	cout << teeBar;
+	for (int i = 0; i < 24; ++i)
+		cout << horizBar;
+	cout << teeBar;
+	for (int i = 0; i < 24; ++i)
+		cout << horizBar;
+	cout << teeBar;
+	for (int i = 0; i < 7; ++i)
+		cout << horizBar;
+	cout << teeBar;
+	for (int i = 0; i < 12; ++i)
+		cout << horizBar;
+	cout << rightTopCorner;
+	cout << endl;
+}
+
+
+void PrintInteriorHorizGrid()
+{
+	char horizBar = (char)196;
+	char crossBar = (char)197;
+	char teeBar = (char)194;
+	char revTeeBar = (char)193;
+	char leftTopCorner = (char)218;
+	char leftBotCorner = (char)192;
+	char rightTopCorner = (char)191;
+	char rightBotCorner = (char)217;
+	char leftHorizTee = (char)195;
+	char rightHorizTee = (char)180;
+
+	cout << leftHorizTee;
+	for (int i = 0; i < 11; ++i)
+		cout << horizBar;
+	cout << crossBar;
+	for (int i = 0; i < 35; ++i)
+		cout << horizBar;
+	cout << crossBar;
+	for (int i = 0; i < 8; ++i)
+		cout << horizBar;
+	cout << crossBar;
+	for (int i = 0; i < 22; ++i)
+		cout << horizBar;
+	cout << crossBar;
+	for (int i = 0; i < 24; ++i)
+		cout << horizBar;
+	cout << crossBar;
+	for (int i = 0; i < 24; ++i)
+		cout << horizBar;
+	cout << crossBar;
+	for (int i = 0; i < 24; ++i)
+		cout << horizBar;
+	cout << crossBar;
+	for (int i = 0; i < 24; ++i)
+		cout << horizBar;
+	cout << crossBar;
+	for (int i = 0; i < 7; ++i)
+		cout << horizBar;
+	cout << crossBar;
+	for (int i = 0; i < 12; ++i)
+		cout << horizBar;
+	cout << rightHorizTee;
+	cout << endl;
+}
+
+void PrintBotHorizGrid()
+{
+	char horizBar = (char)196;
+	char crossBar = (char)197;
+	char teeBar = (char)194;
+	char revTeeBar = (char)193;
+	char leftTopCorner = (char)218;
+	char leftBotCorner = (char)192;
+	char rightTopCorner = (char)191;
+	char rightBotCorner = (char)217;
+	char leftHorizTee = (char)195;
+	char rightHorizTee = (char)180;
+
+	cout << leftBotCorner;
+	for (int i = 0; i < 11; ++i)
+		cout << horizBar;
+	cout << revTeeBar;
+	for (int i = 0; i < 35; ++i)
+		cout << horizBar;
+	cout << revTeeBar;
+	for (int i = 0; i < 8; ++i)
+		cout << horizBar;
+	cout << revTeeBar;
+	for (int i = 0; i < 22; ++i)
+		cout << horizBar;
+	cout << revTeeBar;
+	for (int i = 0; i < 24; ++i)
+		cout << horizBar;
+	cout << revTeeBar;
+	for (int i = 0; i < 24; ++i)
+		cout << horizBar;
+	cout << revTeeBar;
+	for (int i = 0; i < 24; ++i)
+		cout << horizBar;
+	cout << revTeeBar;
+	for (int i = 0; i < 24; ++i)
+		cout << horizBar;
+	cout << revTeeBar;
+	for (int i = 0; i < 7; ++i)
+		cout << horizBar;
+	cout << revTeeBar;
+	for (int i = 0; i < 12; ++i)
+		cout << horizBar;
+	cout << rightBotCorner;
+	cout << endl;
+}
+
+
 void PrintGames(vector<CGame> game)
 {
 	vector<CGame>::iterator iterG;
@@ -255,7 +398,13 @@ void PrintGames(vector<CGame> game)
 	std::string homeRankAndTeam;
 	char JMCwinG{ ' ' }, JCRwinG{ ' ' }, JMCwinS{ ' ' }, JCRwinS{ ' ' };
 	string awayLineChars{ ' ' }, homeLineChars{ ' ' };
+	string vertBar = " " + string(1,(char) 179) + " "; // to convert char to string, use string(size_t,char)
+	string sVertBar = string(1, (char)179);
+
 	cout << endl << endl << endl << "Looping through CGame class variable game: " << endl << endl;
+
+	PrintTopHorizGrid();
+
 	for (iterG = game.begin(); iterG != game.end(); ++iterG)
 	{
 		JMCwinG = ' ';
@@ -265,9 +414,10 @@ void PrintGames(vector<CGame> game)
 		awayLineChars = ' ';
 		homeLineChars = ' ';
 
-		for (int i = 0; i < 173; ++i)
-			cout << '-';
-		cout << endl;
+
+		
+
+
 		if (iterG->GetAwayRank() != "" && iterG->GetAwayRank() != "0")
 			awayRankAndTeam = "#" + iterG->GetAwayRank() + " " + iterG->GetAwayTeam();
 		else
@@ -299,25 +449,35 @@ void PrintGames(vector<CGame> game)
 		else
 			homeLineChars = " ";
 
-		cout << right << setw(9) << iterG->GetTime();
-		cout << right << " | " << setw(7) << iterG->GetAwayConf();
-		cout << right << setw(20) << awayRankAndTeam;
-		cout << right << setw(6) << awayLineChars;
-		cout << " | " << setw(6) << iterG->GetAwayScore() << "   | ";
-		cout << setw(20) << iterG->GetTeamGameWinner() << " | ";
-		cout << setw(20) << iterG->GetJMCgamePick() << " " << JMCwinG << "|";
-		cout << setw(20) << iterG->GetJCRgamePick() << " " << JCRwinG << "|";
-		cout << setw(20) << iterG->GetJMCspreadPick() << " " << JMCwinS << "|";
-		cout << setw(20) << iterG->GetJCRspreadPick() << " " << JCRwinS << "|";
+		cout << sVertBar << setw(10) << iterG->GetTime() << vertBar;
+		cout << setw(7) << iterG->GetAwayConf();
+		cout << setw(20) << awayRankAndTeam;
+		cout << setw(6) << awayLineChars << vertBar;
+		cout << setw(6) << iterG->GetAwayScore() << vertBar;
+		cout << setw(20) << iterG->GetTeamGameWinner() << vertBar;
+		cout << setw(20) << iterG->GetJMCgamePick() << " " << JMCwinG << vertBar;
+		cout << setw(20) << iterG->GetJCRgamePick() << " " << JCRwinG << vertBar;
+		cout << setw(20) << iterG->GetJMCspreadPick() << " " << JMCwinS << vertBar;
+		cout << setw(20) << iterG->GetJCRspreadPick() << " " << JCRwinS << vertBar;
+		cout << setw(5) << iterG->GetSeason() << vertBar;
+		cout << setw(10) << iterG->GetGameNum() << vertBar;
 		cout << endl;
 
-		cout << right << setw(12) << " | " << setw(7) << iterG->GetHomeConf();
-		cout << right << setw(20) << homeRankAndTeam;
-		cout << right << setw(6) << homeLineChars;
-		cout << " | " << setw(6) << iterG->GetHomeScore() << "   | ";
-		cout << setw(20) << iterG->GetTeamSpreadWinner() << " | ";
-		cout << setw(23) << "|" << setw(23) << "|" << setw(23) << "|" << setw(23) << "|";
+		cout << sVertBar << setw(10) << iterG->GetDate() << vertBar;
+		cout << setw(7) << iterG->GetHomeConf();
+		cout << setw(20) << homeRankAndTeam;
+		cout << setw(6) << homeLineChars << vertBar;
+		cout << setw(6) << iterG->GetHomeScore() << vertBar;
+		cout << setw(20) << iterG->GetTeamSpreadWinner() << vertBar;
+		cout << setw(25) << vertBar << setw(25) << vertBar << setw(25) << vertBar << setw(25) << vertBar;
+		cout << setw(5) << iterG->GetSheet() << vertBar;
+		cout << setw(10) << iterG->GetGameID() << vertBar;
 		cout << endl;
+
+		if (iterG + 1 != game.end())
+			PrintInteriorHorizGrid();
+		else
+			PrintBotHorizGrid();
 	}
 }
 
@@ -378,32 +538,51 @@ void GetStats(vector<CGame>& game)
 {
 	vector<CGame>::iterator iterG;
 
-	CGame::s_JMCgamesWon = 0;
-	CGame::s_JCRgamesWon = 0;
-	CGame::s_JMCspreadWon = 0;
-	CGame::s_JCRspreadWon = 0;
-
+	//CGame::s_JMCgamesWon = 0;
+	//CGame::s_JCRgamesWon = 0;
+	//CGame::s_JMCspreadWon = 0;
+	//CGame::s_JCRspreadWon = 0;
+	//CGame::s_NumGamesPlayed = 0;
+	//CGame::s_NumSpreadPlayed = 0;
+	int sht = 0;
 	for (iterG = game.begin(); iterG != game.end(); ++iterG)
 	{
+		sht = stoi(iterG->GetSheet());
+
+		if (iterG->GetUDline() != "PK" && iterG->GetUDline() != "NL")
+		{
+			CGame::s_NumSpreadPlayed[sht] += 1;
+		}
+		CGame::s_NumGamesPlayed[sht] += 1;
 		if (iterG->GetJMCwinGame())
-			CGame::s_JMCgamesWon += 1;
+			CGame::s_JMCgamesWon[sht] += 1;
 		if (iterG->GetJCRwinGame())
-			CGame::s_JCRgamesWon += 1;
+			CGame::s_JCRgamesWon[sht] += 1;
 		if (iterG->GetJMCwinSpread())
-			CGame::s_JMCspreadWon += 1;
+			CGame::s_JMCspreadWon[sht] += 1;
 		if (iterG->GetJCRwinSpread())
-			CGame::s_JCRspreadWon += 1;
+			CGame::s_JCRspreadWon[sht] += 1;
 	}
 }
 
 void PrintStats(vector<CGame>& game)
 {
+	int sht = 1;
+
 	cout << endl << endl;
-	cout << "JMC games won: " << CGame::s_JMCgamesWon << endl;
-	cout << "JCR games won: " << CGame::s_JCRgamesWon << endl;
-	cout << endl;
-	cout << "JMC spread won: " << CGame::s_JMCspreadWon << endl;
-	cout << "JCR spread won: " << CGame::s_JCRspreadWon << endl;
+	cout << setw(42) << "Correct Game Winners" << setw(38) << "Correct Spread Winners" << endl;
+	cout << setw(30) << "JMC" << setw(7) << "JCR" << setw(30) << "JMC" << setw(7) << "JCR" << endl;
+	for (sht = 1; sht < 3; ++sht)
+	{
+		cout << "Sheet: " << sht;
+		cout << setw(22) << CGame::s_JMCgamesWon[sht];
+		cout << setw(7) << CGame::s_JCRgamesWon[sht];
+		cout << setw(30) << CGame::s_JMCspreadWon[sht];
+		cout << setw(7) << CGame::s_JCRspreadWon[sht];
+		cout << endl;
+		//cout << "Number of Games Picked: " << CGame::s_NumGamesPlayed[sht] << endl;
+		//cout << "Number of Spreads Picked: " << CGame::s_NumSpreadPlayed[sht] << endl;
+	}
 }
 
 int main()
@@ -422,6 +601,7 @@ int main()
 	//fileName = "2016 Football Picks Master Data.txt";
 	readFile = "2016 sheet 1.txt";
 	ReadFile(game, readFile);
+	ReadFile(game, "2016 sheet 2.txt");
 	GetStats(game);
 	//fileName = "2016 Football Picks Import.txt";
 	//readFile = "2016 TESTimportNew.txt";

@@ -1,0 +1,28 @@
+6:30 AM	Georgia Tech	Boston College	Boston College	3				ACC	ACC	9/3/2016	CFB	2016	2	1	20160201	17	14	Georgia Tech	Georgia Tech	Boston College	Georgia Tech	Georgia Tech	TIE	1	1	0	0
+11:00 AM	Hawaii	Michigan	Hawaii	-42		7		MtnW	Big10	9/3/2016	CFB	2016	2	2	20160202	3	63	(7) Michigan	(7) Michigan	Hawaii	(7) Michigan	(7) Michigan	(7) Michigan	1	1	0	1
+11:00 AM	W Michigan	N'western	W Michigan	-6.5				MAC	Big10	9/3/2016	CFB	2016	2	3	20160203	22	21	N'western	N'western	N'western	N'western	W Michigan	W Michigan	0	0	0	0
+11:00 AM	Bowling Green	Ohio St	Bowling Green	-26.5		6		MAC	Big10	9/3/2016	CFB	2016	2	4	20160204	10	77	(6) Ohio St	(6) Ohio St	(6) Ohio St	(6) Ohio St	(6) Ohio St	(6) Ohio St	1	1	1	1
+11:00 AM	Missouri	W Virginia	Missouri	-13				SEC	Big12	9/3/2016	CFB	2016	2	5	20160205	11	26	W Virginia	W Virginia	Missouri	Missouri	W Virginia	W Virginia	1	1	0	0
+11:00 AM	S Alabama	Miss St	S Alabama	-33.5				SunB	SEC	9/3/2016	CFB	2016	2	6	20160206	21	20	Miss St	Miss St	Miss St	Miss St	S Alabama	S Alabama	0	0	0	0
+11:00 AM	Oklahoma	Houston	Houston	-10	3	15	15	Big12	AAC	9/3/2016	CFB	2016	2	7	20160207	23	33	(3) Oklahoma	(3) Oklahoma	(15) Houston	(3) Oklahoma	(15) Houston	(15) Houston	0	0	1	0
+11:00 AM	Boise St	UL - Lafayette	UL - Lafayette	-20				MtnW	SunB	9/3/2016	CFB	2016	2	8	20160208	45	10	Boise St	Boise St	Boise St	Boise St	Boise St	Boise St	1	1	1	1
+1:00 PM	Rutgers	Wash	Rutgers	-22.5		14		Big10	Pac12	9/3/2016	CFB	2016	2	9	20160209	13	48	(14) Wash	(14) Wash	(14) Wash	Rutgers	(14) Wash	(14) Wash	1	1	1	0
+2:30 PM	Miami Ohio	Iowa	Miami Ohio	-30		17		MAC	Big10	9/3/2016	CFB	2016	2	10	20160210	21	45	(17) Iowa	(17) Iowa	(17) Iowa	(17) Iowa	(17) Iowa	Miami Ohio	1	1	0	0
+2:30 PM	Kent St	Penn State	Kent St	-20				MAC	Big10	9/3/2016	CFB	2016	2	11	20160211	13	33	Penn State	Penn State	Penn State	Kent St	Penn State	TIE	1	1	0	0
+2:30 PM	Texas St	Ohio	Texas St	-18.5				SunB	MAC	9/3/2016	CFB	2016	2	12	20160212	56	54	Ohio	Ohio	Texas St	Ohio	Texas St	Texas St	0	0	1	0
+2:30 PM	UCLA	Texas A&M	UCLA	-1	16		16	Pac12	SEC	9/3/2016	CFB	2016	2	13	20160213	24	31	Texas A&M	Texas A&M	Texas A&M	Texas A&M	Texas A&M	Texas A&M	1	1	1	1
+2:30 PM	LSU	Wisconsin	Wisconsin	-8.5	5			SEC	Big10	9/3/2016	CFB	2016	2	14	20160214	14	16	(5) LSU	(5) LSU	(5) LSU	(5) LSU	Wisconsin	Wisconsin	0	0	0	0
+3:00 PM	La Tech	Arkansas	La Tech	-20.5				CUSA	SEC	9/3/2016	CFB	2016	2	15	20160215	20	21	Arkansas	Arkansas	Arkansas	Arkansas	Arkansas	La Tech	1	1	0	0
+4:30 PM	N Carolina	Georgia	N Carolina	-3	22	18	22	ACC	SEC	9/3/2016	CFB	2016	2	16	20160216	24	33	(22) N Carolina	(18) Georgia	(22) N Carolina	(18) Georgia	(18) Georgia	(18) Georgia	0	1	0	1
+6:00 PM	SMU	UNT	UNT	-12.5				AAC	CUSA	9/3/2016	CFB	2016	2	17	20160217	34	21	SMU	SMU	UNT	SMU	SMU	SMU	1	1	0	1
+6:00 PM	SJSU	Tulsa	SJSU	-6				MtnW	AAC	9/3/2016	CFB	2016	2	18	20160218	10	45	Tulsa	Tulsa	SJSU	Tulsa	Tulsa	Tulsa	1	1	0	1
+6:30 PM	S Miss	Kentucky	S Miss	-7				CUSA	SEC	9/3/2016	CFB	2016	2	19	20160219	44	25	Kentucky	Kentucky	S Miss	Kentucky	S Miss	S Miss	0	0	1	0
+6:30 PM	Mass	Florida	Mass	-36.5		25		IND	SEC	9/3/2016	CFB	2016	2	20	20160220	7	24	(25) Florida	(25) Florida	(25) Florida	(25) Florida	(25) Florida	Mass	1	1	0	0
+7:00 PM	NM State	UTEP	NM State	-3.5				SunB	CUSA	9/3/2016	CFB	2016	2	21	20160221	22	38	UTEP	UTEP	UTEP	UTEP	UTEP	UTEP	1	1	1	1
+7:00 PM	Fresno St	Nebraska	Fresno St	-29.5		12		MtnW	Big10	9/3/2016	CFB	2016	2	22	20160222	10	43	Nebraska	Nebraska	Fresno St	Fresno St	Nebraska	Nebraska	1	1	0	0
+7:00 PM	USC	Alabama	USC	-10	20	1		Pac12	SEC	9/3/2016	CFB	2016	2	23	20160223	6	52	(1) Alabama	(1) Alabama	(1) Alabama	(1) Alabama	(1) Alabama	(1) Alabama	1	1	1	1
+8:00 PM	Clemson	Auburn	Auburn	-8.5	2			ACC	SEC	9/3/2016	CFB	2016	2	24	20160224	19	13	(2) Clemson	(2) Clemson	(2) Clemson	Auburn	(2) Clemson	Auburn	1	1	0	1
+9:30 PM	BYU	Arizona	EVEN	PK				IND	Pac12	9/3/2016	CFB	2016	2	25	20160225	18	16	BYU	Arizona	0	0	BYU		1	0	0	0
+9:30 PM	N Illinois	Wyoming	Wyoming	-10.5				MAC	MtnW	9/3/2016	CFB	2016	2	26	20160226	34	40	N Illinois	N Illinois	Wyoming	N Illinois	Wyoming	Wyoming	0	0	1	0
+6:30 PM	Notre Dame	Texas	Texas	4.5	10			IND	Big12	9/4/2016	CFB	2016	2	27	20160227	47	50	Texas	(10) Notre Dame	Texas	(10) Notre Dame	Texas	Texas	1	0	1	0
+7:00 PM	Ole Miss	Florida St	Ole Miss	-5.5		4		SEC	ACC	9/5/2016	CFB	2016	2	28	20160228	34	45	(4) Florida St	(4) Florida St	(4) Florida St	Ole Miss	(4) Florida St	(4) Florida St	1	1	1	0
