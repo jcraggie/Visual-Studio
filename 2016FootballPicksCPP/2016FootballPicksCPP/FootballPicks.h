@@ -2,6 +2,39 @@
 
 #include <iostream>
 
+class CStats
+{
+public:
+	std::string Season;
+	int NumSheets;
+	int GamesPicked[100]{ 0 };
+	int SpreadPicked[100]{ 0 };
+	int JMCgw[100]{ 0 };
+	int JCRgw[100]{ 0 };
+	int JMCsw[100]{ 0 };
+	int JCRsw[100]{ 0 };
+
+	int SeasonGamesPicked;
+	int SeasonSpreadPicked;
+	int SeasonCFBPicked;
+	int SeasonNFLPicked;
+
+	int SeasonJMCCFBgw;
+	int SeasonJMCNFLgw;
+	int SeasonJMCCFBsw;
+	int SeasonJMCNFLsw;
+
+	int SeasonJCRCFBgw;
+	int SeasonJCRNFLgw;
+	int SeasonJCRCFBsw;
+	int SeasonJCRNFLsw;
+
+};
+
+
+
+
+
 class CGame
 {
 public:

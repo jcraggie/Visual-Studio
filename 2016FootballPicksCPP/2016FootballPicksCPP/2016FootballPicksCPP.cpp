@@ -440,55 +440,118 @@ void MainMenu()
 	cout << "X - Exit Program" << endl;
 }
 
-void GetStats(vector<CGame>& game)
+void GetStats(vector<CGame>& game, vector<CStats>& stats)
 {
 	vector<CGame>::iterator iterG;
+	vector<CStats>::iterator iterS;
+	
+	CStats* thisSeason;
+	CStats* newSeason;
 
+	int numSeasons = 0;
 	//CGame::s_JMCgamesWon = 0;
 	//CGame::s_JCRgamesWon = 0;
 	//CGame::s_JMCspreadWon = 0;
 	//CGame::s_JCRspreadWon = 0;
 	//CGame::s_NumGamesPlayed = 0;
 	//CGame::s_NumSpreadPlayed = 0;
+
+	// need to test to see if season exists in CStats
+
+	for (iterS = stats.begin(); iterS != stats.end(); ++iterS)
+	{
+		numSeasons += 1;
+	}
+
+	if (numSeasons == 0)
+	{
+		newSeason = new CStats;
+		cout << endl << "There are no CStats yet." << endl << endl;
+	}
+	else
+	{
+		cout << endl << "There are " << numSeasons << " seasons in CStats." << endl << endl;
+	}
+
+
+
 	int sht = 0;
+	string season;
+	bool foundSeasonInStats = false;
+
 	for (iterG = game.begin(); iterG != game.end(); ++iterG)
 	{
+		season = iterG->GetSeason();
+		iterS = stats.begin();
+		while (!foundSeasonInStats && iterS != stats.end())
+		{
+			if (season == iterS->Season)
+			{
+				foundSeasonInStats = true;
+				break;
+			}
+			else
+			{
+				++iterS;
+			}
+		}
+
+		if (!foundSeasonInStats)
+		{
+			thisSeason = new CStats;
+			thisSeason->Season = season;
+			stats.push_back(*thisSeason);
+			
+		}
+		else
+		{
+
+		}
+		iterS = stats.begin();
+		while (iterS != stats.end() && iterS->Season != season)
+		{
+			if (iterS->Season != season)
+				++iterS;
+		}
+
 		sht = stoi(iterG->GetSheet());
 
 		if (iterG->GetUDline() != "PK" && iterG->GetUDline() != "NL")
 		{
 			CGame::s_NumSpreadPlayed[sht] += 1;
 		}
-		CGame::s_NumGamesPlayed[sht] += 1;
+		iterS->GamesPicked[sht] += 1;
 		if (iterG->GetJMCwinGame())
-			CGame::s_JMCgamesWon[sht] += 1;
+			iterS->JMCgw[sht] += 1;
 		if (iterG->GetJCRwinGame())
-			CGame::s_JCRgamesWon[sht] += 1;
+			iterS->JCRgw[sht] += 1;
 		if (iterG->GetJMCwinSpread())
-			CGame::s_JMCspreadWon[sht] += 1;
+			iterS->JMCsw[sht] += 1;
 		if (iterG->GetJCRwinSpread())
-			CGame::s_JCRspreadWon[sht] += 1;
+			iterS->JCRsw[sht] += 1;
 	}
 }
 
-void PrintStats(vector<CGame>& game)
+void PrintStats(vector<CStats> stats)
 {
 	int sht = 1;
+	vector<CStats>::iterator iterS;
 
 	cout << endl << endl;
 	cout << setw(42) << "Correct Game Winners" << setw(38) << "Correct Spread Winners" << endl;
 	cout << setw(30) << "JMC" << setw(7) << "JCR" << setw(30) << "JMC" << setw(7) << "JCR" << endl;
-	for (sht = 1; sht < 3; ++sht)
-	{
-		cout << "Sheet: " << sht;
-		cout << setw(22) << CGame::s_JMCgamesWon[sht];
-		cout << setw(7) << CGame::s_JCRgamesWon[sht];
-		cout << setw(30) << CGame::s_JMCspreadWon[sht];
-		cout << setw(7) << CGame::s_JCRspreadWon[sht];
-		cout << endl;
-		//cout << "Number of Games Picked: " << CGame::s_NumGamesPlayed[sht] << endl;
-		//cout << "Number of Spreads Picked: " << CGame::s_NumSpreadPlayed[sht] << endl;
-	}
+	for (iterS = stats.begin(); iterS != stats.end(); ++iterS)
+		for (sht = 0; sht <= 5; ++sht)
+		{
+			cout << iterS->Season << " Sheet: " << sht;
+			cout << setw(22) << iterS->JMCgw[sht];
+			cout << setw(7) <<iterS->JCRgw[sht];
+			cout << setw(30) << iterS->JMCsw[sht];
+			cout << setw(7) << iterS->JCRsw[sht];
+			cout << endl;
+			//cout << "Number of Games Picked: " << CGame::s_NumGamesPlayed[sht] << endl;
+			//cout << "Number of Spreads Picked: " << CGame::s_NumSpreadPlayed[sht] << endl;
+		}
 }
 
 int main()
@@ -497,6 +560,8 @@ int main()
 	vector<string> gameInfo;
 	vector<CGame> game;
 	vector<CGame>::iterator iterG;
+	vector<CStats> stats;
+
 	string fileName, readFile, writeFile;
 
 	// THOUGHTS
@@ -508,13 +573,13 @@ int main()
 	readFile = "2016 sheet 1.txt";
 	ReadFile(game, readFile);
 	ReadFile(game, "2016 sheet 2.txt");
-	GetStats(game);
+	GetStats(game, stats);
 	//fileName = "2016 Football Picks Import.txt";
 	//readFile = "2016 TESTimportNew.txt";
 	//ReadFile(game, readFile);
 	//ReadFile(game, fileName);
 	PrintGames(game);
-	PrintStats(game);
+	PrintStats(stats);
 	//writeFile = "2016 TESTwriteFinal.txt";
 	//WriteFile(game, writeFile);
 
