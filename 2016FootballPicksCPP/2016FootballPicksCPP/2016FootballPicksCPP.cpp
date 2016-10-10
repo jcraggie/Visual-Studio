@@ -518,21 +518,71 @@ void GetStats(vector<CGame>& game, vector<CStats>& stats)
 		sht = stoi(iterG->GetSheet());
 		if (iterS->NumSheets < sht)
 			iterS->NumSheets = sht;
-		if (iterG->GetUDline() != "PK" && iterG->GetUDline() != "NL")
-		{
-			CGame::s_NumSpreadPlayed[sht] += 1;
-		}
+		if (iterG->GetGameType() == "CFB")
+			iterS->SeasonCFBPicked += 1;
+		if (iterG->GetGameType() == "NFL")
+			iterS->SeasonNFLPicked += 1;
 		iterS->GamesPicked[sht] += 1;
+		iterS->SpreadPicked[sht] += 1;
+		if (iterG->GetUDline() == "PK" || iterG->GetUDline() == "NL")
+		{
+			iterS->SpreadPicked[sht] -= 1;
+		}
+		//iterS->GamesPicked[sht] += 1;
 		if (iterS->NumSheets > sht)
 			iterS->NumSheets = sht;
+
 		if (iterG->GetJMCwinGame())
+		{
 			iterS->JMCgw[sht] += 1;
+			if (iterG->GetGameType() == "CFB")
+			{
+				iterS->SeasonJMCCFBgw += 1;
+			}
+			if (iterG->GetGameType() == "NFL")
+			{
+				iterS->SeasonJMCNFLgw += 1;
+			}
+		}
+
 		if (iterG->GetJCRwinGame())
+		{
 			iterS->JCRgw[sht] += 1;
+			if (iterG->GetGameType() == "CFB")
+			{
+				iterS->SeasonJCRCFBgw += 1;
+			}
+			if (iterG->GetGameType() == "NFL")
+			{
+				iterS->SeasonJCRNFLgw += 1;
+			}
+		}
+
 		if (iterG->GetJMCwinSpread())
+		{
 			iterS->JMCsw[sht] += 1;
+			if (iterG->GetGameType() == "CFB")
+			{
+				iterS->SeasonJMCCFBsw += 1;
+			}
+			if (iterG->GetGameType() == "NFL")
+			{
+				iterS->SeasonJMCNFLsw += 1;
+			}
+		}
+
 		if (iterG->GetJCRwinSpread())
+		{
 			iterS->JCRsw[sht] += 1;
+			if (iterG->GetGameType() == "CFB")
+			{
+				iterS->SeasonJCRCFBsw += 1;
+			}
+			if (iterG->GetGameType() == "NFL")
+			{
+				iterS->SeasonJCRNFLsw += 1;
+			}
+		}
 	}
 }
 
@@ -545,17 +595,21 @@ void PrintStats(vector<CStats> stats)
 	cout << setw(42) << "Correct Game Winners" << setw(38) << "Correct Spread Winners" << endl;
 	cout << setw(30) << "JMC" << setw(7) << "JCR" << setw(30) << "JMC" << setw(7) << "JCR" << endl;
 	for (iterS = stats.begin(); iterS != stats.end(); ++iterS)
+	{
 		for (sht = 1; sht <= iterS->NumSheets; ++sht)
 		{
 			cout << iterS->Season << " Sheet: " << sht;
-			cout << setw(22) << iterS->JMCgw[sht];
-			cout << setw(7) <<iterS->JCRgw[sht];
+			cout << setw(17) << iterS->JMCgw[sht];
+			cout << setw(7) << iterS->JCRgw[sht];
 			cout << setw(30) << iterS->JMCsw[sht];
 			cout << setw(7) << iterS->JCRsw[sht];
+			cout << "     " << iterS->GamesPicked[sht] << "     " << iterS->SpreadPicked[sht];
 			cout << endl;
 			//cout << "Number of Games Picked: " << CGame::s_NumGamesPlayed[sht] << endl;
 			//cout << "Number of Spreads Picked: " << CGame::s_NumSpreadPlayed[sht] << endl;
 		}
+		cout << iterS->Season << " Season Stats:   CFB Picked: " << iterS->SeasonCFBPicked << "    NFL Picked: " << iterS->SeasonNFLPicked << endl;
+	}
 }
 
 int main()

@@ -5,7 +5,7 @@
 class CStats
 {
 public:
-	std::string Season;
+	std::string Season{ "NEW_SEASON" };
 	int NumSheets{ 0 };
 	int GamesPicked[100]{ 0 };
 	int SpreadPicked[100]{ 0 };
@@ -14,20 +14,20 @@ public:
 	int JMCsw[100]{ 0 };
 	int JCRsw[100]{ 0 };
 
-	int SeasonGamesPicked;
-	int SeasonSpreadPicked;
-	int SeasonCFBPicked;
-	int SeasonNFLPicked;
+	int SeasonGamesPicked{ 0 };
+	int SeasonSpreadPicked{ 0 };
+	int SeasonCFBPicked{ 0 };
+	int SeasonNFLPicked{ 0 };
 
-	int SeasonJMCCFBgw;
-	int SeasonJMCNFLgw;
-	int SeasonJMCCFBsw;
-	int SeasonJMCNFLsw;
+	int SeasonJMCCFBgw{ 0 };
+	int SeasonJMCNFLgw{ 0 };
+	int SeasonJMCCFBsw{ 0 };
+	int SeasonJMCNFLsw{ 0 };
 
-	int SeasonJCRCFBgw;
-	int SeasonJCRNFLgw;
-	int SeasonJCRCFBsw;
-	int SeasonJCRNFLsw;
+	int SeasonJCRCFBgw{ 0 };
+	int SeasonJCRNFLgw{ 0 };
+	int SeasonJCRCFBsw{ 0 };
+	int SeasonJCRNFLsw{ 0 };
 
 };
 
