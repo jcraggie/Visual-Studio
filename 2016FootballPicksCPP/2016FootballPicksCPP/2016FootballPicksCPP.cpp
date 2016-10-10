@@ -481,6 +481,7 @@ void GetStats(vector<CGame>& game, vector<CStats>& stats)
 
 	for (iterG = game.begin(); iterG != game.end(); ++iterG)
 	{
+		foundSeasonInStats = false;
 		season = iterG->GetSeason();
 		iterS = stats.begin();
 		while (!foundSeasonInStats && iterS != stats.end())
@@ -515,12 +516,15 @@ void GetStats(vector<CGame>& game, vector<CStats>& stats)
 		}
 
 		sht = stoi(iterG->GetSheet());
-
+		if (iterS->NumSheets < sht)
+			iterS->NumSheets = sht;
 		if (iterG->GetUDline() != "PK" && iterG->GetUDline() != "NL")
 		{
 			CGame::s_NumSpreadPlayed[sht] += 1;
 		}
 		iterS->GamesPicked[sht] += 1;
+		if (iterS->NumSheets > sht)
+			iterS->NumSheets = sht;
 		if (iterG->GetJMCwinGame())
 			iterS->JMCgw[sht] += 1;
 		if (iterG->GetJCRwinGame())
@@ -541,7 +545,7 @@ void PrintStats(vector<CStats> stats)
 	cout << setw(42) << "Correct Game Winners" << setw(38) << "Correct Spread Winners" << endl;
 	cout << setw(30) << "JMC" << setw(7) << "JCR" << setw(30) << "JMC" << setw(7) << "JCR" << endl;
 	for (iterS = stats.begin(); iterS != stats.end(); ++iterS)
-		for (sht = 0; sht <= 5; ++sht)
+		for (sht = 1; sht <= iterS->NumSheets; ++sht)
 		{
 			cout << iterS->Season << " Sheet: " << sht;
 			cout << setw(22) << iterS->JMCgw[sht];
@@ -573,6 +577,7 @@ int main()
 	readFile = "2016 sheet 1.txt";
 	ReadFile(game, readFile);
 	ReadFile(game, "2016 sheet 2.txt");
+	ReadFile(game, "2015 sheet 1 test.txt");
 	GetStats(game, stats);
 	//fileName = "2016 Football Picks Import.txt";
 	//readFile = "2016 TESTimportNew.txt";

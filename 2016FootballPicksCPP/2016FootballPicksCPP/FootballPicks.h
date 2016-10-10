@@ -6,7 +6,7 @@ class CStats
 {
 public:
 	std::string Season;
-	int NumSheets;
+	int NumSheets{ 0 };
 	int GamesPicked[100]{ 0 };
 	int SpreadPicked[100]{ 0 };
 	int JMCgw[100]{ 0 };
