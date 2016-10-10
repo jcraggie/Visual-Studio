@@ -7,6 +7,17 @@ class CGame
 public:
 	CGame();
 
+	static int const s_DateBorder = 11;
+	static int const s_GameBorder = 35;
+	static int const s_ScoreBorder = 8;
+	static int const s_UDBorder = 22;
+	static int const s_JMCGameBorder = 24;
+	static int const s_JCRGameBorder = 24;
+	static int const s_JMCSpreadBorder = 24;
+	static int const s_JCRSpreadBorder = 24;
+	static int const s_SeasonSheetBorder = 7;
+	static int const s_GameNumIDBorder = 12;
+
 	static int s_NumGamesPlayed[100];
 	static int s_NumSpreadPlayed[100];
 	static int s_JMCgamesWon[100];

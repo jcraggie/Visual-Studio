@@ -238,158 +238,53 @@ void ReadFile(vector<CGame>& game, string fileName)
 
 }
 
-void Statistics(vector<CGame> game)
-{
-	vector<CGame>::iterator iterG;
 
-	for (iterG = game.begin(); iterG != game.end(); ++iterG)
-	{
-
-	}
-}
-
-void PrintTopHorizGrid()
+void PrintGrid(char leftBorder, char midBorder, char rightBorder)
 {
 	char horizBar = (char)196;
-	char crossBar = (char)197;
-	char teeBar = (char)194;
-	char revTeeBar = (char)193;
-	char leftTopCorner = (char)218;
-	char leftBotCorner = (char)192;
-	char rightTopCorner = (char)191;
-	char rightBotCorner = (char)217;
-	char leftHorizTee = (char)195;
-	char rightHorizTee = (char)180;
+	//char crossBar = (char)197;
+	//char teeBar = (char)194;
+	//char revTeeBar = (char)193;
+	//char leftTopCorner = (char)218;
+	//char leftBotCorner = (char)192;
+	//char rightTopCorner = (char)191;
+	//char rightBotCorner = (char)217;
+	//char leftHorizTee = (char)195;
+	//char rightHorizTee = (char)180;
 
-	cout << leftTopCorner;
-	for (int i = 0; i < 11; ++i)
+	cout << leftBorder;
+	for (int i = 0; i < CGame::s_DateBorder; ++i)
 		cout << horizBar;
-	cout << teeBar;
-	for (int i = 0; i < 35; ++i)
+	cout << midBorder;
+	for (int i = 0; i < CGame::s_GameBorder; ++i)
 		cout << horizBar;
-	cout << teeBar;
-	for (int i = 0; i < 8; ++i)
+	cout << midBorder;
+	for (int i = 0; i < CGame::s_ScoreBorder; ++i)
 		cout << horizBar;
-	cout << teeBar;
-	for (int i = 0; i < 22; ++i)
+	cout << midBorder;
+	for (int i = 0; i < CGame::s_UDBorder; ++i)
 		cout << horizBar;
-	cout << teeBar;
-	for (int i = 0; i < 24; ++i)
+	cout << midBorder;
+	for (int i = 0; i < CGame::s_JMCGameBorder; ++i)
 		cout << horizBar;
-	cout << teeBar;
-	for (int i = 0; i < 24; ++i)
+	cout << midBorder;
+	for (int i = 0; i < CGame::s_JCRGameBorder; ++i)
 		cout << horizBar;
-	cout << teeBar;
-	for (int i = 0; i < 24; ++i)
+	cout << midBorder;
+	for (int i = 0; i < CGame::s_JMCSpreadBorder; ++i)
 		cout << horizBar;
-	cout << teeBar;
-	for (int i = 0; i < 24; ++i)
+	cout << midBorder;
+	for (int i = 0; i < CGame::s_JCRSpreadBorder; ++i)
 		cout << horizBar;
-	cout << teeBar;
-	for (int i = 0; i < 7; ++i)
+	cout << midBorder;
+	for (int i = 0; i < CGame::s_SeasonSheetBorder; ++i)
 		cout << horizBar;
-	cout << teeBar;
-	for (int i = 0; i < 12; ++i)
+	cout << midBorder;
+	for (int i = 0; i < CGame::s_GameNumIDBorder; ++i)
 		cout << horizBar;
-	cout << rightTopCorner;
+	cout << rightBorder;
 	cout << endl;
 }
-
-
-void PrintInteriorHorizGrid()
-{
-	char horizBar = (char)196;
-	char crossBar = (char)197;
-	char teeBar = (char)194;
-	char revTeeBar = (char)193;
-	char leftTopCorner = (char)218;
-	char leftBotCorner = (char)192;
-	char rightTopCorner = (char)191;
-	char rightBotCorner = (char)217;
-	char leftHorizTee = (char)195;
-	char rightHorizTee = (char)180;
-
-	cout << leftHorizTee;
-	for (int i = 0; i < 11; ++i)
-		cout << horizBar;
-	cout << crossBar;
-	for (int i = 0; i < 35; ++i)
-		cout << horizBar;
-	cout << crossBar;
-	for (int i = 0; i < 8; ++i)
-		cout << horizBar;
-	cout << crossBar;
-	for (int i = 0; i < 22; ++i)
-		cout << horizBar;
-	cout << crossBar;
-	for (int i = 0; i < 24; ++i)
-		cout << horizBar;
-	cout << crossBar;
-	for (int i = 0; i < 24; ++i)
-		cout << horizBar;
-	cout << crossBar;
-	for (int i = 0; i < 24; ++i)
-		cout << horizBar;
-	cout << crossBar;
-	for (int i = 0; i < 24; ++i)
-		cout << horizBar;
-	cout << crossBar;
-	for (int i = 0; i < 7; ++i)
-		cout << horizBar;
-	cout << crossBar;
-	for (int i = 0; i < 12; ++i)
-		cout << horizBar;
-	cout << rightHorizTee;
-	cout << endl;
-}
-
-void PrintBotHorizGrid()
-{
-	char horizBar = (char)196;
-	char crossBar = (char)197;
-	char teeBar = (char)194;
-	char revTeeBar = (char)193;
-	char leftTopCorner = (char)218;
-	char leftBotCorner = (char)192;
-	char rightTopCorner = (char)191;
-	char rightBotCorner = (char)217;
-	char leftHorizTee = (char)195;
-	char rightHorizTee = (char)180;
-
-	cout << leftBotCorner;
-	for (int i = 0; i < 11; ++i)
-		cout << horizBar;
-	cout << revTeeBar;
-	for (int i = 0; i < 35; ++i)
-		cout << horizBar;
-	cout << revTeeBar;
-	for (int i = 0; i < 8; ++i)
-		cout << horizBar;
-	cout << revTeeBar;
-	for (int i = 0; i < 22; ++i)
-		cout << horizBar;
-	cout << revTeeBar;
-	for (int i = 0; i < 24; ++i)
-		cout << horizBar;
-	cout << revTeeBar;
-	for (int i = 0; i < 24; ++i)
-		cout << horizBar;
-	cout << revTeeBar;
-	for (int i = 0; i < 24; ++i)
-		cout << horizBar;
-	cout << revTeeBar;
-	for (int i = 0; i < 24; ++i)
-		cout << horizBar;
-	cout << revTeeBar;
-	for (int i = 0; i < 7; ++i)
-		cout << horizBar;
-	cout << revTeeBar;
-	for (int i = 0; i < 12; ++i)
-		cout << horizBar;
-	cout << rightBotCorner;
-	cout << endl;
-}
-
 
 void PrintGames(vector<CGame> game)
 {
@@ -401,9 +296,20 @@ void PrintGames(vector<CGame> game)
 	string vertBar = " " + string(1,(char) 179) + " "; // to convert char to string, use string(size_t,char)
 	string sVertBar = string(1, (char)179);
 
+	char horizBar = (char)196;
+	char crossBar = (char)197;
+	char teeBar = (char)194;
+	char revTeeBar = (char)193;
+	char leftTopCorner = (char)218;
+	char leftBotCorner = (char)192;
+	char rightTopCorner = (char)191;
+	char rightBotCorner = (char)217;
+	char leftHorizTee = (char)195;
+	char rightHorizTee = (char)180;
+
 	cout << endl << endl << endl << "Looping through CGame class variable game: " << endl << endl;
 
-	PrintTopHorizGrid();
+	PrintGrid(leftTopCorner, teeBar, rightTopCorner);
 
 	for (iterG = game.begin(); iterG != game.end(); ++iterG)
 	{
@@ -475,9 +381,9 @@ void PrintGames(vector<CGame> game)
 		cout << endl;
 
 		if (iterG + 1 != game.end())
-			PrintInteriorHorizGrid();
+			PrintGrid(leftHorizTee, crossBar, rightHorizTee);
 		else
-			PrintBotHorizGrid();
+			PrintGrid(leftBotCorner, revTeeBar, rightBotCorner);
 	}
 }
 
