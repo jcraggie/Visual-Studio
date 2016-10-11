@@ -19,6 +19,16 @@ public:
 	int SeasonCFBPicked{ 0 };
 	int SeasonNFLPicked{ 0 };
 
+	int SeasonCFBGamesPicked{ 0 };
+	int SeasonCFBSpreadPicked{ 0 };
+	int SeasonNFLGamesPicked{ 0 };
+	int SeasonNFLSpreadPicked{ 0 };
+
+	int SeasonJMCgw{ 0 };
+	int SeasonJCRgw{ 0 };
+	int SeasonJMCsw{ 0 };
+	int SeasonJCRsw{ 0 };
+
 	int SeasonJMCCFBgw{ 0 };
 	int SeasonJMCNFLgw{ 0 };
 	int SeasonJMCCFBsw{ 0 };
