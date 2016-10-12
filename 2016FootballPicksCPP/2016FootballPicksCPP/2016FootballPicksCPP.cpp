@@ -190,10 +190,14 @@ void ReadFile(vector<CGame>& game, string fileName)
 					break;
 				case 21:
 					RemoveRanking(word);
+					//if (word == "0")
+					//	word = string( 20, (char)219 );
 					newGame->SetJMCspreadPick(word);
 					break;
 				case 22:
 					RemoveRanking(word);
+					//if (word == "0")
+					//	word = string(20, (char)219);
 					newGame->SetJCRspreadPick(word);
 					break;
 				case 23:
@@ -295,6 +299,9 @@ void PrintGames(vector<CGame> game)
 	string awayLineChars{ ' ' }, homeLineChars{ ' ' };
 	string vertBar = " " + string(1,(char) 179) + " "; // to convert char to string, use string(size_t,char)
 	string sVertBar = string(1, (char)179);
+	string spreadFiller;
+	string JMCspreadPick;
+	string JCRspreadPick;
 
 	char horizBar = (char)196;
 	char crossBar = (char)197;
@@ -319,7 +326,7 @@ void PrintGames(vector<CGame> game)
 		JCRwinS = ' ';
 		awayLineChars = ' ';
 		homeLineChars = ' ';
-
+		spreadFiller = string(20, ' ');
 
 		
 
@@ -355,6 +362,18 @@ void PrintGames(vector<CGame> game)
 		else
 			homeLineChars = " ";
 
+		if (iterG->GetJMCspreadPick() == "0")
+		{
+			JMCspreadPick = string(18, (char)219);
+			JCRspreadPick = string(18, (char)219);
+			spreadFiller = string(18, (char)219);
+		}
+		else
+		{
+			JMCspreadPick = iterG->GetJMCspreadPick();
+			JCRspreadPick = iterG->GetJCRspreadPick();
+		}
+
 		cout << sVertBar << setw(10) << iterG->GetTime() << vertBar;
 		cout << setw(7) << iterG->GetAwayConf();
 		cout << setw(20) << awayRankAndTeam;
@@ -363,8 +382,8 @@ void PrintGames(vector<CGame> game)
 		cout << setw(20) << iterG->GetTeamGameWinner() << vertBar;
 		cout << setw(20) << iterG->GetJMCgamePick() << " " << JMCwinG << vertBar;
 		cout << setw(20) << iterG->GetJCRgamePick() << " " << JCRwinG << vertBar;
-		cout << setw(20) << iterG->GetJMCspreadPick() << " " << JMCwinS << vertBar;
-		cout << setw(20) << iterG->GetJCRspreadPick() << " " << JCRwinS << vertBar;
+		cout << setw(20) << JMCspreadPick << " " << JMCwinS << vertBar;
+		cout << setw(20) << JCRspreadPick << " " << JCRwinS << vertBar;
 		cout << setw(5) << iterG->GetSeason() << vertBar;
 		cout << setw(5) << iterG->GetSheet();
 		cout << setw(5) << iterG->GetGameNum() << vertBar;
@@ -376,7 +395,7 @@ void PrintGames(vector<CGame> game)
 		cout << setw(6) << homeLineChars << vertBar;
 		cout << setw(6) << iterG->GetHomeScore() << vertBar;
 		cout << setw(20) << iterG->GetTeamSpreadWinner() << vertBar;
-		cout << setw(25) << vertBar << setw(25) << vertBar << setw(25) << vertBar << setw(25) << vertBar;
+		cout << setw(25) << vertBar << setw(25) << vertBar << setw(20) << spreadFiller << "  " << vertBar << setw(20) << spreadFiller << "  " << vertBar;
 		cout << setw(5) << iterG->GetGameType() << vertBar;
 		cout << setw(10) << iterG->GetGameID() << vertBar;
 		cout << endl;
@@ -533,7 +552,7 @@ void GetStats(vector<CGame>& game, vector<CStats>& stats)
 		if (iterG->GetGameType() == "NFL")
 		{
 			iterS->SeasonNFLPicked += 1;
-			iterS->SeasonNFLSpreadPicked -= 1;
+			iterS->SeasonNFLSpreadPicked += 1;
 		}
 
 		iterS->GamesPicked[sht] += 1;
@@ -615,15 +634,20 @@ void PrintStats(vector<CStats> stats)
 	int sht = 1;
 	vector<CStats>::iterator iterS;
 
-	cout << endl << endl;
-	cout << setw(45) << "Correct Game Winners" << setw(38) << "Correct Spread Winners" << endl;
-	cout << setw(33) << "JMC" << setw(7) << "JCR" << setw(30) << "JMC" << setw(7) << "JCR" << endl;
+	//cout << endl << endl;
+	//cout << setw(45) << "Correct Game Winners" << setw(38) << "Correct Spread Winners" << endl;
+	//cout << setw(33) << "JMC" << setw(7) << "JCR" << setw(30) << "JMC" << setw(7) << "JCR" << endl;
 	for (iterS = stats.begin(); iterS != stats.end(); ++iterS)
 	{
+		cout << endl << endl;
+		cout << setw(45) << "Correct Game Winners" << setw(38) << "Correct Spread Winners" << endl;
+		cout << setw(33) << "JMC" << setw(7) << "JCR" << setw(30) << "JMC" << setw(7) << "JCR" << endl;
+		cout << string(90, (char)196) << endl;
+
 		for (sht = 1; sht <= iterS->NumSheets; ++sht)
 		{
-			cout << iterS->Season << " Sheet: " << sht;
-			cout << setw(10) << iterS->GamesPicked[sht];
+			cout << iterS->Season << " Sheet: " << setw(3) << sht;
+			cout << setw(8) << iterS->GamesPicked[sht];
 			cout << setw(10) << iterS->JMCgw[sht];
 			cout << setw(7) << iterS->JCRgw[sht];
 			cout << setw(20) << iterS->SpreadPicked[sht];
@@ -634,9 +658,9 @@ void PrintStats(vector<CStats> stats)
 			//cout << "Number of Spreads Picked: " << CGame::s_NumSpreadPlayed[sht] << endl;
 		}
 
-		cout << endl;
-		cout << setw(12) << "Totals: " << iterS->NumSheets;
-		cout << setw(10) << iterS->SeasonGamesPicked;
+		cout << string(90, (char)196) << endl;
+		cout << setw(13) << "Totals: " << setw(2) << iterS->NumSheets;
+		cout << setw(8) << iterS->SeasonGamesPicked;
 		cout << setw(10) << iterS->SeasonJMCgw;
 		cout << setw(7) << iterS->SeasonJCRgw;
 		cout << setw(20) << iterS->SeasonSpreadPicked;
@@ -689,17 +713,37 @@ int main()
 
 	//fileName = "2016 ExportText.txt";
 	//fileName = "2016 Football Picks Master Data.txt";
+
+
+
 	readFile = "2016 sheet 1.txt";
 	ReadFile(game, readFile);
 	ReadFile(game, "2016 sheet 2.txt");
 	ReadFile(game, "2015 sheet 1 test.txt");
+	ReadFile(game, "2016 sheet 3.txt");
+	ReadFile(game, "2016 sheet 4.txt");
+	ReadFile(game, "2016 sheet 5.txt");
+	ReadFile(game, "2016 sheet 6.txt");
+	ReadFile(game, "2016 sheet 7.txt");
+	ReadFile(game, "2016 sheet 8.txt");
+	ReadFile(game, "2016 sheet 9.txt");
+	ReadFile(game, "2016 sheet 10.txt");
+	ReadFile(game, "2016 sheet 11.txt");
+	ReadFile(game, "2015 sheet 11 test.txt");
+
+
+
+
 	GetStats(game, stats);
 	//fileName = "2016 Football Picks Import.txt";
 	//readFile = "2016 TESTimportNew.txt";
 	//ReadFile(game, readFile);
 	//ReadFile(game, fileName);
-	PrintGames(game);
+	
+	//PrintGames(game);
 	PrintStats(stats);
+
+
 	//writeFile = "2016 TESTwriteFinal.txt";
 	//WriteFile(game, writeFile);
 

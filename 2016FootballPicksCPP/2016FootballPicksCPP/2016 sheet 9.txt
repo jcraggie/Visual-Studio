@@ -1,0 +1,16 @@
+7:25 PM	Houston	New England	Houston	1.5	0	0	0	AFC-S	AFC-E	9/22/2016	NFL	2016	9	1	20160901	0	27	Houston	Houston	Houston	Houston	New England	New England	0	0	0	0
+12:00 PM	Denver	Cincinnati	Denver	-3	0	0	0	AFC-W	AFC-N	9/25/2016	NFL	2016	9	2	20160902	29	17	Denver	Cincinnati	Denver	Cincinnati	Denver	Denver	1	0	1	0
+12:00 PM	Oakland	Tennessee	EVEN	PK	0	0	0	AFC-W	AFC-S	9/25/2016	NFL	2016	9	3	20160903	17	10	Oakland	Tennessee	0	0	Oakland		1	0	0	0
+12:00 PM	Arizona	Buffalo	Buffalo	-5	0	0	0	NFC-W	AFC-E	9/25/2016	NFL	2016	9	4	20160904	18	33	Arizona	Arizona	Arizona	Arizona	Buffalo	Buffalo	0	0	0	0
+12:00 PM	Baltimore	Jacksonville	EVEN	PK	0	0	0	AFC-N	AFC-S	9/25/2016	NFL	2016	9	5	20160905	19	17	Jacksonville	Jacksonville	0	0	Baltimore		0	0	0	0
+12:00 PM	Cleveland	Miami	Cleveland	-7.5	0	0	0	AFC-N	AFC-E	9/25/2016	NFL	2016	9	6	20160906	24	30	Miami	Miami	Miami	Miami	Miami	Cleveland	1	1	0	0
+12:00 PM	Washington	New York Giants	Washington	-4	0	0	0	NFC-E	NFC-E	9/25/2016	NFL	2016	9	7	20160907	29	27	New York Giants	New York Giants	New York Giants	Washington	Washington	Washington	0	0	0	1
+12:00 PM	Detroit	Green Bay	Detroit	-8.5	0	0	0	NFC-N	NFC-N	9/25/2016	NFL	2016	9	8	20160908	27	34	Green Bay	Green Bay	Detroit	Green Bay	Green Bay	Detroit	1	1	1	0
+12:00 PM	Minnesota	Carolina	Minnesota	-7.5	0	0	0	NFC-N	NFC-S	9/25/2016	NFL	2016	9	9	20160909	22	10	Carolina	Carolina	Minnesota	Carolina	Minnesota	Minnesota	0	0	1	0
+3:05 PM	San Francisco	Seattle	San Francisco	-10	0	0	0	NFC-W	NFC-W	9/25/2016	NFL	2016	9	10	20160910	18	37	Seattle	Seattle	San Francisco	San Francisco	Seattle	Seattle	1	1	0	0
+3:05 PM	Los Angeles	Tampa Bay	Los Angeles	-3.5	0	0	0	AFC-W	NFC-S	9/25/2016	NFL	2016	9	11	20160911	37	32	Tampa Bay	Tampa Bay	Tampa Bay	Tampa Bay	Los Angeles	Los Angeles	0	0	0	0
+3:25 PM	Pittsburgh	Philadelphia	Philadelphia	-3.5	0	0	0	AFC-N	NFC-E	9/25/2016	NFL	2016	9	12	20160912	3	34	Pittsburgh	Pittsburgh	Pittsburgh	Pittsburgh	Philadelphia	Philadelphia	0	0	0	0
+3:25 PM	New York Jets	Kansas City	New York Jets	-3.5	0	0	0	AFC-E	AFC-W	9/25/2016	NFL	2016	9	13	20160913	3	24	New York Jets	Kansas City	New York Jets	Kansas City	Kansas City	Kansas City	0	1	0	1
+3:25 PM	San Diego	Indianapolis	San Diego	-3	0	0	0	AFC-W	AFC-S	9/25/2016	NFL	2016	9	14	20160914	22	26	San Diego	San Diego	San Diego	San Diego	Indianapolis	Indianapolis	0	0	0	0
+7:30 PM	Chicago	Dallas	Chicago	-7.5	0	0	0	NFC-N	NFC-E	9/25/2016	NFL	2016	9	15	20160915	17	31	Dallas	Dallas	Dallas	Dallas	Dallas	Dallas	1	1	1	1
+7:30 PM	Atlanta	New Orleans	Atlanta	-3	0	0	0	NFC-S	NFC-S	9/26/2016	NFL	2016	9	16	20160916	45	32	New Orleans	New Orleans	New Orleans	New Orleans	Atlanta	Atlanta	0	0	0	0

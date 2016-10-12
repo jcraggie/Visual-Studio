@@ -1,0 +1,16 @@
+7:30 PM	Carolina	Denver	Carolina	2.5	0	0	0	NFC-S	AFC-W	9/8/2016	NFL	2016	3	1	20160301	20	21	Carolina	Denver	Carolina	Denver	Denver	Carolina	0	1	1	0
+12:00 PM	Tampa Bay	Atlanta	Tampa Bay	-3	0	0	0	NFC-S	NFC-S	9/11/2016	NFL	2016	3	2	20160302	31	24	Tampa Bay	Atlanta	Tampa Bay	Atlanta	Tampa Bay	Tampa Bay	1	0	1	0
+12:00 PM	Minnesota	Tennessee	Tennessee	-3	0	0	0	NFC-N	AFC-S	9/11/2016	NFL	2016	3	3	20160303	25	16	Minnesota	Minnesota	Minnesota	Minnesota	Minnesota	Minnesota	1	1	1	1
+12:00 PM	Cleveland	Philadelphia	Cleveland	-7	0	0	0	AFC-N	NFC-E	9/11/2016	NFL	2016	3	4	20160304	10	29	Philadelphia	Philadelphia	Cleveland	Philadelphia	Philadelphia	Philadelphia	1	1	0	1
+12:00 PM	Cincinnati	New York Jets	New York Jets	-1	0	0	0	AFC-N	AFC-E	9/11/2016	NFL	2016	3	5	20160305	23	22	Cincinnati	New York Jets	Cincinnati	New York Jets	Cincinnati	TIE	1	0	0	0
+12:00 PM	Oakland	New Orleans	Oakland	-2	0	0	0	AFC-W	NFC-S	9/11/2016	NFL	2016	3	6	20160306	35	24	New Orleans	New Orleans	New Orleans	New Orleans	Oakland	Oakland	0	0	0	0
+12:00 PM	San Diego	Kansas City	San Diego	-7	0	0	0	AFC-W	AFC-W	9/11/2016	NFL	2016	3	7	20160307	27	33	Kansas City	Kansas City	Kansas City	San Diego	Kansas City	San Diego	1	1	0	1
+12:00 PM	Buffalo	Baltimore	Buffalo	-2.5	0	0	0	AFC-E	AFC-N	9/11/2016	NFL	2016	3	8	20160308	7	13	Baltimore	Baltimore	Baltimore	Baltimore	Baltimore	Baltimore	1	1	1	1
+12:00 PM	Chicago	Houston	Chicago	-5	0	0	0	NFC-N	AFC-S	9/11/2016	NFL	2016	3	9	20160309	14	23	Houston	Houston	Houston	Houston	Houston	Houston	1	1	1	1
+12:00 PM	Green Bay	Jacksonville	Jacksonville	-4.5	0	0	0	NFC-N	AFC-S	9/11/2016	NFL	2016	3	10	20160310	27	23	Green Bay	Green Bay	Green Bay	Green Bay	Green Bay	Jacksonville	1	1	0	0
+3:05 PM	Miami	Seattle	Miami	-7	0	0	0	AFC-E	NFC-W	9/11/2016	NFL	2016	3	11	20160311	10	12	Seattle	Seattle	Seattle	Seattle	Seattle	Miami	1	1	0	0
+3:25 PM	New York Giants	Dallas	New York Giants	-4	0	0	0	NFC-E	NFC-E	9/11/2016	NFL	2016	3	12	20160312	20	19	Dallas	Dallas	Dallas	Dallas	New York Giants	New York Giants	0	0	0	0
+3:25 PM	Detroit	Indianapolis	Detroit	-4.5	0	0	0	NFC-N	AFC-S	9/11/2016	NFL	2016	3	13	20160313	39	35	Indianapolis	Indianapolis	Detroit	Indianapolis	Detroit	Detroit	0	0	1	0
+7:30 PM	New England	Arizona	New England	-5.5	0	0	0	AFC-E	NFC-W	9/11/2016	NFL	2016	3	14	20160314	23	21	Arizona	Arizona	New England	Arizona	New England	New England	0	0	1	0
+6:10 PM	Pittsburgh	Washington	Washington	-3	0	0	0	AFC-N	NFC-E	9/12/2016	NFL	2016	3	15	20160315	38	16	Pittsburgh	Pittsburgh	Pittsburgh	Pittsburgh	Pittsburgh	Pittsburgh	1	1	1	1
+9:20 PM	Los Angeles	San Francisco	San Francisco	-2.5	0	0	0	AFC-W	NFC-W	9/12/2016	NFL	2016	3	16	20160316	0	28	Los Angeles	Los Angeles	Los Angeles	Los Angeles	San Francisco	San Francisco	0	0	0	0
