@@ -405,6 +405,9 @@ void PrintGames(vector<CGame> game)
 		else
 			PrintGrid(leftBotCorner, revTeeBar, rightBotCorner);
 	}
+
+	cout << "Press any key to return to main menu.";
+	cin.get();
 }
 
 void WriteFile(vector<CGame>& game, string fileName)
@@ -449,16 +452,7 @@ void WriteFile(vector<CGame>& game, string fileName)
 	return;
 }
 
-void MainMenu()
-{
-	system("cls"); // clear output screen
-	cout << "R - Read Master File" << endl;
-	cout << "W - Write Master File" << endl;
-	cout << "I - Import New Data into Master File" << endl;
-	cout << "F - Change File Names" << endl;
-	cout << "P - Print Data to Screen" << endl;
-	cout << "X - Exit Program" << endl;
-}
+
 
 void GetStats(vector<CGame>& game, vector<CStats>& stats)
 {
@@ -694,27 +688,15 @@ void PrintStats(vector<CStats> stats)
 		//cout << "JMC NFL game wins: " << iterS->SeasonJMCNFLgw << "   JCR NFL game wins: " << iterS->SeasonJCRNFLgw << endl;
 		//cout << "JMC NFL spread wins: " << iterS->SeasonJMCNFLsw << "   JCR NFL spread wins: " << iterS->SeasonJCRNFLsw << endl;
 		cout << endl << endl;
+
 	}
+	cout << "Press any key to return to main menu.";
+	cin.get();
 }
 
-int main()
+void ReadAllFiles(vector<CGame>& game)
 {
-	string w;
-	vector<string> gameInfo;
-	vector<CGame> game;
-	vector<CGame>::iterator iterG;
-	vector<CStats> stats;
-
-	string fileName, readFile, writeFile;
-
-	// THOUGHTS
-	// maybe have import files for each tab. that way you can recreate master file if needed or just read in 1 tab's data.
-
-
-	//fileName = "2016 ExportText.txt";
-	//fileName = "2016 Football Picks Master Data.txt";
-
-
+	string readFile;
 
 	readFile = "2016 sheet 1.txt";
 	ReadFile(game, readFile);
@@ -730,23 +712,64 @@ int main()
 	ReadFile(game, "2016 sheet 10.txt");
 	ReadFile(game, "2016 sheet 11.txt");
 	ReadFile(game, "2015 sheet 11 test.txt");
+}
 
+void MainMenu(vector<CGame>& game, vector<CStats>& stats)
+{
+	char menuSelection{ ' ' };
+	
+	do
+	{
+		system("cls"); // clear output screen
+		cout << "R - Read Master File" << endl;
+		cout << "W - Write Master File" << endl;
+		cout << "I - Import New Data into Master File" << endl;
+		cout << "F - Change File Names" << endl;
+		cout << "P - Print Data to Screen" << endl;
+		cout << "S - Print Statistics to Screen" << endl;
+		cout << "X - Exit Program" << endl;
+		cout << endl << "Selection: ";
+		cin >> menuSelection;
+		cin.get();
 
+		switch (menuSelection)
+		{
+		case 'R':
+			ReadAllFiles(game);
+			GetStats(game, stats);
+			break;
+		case 'P':
+			PrintGames(game);
+			break;
+		case 'S':
+			PrintStats(stats);
+			break;
+		}
+	} while (menuSelection != 'X');
+}
 
+int main()
+{
+	//string w;
+	//vector<string> gameInfo;
+	vector<CGame> game;
+	//vector<CGame>::iterator iterG;
+	vector<CStats> stats;
 
-	GetStats(game, stats);
-	//fileName = "2016 Football Picks Import.txt";
-	//readFile = "2016 TESTimportNew.txt";
-	//ReadFile(game, readFile);
-	//ReadFile(game, fileName);
+	//string fileName, readFile, writeFile;
+
+	// THOUGHTS
+	// maybe have import files for each tab. that way you can recreate master file if needed or just read in 1 tab's data.
+
+	//ReadAllFiles(game);
+	
+	//GetStats(game, stats);
 	
 	//PrintGames(game);
-	PrintStats(stats);
+	//PrintStats(stats);
 
-
-	//writeFile = "2016 TESTwriteFinal.txt";
-	//WriteFile(game, writeFile);
-
+	MainMenu(game, stats);
+	
     return 0;
 }
 
