@@ -1,0 +1,14 @@
+7:25 PM	Arizona	San Francisco	San Francisco	-2.5	0	0	0	NFC-W	NFC-W	10/6/2016	NFL	2016	13	1	20161301	33	21	San Francisco	Arizona	San Francisco	Arizona	Arizona	Arizona	0	1	0	1
+12:00 PM	Houston	Minnesota	Houston	-6	0	0	0	AFC-S	NFC-N	10/9/2016	NFL	2016	13	2	20161302	13	31	Minnesota	Minnesota	Minnesota	Houston	Minnesota	Minnesota	1	1	1	0
+12:00 PM	Tennessee	Miami	Tennessee	-3.5	0	0	0	AFC-S	AFC-E	10/9/2016	NFL	2016	13	3	20161303	30	17	Tennessee	Miami	Tennessee	Miami	Tennessee	Tennessee	1	0	1	0
+12:00 PM	New England	Cleveland	Cleveland	-10	0	0	0	AFC-E	AFC-N	10/9/2016	NFL	2016	13	4	20161304	33	13	New England	New England	New England	New England	New England	New England	1	1	1	1
+12:00 PM	New York Jets	Pittsburgh	New York Jets	-7	0	0	0	AFC-E	AFC-N	10/9/2016	NFL	2016	13	5	20161305	13	31	Pittsburgh	Pittsburgh	Pittsburgh	Pittsburgh	Pittsburgh	Pittsburgh	1	1	1	1
+12:00 PM	Washington	Baltimore	Washington	-3.5	0	0	0	NFC-E	AFC-N	10/9/2016	NFL	2016	13	6	20161306	16	10	Baltimore	Washington	Washington	Washington	Washington	Washington	0	1	1	1
+12:00 PM	Philadelphia	Detroit	Detroit	-2.5	0	0	0	NFC-E	NFC-N	10/9/2016	NFL	2016	13	7	20161307	23	24	Philadelphia	Philadelphia	Philadelphia	Philadelphia	Detroit	Detroit	0	0	0	0
+12:00 PM	Chicago	Indianapolis	Chicago	-4	0	0	0	NFC-N	AFC-S	10/9/2016	NFL	2016	13	8	20161308	23	29	Chicago	Chicago	Chicago	Chicago	Indianapolis	Indianapolis	0	0	0	0
+3:05 PM	Atlanta	Denver	Atlanta	-6	0	0	0	NFC-S	AFC-W	10/9/2016	NFL	2016	13	9	20161309	23	16	Denver	Denver	Denver	Denver	Atlanta	Atlanta	0	0	0	0
+3:25 PM	Buffalo	Los Angeles	Buffalo	-2.5	0	0	0	AFC-E	AFC-W	10/9/2016	NFL	2016	13	10	20161310	30	19	Buffalo	Los Angeles	Buffalo	Los Angeles	Buffalo	Buffalo	1	0	1	0
+3:25 PM	San Diego	Oakland	San Diego	-4	0	0	0	AFC-W	AFC-W	10/9/2016	NFL	2016	13	11	20161311	31	34	Oakland	Oakland	Oakland	Oakland	Oakland	San Diego	1	1	0	0
+3:25 PM	Cincinnati	Dallas	Cincinnati	-1	0	0	0	AFC-N	NFC-E	10/9/2016	NFL	2016	13	12	20161312	14	28	Dallas	Dallas	Dallas	Dallas	Dallas	Dallas	1	1	1	1
+7:30 PM	New York Giants	Green Bay	New York Giants	-7	0	0	0	NFC-E	NFC-N	10/9/2016	NFL	2016	13	13	20161313	16	23	Green Bay	Green Bay	Green Bay	Green Bay	Green Bay	PUSH	1	1	0	0
+7:30 PM	Tampa Bay	Carolina	Tampa Bay	NO LINE	0	0	0	NFC-S	NFC-S	10/10/2016	NFL	2016	13	14	20161314	17	14	Tampa Bay	Carolina	0	0	Tampa Bay		1	0	0	0

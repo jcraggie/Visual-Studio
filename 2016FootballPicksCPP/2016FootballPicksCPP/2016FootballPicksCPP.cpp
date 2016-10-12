@@ -66,6 +66,7 @@ void ReadFile(vector<CGame>& game, string fileName)
 	int amt;
 	float flt;
 	stringstream ss;
+	int countGamesRead = 0;
 
 	ifstream myFile2(fileName);
 	//ifstream myFile2 ("2016gameData1.txt");
@@ -233,12 +234,15 @@ void ReadFile(vector<CGame>& game, string fileName)
 
 		}
 		game.push_back(*newGame);
+		countGamesRead += 1;
 		//cout << setw(15) << word;
 		word = "";
 		//cout << endl;
 
 
 	}
+	cout << countGamesRead << " games read." << endl;
+	CStats::s_TotalGamesInMemory += countGamesRead;
 
 }
 
@@ -701,7 +705,7 @@ void ReadAllFiles(vector<CGame>& game)
 	readFile = "2016 sheet 1.txt";
 	ReadFile(game, readFile);
 	ReadFile(game, "2016 sheet 2.txt");
-	ReadFile(game, "2015 sheet 1 test.txt");
+
 	ReadFile(game, "2016 sheet 3.txt");
 	ReadFile(game, "2016 sheet 4.txt");
 	ReadFile(game, "2016 sheet 5.txt");
@@ -711,26 +715,66 @@ void ReadAllFiles(vector<CGame>& game)
 	ReadFile(game, "2016 sheet 9.txt");
 	ReadFile(game, "2016 sheet 10.txt");
 	ReadFile(game, "2016 sheet 11.txt");
-	ReadFile(game, "2015 sheet 11 test.txt");
+	ReadFile(game, "2016 sheet 12.txt");
+	ReadFile(game, "2016 sheet 13.txt");
+
+	//ReadFile(game, "2015 sheet 1 test.txt");
+	//ReadFile(game, "2015 sheet 11 test.txt");
+	
+	cout << endl;
+	cout << "Press any key to return to main menu.";
+	cin.get();
 }
 
 void MainMenu(vector<CGame>& game, vector<CStats>& stats)
 {
 	char menuSelection{ ' ' };
-	
+
+	char horizBar = (char)196;
+	char crossBar = (char)197;
+	char teeBar = (char)194;
+	char revTeeBar = (char)193;
+	char leftTopCorner = (char)218;
+	char leftBotCorner = (char)192;
+	char rightTopCorner = (char)191;
+	char rightBotCorner = (char)217;
+	char leftHorizTee = (char)195;
+	char rightHorizTee = (char)180;
+	char vertBar = (char)179;
+	 
+	string menuItem[7];
+	string menuStat;
+
+	menuItem[0] = "  R - Read Master File";
+	menuItem[1] = "  W - Write Master File";
+	menuItem[2] = "  I - Import New Data into Master File";
+	menuItem[3] = "  F - Change File Names";
+	menuItem[4] = "  P - Print Data to Screen";
+	menuItem[5] = "  S - Print Statistics to Screen";
+	menuItem[6] = "  X - Exit Program";
+
 	do
 	{
 		system("cls"); // clear output screen
-		cout << "R - Read Master File" << endl;
-		cout << "W - Write Master File" << endl;
-		cout << "I - Import New Data into Master File" << endl;
-		cout << "F - Change File Names" << endl;
-		cout << "P - Print Data to Screen" << endl;
-		cout << "S - Print Statistics to Screen" << endl;
-		cout << "X - Exit Program" << endl;
-		cout << endl << "Selection: ";
+		cout << leftTopCorner << string(40, (char)196) << rightTopCorner << endl;
+
+		for (int i = 0; i < 7; ++i)
+		{
+			cout << vertBar << menuItem[i] << setw(41 - menuItem[i].size()) << vertBar << endl;
+		}
+
+		cout << vertBar << setw(41) << vertBar << endl;
+		menuStat = "  " + to_string(CStats::s_TotalGamesInMemory) + " games in memory.";
+		cout << vertBar << menuStat << setw(41 - menuStat.size()) << vertBar << endl;
+		
+		cout << leftBotCorner << string(40, (char)196) << rightBotCorner << endl;
+		cout << endl << "  Selection: ";
+
+
+
 		cin >> menuSelection;
 		cin.get();
+		menuSelection = toupper(menuSelection);
 
 		switch (menuSelection)
 		{
@@ -750,23 +794,8 @@ void MainMenu(vector<CGame>& game, vector<CStats>& stats)
 
 int main()
 {
-	//string w;
-	//vector<string> gameInfo;
 	vector<CGame> game;
-	//vector<CGame>::iterator iterG;
 	vector<CStats> stats;
-
-	//string fileName, readFile, writeFile;
-
-	// THOUGHTS
-	// maybe have import files for each tab. that way you can recreate master file if needed or just read in 1 tab's data.
-
-	//ReadAllFiles(game);
-	
-	//GetStats(game, stats);
-	
-	//PrintGames(game);
-	//PrintStats(stats);
 
 	MainMenu(game, stats);
 	

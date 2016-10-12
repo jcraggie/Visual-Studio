@@ -5,6 +5,8 @@
 class CStats
 {
 public:
+	static int s_TotalGamesInMemory;
+
 	std::string Season{ "NEW_SEASON" };
 	int NumSheets{ 0 };
 	int GamesPicked[100]{ 0 };
@@ -41,7 +43,7 @@ public:
 
 };
 
-
+int CStats::s_TotalGamesInMemory{ 0 };
 
 
 
