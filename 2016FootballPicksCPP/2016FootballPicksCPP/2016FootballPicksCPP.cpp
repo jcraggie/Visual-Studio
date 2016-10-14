@@ -26,31 +26,27 @@
 
 using namespace std;
 
-void RemoveRanking(string& word)
+void RemoveRanking(string& word) // removes the parenthesis and rank if it is front of team name
 {
-	string temp=" ";
+	//string temp=" ";
 	int start = 0;
 	int size = 0;
-	int j = 0;
-	if (word[0] != '(')
+	//int j = 0;
+	if (word[0] != '(') // the parenthesis should be the first char. if it is not, exit fx
+	{
 		return;
+	}
 	size = word.size();
 	for (int i = 0; i < size; ++i)
 	{
-		if (word[i] == ')')
+		if (word[i] == ')') // loop until closing parenthesis is reached
 		{
-			start = i + 2;
+			start = i + 2; // start is now the char after closing paren and space
 			break;
 		}
 	}
-	word.erase(0, start);
-	//for (int i = start; i < size; ++i)
-	//{
-	//	temp[j] = word[i];
-	//	j += 1;
-	//}
+	word.erase(0, start); // erase the chars before start in word
 
-	//word = temp;
 	return;
 }
 
@@ -69,29 +65,21 @@ void ReadFile(vector<CGame>& game, string fileName)
 	int countGamesRead = 0;
 
 	ifstream myFile2(fileName);
-	//ifstream myFile2 ("2016gameData1.txt");
-	//while (myFile2)
+
 	while (getline(myFile2,str))
 	{
-		//getline(myFile2, str);
 		line.push_back(str);
-
-		//cout << str << endl;
 	}
 
 	for (iterC = line.begin(); iterC != line.end(); ++iterC)
 	{
 		CGame* newGame = new CGame;
-		gameLine = *iterC; // 1 word
-		wordCount = 0;
+		gameLine = *iterC; // 1 line of game information
+		wordCount = 0;   // counts each word taken from the line. determines which data this is.
 		
-		//cout << "game size is: " << game.size() << endl;
-		//cout << "Word is: " << w << endl;
 		for (int i = 0; i <= gameLine.size(); ++i) // loop through entire game line
 		{
-			//if (gameLine[0] == '\t' || gameLine[1] == '\t')
-			//	break;
-			ss.str("");
+			ss.str(""); // clears the string stream
 			if (gameLine[i] != '\t' && i != gameLine.size()) // if the char is not a tab
 			{
 				word.push_back(gameLine[i]); // push the char found to word. once encounter tab, word is done.
@@ -99,7 +87,6 @@ void ReadFile(vector<CGame>& game, string fileName)
 			else
 			{
 				wordCount += 1;
-				//cout << setw(20) << word;
 
 				switch (wordCount)
 				{
@@ -191,14 +178,10 @@ void ReadFile(vector<CGame>& game, string fileName)
 					break;
 				case 21:
 					RemoveRanking(word);
-					//if (word == "0")
-					//	word = string( 20, (char)219 );
 					newGame->SetJMCspreadPick(word);
 					break;
 				case 22:
 					RemoveRanking(word);
-					//if (word == "0")
-					//	word = string(20, (char)219);
 					newGame->SetJCRspreadPick(word);
 					break;
 				case 23:
@@ -250,46 +233,58 @@ void ReadFile(vector<CGame>& game, string fileName)
 void PrintGrid(char leftBorder, char midBorder, char rightBorder)
 {
 	char horizBar = (char)196;
-	//char crossBar = (char)197;
-	//char teeBar = (char)194;
-	//char revTeeBar = (char)193;
-	//char leftTopCorner = (char)218;
-	//char leftBotCorner = (char)192;
-	//char rightTopCorner = (char)191;
-	//char rightBotCorner = (char)217;
-	//char leftHorizTee = (char)195;
-	//char rightHorizTee = (char)180;
+
 
 	cout << leftBorder;
 	for (int i = 0; i < CGame::s_DateBorder; ++i)
+	{
 		cout << horizBar;
+	}
 	cout << midBorder;
 	for (int i = 0; i < CGame::s_GameBorder; ++i)
+	{
 		cout << horizBar;
+	}
 	cout << midBorder;
 	for (int i = 0; i < CGame::s_ScoreBorder; ++i)
+	{
 		cout << horizBar;
+	}
 	cout << midBorder;
 	for (int i = 0; i < CGame::s_UDBorder; ++i)
+	{
 		cout << horizBar;
+	}
 	cout << midBorder;
 	for (int i = 0; i < CGame::s_JMCGameBorder; ++i)
+	{
 		cout << horizBar;
+	}
 	cout << midBorder;
 	for (int i = 0; i < CGame::s_JCRGameBorder; ++i)
+	{
 		cout << horizBar;
+	}
 	cout << midBorder;
 	for (int i = 0; i < CGame::s_JMCSpreadBorder; ++i)
+	{
 		cout << horizBar;
+	}
 	cout << midBorder;
 	for (int i = 0; i < CGame::s_JCRSpreadBorder; ++i)
+	{
 		cout << horizBar;
+	}
 	cout << midBorder;
 	for (int i = 0; i < CGame::s_SeasonSheetBorder; ++i)
+	{
 		cout << horizBar;
+	}
 	cout << midBorder;
 	for (int i = 0; i < CGame::s_GameNumIDBorder; ++i)
+	{
 		cout << horizBar;
+	}
 	cout << rightBorder;
 	cout << endl;
 }
@@ -336,35 +331,68 @@ void PrintGames(vector<CGame> game)
 
 
 		if (iterG->GetAwayRank() != "" && iterG->GetAwayRank() != "0")
+		{
 			awayRankAndTeam = "#" + iterG->GetAwayRank() + " " + iterG->GetAwayTeam();
+		}
 		else
+		{
 			awayRankAndTeam = " " + iterG->GetAwayTeam();
+		}
 		if (iterG->GetHomeRank() != "" && iterG->GetHomeRank() != "0")
+		{
 			homeRankAndTeam = "#" + iterG->GetHomeRank() + " " + iterG->GetHomeTeam();
+		}
 		else
+		{
 			homeRankAndTeam = " " + iterG->GetHomeTeam();
+		}
 		if (iterG->GetJMCwinGame() == 1)
+		{
 			JMCwinG = '*';
+		}
 		if (iterG->GetJCRwinGame() == 1)
+		{
 			JCRwinG = '*';
+		}
 		if (iterG->GetJMCwinSpread() == 1)
+		{
 			JMCwinS = '*';
+		}
 		if (iterG->GetJCRwinSpread() == 1)
+		{
 			JCRwinS = '*';
+		}
 		if (iterG->GetUDTeam() == iterG->GetAwayTeam())
+		{
 			if (iterG->GetUDline() == "NL")
+			{
 				awayLineChars = iterG->GetUDline();
+			}
 			else
+			{
 				awayLineChars = "+" + iterG->GetUDline();
+			}
+		}
 		else
+		{
 			awayLineChars = " ";
+		}
+
 		if (iterG->GetUDTeam() == iterG->GetHomeTeam())
+		{
 			if (iterG->GetUDline() == "NL")
+			{
 				homeLineChars = iterG->GetUDline();
+			}
 			else
+			{
 				homeLineChars = "+" + iterG->GetUDline();
+			}
+		}
 		else
+		{
 			homeLineChars = " ";
+		}
 
 		if (iterG->GetJMCspreadPick() == "0")
 		{
@@ -399,15 +427,22 @@ void PrintGames(vector<CGame> game)
 		cout << setw(6) << homeLineChars << vertBar;
 		cout << setw(6) << iterG->GetHomeScore() << vertBar;
 		cout << setw(20) << iterG->GetTeamSpreadWinner() << vertBar;
-		cout << setw(25) << vertBar << setw(25) << vertBar << setw(20) << spreadFiller << "  " << vertBar << setw(20) << spreadFiller << "  " << vertBar;
+		cout << setw(25) << vertBar;
+		cout << setw(25) << vertBar;
+		cout << setw(20) << spreadFiller << "  " << vertBar;
+		cout << setw(20) << spreadFiller << "  " << vertBar;
 		cout << setw(5) << iterG->GetGameType() << vertBar;
 		cout << setw(10) << iterG->GetGameID() << vertBar;
 		cout << endl;
 
 		if (iterG + 1 != game.end())
+		{
 			PrintGrid(leftHorizTee, crossBar, rightHorizTee);
+		}
 		else
+		{
 			PrintGrid(leftBotCorner, revTeeBar, rightBotCorner);
+		}
 	}
 
 	cout << "Press any key to return to main menu.";
@@ -530,7 +565,9 @@ void GetStats(vector<CGame>& game, vector<CStats>& stats)
 		while (iterS != stats.end() && iterS->Season != season)
 		{
 			if (iterS->Season != season)
+			{
 				++iterS;
+			}
 		}
 
 		sht = stoi(iterG->GetSheet()); // get integer from sheet name to use to index stat arrays
@@ -563,9 +600,13 @@ void GetStats(vector<CGame>& game, vector<CStats>& stats)
 			iterS->SpreadPicked[sht] -= 1;
 			iterS->SeasonSpreadPicked -= 1;
 			if (iterG->GetGameType() == "CFB")
+			{
 				iterS->SeasonCFBSpreadPicked -= 1;
+			}
 			if (iterG->GetGameType() == "NFL")
+			{
 				iterS->SeasonNFLSpreadPicked -= 1;
+			}
 		}
 
 
