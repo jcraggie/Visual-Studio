@@ -1,3 +1,13 @@
+
+
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <iomanip>
+#include <sstream>
+
 #include "Main.h"
 #include "FootballPicks.h"
 

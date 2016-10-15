@@ -1,6 +1,7 @@
 #pragma once
 
-namespace FootballPicksForms {
+namespace FootballPicksForms
+{
 
 	using namespace System;
 	using namespace System::ComponentModel;
@@ -39,6 +40,9 @@ namespace FootballPicksForms {
 	private: System::Windows::Forms::ToolStripMenuItem^  fileToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  exitToolStripMenuItem;
 	private: System::Windows::Forms::TextBox^  output_txt;
+	private: System::Windows::Forms::Button^  run_loop_btn;
+
+
 	protected:
 
 	protected:
@@ -64,13 +68,14 @@ namespace FootballPicksForms {
 			this->fileToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->exitToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->output_txt = (gcnew System::Windows::Forms::TextBox());
+			this->run_loop_btn = (gcnew System::Windows::Forms::Button());
 			this->menuStrip1->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// exit_btn
 			// 
 			this->exit_btn->BackgroundImageLayout = System::Windows::Forms::ImageLayout::None;
-			this->exit_btn->Location = System::Drawing::Point(1148, 722);
+			this->exit_btn->Location = System::Drawing::Point(1148, 710);
 			this->exit_btn->Name = L"exit_btn";
 			this->exit_btn->Size = System::Drawing::Size(75, 23);
 			this->exit_btn->TabIndex = 0;
@@ -97,23 +102,34 @@ namespace FootballPicksForms {
 			// exitToolStripMenuItem
 			// 
 			this->exitToolStripMenuItem->Name = L"exitToolStripMenuItem";
-			this->exitToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->exitToolStripMenuItem->Size = System::Drawing::Size(92, 22);
 			this->exitToolStripMenuItem->Text = L"Exit";
 			this->exitToolStripMenuItem->Click += gcnew System::EventHandler(this, &Main::exitToolStripMenuItem_Click);
 			// 
 			// output_txt
 			// 
-			this->output_txt->Location = System::Drawing::Point(470, 49);
+			this->output_txt->Location = System::Drawing::Point(599, 57);
 			this->output_txt->Multiline = true;
 			this->output_txt->Name = L"output_txt";
-			this->output_txt->Size = System::Drawing::Size(726, 649);
+			this->output_txt->Size = System::Drawing::Size(623, 647);
 			this->output_txt->TabIndex = 2;
+			// 
+			// run_loop_btn
+			// 
+			this->run_loop_btn->Location = System::Drawing::Point(348, 177);
+			this->run_loop_btn->Name = L"run_loop_btn";
+			this->run_loop_btn->Size = System::Drawing::Size(205, 78);
+			this->run_loop_btn->TabIndex = 3;
+			this->run_loop_btn->Text = L"Run Loop";
+			this->run_loop_btn->UseVisualStyleBackColor = true;
+			this->run_loop_btn->Click += gcnew System::EventHandler(this, &Main::button1_Click);
 			// 
 			// Main
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1235, 828);
+			this->Controls->Add(this->run_loop_btn);
 			this->Controls->Add(this->output_txt);
 			this->Controls->Add(this->exit_btn);
 			this->Controls->Add(this->menuStrip1);
@@ -136,5 +152,14 @@ namespace FootballPicksForms {
 	{
 		Application::Exit();
 	}
-};
+	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e)
+	{
+		
+		int counter = 0;
+		for (counter = 0; counter < 10; ++counter)
+		{
+			output_txt->Text = output_txt->Text + counter + "\r\n";
+		}
+	}
+	};
 }
