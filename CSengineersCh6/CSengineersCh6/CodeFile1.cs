@@ -50,15 +50,18 @@ class Test
 {
     public static void Main()
     {
-        Engineer e = new Engineer("George", 15.50F);
-        CivilEngineer c = new CivilEngineer("Sir John", 40F);
+        //create an array of Engineers
+        Engineer[] earray = new Engineer[2];
+
+        earray[0] = new Engineer("George", 15.50F);
+        earray[1] = new CivilEngineer("Sir John", 40F);
 
         Console.WriteLine("{0} charge = {1}",
-            e.TypeName(),
-            e.CalculateCharge(2F));
+            earray[0].TypeName(),
+            earray[0].CalculateCharge(2F));
         Console.WriteLine("{0} charge = {1}",
-            c.TypeName(),
-            c.CalculateCharge(0.75F));
+            earray[1].TypeName(),
+            earray[1].CalculateCharge(0.75F));
 
     }
 }
