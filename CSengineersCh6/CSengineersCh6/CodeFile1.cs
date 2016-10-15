@@ -1,5 +1,11 @@
 ﻿using System;
 
+enum EngineerTypeEnum
+{
+    Engineer,
+    CivilEngineer
+}
+
 class Engineer
 {
     //constructor
@@ -7,29 +13,51 @@ class Engineer
     {
         this.name = name;
         this.billingRate = billingRate;
+        type = EngineerTypeEnum.Engineer;
     }
 
     //figure out the charge based on the engineer's rate
     public float CalculateCharge(float hours)
     {
-        return (hours * billingRate);
+        if (type == EngineerTypeEnum.CivilEngineer)
+        {
+            CivilEngineer c = (CivilEngineer)this;
+            return (c.CalculateCharge(hours));
+        }
+        else if (type == EngineerTypeEnum.Engineer)
+        {
+            return (hours * billingRate);
+        }
+        return (0F);
     }
 
     //return the name of this type
     public string TypeName()
     {
-        return ("Engineer");
+        if (type == EngineerTypeEnum.CivilEngineer)
+        {
+            CivilEngineer c = (CivilEngineer)this;
+            return (c.TypeName());
+        }
+        else if (type == EngineerTypeEnum.Engineer)
+        {
+            return ("Engineer");
+        }
+        return ("No Type Matched");
     }
 
     private string name;
     protected float billingRate;
+    protected EngineerTypeEnum type;
 }
 
 class CivilEngineer : Engineer
 {
     public CivilEngineer(string name, float billingRate) :
         base(name, billingRate)
-    { }
+    {
+        type = EngineerTypeEnum.CivilEngineer;
+    }
 
     //new function because it is different than the base version
     public new float CalculateCharge(float hours)
