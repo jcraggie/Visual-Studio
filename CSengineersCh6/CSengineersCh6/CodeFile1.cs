@@ -50,15 +50,25 @@ class CivilEngineer : Engineer
     }
 }
 
+class ChemicalEngineer : Engineer
+{
+    public ChemicalEngineer(string name, float billingRate) :
+        base(name, billingRate)
+    { }
+
+    //overrides mistakenly omitted
+}
+
 class Test
 {
     public static void Main()
     {
         //create an array of Engineers
-        Engineer[] earray = new Engineer[2];
+        Engineer[] earray = new Engineer[3];
 
         earray[0] = new Engineer("George", 15.50F);
         earray[1] = new CivilEngineer("Sir John", 40F);
+        earray[2] = new ChemicalEngineer("Dr. Curie", 45.50F);
 
         Console.WriteLine("{0} charge = {1}",
             earray[0].TypeName(),
@@ -66,6 +76,9 @@ class Test
         Console.WriteLine("{0} charge = {1}",
             earray[1].TypeName(),
             earray[1].CalculateCharge(0.75F));
+        Console.WriteLine("{0} charge = {1}",
+            earray[2].TypeName(),
+            earray[2].CalculateCharge(0.75F));
 
     }
 }
