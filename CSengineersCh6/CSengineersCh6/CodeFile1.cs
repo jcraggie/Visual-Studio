@@ -1,6 +1,6 @@
 ﻿using System;
 
-class Engineer
+abstract class Engineer
 {
     //constructor
     public Engineer(string name, float billingRate)
@@ -17,11 +17,8 @@ class Engineer
     }
 
     //return the name of this type
-    //now is virtual
-    virtual public string TypeName()
-    {
-        return ("Engineer");
-    }
+    //now is abstract function to force TypeName to be implemented in all classes of Engineer
+    abstract public string TypeName();
 
     private string name;
     protected float billingRate;
@@ -56,7 +53,10 @@ class ChemicalEngineer : Engineer
         base(name, billingRate)
     { }
 
-    //overrides mistakenly omitted
+    override public string TypeName()
+    {
+        return ("Chemical Engineer");
+    }
 }
 
 class Test
@@ -66,13 +66,13 @@ class Test
         //create an array of Engineers
         Engineer[] earray = new Engineer[3];
 
-        earray[0] = new Engineer("George", 15.50F);
+        //earray[0] = new Engineer("George", 15.50F);
         earray[1] = new CivilEngineer("Sir John", 40F);
         earray[2] = new ChemicalEngineer("Dr. Curie", 45.50F);
 
-        Console.WriteLine("{0} charge = {1}",
-            earray[0].TypeName(),
-            earray[0].CalculateCharge(2F));
+        //Console.WriteLine("{0} charge = {1}",
+        //    earray[0].TypeName(),
+        //    earray[0].CalculateCharge(2F));
         Console.WriteLine("{0} charge = {1}",
             earray[1].TypeName(),
             earray[1].CalculateCharge(0.75F));
