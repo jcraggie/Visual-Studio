@@ -10,7 +10,7 @@ class Engineer
     }
 
     //figure out the charge based on the engineer's rate
-    public float Calculatecharge(float hours)
+    public float CalculateCharge(float hours)
     {
         return (hours * billingRate);
     }
@@ -25,11 +25,40 @@ class Engineer
     protected float billingRate;
 }
 
+class CivilEngineer : Engineer
+{
+    public CivilEngineer(string name, float billingRate) :
+        base(name, billingRate)
+    { }
+
+    //new function because it is different than the base version
+    public new float CalculateCharge(float hours)
+    {
+        if (hours < 1.0F)
+            hours = 1.0F; //minimum charge
+        return (hours * billingRate);
+    }
+
+    //new function becuase it is different than the base version
+    public new string TypeName()
+    {
+        return ("Civil Engineer");
+    }
+}
+
 class Test
 {
     public static void Main()
     {
-        Engineer engineer = new Engineer("Hank", 21.20F);
-        Console.WriteLine("Name is: {0}", engineer.TypeName());
+        Engineer e = new Engineer("George", 15.50F);
+        CivilEngineer c = new CivilEngineer("Sir John", 40F);
+
+        Console.WriteLine("{0} charge = {1}",
+            e.TypeName(),
+            e.CalculateCharge(2F));
+        Console.WriteLine("{0} charge = {1}",
+            c.TypeName(),
+            c.CalculateCharge(0.75F));
+
     }
 }
