@@ -1,4 +1,7 @@
-﻿using System;
+﻿// test program that lead to beginning of 2016 Football Picks console version.
+// 2016-11-08 (election day) moving all code to new Project.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -250,8 +253,8 @@ namespace CS_file_reader2
             {
                 for (int sht = 1; sht <= aStats.NumSheets; ++sht)
                 {
-                    Console.WriteLine("{0} Sheet:{1,3}{2,5}{3,9}{4,7}{5,22}{6,10}{7,7}{8,10}{9,10}"
-                        , aStats.Season,sht,
+                    Console.WriteLine("{0} Sheet:{1,3}{2,5}{3,9}{4,7}{5,22}{6,10}{7,7}{8,10}{9,10}", 
+                        aStats.Season,sht,
                         aStats.SheetGamesPicked[sht],aStats.SheetJMCgw[sht],aStats.SheetJCRgw[sht],
                         aStats.SheetSpreadPicked[sht],aStats.SheetJMCsw[sht],aStats.SheetJCRsw[sht],
                         aStats.SheetJMCtotalWon[sht],aStats.SheetJCRtotalWon[sht]);
