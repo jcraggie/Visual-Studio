@@ -237,6 +237,7 @@ namespace Football_Picks_console
 
 
             char hChar = '\u2500';
+            char vChar = '\u2502';
             string hLine = "";
             for (int i = 0; i < 95; ++i)
             {
@@ -247,18 +248,19 @@ namespace Football_Picks_console
             Console.WriteLine("{0,50}", "S T A T I S T I C S");
             Console.WriteLine(hLine);
             Console.WriteLine();
-            Console.WriteLine("{0,40}{1,40}", "Correct Game Winners", "Correct Spread Winners");
-            Console.WriteLine("{0,28}{1,7}{0,32}{1,7}", "JMC", "JCR");
+            Console.WriteLine("{0,39}{1,25}", "Game Winners", "Spread Winners");
+            Console.WriteLine("{0,31}{1,7}{0,18}{1,7}{0,10}{1,10}", "JMC", "JCR");
             Console.WriteLine(hLine);
             foreach (Stats aStats in stats)
             {
                 for (int sht = 1; sht <= aStats.NumSheets; ++sht)
                 {
-                    Console.WriteLine("{0} Sheet:{1,3}{2,5}{3,9}{4,7}{5,22}{6,10}{7,7}{8,10}{9,10}",
+                    Console.WriteLine("{0} Sheet:{1,3} {10} {2,5}{3,9}{4,7} {10} {5,5}{6,10}{7,7} {10} {8,10}{9,10}",
                         aStats.Season, sht,
                         aStats.SheetGamesPicked[sht], aStats.SheetJMCgw[sht], aStats.SheetJCRgw[sht],
                         aStats.SheetSpreadPicked[sht], aStats.SheetJMCsw[sht], aStats.SheetJCRsw[sht],
-                        aStats.SheetJMCtotalWon[sht], aStats.SheetJCRtotalWon[sht]);
+                        aStats.SheetJMCtotalWon[sht], aStats.SheetJCRtotalWon[sht],
+                        vChar);
                 }
                 Console.WriteLine(hLine);
                 Console.WriteLine("{0,11}{1,3}{2,5}{3,9}{4,7}{5,22}{6,10}{7,7}{8,10}{9,10}", "Totals:",

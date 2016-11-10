@@ -1,45 +1,93 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-
-using System.IO;
 using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.IO;
 
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
-namespace _2016FootballPicksCS1
+
+namespace CS_windows_forms_testing
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
-    public sealed partial class MainPage : Page
+    public partial class Form1 : Form
     {
-        public MainPage()
+        List<Game> games = new List<Game>();
+        List<Stats> stats = new List<Stats>();
+        List<ListBox> gameBox = new List<ListBox>();
+
+        public Form1()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+            gameBox.Add(this.listJMCwin01);
+            gameBox.Add(this.listJCRwin01);
+            gameBox.Add(this.listJMCspread01);
+            gameBox.Add(this.listJCRspread01);
+            gameBox.Add(this.listJMCwin02);
+            gameBox.Add(this.listJCRwin02);
+            gameBox.Add(this.listJMCspread02);
+            gameBox.Add(this.listJCRspread02);
+            gameBox.Add(this.listJMCwin03);
+            gameBox.Add(this.listJCRwin03);
+            gameBox.Add(this.listJMCspread03);
+            gameBox.Add(this.listJCRspread03);
+            gameBox.Add(this.listJMCwin04);
+            gameBox.Add(this.listJCRwin04);
+            gameBox.Add(this.listJMCspread04);
+            gameBox.Add(this.listJCRspread04);
+            gameBox.Add(this.listJMCwin05);
+            gameBox.Add(this.listJCRwin05);
+            gameBox.Add(this.listJMCspread05);
+            gameBox.Add(this.listJCRspread05);
+            gameBox.Add(this.listJMCwin06);
+            gameBox.Add(this.listJCRwin06);
+            gameBox.Add(this.listJMCspread06);
+            gameBox.Add(this.listJCRspread06);
+
+
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //string x = listJMCwin01.SelectedItems[0].ToString();
+            //MessageBox.Show(x);
+            //txt_Output.Text += x + "\r\n";
+        }
+
+        private void btn_Exit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            //listJMCwin01.Items.Add("TAMU");
+            //listJMCwin01.Items.Add("OLD MISS");
+        }
+
+        private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
         {
             //string path = AppDomain.CurrentDomain.BaseDirectory;
             string path = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
-            string fName = "\\2016 1-20 data.txt";
+            string fName = "\\2016 1-20 data2.txt";
             string fileName = path + fName;
             char[] separators = new char[] { '\t' };
 
-            List<Game> games = new List<Game>();
-            List<Stats> stats = new List<Stats>();
+            //List<Game> games = new List<Game>();
+            //List<Stats> stats = new List<Stats>();
 
 
             //Console.WriteLine("{0}\n\n", fileName);
@@ -242,15 +290,78 @@ namespace _2016FootballPicksCS1
                 thisStat.SheetJMCtotalWon[sht] = thisStat.SheetJMCgw[sht] + thisStat.SheetJMCsw[sht];
                 thisStat.SheetJCRtotalWon[sht] = thisStat.SheetJCRgw[sht] + thisStat.SheetJCRsw[sht];
 
-                //thisStat.SeasonJMCwon = thisStat.SheetJMCtotalWon[sht];
-                //thisStat.SeasonJCRwon = thisStat.SheetJCRtotalWon[sht];
-
                 thisStat.SeasonJMCwon = thisStat.SeasonJMCgw + thisStat.SeasonJMCsw;
                 thisStat.SeasonJCRwon = thisStat.SeasonJCRgw + thisStat.SeasonJCRsw;
-                //Console.WriteLine("season JMC: {0}     sheetJMC: {1}", thisStat.SeasonJMCwon, thisStat.SheetJMCtotalWon[sht]);
-
 
             }
+            txt_GamesInMemory.Text = "Total Games in memory " + Stats.s_TotalGamesInMemory;
         }
+
+        private void btn_GetSheetData_Click(object sender, EventArgs e)
+        {
+            int sht = (int)numUD_Sheet.Value;
+            string ssht = numUD_Sheet.Value.ToString();
+            string year = combo_Year.Text;
+            txt_Output.Text += "Year: " + year + "  Sheet: " + sht + Environment.NewLine;
+            List<Game> thisSheetGame = new List<Game>();
+            foreach (Game aGame in games)
+            {
+                if (aGame.Season == year && aGame.Sheet == ssht)   
+                {
+                    thisSheetGame.Add(aGame);
+                }
+            }
+            txt_NumGames.Text = thisSheetGame.Count.ToString();
+            int idx = 0;
+            foreach (Game thisGame in thisSheetGame)
+            {
+                txt_Output.Text += thisGame.JMCgamePick + Environment.NewLine;
+                txt_Output.Text += thisGame.JCRgamePick + Environment.NewLine;
+                txt_Output.Text += thisGame.JMCspreadPick + Environment.NewLine;
+                txt_Output.Text += thisGame.JCRspreadPick + Environment.NewLine;
+
+                for (int i = 0; i < 4; ++i)
+                {
+                    gameBox[idx].Items.Clear();
+                    gameBox[idx].Items.Add(thisGame.Away);
+                    gameBox[idx].Items.Add(thisGame.Home);
+                    
+                    int index = -1;
+
+                    switch (i)
+                    {
+                        case 0:
+                            index = gameBox[idx].FindString(thisGame.JMCgamePick);
+                            txt_Output.Text += index + Environment.NewLine;
+                            if (index != ListBox.NoMatches)
+                                gameBox[idx].SetSelected(index, true);
+                            break;
+                        case 1:
+                            index = gameBox[idx].FindString(thisGame.JCRgamePick);
+                            txt_Output.Text += index + Environment.NewLine;
+                            if (index != ListBox.NoMatches)
+                                gameBox[idx].SetSelected(index, true);
+                            break;
+                        case 2:
+                            index = gameBox[idx].FindString(thisGame.JMCspreadPick);
+                            txt_Output.Text += index + Environment.NewLine;
+                            if (index != ListBox.NoMatches)
+                                gameBox[idx].SetSelected(index, true);
+                            break;
+                        case 3:
+                            index = gameBox[idx].FindString(thisGame.JCRspreadPick);
+                            txt_Output.Text += index + Environment.NewLine;
+                            if (index != ListBox.NoMatches)
+                                gameBox[idx].SetSelected(index, true);
+                            break;
+                    }
+
+                    idx++;
+                }
+            }
+
+
+        } // end btn_GetSheetData_Click
     }
+    
 }

@@ -1,36 +1,106 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 using System.IO;
-using System.Text;
 
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
-
-namespace _2016FootballPicksCS1
+namespace Football_Picks_cs_winforms
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
-    public sealed partial class MainPage : Page
+    public partial class MainForm : Form
     {
-        public MainPage()
+        // That's our custom TextWriter class
+        TextWriter _writer = null;
+        List<Game> games = new List<Game>();
+        List<Stats> stats = new List<Stats>();
+        public MainForm()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        private void button1_Click(object sender, EventArgs e)
+        {
+            char hChar = '\u2500';
+            char vChar = '\u2502';
+            string hLine = "";
+            for (int i = 0; i < 95; ++i)
+            {
+                hLine += hChar;
+            }
+
+            Console.WriteLine(hLine);
+            Console.WriteLine("{0,50}", "S T A T I S T I C S");
+            Console.WriteLine(hLine);
+            Console.WriteLine();
+            Console.WriteLine("{0,39}{1,25}", "Game Winners", "Spread Winners");
+            Console.WriteLine("{0,31}{1,7}{0,18}{1,7}{0,10}{1,10}", "JMC", "JCR");
+            Console.WriteLine(hLine);
+            foreach (Stats aStats in stats)
+            {
+                for (int sht = 1; sht <= aStats.NumSheets; ++sht)
+                {
+                    Console.WriteLine("{0} Sheet:{1,3} {10} {2,5}{3,9}{4,7} {10} {5,5}{6,10}{7,7} {10} {8,10}{9,10}",
+                        aStats.Season, sht,
+                        aStats.SheetGamesPicked[sht], aStats.SheetJMCgw[sht], aStats.SheetJCRgw[sht],
+                        aStats.SheetSpreadPicked[sht], aStats.SheetJMCsw[sht], aStats.SheetJCRsw[sht],
+                        aStats.SheetJMCtotalWon[sht], aStats.SheetJCRtotalWon[sht],
+                        vChar);
+                }
+                Console.WriteLine(hLine);
+                Console.WriteLine("{0,11}{1,3}{2,5}{3,9}{4,7}{5,22}{6,10}{7,7}{8,10}{9,10}", "Totals:",
+                    aStats.NumSheets, aStats.SeasonGamesPicked, aStats.SeasonJMCgw, aStats.SeasonJCRgw,
+                    aStats.SeasonSpreadPicked, aStats.SeasonJMCsw, aStats.SeasonJCRsw,
+                    aStats.SeasonJMCwon, aStats.SeasonJCRwon);
+                Console.WriteLine("{0,11}{1,8}{2,9}{3,7}{4,22}{5,10}{6,7}", "CFB:",
+                    aStats.SeasonCFBPicked, aStats.SeasonJMCCFBgw, aStats.SeasonJCRCFBgw,
+                    aStats.SeasonCFBSpreadPicked, aStats.SeasonJMCCFBsw, aStats.SeasonJCRCFBsw);
+                Console.WriteLine("{0,11}{1,8}{2,9}{3,7}{4,22}{5,10}{6,7}", "NFL:",
+                    aStats.SeasonNFLPicked, aStats.SeasonJMCNFLgw, aStats.SeasonJCRNFLgw,
+                    aStats.SeasonNFLSpreadPicked, aStats.SeasonJMCNFLsw, aStats.SeasonJCRNFLsw);
+
+                txtOutput.Text += String.Format("Num Sheets: {0}\r\n", aStats.NumSheets);
+                txtOutput.Text += String.Format("Games List Count: {0}\r\n",games.Count);
+                txtOutput.Text += "Stats List Count: " + stats.Count + Environment.NewLine;
+                txtOutput.Text += "Jason";
+
+                //Console.WriteLine("Total Games in Memory: {0}", Stats.s_TotalGamesInMemory);
+                //lbl_gamesinmemory.Text = "Total Games in memory " + Stats.s_TotalGamesInMemory;
+            }
+        }
+
+        private void txtOutput_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            // Instantiate the writer
+            _writer = new TextBoxStreamWriter(txtOutput);
+            // Redirect the out Console stream
+            Console.SetOut(_writer);
+
+            //Console.WriteLine("Now redirecting output to the text box");
+        }
+
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void btn_readdata_Click(object sender, EventArgs e)
         {
             //string path = AppDomain.CurrentDomain.BaseDirectory;
             string path = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
@@ -38,8 +108,8 @@ namespace _2016FootballPicksCS1
             string fileName = path + fName;
             char[] separators = new char[] { '\t' };
 
-            List<Game> games = new List<Game>();
-            List<Stats> stats = new List<Stats>();
+            //List<Game> games = new List<Game>();
+            //List<Stats> stats = new List<Stats>();
 
 
             //Console.WriteLine("{0}\n\n", fileName);
@@ -242,15 +312,39 @@ namespace _2016FootballPicksCS1
                 thisStat.SheetJMCtotalWon[sht] = thisStat.SheetJMCgw[sht] + thisStat.SheetJMCsw[sht];
                 thisStat.SheetJCRtotalWon[sht] = thisStat.SheetJCRgw[sht] + thisStat.SheetJCRsw[sht];
 
-                //thisStat.SeasonJMCwon = thisStat.SheetJMCtotalWon[sht];
-                //thisStat.SeasonJCRwon = thisStat.SheetJCRtotalWon[sht];
-
                 thisStat.SeasonJMCwon = thisStat.SeasonJMCgw + thisStat.SeasonJMCsw;
                 thisStat.SeasonJCRwon = thisStat.SeasonJCRgw + thisStat.SeasonJCRsw;
-                //Console.WriteLine("season JMC: {0}     sheetJMC: {1}", thisStat.SeasonJMCwon, thisStat.SheetJMCtotalWon[sht]);
-
 
             }
+            lbl_gamesinmemory.Text = "Total Games in memory " + Stats.s_TotalGamesInMemory;
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_clearMemory_Click(object sender, EventArgs e)
+        {
+            games.Clear();
+            stats.Clear();
+            Stats.s_TotalGamesInMemory = 0;
+            lbl_gamesinmemory.Text = "Games in Memory: 0";
+        }
+
+        private void btn_clearOutput_Click(object sender, EventArgs e)
+        {
+            txtOutput.Text = "";
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            this.Hide();
+            GameForm gf = new GameForm();
+            gf.Visible = true;
         }
     }
+    
+    
+    
 }
