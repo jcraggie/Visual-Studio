@@ -18,6 +18,8 @@ namespace CS_windows_forms_testing
         List<Game> games = new List<Game>();
         List<Stats> stats = new List<Stats>();
         List<ListBox> gameBox = new List<ListBox>();
+        List<ListBox> scoreBox = new List<ListBox>();
+        List<ListBox> lineBox = new List<ListBox>();
 
         public Form1()
         {
@@ -47,7 +49,19 @@ namespace CS_windows_forms_testing
             gameBox.Add(this.listJMCspread06);
             gameBox.Add(this.listJCRspread06);
 
+            scoreBox.Add(this.listScore01);
+            scoreBox.Add(this.listScore02);
+            scoreBox.Add(this.listScore03);
+            scoreBox.Add(this.listScore04);
+            scoreBox.Add(this.listScore05);
+            scoreBox.Add(this.listScore06);
 
+            lineBox.Add(this.listLine01);
+            lineBox.Add(this.listLine02);
+            lineBox.Add(this.listLine03);
+            lineBox.Add(this.listLine04);
+            lineBox.Add(this.listLine05);
+            lineBox.Add(this.listLine06);
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -64,6 +78,7 @@ namespace CS_windows_forms_testing
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            
             //listJMCwin01.Items.Add("TAMU");
             //listJMCwin01.Items.Add("OLD MISS");
         }
@@ -146,7 +161,8 @@ namespace CS_windows_forms_testing
                     {
                         if (gameItem != "")
                         {
-
+                            
+                            
                             //Console.WriteLine("{0}-{1,-2}: {2}",lineNumber, subItem, gameItem);
                             subItem++;
                         }
@@ -160,7 +176,12 @@ namespace CS_windows_forms_testing
             foreach (Game aGame in games)
             {
                 string thisYear = aGame.Season;
-
+                if (aGame.UDline != "PK" && aGame.UDline != "NL" && aGame.UDline != "NO LINE")
+                {
+                    double intLine;
+                    intLine = Math.Abs(double.Parse(aGame.UDline));
+                    aGame.UDline = intLine.ToString();
+                }
 
 
                 //Console.WriteLine("Away: {0,-30}   Home: {1,-30}", aGame.Away, aGame.Home);
@@ -311,14 +332,23 @@ namespace CS_windows_forms_testing
                     thisSheetGame.Add(aGame);
                 }
             }
-            txt_NumGames.Text = thisSheetGame.Count.ToString();
+            txt_NumGames.Text = "Num Games: " + thisSheetGame.Count.ToString();
             int idx = 0;
+            int sidx = 0;
             foreach (Game thisGame in thisSheetGame)
             {
+                int udIdx = -1;
+
                 txt_Output.Text += thisGame.JMCgamePick + Environment.NewLine;
                 txt_Output.Text += thisGame.JCRgamePick + Environment.NewLine;
                 txt_Output.Text += thisGame.JMCspreadPick + Environment.NewLine;
                 txt_Output.Text += thisGame.JCRspreadPick + Environment.NewLine;
+
+                scoreBox[sidx].Items.Clear();
+                scoreBox[sidx].Items.Add(thisGame.AwayScore);
+                scoreBox[sidx].Items.Add(thisGame.HomeScore);
+
+                
 
                 for (int i = 0; i < 4; ++i)
                 {
@@ -326,12 +356,15 @@ namespace CS_windows_forms_testing
                     gameBox[idx].Items.Add(thisGame.Away);
                     gameBox[idx].Items.Add(thisGame.Home);
                     
+
                     int index = -1;
+                    
 
                     switch (i)
                     {
                         case 0:
                             index = gameBox[idx].FindString(thisGame.JMCgamePick);
+                            //udIdx = gameBox[idx].FindString(thisGame.UDteam);
                             txt_Output.Text += index + Environment.NewLine;
                             if (index != ListBox.NoMatches)
                                 gameBox[idx].SetSelected(index, true);
@@ -356,12 +389,40 @@ namespace CS_windows_forms_testing
                             break;
                     }
 
+                    
+
+
                     idx++;
+                    
                 }
+
+                udIdx = gameBox[sidx * 4].FindString(thisGame.UDteam);
+                txt_Output.Text += "idx: " + idx + Environment.NewLine;
+                txt_Output.Text += "UD: " + thisGame.UDteam + Environment.NewLine;
+                txt_Output.Text += "Line index: " + udIdx + Environment.NewLine;
+                lineBox[sidx].Items.Clear();
+                if (udIdx == 1)
+                    lineBox[sidx].Items.Add("");
+                lineBox[sidx].Items.Add(thisGame.UDline);
+
+                sidx++;
             }
 
 
         } // end btn_GetSheetData_Click
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            foreach (ListBox aList in gameBox)
+            {
+                aList.ClearSelected();
+            }
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
     
 }
