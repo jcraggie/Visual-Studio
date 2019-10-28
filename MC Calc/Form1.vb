@@ -1,5 +1,5 @@
 ﻿Public Class Form1
-    Dim val1 As Integer 'use as a test
+    Dim val1 As Integer 'use as a test2
 
 
     Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
