@@ -8,8 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using MySql.Data.MySqlClient; // added by JCR 2016-11-13 taken from football_picksDataSet1.Designer.cs -> gameTableAdapter
 
 
+//server=localhost;user id=root;password=TrekSQL6c69!;database=football_picks
 
 namespace CS_windows_forms_testing
 {
@@ -20,6 +22,9 @@ namespace CS_windows_forms_testing
         List<ListBox> gameBox = new List<ListBox>();
         List<ListBox> scoreBox = new List<ListBox>();
         List<ListBox> lineBox = new List<ListBox>();
+        List<TextBox> timeBox = new List<TextBox>();
+        List<TextBox> rankBox = new List<TextBox>();
+        List<TextBox> teamsBox = new List<TextBox>();
 
         public Form1()
         {
@@ -62,6 +67,27 @@ namespace CS_windows_forms_testing
             lineBox.Add(this.listLine04);
             lineBox.Add(this.listLine05);
             lineBox.Add(this.listLine06);
+
+            timeBox.Add(this.txtTime01);
+            timeBox.Add(this.txtTime02);
+            timeBox.Add(this.txtTime03);
+            timeBox.Add(this.txtTime04);
+            timeBox.Add(this.txtTime05);
+            timeBox.Add(this.txtTime06);
+
+            rankBox.Add(this.txtRanks01);
+            rankBox.Add(this.txtRanks02);
+            rankBox.Add(this.txtRanks03);
+            rankBox.Add(this.txtRanks04);
+            rankBox.Add(this.txtRanks05);
+            rankBox.Add(this.txtRanks06);
+
+            teamsBox.Add(this.txtTeams01);
+            teamsBox.Add(this.txtTeams02);
+            teamsBox.Add(this.txtTeams03);
+            teamsBox.Add(this.txtTeams04);
+            teamsBox.Add(this.txtTeams05);
+            teamsBox.Add(this.txtTeams06);
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -78,7 +104,9 @@ namespace CS_windows_forms_testing
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+            // TODO: This line of code loads data into the 'football_picksDataSet.game' table. You can move, or remove it, as needed.
+            //this.gameTableAdapter.Fill(this.football_picksDataSet.game);
+
             //listJMCwin01.Items.Add("TAMU");
             //listJMCwin01.Items.Add("OLD MISS");
         }
@@ -404,6 +432,20 @@ namespace CS_windows_forms_testing
                 if (udIdx == 1)
                     lineBox[sidx].Items.Add("");
                 lineBox[sidx].Items.Add(thisGame.UDline);
+                teamsBox[sidx].Text = thisGame.Away + "\r\n" + thisGame.Home;
+                timeBox[sidx].Text = thisGame.Time;
+                if (int.Parse(thisGame.AwayRank) != 0)
+                {
+                    rankBox[sidx].Text = thisGame.AwayRank;
+                }
+                else
+                {
+                    rankBox[sidx].Text = "\r\n";
+                }
+                if (int.Parse(thisGame.HomeRank) != 0)
+                {
+                    rankBox[sidx].Text += thisGame.HomeRank;
+                }
 
                 sidx++;
             }
@@ -420,6 +462,16 @@ namespace CS_windows_forms_testing
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabPage1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
 
         }

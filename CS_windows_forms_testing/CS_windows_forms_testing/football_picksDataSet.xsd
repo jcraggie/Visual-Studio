@@ -191,7 +191,7 @@
   <xs:element name="football_picksDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="football_picksDataSet" msprop:Generator_UserDSName="football_picksDataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="game" msprop:Generator_TableClassName="gameDataTable" msprop:Generator_TableVarName="tablegame" msprop:Generator_TablePropName="game" msprop:Generator_RowDeletingName="gameRowDeleting" msprop:Generator_RowChangingName="gameRowChanging" msprop:Generator_RowEvHandlerName="gameRowChangeEventHandler" msprop:Generator_RowDeletedName="gameRowDeleted" msprop:Generator_UserTableName="game" msprop:Generator_RowChangedName="gameRowChanged" msprop:Generator_RowEvArgName="gameRowChangeEvent" msprop:Generator_RowClassName="gameRow">
+        <xs:element name="game" msprop:Generator_TableClassName="gameDataTable" msprop:Generator_TableVarName="tablegame" msprop:Generator_RowChangedName="gameRowChanged" msprop:Generator_TablePropName="game" msprop:Generator_RowDeletingName="gameRowDeleting" msprop:Generator_RowChangingName="gameRowChanging" msprop:Generator_RowEvHandlerName="gameRowChangeEventHandler" msprop:Generator_RowDeletedName="gameRowDeleted" msprop:Generator_RowClassName="gameRow" msprop:Generator_UserTableName="game" msprop:Generator_RowEvArgName="gameRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="time" msprop:Generator_ColumnVarNameInTable="columntime" msprop:Generator_ColumnPropNameInRow="time" msprop:Generator_ColumnPropNameInTable="timeColumn" msprop:Generator_UserColumnName="time">

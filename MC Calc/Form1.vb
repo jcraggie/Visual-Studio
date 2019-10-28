@@ -1,0 +1,13 @@
+﻿Public Class Form1
+    Dim val1 As Integer 'use as a test
+
+
+    Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
+        Close()
+    End Sub
+
+    Private Sub OverWorldX_TextChanged(sender As Object, e As EventArgs) Handles OverWorldX.TextChanged
+        val1 = Val(OverWorldX.Text)
+        TestText1.Text = val1
+    End Sub
+End Class
