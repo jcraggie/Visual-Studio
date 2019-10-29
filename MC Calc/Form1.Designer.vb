@@ -63,9 +63,11 @@ Partial Class Form1
         '
         'TestText1
         '
-        Me.TestText1.Location = New System.Drawing.Point(1027, 283)
+        Me.TestText1.Font = New System.Drawing.Font("Cascadia Code", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TestText1.Location = New System.Drawing.Point(84, 397)
         Me.TestText1.Name = "TestText1"
-        Me.TestText1.Size = New System.Drawing.Size(100, 31)
+        Me.TestText1.ReadOnly = True
+        Me.TestText1.Size = New System.Drawing.Size(172, 84)
         Me.TestText1.TabIndex = 2
         '
         'Form1
@@ -78,7 +80,7 @@ Partial Class Form1
         Me.Controls.Add(Me.MenuStrip1)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "Form1"
-        Me.Text = "Form1"
+        Me.Text = "jcrAggie's Minecraft Calculator"
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.ResumeLayout(False)
