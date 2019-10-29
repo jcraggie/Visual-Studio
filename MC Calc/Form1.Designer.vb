@@ -25,9 +25,16 @@ Partial Class Form1
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.OverWorldX = New System.Windows.Forms.TextBox()
+        Me.OverWorldXinput = New System.Windows.Forms.TextBox()
         Me.TestText1 = New System.Windows.Forms.TextBox()
+        Me.TabControl1 = New System.Windows.Forms.TabControl()
+        Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.LabelOWC1 = New System.Windows.Forms.Label()
+        Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.LabelNC1 = New System.Windows.Forms.Label()
         Me.MenuStrip1.SuspendLayout()
+        Me.TabControl1.SuspendLayout()
+        Me.TabPage1.SuspendLayout()
         Me.SuspendLayout()
         '
         'MenuStrip1
@@ -37,7 +44,7 @@ Partial Class Form1
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1811, 40)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1879, 40)
         Me.MenuStrip1.TabIndex = 0
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -54,35 +61,94 @@ Partial Class Form1
         Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(186, 44)
         Me.ExitToolStripMenuItem.Text = "E&xit"
         '
-        'OverWorldX
+        'OverWorldXinput
         '
-        Me.OverWorldX.Location = New System.Drawing.Point(84, 230)
-        Me.OverWorldX.Name = "OverWorldX"
-        Me.OverWorldX.Size = New System.Drawing.Size(298, 31)
-        Me.OverWorldX.TabIndex = 1
+        Me.OverWorldXinput.Font = New System.Drawing.Font("Cascadia Code", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.OverWorldXinput.Location = New System.Drawing.Point(50, 184)
+        Me.OverWorldXinput.Name = "OverWorldXinput"
+        Me.OverWorldXinput.Size = New System.Drawing.Size(363, 84)
+        Me.OverWorldXinput.TabIndex = 1
         '
         'TestText1
         '
+        Me.TestText1.BackColor = System.Drawing.Color.White
         Me.TestText1.Font = New System.Drawing.Font("Cascadia Code", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TestText1.Location = New System.Drawing.Point(84, 397)
+        Me.TestText1.ForeColor = System.Drawing.Color.Red
+        Me.TestText1.Location = New System.Drawing.Point(50, 470)
         Me.TestText1.Name = "TestText1"
         Me.TestText1.ReadOnly = True
-        Me.TestText1.Size = New System.Drawing.Size(172, 84)
+        Me.TestText1.Size = New System.Drawing.Size(363, 84)
         Me.TestText1.TabIndex = 2
+        '
+        'TabControl1
+        '
+        Me.TabControl1.Controls.Add(Me.TabPage1)
+        Me.TabControl1.Controls.Add(Me.TabPage2)
+        Me.TabControl1.Location = New System.Drawing.Point(12, 43)
+        Me.TabControl1.Name = "TabControl1"
+        Me.TabControl1.SelectedIndex = 0
+        Me.TabControl1.Size = New System.Drawing.Size(1799, 898)
+        Me.TabControl1.TabIndex = 3
+        '
+        'TabPage1
+        '
+        Me.TabPage1.Controls.Add(Me.LabelNC1)
+        Me.TabPage1.Controls.Add(Me.LabelOWC1)
+        Me.TabPage1.Controls.Add(Me.OverWorldXinput)
+        Me.TabPage1.Controls.Add(Me.TestText1)
+        Me.TabPage1.Location = New System.Drawing.Point(8, 39)
+        Me.TabPage1.Name = "TabPage1"
+        Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage1.Size = New System.Drawing.Size(1783, 851)
+        Me.TabPage1.TabIndex = 0
+        Me.TabPage1.Text = "Calc"
+        Me.TabPage1.UseVisualStyleBackColor = True
+        '
+        'LabelOWC1
+        '
+        Me.LabelOWC1.Font = New System.Drawing.Font("Cascadia Code", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelOWC1.Location = New System.Drawing.Point(50, 83)
+        Me.LabelOWC1.Name = "LabelOWC1"
+        Me.LabelOWC1.Size = New System.Drawing.Size(1161, 98)
+        Me.LabelOWC1.TabIndex = 4
+        Me.LabelOWC1.Text = "OVERWORLD COORDINATES"
+        Me.LabelOWC1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'TabPage2
+        '
+        Me.TabPage2.Location = New System.Drawing.Point(8, 39)
+        Me.TabPage2.Name = "TabPage2"
+        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage2.Size = New System.Drawing.Size(1783, 851)
+        Me.TabPage2.TabIndex = 1
+        Me.TabPage2.Text = "TabPage2"
+        Me.TabPage2.UseVisualStyleBackColor = True
+        '
+        'LabelNC1
+        '
+        Me.LabelNC1.Font = New System.Drawing.Font("Cascadia Code", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelNC1.Location = New System.Drawing.Point(50, 369)
+        Me.LabelNC1.Name = "LabelNC1"
+        Me.LabelNC1.Size = New System.Drawing.Size(1161, 98)
+        Me.LabelNC1.TabIndex = 4
+        Me.LabelNC1.Text = "NETHER COORDINATES"
+        Me.LabelNC1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(12.0!, 25.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1811, 939)
-        Me.Controls.Add(Me.TestText1)
-        Me.Controls.Add(Me.OverWorldX)
+        Me.ClientSize = New System.Drawing.Size(1879, 1001)
+        Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "Form1"
         Me.Text = "jcrAggie's Minecraft Calculator"
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
+        Me.TabControl1.ResumeLayout(False)
+        Me.TabPage1.ResumeLayout(False)
+        Me.TabPage1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -91,6 +157,11 @@ Partial Class Form1
     Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents FileToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ExitToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents OverWorldX As TextBox
+    Friend WithEvents OverWorldXinput As TextBox
     Friend WithEvents TestText1 As TextBox
+    Friend WithEvents TabControl1 As TabControl
+    Friend WithEvents TabPage1 As TabPage
+    Friend WithEvents TabPage2 As TabPage
+    Friend WithEvents LabelOWC1 As Label
+    Friend WithEvents LabelNC1 As Label
 End Class
