@@ -63,16 +63,28 @@ Public Class Form1
 
     Private Sub Form1_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
         If TextHasChanged Then
-            SavePrompt.ShowDialog()
-            Select Case SavePromptValue
-                Case "Save"
-                    'more soon
-                Case "DontSave"
-                    Application.Exit()
-                Case Else
-                    e.Cancel = True
+            'SavePrompt.ShowDialog()
+            Dim SavePrompt As DialogResult = MessageBox.Show("Do you want to save changes?", "NotepadWF", MessageBoxButtons.YesNoCancel)
 
-            End Select
+            If SavePrompt = vbYes Then
+                'display a save dialog here
+            ElseIf SavePrompt = vbNo Then
+                Application.Exit()
+            Else
+                e.Cancel = True
+            End If
+        Else
+            Application.Exit()
+            'Select Case SavePromptValue
+            '    Case "Save"
+            '        'more soon
+            '    Case "DontSave"
+            '        Application.Exit()
+            '    Case Else
+            '        e.Cancel = True
+
+            'End Select
+
         End If
     End Sub
 End Class
