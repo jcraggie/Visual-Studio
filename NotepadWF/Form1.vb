@@ -2,7 +2,7 @@
 
 Public Class Form1
 
-
+    Public Shared Property TextHasChanged As Boolean
 
 
     Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
@@ -49,6 +49,11 @@ Public Class Form1
     End Sub
 
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
+        TextHasChanged = True
+        'Me.Text = "*" + Me.Text
+        If Me.Text.Substring(0, 1) <> "*" Then
+            Me.Text = "*" + Me.Text
+        End If
 
     End Sub
 End Class
