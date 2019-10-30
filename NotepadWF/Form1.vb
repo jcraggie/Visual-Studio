@@ -64,6 +64,15 @@ Public Class Form1
     Private Sub Form1_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
         If TextHasChanged Then
             SavePrompt.ShowDialog()
+            Select Case SavePromptValue
+                Case "Save"
+                    'more soon
+                Case "DontSave"
+                    Application.Exit()
+                Case Else
+                    e.Cancel = True
+
+            End Select
         End If
     End Sub
 End Class
