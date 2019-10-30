@@ -45,7 +45,7 @@ Public Class Form1
             Try
                 TextBox1.Text = File.ReadAllText(OpenFileDialog1.FileName)
                 Me.Text = OpenFileDialog1.SafeFileName + "- NotepadWF"
-
+                TextHasChanged = False
             Catch ex As Exception
                 MessageBox.Show("Something Happened.")
             End Try
@@ -53,10 +53,15 @@ Public Class Form1
     End Sub
 
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
-        TextHasChanged = True
-        'Me.Text = "*" + Me.Text
-        If Me.Text.Substring(0, 1) <> "*" Then
+        'TextHasChanged = True
+        ''Me.Text = "*" + Me.Text
+        'If Me.Text.Substring(0, 1) <> "*" Then
+        '    Me.Text = "*" + Me.Text
+        'End If
+
+        If TextHasChanged = False Then
             Me.Text = "*" + Me.Text
+            TextHasChanged = True
         End If
 
     End Sub
@@ -86,5 +91,9 @@ Public Class Form1
             'End Select
 
         End If
+    End Sub
+
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles Me.Load
+        TextHasChanged = False
     End Sub
 End Class
