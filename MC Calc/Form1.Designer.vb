@@ -25,13 +25,17 @@ Partial Class Form1
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.OverWorldXinput = New System.Windows.Forms.TextBox()
-        Me.TestText1 = New System.Windows.Forms.TextBox()
+        Me.OverworldXinput = New System.Windows.Forms.TextBox()
+        Me.NetherXoutput = New System.Windows.Forms.TextBox()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
-        Me.LabelOWC1 = New System.Windows.Forms.Label()
-        Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.LabelNC1 = New System.Windows.Forms.Label()
+        Me.LabelOWC1 = New System.Windows.Forms.Label()
+        Me.OverworldZinput = New System.Windows.Forms.TextBox()
+        Me.OverworldYinput = New System.Windows.Forms.TextBox()
+        Me.NetherZoutput = New System.Windows.Forms.TextBox()
+        Me.NetherYoutput = New System.Windows.Forms.TextBox()
+        Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.MenuStrip1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
@@ -61,24 +65,30 @@ Partial Class Form1
         Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(186, 44)
         Me.ExitToolStripMenuItem.Text = "E&xit"
         '
-        'OverWorldXinput
+        'OverworldXinput
         '
-        Me.OverWorldXinput.Font = New System.Drawing.Font("Cascadia Code", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.OverWorldXinput.Location = New System.Drawing.Point(50, 184)
-        Me.OverWorldXinput.Name = "OverWorldXinput"
-        Me.OverWorldXinput.Size = New System.Drawing.Size(363, 84)
-        Me.OverWorldXinput.TabIndex = 1
+        Me.OverworldXinput.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.OverworldXinput.Font = New System.Drawing.Font("Cascadia Code", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.OverworldXinput.Location = New System.Drawing.Point(50, 184)
+        Me.OverworldXinput.Name = "OverworldXinput"
+        Me.OverworldXinput.Size = New System.Drawing.Size(363, 84)
+        Me.OverworldXinput.TabIndex = 0
+        Me.OverworldXinput.Text = "0"
+        Me.OverworldXinput.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
-        'TestText1
+        'NetherXoutput
         '
-        Me.TestText1.BackColor = System.Drawing.Color.White
-        Me.TestText1.Font = New System.Drawing.Font("Cascadia Code", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TestText1.ForeColor = System.Drawing.Color.Red
-        Me.TestText1.Location = New System.Drawing.Point(50, 470)
-        Me.TestText1.Name = "TestText1"
-        Me.TestText1.ReadOnly = True
-        Me.TestText1.Size = New System.Drawing.Size(363, 84)
-        Me.TestText1.TabIndex = 2
+        Me.NetherXoutput.BackColor = System.Drawing.Color.White
+        Me.NetherXoutput.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.NetherXoutput.Font = New System.Drawing.Font("Cascadia Code", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.NetherXoutput.ForeColor = System.Drawing.Color.Red
+        Me.NetherXoutput.Location = New System.Drawing.Point(50, 470)
+        Me.NetherXoutput.Name = "NetherXoutput"
+        Me.NetherXoutput.ReadOnly = True
+        Me.NetherXoutput.Size = New System.Drawing.Size(363, 84)
+        Me.NetherXoutput.TabIndex = 3
+        Me.NetherXoutput.Text = "0"
+        Me.NetherXoutput.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'TabControl1
         '
@@ -94,8 +104,12 @@ Partial Class Form1
         '
         Me.TabPage1.Controls.Add(Me.LabelNC1)
         Me.TabPage1.Controls.Add(Me.LabelOWC1)
-        Me.TabPage1.Controls.Add(Me.OverWorldXinput)
-        Me.TabPage1.Controls.Add(Me.TestText1)
+        Me.TabPage1.Controls.Add(Me.OverworldZinput)
+        Me.TabPage1.Controls.Add(Me.OverworldYinput)
+        Me.TabPage1.Controls.Add(Me.OverworldXinput)
+        Me.TabPage1.Controls.Add(Me.NetherZoutput)
+        Me.TabPage1.Controls.Add(Me.NetherYoutput)
+        Me.TabPage1.Controls.Add(Me.NetherXoutput)
         Me.TabPage1.Location = New System.Drawing.Point(8, 39)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
@@ -104,15 +118,79 @@ Partial Class Form1
         Me.TabPage1.Text = "Calc"
         Me.TabPage1.UseVisualStyleBackColor = True
         '
+        'LabelNC1
+        '
+        Me.LabelNC1.BackColor = System.Drawing.Color.White
+        Me.LabelNC1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.LabelNC1.Font = New System.Drawing.Font("Cascadia Code", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelNC1.ForeColor = System.Drawing.Color.Red
+        Me.LabelNC1.Location = New System.Drawing.Point(50, 357)
+        Me.LabelNC1.Name = "LabelNC1"
+        Me.LabelNC1.Size = New System.Drawing.Size(1101, 98)
+        Me.LabelNC1.TabIndex = 4
+        Me.LabelNC1.Text = "NETHER COORDINATES"
+        Me.LabelNC1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
         'LabelOWC1
         '
+        Me.LabelOWC1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.LabelOWC1.Font = New System.Drawing.Font("Cascadia Code", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelOWC1.Location = New System.Drawing.Point(50, 83)
+        Me.LabelOWC1.Location = New System.Drawing.Point(50, 70)
         Me.LabelOWC1.Name = "LabelOWC1"
-        Me.LabelOWC1.Size = New System.Drawing.Size(1161, 98)
-        Me.LabelOWC1.TabIndex = 4
+        Me.LabelOWC1.Size = New System.Drawing.Size(1101, 98)
+        Me.LabelOWC1.TabIndex = 0
         Me.LabelOWC1.Text = "OVERWORLD COORDINATES"
         Me.LabelOWC1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'OverworldZinput
+        '
+        Me.OverworldZinput.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.OverworldZinput.Font = New System.Drawing.Font("Cascadia Code", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.OverworldZinput.Location = New System.Drawing.Point(788, 184)
+        Me.OverworldZinput.Name = "OverworldZinput"
+        Me.OverworldZinput.Size = New System.Drawing.Size(363, 84)
+        Me.OverworldZinput.TabIndex = 2
+        Me.OverworldZinput.Text = "0"
+        Me.OverworldZinput.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'OverworldYinput
+        '
+        Me.OverworldYinput.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.OverworldYinput.Font = New System.Drawing.Font("Cascadia Code", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.OverworldYinput.Location = New System.Drawing.Point(419, 184)
+        Me.OverworldYinput.Name = "OverworldYinput"
+        Me.OverworldYinput.Size = New System.Drawing.Size(363, 84)
+        Me.OverworldYinput.TabIndex = 1
+        Me.OverworldYinput.Text = "0"
+        Me.OverworldYinput.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'NetherZoutput
+        '
+        Me.NetherZoutput.BackColor = System.Drawing.Color.White
+        Me.NetherZoutput.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.NetherZoutput.Font = New System.Drawing.Font("Cascadia Code", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.NetherZoutput.ForeColor = System.Drawing.Color.Red
+        Me.NetherZoutput.Location = New System.Drawing.Point(788, 470)
+        Me.NetherZoutput.Name = "NetherZoutput"
+        Me.NetherZoutput.ReadOnly = True
+        Me.NetherZoutput.Size = New System.Drawing.Size(363, 84)
+        Me.NetherZoutput.TabIndex = 5
+        Me.NetherZoutput.Text = "0"
+        Me.NetherZoutput.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'NetherYoutput
+        '
+        Me.NetherYoutput.BackColor = System.Drawing.Color.White
+        Me.NetherYoutput.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.NetherYoutput.Font = New System.Drawing.Font("Cascadia Code", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.NetherYoutput.ForeColor = System.Drawing.Color.Red
+        Me.NetherYoutput.Location = New System.Drawing.Point(419, 470)
+        Me.NetherYoutput.Name = "NetherYoutput"
+        Me.NetherYoutput.ReadOnly = True
+        Me.NetherYoutput.Size = New System.Drawing.Size(363, 84)
+        Me.NetherYoutput.TabIndex = 4
+        Me.NetherYoutput.Text = "0"
+        Me.NetherYoutput.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'TabPage2
         '
@@ -123,16 +201,6 @@ Partial Class Form1
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "TabPage2"
         Me.TabPage2.UseVisualStyleBackColor = True
-        '
-        'LabelNC1
-        '
-        Me.LabelNC1.Font = New System.Drawing.Font("Cascadia Code", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelNC1.Location = New System.Drawing.Point(50, 369)
-        Me.LabelNC1.Name = "LabelNC1"
-        Me.LabelNC1.Size = New System.Drawing.Size(1161, 98)
-        Me.LabelNC1.TabIndex = 4
-        Me.LabelNC1.Text = "NETHER COORDINATES"
-        Me.LabelNC1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'Form1
         '
@@ -157,11 +225,15 @@ Partial Class Form1
     Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents FileToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ExitToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents OverWorldXinput As TextBox
-    Friend WithEvents TestText1 As TextBox
+    Friend WithEvents OverworldXinput As TextBox
+    Friend WithEvents NetherXoutput As TextBox
     Friend WithEvents TabControl1 As TabControl
     Friend WithEvents TabPage1 As TabPage
     Friend WithEvents TabPage2 As TabPage
     Friend WithEvents LabelOWC1 As Label
     Friend WithEvents LabelNC1 As Label
+    Friend WithEvents OverworldYinput As TextBox
+    Friend WithEvents OverworldZinput As TextBox
+    Friend WithEvents NetherZoutput As TextBox
+    Friend WithEvents NetherYoutput As TextBox
 End Class
