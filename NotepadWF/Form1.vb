@@ -1,6 +1,10 @@
 ﻿Imports System.IO
 
 Public Class Form1
+
+
+
+
     Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
         Application.Exit()
     End Sub
@@ -42,5 +46,9 @@ Public Class Form1
                 MessageBox.Show("Something Happened.")
             End Try
         End If
+    End Sub
+
+    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
+
     End Sub
 End Class
