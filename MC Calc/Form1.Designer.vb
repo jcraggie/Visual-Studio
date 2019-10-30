@@ -35,7 +35,6 @@ Partial Class Form1
         Me.OverworldYinput = New System.Windows.Forms.TextBox()
         Me.NetherZoutput = New System.Windows.Forms.TextBox()
         Me.NetherYoutput = New System.Windows.Forms.TextBox()
-        Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.MenuStrip1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
@@ -93,7 +92,6 @@ Partial Class Form1
         'TabControl1
         '
         Me.TabControl1.Controls.Add(Me.TabPage1)
-        Me.TabControl1.Controls.Add(Me.TabPage2)
         Me.TabControl1.Location = New System.Drawing.Point(12, 43)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
@@ -192,16 +190,6 @@ Partial Class Form1
         Me.NetherYoutput.Text = "0"
         Me.NetherYoutput.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
-        'TabPage2
-        '
-        Me.TabPage2.Location = New System.Drawing.Point(8, 39)
-        Me.TabPage2.Name = "TabPage2"
-        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(1783, 851)
-        Me.TabPage2.TabIndex = 1
-        Me.TabPage2.Text = "TabPage2"
-        Me.TabPage2.UseVisualStyleBackColor = True
-        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(12.0!, 25.0!)
@@ -229,7 +217,6 @@ Partial Class Form1
     Friend WithEvents NetherXoutput As TextBox
     Friend WithEvents TabControl1 As TabControl
     Friend WithEvents TabPage1 As TabPage
-    Friend WithEvents TabPage2 As TabPage
     Friend WithEvents LabelOWC1 As Label
     Friend WithEvents LabelNC1 As Label
     Friend WithEvents OverworldYinput As TextBox
