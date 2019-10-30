@@ -1,12 +1,16 @@
-﻿Imports System.IO
+﻿Imports System.ComponentModel
+Imports System.IO
 
 Public Class Form1
 
     Public Shared Property TextHasChanged As Boolean
+    Public Shared Property SavePromptValue As String
+
 
 
     Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
-        Application.Exit()
+        'Application.Exit()
+        Me.Close()
     End Sub
 
     Private Sub StatusBarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StatusBarToolStripMenuItem.Click
@@ -55,5 +59,11 @@ Public Class Form1
             Me.Text = "*" + Me.Text
         End If
 
+    End Sub
+
+    Private Sub Form1_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        If TextHasChanged Then
+            SavePrompt.ShowDialog()
+        End If
     End Sub
 End Class
