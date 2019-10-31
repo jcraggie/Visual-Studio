@@ -167,6 +167,6 @@ Public Class Form1
     End Sub
 
     Private Sub RestoreDefaultZoomToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RestoreDefaultZoomToolStripMenuItem.Click
-        TextBox1.Font -New Font(TextBox1.Font.Name, 12)
+        TextBox1.Font = New Font(TextBox1.Font.Name, 12)
     End Sub
 End Class
