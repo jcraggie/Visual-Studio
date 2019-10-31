@@ -153,4 +153,20 @@ Public Class Form1
         Me.Text = "Untitled - NotepadWF"
 
     End Sub
+
+    Private Sub ZoomInToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ZoomInToolStripMenuItem.Click
+        If TextBox1.Font.Size <= 71 Then
+            TextBox1.Font = New Font(TextBox1.Font.Name, TextBox1.Font.Size + 1)
+        End If
+    End Sub
+
+    Private Sub ZoomOutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ZoomOutToolStripMenuItem.Click
+        If TextBox1.Font.Size > 2 Then
+            TextBox1.Font = New Font(TextBox1.Font.Name, TextBox1.Font.Size - 1)
+        End If
+    End Sub
+
+    Private Sub RestoreDefaultZoomToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RestoreDefaultZoomToolStripMenuItem.Click
+        TextBox1.Font -New Font(TextBox1.Font.Name, 12)
+    End Sub
 End Class

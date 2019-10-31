@@ -48,6 +48,10 @@ Partial Class Form1
         Me.ToolStripStatusLabel5 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabel8 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.NewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ZoomToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ZoomInToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ZoomOutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RestoreDefaultZoomToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -106,18 +110,18 @@ Partial Class Form1
         Me.WordWrapToolStripMenuItem.Checked = True
         Me.WordWrapToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked
         Me.WordWrapToolStripMenuItem.Name = "WordWrapToolStripMenuItem"
-        Me.WordWrapToolStripMenuItem.Size = New System.Drawing.Size(134, 22)
+        Me.WordWrapToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.WordWrapToolStripMenuItem.Text = "&Word Wrap"
         '
         'FontToolStripMenuItem
         '
         Me.FontToolStripMenuItem.Name = "FontToolStripMenuItem"
-        Me.FontToolStripMenuItem.Size = New System.Drawing.Size(134, 22)
+        Me.FontToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.FontToolStripMenuItem.Text = "&Font"
         '
         'ViewToolStripMenuItem1
         '
-        Me.ViewToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StatusBarToolStripMenuItem})
+        Me.ViewToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ZoomToolStripMenuItem, Me.StatusBarToolStripMenuItem})
         Me.ViewToolStripMenuItem1.Name = "ViewToolStripMenuItem1"
         Me.ViewToolStripMenuItem1.Size = New System.Drawing.Size(44, 22)
         Me.ViewToolStripMenuItem1.Text = "&View"
@@ -127,7 +131,7 @@ Partial Class Form1
         Me.StatusBarToolStripMenuItem.Checked = True
         Me.StatusBarToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked
         Me.StatusBarToolStripMenuItem.Name = "StatusBarToolStripMenuItem"
-        Me.StatusBarToolStripMenuItem.Size = New System.Drawing.Size(126, 22)
+        Me.StatusBarToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.StatusBarToolStripMenuItem.Text = "&Status Bar"
         '
         'HelpToolStripMenuItem
@@ -227,6 +231,36 @@ Partial Class Form1
         Me.NewToolStripMenuItem.Size = New System.Drawing.Size(186, 22)
         Me.NewToolStripMenuItem.Text = "&New"
         '
+        'ZoomToolStripMenuItem
+        '
+        Me.ZoomToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ZoomInToolStripMenuItem, Me.ZoomOutToolStripMenuItem, Me.RestoreDefaultZoomToolStripMenuItem})
+        Me.ZoomToolStripMenuItem.Name = "ZoomToolStripMenuItem"
+        Me.ZoomToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ZoomToolStripMenuItem.Text = "&Zoom"
+        '
+        'ZoomInToolStripMenuItem
+        '
+        Me.ZoomInToolStripMenuItem.Name = "ZoomInToolStripMenuItem"
+        Me.ZoomInToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+Plus"
+        Me.ZoomInToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.Oemplus), System.Windows.Forms.Keys)
+        Me.ZoomInToolStripMenuItem.Size = New System.Drawing.Size(229, 22)
+        Me.ZoomInToolStripMenuItem.Text = "Zoom &In"
+        '
+        'ZoomOutToolStripMenuItem
+        '
+        Me.ZoomOutToolStripMenuItem.Name = "ZoomOutToolStripMenuItem"
+        Me.ZoomOutToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+Minus"
+        Me.ZoomOutToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.OemMinus), System.Windows.Forms.Keys)
+        Me.ZoomOutToolStripMenuItem.Size = New System.Drawing.Size(229, 22)
+        Me.ZoomOutToolStripMenuItem.Text = "Zoom &Out"
+        '
+        'RestoreDefaultZoomToolStripMenuItem
+        '
+        Me.RestoreDefaultZoomToolStripMenuItem.Name = "RestoreDefaultZoomToolStripMenuItem"
+        Me.RestoreDefaultZoomToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.D0), System.Windows.Forms.Keys)
+        Me.RestoreDefaultZoomToolStripMenuItem.Size = New System.Drawing.Size(229, 22)
+        Me.RestoreDefaultZoomToolStripMenuItem.Text = "&Restore Default Zoom"
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -273,4 +307,8 @@ Partial Class Form1
     Friend WithEvents ToolStripStatusLabel4 As ToolStripStatusLabel
     Friend WithEvents ToolStripStatusLabel5 As ToolStripStatusLabel
     Friend WithEvents NewToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ZoomToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ZoomInToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ZoomOutToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents RestoreDefaultZoomToolStripMenuItem As ToolStripMenuItem
 End Class
