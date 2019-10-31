@@ -3,7 +3,10 @@ Imports System.IO
 
 Public Class Form1
 
-    Public Shared Property TextHasChanged As Boolean
+    Public Shared Property TextHasChanged As Boolean = False
+
+    Public Shared Property DocumentName As String = ""
+
     Public Shared Property SavePromptValue As String
 
 
@@ -46,6 +49,7 @@ Public Class Form1
                 TextBox1.Text = File.ReadAllText(OpenFileDialog1.FileName)
                 Me.Text = OpenFileDialog1.SafeFileName + "- NotepadWF"
                 TextHasChanged = False
+                DocumentName = OpenFileDialog1.FileName
             Catch ex As Exception
                 MessageBox.Show("Something Happened.")
             End Try
@@ -94,6 +98,16 @@ Public Class Form1
     End Sub
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles Me.Load
-        TextHasChanged = False
+        'TextHasChanged = False
+    End Sub
+
+    Private Sub SaveToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SaveToolStripMenuItem.Click
+        If DocumentName <> "" Then
+            System.IO.File.WriteAllText(DocumentName, TextBox1.Text)
+            TextHasChanged = False
+            Me.Text = Me.Text.Replace("*", "")
+        Else
+            'call SaveAs event handler
+        End If
     End Sub
 End Class
