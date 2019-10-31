@@ -132,4 +132,25 @@ Public Class Form1
             MessageBox.Show("Something has happened..")
         End Try
     End Sub
+
+    Private Sub NewToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NewToolStripMenuItem.Click
+        If TextHasChanged Then
+            'SavePrompt.ShowDialog()
+            Dim SavePrompt As DialogResult = MessageBox.Show("Do you want to save changes?", "NotepadWF", MessageBoxButtons.YesNoCancel)
+
+            If SavePrompt = vbYes Then
+                'display a save dialog here
+                SaveFileDialog1.ShowDialog()
+            ElseIf SavePrompt = vbNo Then
+                TextBox1.Text = ""
+
+            End If
+        Else
+            TextBox1.Text = ""
+        End If
+        TextHasChanged = False
+        DocumentName = ""
+        Me.Text = "Untitled - NotepadWF"
+
+    End Sub
 End Class
