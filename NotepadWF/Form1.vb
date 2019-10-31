@@ -77,6 +77,7 @@ Public Class Form1
 
             If SavePrompt = vbYes Then
                 'display a save dialog here
+                SaveFileDialog1.ShowDialog()
             ElseIf SavePrompt = vbNo Then
                 Application.Exit()
             Else
@@ -103,9 +104,14 @@ Public Class Form1
 
     Private Sub SaveToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SaveToolStripMenuItem.Click
         If DocumentName <> "" Then
-            System.IO.File.WriteAllText(DocumentName, TextBox1.Text)
-            TextHasChanged = False
-            Me.Text = Me.Text.Replace("*", "")
+            Try
+                System.IO.File.WriteAllText(DocumentName, TextBox1.Text)
+                TextHasChanged = False
+                Me.Text = Me.Text.Replace("*", "")
+            Catch ex As Exception
+                MessageBox.Show(ex.Message)
+            End Try
+
         Else
             'call SaveAs event handler
             SaveAsToolStripMenuItem_Click(sender, e) 'sender and e are not used but are required
