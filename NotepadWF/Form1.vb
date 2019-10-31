@@ -108,6 +108,22 @@ Public Class Form1
             Me.Text = Me.Text.Replace("*", "")
         Else
             'call SaveAs event handler
+            SaveAsToolStripMenuItem_Click(sender, e) 'sender and e are not used but are required
         End If
+    End Sub
+
+    Private Sub SaveAsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SaveAsToolStripMenuItem.Click
+        SaveFileDialog1.ShowDialog()
+    End Sub
+
+    Private Sub SaveFileDialog1_FileOk(sender As Object, e As CancelEventArgs) Handles SaveFileDialog1.FileOk
+        Try
+            DocumentName = SaveFileDialog1.FileName
+            Me.Text = System.IO.Path.GetFileNameWithoutExtension(DocumentName) + "- NotepadWF"
+            TextHasChanged = False
+            System.IO.File.WriteAllText(DocumentName, TextBox1.Text)
+        Catch ex As Exception
+            MessageBox.Show("Something has happened..")
+        End Try
     End Sub
 End Class

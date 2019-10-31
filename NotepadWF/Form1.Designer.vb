@@ -168,6 +168,11 @@ Partial Class Form1
         Me.SaveAsToolStripMenuItem.Size = New System.Drawing.Size(186, 22)
         Me.SaveAsToolStripMenuItem.Text = "Save &As"
         '
+        'SaveFileDialog1
+        '
+        Me.SaveFileDialog1.DefaultExt = "txt"
+        Me.SaveFileDialog1.Filter = "Text documents (*.txt)|*.txt"
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
