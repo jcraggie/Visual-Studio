@@ -71,6 +71,10 @@ Public Class Form1
     End Sub
 
     Private Sub Form1_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+
+        My.Settings.MySize = Me.Size
+        My.Settings.Save()
+
         If TextHasChanged Then
             'SavePrompt.ShowDialog()
             Dim SavePrompt As DialogResult = MessageBox.Show("Do you want to save changes?", "NotepadWF", MessageBoxButtons.YesNoCancel)
@@ -100,6 +104,9 @@ Public Class Form1
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles Me.Load
         'TextHasChanged = False
+        If Not My.Settings.MySize.IsEmpty Then
+            Me.Size = My.Settings.MySize
+        End If
     End Sub
 
     Private Sub SaveToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SaveToolStripMenuItem.Click
