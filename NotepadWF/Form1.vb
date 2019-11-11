@@ -73,6 +73,12 @@ Public Class Form1
     Private Sub Form1_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
 
         My.Settings.MySize = Me.Size
+        My.Settings.MyFont = TextBox1.Font
+        My.Settings.MyStatusBar = StatusStrip1.Visible
+        My.Settings.MyWordWrap = WordWrapToolStripMenuItem.Checked
+
+
+
         My.Settings.Save()
 
         If TextHasChanged Then
@@ -107,6 +113,15 @@ Public Class Form1
         If Not My.Settings.MySize.IsEmpty Then
             Me.Size = My.Settings.MySize
         End If
+
+        TextBox1.Font = My.Settings.MyFont
+        StatusStrip1.Visible = My.Settings.MyStatusBar
+        StatusBarToolStripMenuItem.Checked = My.Settings.MyStatusBar
+        TextBox1.WordWrap = My.Settings.MyWordWrap
+        WordWrapToolStripMenuItem.Checked = My.Settings.MyWordWrap
+
+
+
     End Sub
 
     Private Sub SaveToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SaveToolStripMenuItem.Click

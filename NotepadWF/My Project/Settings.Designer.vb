@@ -77,6 +77,41 @@ Namespace My
                 Me("MySize") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute()>  _
+        Public Property MyFont() As Global.System.Drawing.Font
+            Get
+                Return CType(Me("MyFont"),Global.System.Drawing.Font)
+            End Get
+            Set
+                Me("MyFont") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property MyStatusBar() As Boolean
+            Get
+                Return CType(Me("MyStatusBar"),Boolean)
+            End Get
+            Set
+                Me("MyStatusBar") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property MyWordWrap() As Boolean
+            Get
+                Return CType(Me("MyWordWrap"),Boolean)
+            End Get
+            Set
+                Me("MyWordWrap") = value
+            End Set
+        End Property
     End Class
 End Namespace
 
