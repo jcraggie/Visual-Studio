@@ -9,6 +9,12 @@ Public Class Form1
 
     Public Shared Property SavePromptValue As String
 
+    Public Shared Property MasterFont As Font
+
+    Public Shared Property ZoomValue As Integer = 100
+
+
+
 
 
     Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
@@ -37,8 +43,14 @@ Public Class Form1
     End Sub
 
     Private Sub FontToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FontToolStripMenuItem.Click
+        FontDialog1.Font = MasterFont
+
+
         If FontDialog1.ShowDialog = Windows.Forms.DialogResult.OK Then
             TextBox1.Font = FontDialog1.Font
+            MasterFont = FontDialog1.Font
+            ZoomValue = 100
+            ZoomToolStripStatusLabel.Text = ZoomValue.ToString + "%"
 
         End If
     End Sub
@@ -73,7 +85,7 @@ Public Class Form1
     Private Sub Form1_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
 
         My.Settings.MySize = Me.Size
-        My.Settings.MyFont = TextBox1.Font
+        My.Settings.MyFont = MasterFont
         My.Settings.MyStatusBar = StatusStrip1.Visible
         My.Settings.MyWordWrap = WordWrapToolStripMenuItem.Checked
 
@@ -115,6 +127,8 @@ Public Class Form1
         End If
 
         TextBox1.Font = My.Settings.MyFont
+        MasterFont = TextBox1.Font
+
         StatusStrip1.Visible = My.Settings.MyStatusBar
         StatusBarToolStripMenuItem.Checked = My.Settings.MyStatusBar
         TextBox1.WordWrap = My.Settings.MyWordWrap
@@ -177,19 +191,27 @@ Public Class Form1
     End Sub
 
     Private Sub ZoomInToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ZoomInToolStripMenuItem.Click
-        If TextBox1.Font.Size <= 71 Then
-            TextBox1.Font = New Font(TextBox1.Font.Name, TextBox1.Font.Size + 1)
+        If ZoomValue < 500 Then
+            ZoomValue += 10
+            TextBox1.Font = New Font(TextBox1.Font.Name, ((MasterFont.Size * ZoomValue) / 100))
+            ZoomToolStripStatusLabel.Text = (ZoomValue).ToString + "%"
         End If
     End Sub
 
     Private Sub ZoomOutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ZoomOutToolStripMenuItem.Click
-        If TextBox1.Font.Size > 2 Then
-            TextBox1.Font = New Font(TextBox1.Font.Name, TextBox1.Font.Size - 1)
+        If ZoomValue > 10 Then
+            ZoomValue -= 10
+            TextBox1.Font = New Font(TextBox1.Font.Name, ((MasterFont.Size * ZoomValue) / 100))
+            ZoomToolStripStatusLabel.Text = (ZoomValue).ToString + "%"
+
         End If
     End Sub
 
     Private Sub RestoreDefaultZoomToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RestoreDefaultZoomToolStripMenuItem.Click
-        TextBox1.Font = New Font(TextBox1.Font.Name, 12)
+        'TextBox1.Font = New Font(TextBox1.Font.Name, 12)
+        TextBox1.Font = MasterFont
+        ZoomToolStripStatusLabel.Text = "100%"
+        ZoomValue = 100
     End Sub
 
     Private Sub AboutNotepadWFToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AboutNotepadWFToolStripMenuItem.Click
