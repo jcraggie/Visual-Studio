@@ -134,6 +134,10 @@ Public Class Form1
         TextBox1.WordWrap = My.Settings.MyWordWrap
         WordWrapToolStripMenuItem.Checked = My.Settings.MyWordWrap
 
+        ZoomInToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+Plus"
+        ZoomOutToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+Minus"
+        DeleteToolStripMenuItem.ShortcutKeyDisplayString = "Del"
+
 
 
     End Sub
@@ -218,5 +222,53 @@ Public Class Form1
         AboutBox1.ShowDialog()
 
 
+    End Sub
+
+    Private Sub UndoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UndoToolStripMenuItem.Click
+        TextBox1.Undo()
+
+    End Sub
+
+    Private Sub CutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CutToolStripMenuItem.Click
+        TextBox1.Cut()
+
+    End Sub
+
+    Private Sub CopyToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CopyToolStripMenuItem.Click
+        TextBox1.Copy()
+
+    End Sub
+
+    Private Sub PasteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PasteToolStripMenuItem.Click
+        TextBox1.Paste()
+
+    End Sub
+
+    Private Sub SelectAllToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SelectAllToolStripMenuItem.Click
+        TextBox1.SelectAll()
+
+    End Sub
+
+    Private Sub SearchWithBingToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SearchWithBingToolStripMenuItem.Click
+        'Process.Start("https://www.bing.com/search?q=" + TextBox1.SelectedText)
+        Try
+            If TextBox1.SelectedText <> "" Then
+                Process.Start("https://www.bing.com/search?q=" + TextBox1.SelectedText)
+            Else
+                Process.Start("https://www.bing.com")
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+
+        End Try
+
+    End Sub
+
+    Private Sub TimeDateToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TimeDateToolStripMenuItem.Click
+        TextBox1.SelectedText = Now.ToShortTimeString + " " + Now.ToShortDateString
+    End Sub
+
+    Private Sub DeleteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DeleteToolStripMenuItem.Click
+        SendKeys.Send("{DEL}")
     End Sub
 End Class
