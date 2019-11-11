@@ -52,6 +52,7 @@ Partial Class Form1
         Me.FontDialog1 = New System.Windows.Forms.FontDialog()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
+        Me.AboutNotepadWFToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -188,6 +189,7 @@ Partial Class Form1
         '
         'HelpToolStripMenuItem
         '
+        Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AboutNotepadWFToolStripMenuItem})
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
         Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(44, 22)
         Me.HelpToolStripMenuItem.Text = "&Help"
@@ -261,6 +263,12 @@ Partial Class Form1
         Me.SaveFileDialog1.DefaultExt = "txt"
         Me.SaveFileDialog1.Filter = "Text documents (*.txt)|*.txt"
         '
+        'AboutNotepadWFToolStripMenuItem
+        '
+        Me.AboutNotepadWFToolStripMenuItem.Name = "AboutNotepadWFToolStripMenuItem"
+        Me.AboutNotepadWFToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.AboutNotepadWFToolStripMenuItem.Text = "&About NotepadWF"
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -313,4 +321,5 @@ Partial Class Form1
     Friend WithEvents ZoomInToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ZoomOutToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents RestoreDefaultZoomToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents AboutNotepadWFToolStripMenuItem As ToolStripMenuItem
 End Class

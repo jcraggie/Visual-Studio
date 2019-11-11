@@ -191,4 +191,10 @@ Public Class Form1
     Private Sub RestoreDefaultZoomToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RestoreDefaultZoomToolStripMenuItem.Click
         TextBox1.Font = New Font(TextBox1.Font.Name, 12)
     End Sub
+
+    Private Sub AboutNotepadWFToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AboutNotepadWFToolStripMenuItem.Click
+        AboutBox1.ShowDialog()
+
+
+    End Sub
 End Class
