@@ -32,6 +32,17 @@ Partial Class Form1
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.UndoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
+        Me.CutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CopyToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PasteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DeleteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
+        Me.SearchWithBingToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
+        Me.SelectAllToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.TimeDateToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ViewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.WordWrapToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.FontToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -42,6 +53,7 @@ Partial Class Form1
         Me.RestoreDefaultZoomToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusBarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AboutNotepadWFToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
@@ -52,18 +64,6 @@ Partial Class Form1
         Me.FontDialog1 = New System.Windows.Forms.FontDialog()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
-        Me.AboutNotepadWFToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.UndoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.CutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.CopyToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.PasteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.DeleteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.SearchWithBingToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.SelectAllToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.TimeDateToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
         Me.MenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -133,6 +133,76 @@ Partial Class Form1
         Me.EditToolStripMenuItem.Size = New System.Drawing.Size(39, 22)
         Me.EditToolStripMenuItem.Text = "&Edit"
         '
+        'UndoToolStripMenuItem
+        '
+        Me.UndoToolStripMenuItem.Name = "UndoToolStripMenuItem"
+        Me.UndoToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.Z), System.Windows.Forms.Keys)
+        Me.UndoToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
+        Me.UndoToolStripMenuItem.Text = "&Undo"
+        '
+        'ToolStripSeparator2
+        '
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(208, 6)
+        '
+        'CutToolStripMenuItem
+        '
+        Me.CutToolStripMenuItem.Name = "CutToolStripMenuItem"
+        Me.CutToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.X), System.Windows.Forms.Keys)
+        Me.CutToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
+        Me.CutToolStripMenuItem.Text = "Cu&t"
+        '
+        'CopyToolStripMenuItem
+        '
+        Me.CopyToolStripMenuItem.Name = "CopyToolStripMenuItem"
+        Me.CopyToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.C), System.Windows.Forms.Keys)
+        Me.CopyToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
+        Me.CopyToolStripMenuItem.Text = "&Copy"
+        '
+        'PasteToolStripMenuItem
+        '
+        Me.PasteToolStripMenuItem.Name = "PasteToolStripMenuItem"
+        Me.PasteToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.V), System.Windows.Forms.Keys)
+        Me.PasteToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
+        Me.PasteToolStripMenuItem.Text = "&Paste"
+        '
+        'DeleteToolStripMenuItem
+        '
+        Me.DeleteToolStripMenuItem.Name = "DeleteToolStripMenuItem"
+        Me.DeleteToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
+        Me.DeleteToolStripMenuItem.Text = "Delete"
+        '
+        'ToolStripSeparator3
+        '
+        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(208, 6)
+        '
+        'SearchWithBingToolStripMenuItem
+        '
+        Me.SearchWithBingToolStripMenuItem.Name = "SearchWithBingToolStripMenuItem"
+        Me.SearchWithBingToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.E), System.Windows.Forms.Keys)
+        Me.SearchWithBingToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
+        Me.SearchWithBingToolStripMenuItem.Text = "&Search with Bing..."
+        '
+        'ToolStripSeparator4
+        '
+        Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
+        Me.ToolStripSeparator4.Size = New System.Drawing.Size(208, 6)
+        '
+        'SelectAllToolStripMenuItem
+        '
+        Me.SelectAllToolStripMenuItem.Name = "SelectAllToolStripMenuItem"
+        Me.SelectAllToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.A), System.Windows.Forms.Keys)
+        Me.SelectAllToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
+        Me.SelectAllToolStripMenuItem.Text = "Select &All"
+        '
+        'TimeDateToolStripMenuItem
+        '
+        Me.TimeDateToolStripMenuItem.Name = "TimeDateToolStripMenuItem"
+        Me.TimeDateToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5
+        Me.TimeDateToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
+        Me.TimeDateToolStripMenuItem.Text = "Time/&Date"
+        '
         'ViewToolStripMenuItem
         '
         Me.ViewToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.WordWrapToolStripMenuItem, Me.FontToolStripMenuItem})
@@ -145,13 +215,13 @@ Partial Class Form1
         Me.WordWrapToolStripMenuItem.Checked = True
         Me.WordWrapToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked
         Me.WordWrapToolStripMenuItem.Name = "WordWrapToolStripMenuItem"
-        Me.WordWrapToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.WordWrapToolStripMenuItem.Size = New System.Drawing.Size(134, 22)
         Me.WordWrapToolStripMenuItem.Text = "&Word Wrap"
         '
         'FontToolStripMenuItem
         '
         Me.FontToolStripMenuItem.Name = "FontToolStripMenuItem"
-        Me.FontToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.FontToolStripMenuItem.Size = New System.Drawing.Size(134, 22)
         Me.FontToolStripMenuItem.Text = "&Font"
         '
         'ViewToolStripMenuItem1
@@ -165,7 +235,7 @@ Partial Class Form1
         '
         Me.ZoomToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ZoomInToolStripMenuItem, Me.ZoomOutToolStripMenuItem, Me.RestoreDefaultZoomToolStripMenuItem})
         Me.ZoomToolStripMenuItem.Name = "ZoomToolStripMenuItem"
-        Me.ZoomToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ZoomToolStripMenuItem.Size = New System.Drawing.Size(126, 22)
         Me.ZoomToolStripMenuItem.Text = "&Zoom"
         '
         'ZoomInToolStripMenuItem
@@ -196,7 +266,7 @@ Partial Class Form1
         Me.StatusBarToolStripMenuItem.Checked = True
         Me.StatusBarToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked
         Me.StatusBarToolStripMenuItem.Name = "StatusBarToolStripMenuItem"
-        Me.StatusBarToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.StatusBarToolStripMenuItem.Size = New System.Drawing.Size(126, 22)
         Me.StatusBarToolStripMenuItem.Text = "&Status Bar"
         '
         'HelpToolStripMenuItem
@@ -205,6 +275,12 @@ Partial Class Form1
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
         Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(44, 22)
         Me.HelpToolStripMenuItem.Text = "&Help"
+        '
+        'AboutNotepadWFToolStripMenuItem
+        '
+        Me.AboutNotepadWFToolStripMenuItem.Name = "AboutNotepadWFToolStripMenuItem"
+        Me.AboutNotepadWFToolStripMenuItem.Size = New System.Drawing.Size(173, 22)
+        Me.AboutNotepadWFToolStripMenuItem.Text = "&About NotepadWF"
         '
         'StatusStrip1
         '
@@ -263,6 +339,7 @@ Partial Class Form1
         Me.TextBox1.Location = New System.Drawing.Point(0, 24)
         Me.TextBox1.Multiline = True
         Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both
         Me.TextBox1.Size = New System.Drawing.Size(800, 402)
         Me.TextBox1.TabIndex = 2
         '
@@ -274,82 +351,6 @@ Partial Class Form1
         '
         Me.SaveFileDialog1.DefaultExt = "txt"
         Me.SaveFileDialog1.Filter = "Text documents (*.txt)|*.txt"
-        '
-        'AboutNotepadWFToolStripMenuItem
-        '
-        Me.AboutNotepadWFToolStripMenuItem.Name = "AboutNotepadWFToolStripMenuItem"
-        Me.AboutNotepadWFToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.AboutNotepadWFToolStripMenuItem.Text = "&About NotepadWF"
-        '
-        'UndoToolStripMenuItem
-        '
-        Me.UndoToolStripMenuItem.Name = "UndoToolStripMenuItem"
-        Me.UndoToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.Z), System.Windows.Forms.Keys)
-        Me.UndoToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
-        Me.UndoToolStripMenuItem.Text = "&Undo"
-        '
-        'CutToolStripMenuItem
-        '
-        Me.CutToolStripMenuItem.Name = "CutToolStripMenuItem"
-        Me.CutToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.X), System.Windows.Forms.Keys)
-        Me.CutToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
-        Me.CutToolStripMenuItem.Text = "Cu&t"
-        '
-        'CopyToolStripMenuItem
-        '
-        Me.CopyToolStripMenuItem.Name = "CopyToolStripMenuItem"
-        Me.CopyToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.C), System.Windows.Forms.Keys)
-        Me.CopyToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
-        Me.CopyToolStripMenuItem.Text = "&Copy"
-        '
-        'PasteToolStripMenuItem
-        '
-        Me.PasteToolStripMenuItem.Name = "PasteToolStripMenuItem"
-        Me.PasteToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.V), System.Windows.Forms.Keys)
-        Me.PasteToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
-        Me.PasteToolStripMenuItem.Text = "&Paste"
-        '
-        'DeleteToolStripMenuItem
-        '
-        Me.DeleteToolStripMenuItem.Name = "DeleteToolStripMenuItem"
-        Me.DeleteToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
-        Me.DeleteToolStripMenuItem.Text = "Delete"
-        '
-        'SearchWithBingToolStripMenuItem
-        '
-        Me.SearchWithBingToolStripMenuItem.Name = "SearchWithBingToolStripMenuItem"
-        Me.SearchWithBingToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.E), System.Windows.Forms.Keys)
-        Me.SearchWithBingToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
-        Me.SearchWithBingToolStripMenuItem.Text = "&Search with Bing..."
-        '
-        'SelectAllToolStripMenuItem
-        '
-        Me.SelectAllToolStripMenuItem.Name = "SelectAllToolStripMenuItem"
-        Me.SelectAllToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.A), System.Windows.Forms.Keys)
-        Me.SelectAllToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
-        Me.SelectAllToolStripMenuItem.Text = "Select &All"
-        '
-        'TimeDateToolStripMenuItem
-        '
-        Me.TimeDateToolStripMenuItem.Name = "TimeDateToolStripMenuItem"
-        Me.TimeDateToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5
-        Me.TimeDateToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
-        Me.TimeDateToolStripMenuItem.Text = "Time/&Date"
-        '
-        'ToolStripSeparator2
-        '
-        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(208, 6)
-        '
-        'ToolStripSeparator3
-        '
-        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(208, 6)
-        '
-        'ToolStripSeparator4
-        '
-        Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
-        Me.ToolStripSeparator4.Size = New System.Drawing.Size(208, 6)
         '
         'Form1
         '
