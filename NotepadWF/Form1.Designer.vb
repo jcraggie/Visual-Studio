@@ -75,7 +75,7 @@ Partial Class Form1
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(3, 1, 0, 1)
-        Me.MenuStrip1.Size = New System.Drawing.Size(800, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1075, 24)
         Me.MenuStrip1.TabIndex = 0
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -288,47 +288,51 @@ Partial Class Form1
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1, Me.ToolStripStatusLabel2, Me.ZoomToolStripStatusLabel, Me.ToolStripStatusLabel4, Me.ToolStripStatusLabel5})
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 426)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(800, 24)
+        Me.StatusStrip1.Size = New System.Drawing.Size(1075, 24)
         Me.StatusStrip1.TabIndex = 1
         Me.StatusStrip1.Text = "StatusStrip1"
         '
         'ToolStripStatusLabel1
         '
         Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
-        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(366, 19)
+        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(1, 19)
         Me.ToolStripStatusLabel1.Spring = True
         Me.ToolStripStatusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'ToolStripStatusLabel2
         '
+        Me.ToolStripStatusLabel2.AutoSize = False
         Me.ToolStripStatusLabel2.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left
         Me.ToolStripStatusLabel2.Name = "ToolStripStatusLabel2"
-        Me.ToolStripStatusLabel2.Size = New System.Drawing.Size(135, 19)
-        Me.ToolStripStatusLabel2.Text = "Ln 1, Col 1                       "
+        Me.ToolStripStatusLabel2.Size = New System.Drawing.Size(350, 19)
+        Me.ToolStripStatusLabel2.Text = "Ln 1, Col 1"
         Me.ToolStripStatusLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'ZoomToolStripStatusLabel
         '
+        Me.ZoomToolStripStatusLabel.AutoSize = False
         Me.ZoomToolStripStatusLabel.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left
         Me.ZoomToolStripStatusLabel.Name = "ZoomToolStripStatusLabel"
-        Me.ZoomToolStripStatusLabel.Size = New System.Drawing.Size(54, 19)
-        Me.ZoomToolStripStatusLabel.Text = "100%     "
+        Me.ZoomToolStripStatusLabel.Size = New System.Drawing.Size(130, 19)
+        Me.ZoomToolStripStatusLabel.Text = " 100%"
         Me.ZoomToolStripStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'ToolStripStatusLabel4
         '
+        Me.ToolStripStatusLabel4.AutoSize = False
         Me.ToolStripStatusLabel4.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left
         Me.ToolStripStatusLabel4.Name = "ToolStripStatusLabel4"
-        Me.ToolStripStatusLabel4.Size = New System.Drawing.Size(119, 19)
-        Me.ToolStripStatusLabel4.Text = "Windows (CRLF)       "
+        Me.ToolStripStatusLabel4.Size = New System.Drawing.Size(300, 19)
+        Me.ToolStripStatusLabel4.Text = "Windows (CRLF)"
         Me.ToolStripStatusLabel4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'ToolStripStatusLabel5
         '
+        Me.ToolStripStatusLabel5.AutoSize = False
         Me.ToolStripStatusLabel5.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left
         Me.ToolStripStatusLabel5.Name = "ToolStripStatusLabel5"
-        Me.ToolStripStatusLabel5.Size = New System.Drawing.Size(111, 19)
-        Me.ToolStripStatusLabel5.Text = "UTF-8                       "
+        Me.ToolStripStatusLabel5.Size = New System.Drawing.Size(280, 19)
+        Me.ToolStripStatusLabel5.Text = "UTF-8"
         Me.ToolStripStatusLabel5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'TextBox1
@@ -340,7 +344,7 @@ Partial Class Form1
         Me.TextBox1.Multiline = True
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.TextBox1.Size = New System.Drawing.Size(800, 402)
+        Me.TextBox1.Size = New System.Drawing.Size(1075, 402)
         Me.TextBox1.TabIndex = 2
         '
         'OpenFileDialog1
@@ -356,7 +360,7 @@ Partial Class Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.ClientSize = New System.Drawing.Size(1075, 450)
         Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.MenuStrip1)

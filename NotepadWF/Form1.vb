@@ -50,7 +50,7 @@ Public Class Form1
             TextBox1.Font = FontDialog1.Font
             MasterFont = FontDialog1.Font
             ZoomValue = 100
-            ZoomToolStripStatusLabel.Text = ZoomValue.ToString + "%"
+            ZoomToolStripStatusLabel.Text = " " + (ZoomValue).ToString + "%"
 
         End If
     End Sub
@@ -198,7 +198,7 @@ Public Class Form1
         If ZoomValue < 500 Then
             ZoomValue += 10
             TextBox1.Font = New Font(TextBox1.Font.Name, ((MasterFont.Size * ZoomValue) / 100))
-            ZoomToolStripStatusLabel.Text = (ZoomValue).ToString + "%"
+            ZoomToolStripStatusLabel.Text = " " + (ZoomValue).ToString + "%"
         End If
     End Sub
 
@@ -206,7 +206,7 @@ Public Class Form1
         If ZoomValue > 10 Then
             ZoomValue -= 10
             TextBox1.Font = New Font(TextBox1.Font.Name, ((MasterFont.Size * ZoomValue) / 100))
-            ZoomToolStripStatusLabel.Text = (ZoomValue).ToString + "%"
+            ZoomToolStripStatusLabel.Text = " " + (ZoomValue).ToString + "%"
 
         End If
     End Sub
@@ -214,7 +214,7 @@ Public Class Form1
     Private Sub RestoreDefaultZoomToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RestoreDefaultZoomToolStripMenuItem.Click
         'TextBox1.Font = New Font(TextBox1.Font.Name, 12)
         TextBox1.Font = MasterFont
-        ZoomToolStripStatusLabel.Text = "100%"
+        ZoomToolStripStatusLabel.Text = " 100%"
         ZoomValue = 100
     End Sub
 
