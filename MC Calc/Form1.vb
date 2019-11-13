@@ -37,9 +37,9 @@
         NetherYoutput.SelectAll()
     End Sub
 
-    'Private Sub NetherZoutput(sender As Object, e As EventArgs) Handles NetherZoutput.Enter
-    '    NetherZoutput.SelectAll()
-    'End Sub
+    Private Sub NetherZoutput_Enter(sender As Object, e As EventArgs) Handles NetherZoutput.Enter
+        NetherZoutput.SelectAll()
+    End Sub
 
 
 
@@ -58,5 +58,9 @@
     Private Sub OverworldZinput_TextChanged(sender As Object, e As EventArgs) Handles OverworldZinput.TextChanged
         oZinput = Val(OverworldZinput.Text)
         NetherZoutput.Text = Math.Truncate(oZinput / 8)
+    End Sub
+
+    Private Sub AboutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AboutToolStripMenuItem.Click
+        AboutBox1.ShowDialog()
     End Sub
 End Class
