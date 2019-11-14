@@ -14,14 +14,14 @@ Public Class Form1
 
         Try
 
-            Dim strURL As String = "http://codeguru.com"
+            Dim strURL As String = "https://swgoh.gg/g/35906/phantomrebellion/"
 
             Dim strOutput As String = ""
 
             Dim wrResponse As WebResponse
             Dim wrRequest As WebRequest = HttpWebRequest.Create(strURL)
 
-            txtFormatted.Text = "Extracting..." & Environment.NewLine
+            txtScrape.Text = "Extracting..." & Environment.NewLine
 
             wrResponse = wrRequest.GetResponse()
 
