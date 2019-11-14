@@ -1,7 +1,12 @@
 ﻿Public Class Form1
-    Dim oXinput As Integer
-    Dim oYinput As Integer
-    Dim oZinput As Integer
+    Dim oXinput As Integer = 0
+    Dim oYinput As Integer = 0
+    Dim oZinput As Integer = 0
+
+    Dim nXinput As Integer = 0
+    Dim nYinput As Integer = 0
+    Dim nZinput As Integer = 0
+
 
 
 
