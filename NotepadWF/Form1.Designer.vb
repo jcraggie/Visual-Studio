@@ -305,7 +305,6 @@ Partial Class Form1
         Me.ToolStripStatusLabel2.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left
         Me.ToolStripStatusLabel2.Name = "ToolStripStatusLabel2"
         Me.ToolStripStatusLabel2.Size = New System.Drawing.Size(350, 19)
-        Me.ToolStripStatusLabel2.Text = "Ln 1, Col 1"
         Me.ToolStripStatusLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'ZoomToolStripStatusLabel
@@ -323,7 +322,6 @@ Partial Class Form1
         Me.ToolStripStatusLabel4.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left
         Me.ToolStripStatusLabel4.Name = "ToolStripStatusLabel4"
         Me.ToolStripStatusLabel4.Size = New System.Drawing.Size(300, 19)
-        Me.ToolStripStatusLabel4.Text = "Windows (CRLF)"
         Me.ToolStripStatusLabel4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'ToolStripStatusLabel5
@@ -332,7 +330,6 @@ Partial Class Form1
         Me.ToolStripStatusLabel5.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left
         Me.ToolStripStatusLabel5.Name = "ToolStripStatusLabel5"
         Me.ToolStripStatusLabel5.Size = New System.Drawing.Size(280, 19)
-        Me.ToolStripStatusLabel5.Text = "UTF-8"
         Me.ToolStripStatusLabel5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'TextBox1
