@@ -36,9 +36,11 @@ Public Class Form1
         If WordWrapToolStripMenuItem.Checked Then
             WordWrapToolStripMenuItem.Checked = False
             TextBox1.WordWrap = False
+            TextBox1.ScrollBars = ScrollBars.Both
         Else
             WordWrapToolStripMenuItem.Checked = True
             TextBox1.WordWrap = True
+            TextBox1.ScrollBars = ScrollBars.Vertical
         End If
     End Sub
 
@@ -131,8 +133,15 @@ Public Class Form1
 
         StatusStrip1.Visible = My.Settings.MyStatusBar
         StatusBarToolStripMenuItem.Checked = My.Settings.MyStatusBar
+
         TextBox1.WordWrap = My.Settings.MyWordWrap
         WordWrapToolStripMenuItem.Checked = My.Settings.MyWordWrap
+        If TextBox1.WordWrap Then
+            TextBox1.ScrollBars = ScrollBars.Vertical
+        Else
+            TextBox1.ScrollBars = ScrollBars.Both
+        End If
+
 
         ZoomInToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+Plus"
         ZoomOutToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+Minus"
