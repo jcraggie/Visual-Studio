@@ -288,6 +288,18 @@ Public Class Form1
     End Sub
 
     Private Sub TextBox1_KeyUp(sender As Object, e As KeyEventArgs) Handles TextBox1.KeyUp
+        PositionToolStripStatusLabel.Text =
+            "Ln " +
+            (TextBox1.GetLineFromCharIndex(TextBox1.SelectionStart) + 1).ToString() +
+            ", Col " + (TextBox1.SelectionStart - TextBox1.GetFirstCharIndexFromLine(TextBox1.GetLineFromCharIndex(TextBox1.SelectionStart)) + 1).ToString()
+
+    End Sub
+
+    Private Sub TextBox1_Click(sender As Object, e As EventArgs) Handles TextBox1.Click
+        PositionToolStripStatusLabel.Text =
+            "Ln " +
+            (TextBox1.GetLineFromCharIndex(TextBox1.SelectionStart) + 1).ToString() +
+            ", Col " + (TextBox1.SelectionStart - TextBox1.GetFirstCharIndexFromLine(TextBox1.GetLineFromCharIndex(TextBox1.SelectionStart)) + 1).ToString()
 
     End Sub
 End Class
