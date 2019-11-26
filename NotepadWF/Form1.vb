@@ -82,6 +82,12 @@ Public Class Form1
             TextHasChanged = True
         End If
 
+        PositionToolStripStatusLabel.Text =
+            "Ln " +
+            (TextBox1.GetLineFromCharIndex(TextBox1.SelectionStart) + 1).ToString() +
+            ", Col " + (TextBox1.SelectionStart - TextBox1.GetFirstCharIndexFromLine(TextBox1.GetLineFromCharIndex(TextBox1.SelectionStart)) + 1).ToString()
+
+
     End Sub
 
     Private Sub Form1_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
@@ -279,5 +285,9 @@ Public Class Form1
 
     Private Sub DeleteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DeleteToolStripMenuItem.Click
         SendKeys.Send("{DEL}")
+    End Sub
+
+    Private Sub TextBox1_KeyUp(sender As Object, e As KeyEventArgs) Handles TextBox1.KeyUp
+
     End Sub
 End Class

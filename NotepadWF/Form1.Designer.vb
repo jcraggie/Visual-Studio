@@ -56,7 +56,7 @@ Partial Class Form1
         Me.AboutNotepadWFToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.ToolStripStatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.PositionToolStripStatusLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ZoomToolStripStatusLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabel4 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabel5 = New System.Windows.Forms.ToolStripStatusLabel()
@@ -285,7 +285,7 @@ Partial Class Form1
         'StatusStrip1
         '
         Me.StatusStrip1.ImageScalingSize = New System.Drawing.Size(32, 32)
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1, Me.ToolStripStatusLabel2, Me.ZoomToolStripStatusLabel, Me.ToolStripStatusLabel4, Me.ToolStripStatusLabel5})
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1, Me.PositionToolStripStatusLabel, Me.ZoomToolStripStatusLabel, Me.ToolStripStatusLabel4, Me.ToolStripStatusLabel5})
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 426)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Size = New System.Drawing.Size(1075, 24)
@@ -299,13 +299,14 @@ Partial Class Form1
         Me.ToolStripStatusLabel1.Spring = True
         Me.ToolStripStatusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'ToolStripStatusLabel2
+        'PositionToolStripStatusLabel
         '
-        Me.ToolStripStatusLabel2.AutoSize = False
-        Me.ToolStripStatusLabel2.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left
-        Me.ToolStripStatusLabel2.Name = "ToolStripStatusLabel2"
-        Me.ToolStripStatusLabel2.Size = New System.Drawing.Size(350, 19)
-        Me.ToolStripStatusLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.PositionToolStripStatusLabel.AutoSize = False
+        Me.PositionToolStripStatusLabel.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left
+        Me.PositionToolStripStatusLabel.Name = "PositionToolStripStatusLabel"
+        Me.PositionToolStripStatusLabel.Size = New System.Drawing.Size(350, 19)
+        Me.PositionToolStripStatusLabel.Text = "Ln 1, Col 1"
+        Me.PositionToolStripStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'ZoomToolStripStatusLabel
         '
@@ -396,7 +397,7 @@ Partial Class Form1
     Friend WithEvents SaveAsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents SaveFileDialog1 As SaveFileDialog
     Friend WithEvents ToolStripStatusLabel1 As ToolStripStatusLabel
-    Friend WithEvents ToolStripStatusLabel2 As ToolStripStatusLabel
+    Friend WithEvents PositionToolStripStatusLabel As ToolStripStatusLabel
     Friend WithEvents ZoomToolStripStatusLabel As ToolStripStatusLabel
     Friend WithEvents ToolStripStatusLabel4 As ToolStripStatusLabel
     Friend WithEvents ToolStripStatusLabel5 As ToolStripStatusLabel
