@@ -96,6 +96,8 @@ Public Class Form1
         My.Settings.MyFont = MasterFont
         My.Settings.MyStatusBar = StatusStrip1.Visible
         My.Settings.MyWordWrap = WordWrapToolStripMenuItem.Checked
+        My.Settings.TextColor = TextBox1.ForeColor
+        My.Settings.BackgroundColor = TextBox1.BackColor
 
 
 
@@ -136,6 +138,9 @@ Public Class Form1
 
         TextBox1.Font = My.Settings.MyFont
         MasterFont = TextBox1.Font
+
+        TextBox1.ForeColor = My.Settings.TextColor
+        TextBox1.BackColor = My.Settings.BackgroundColor
 
         StatusStrip1.Visible = My.Settings.MyStatusBar
         StatusBarToolStripMenuItem.Checked = My.Settings.MyStatusBar
