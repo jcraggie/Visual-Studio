@@ -321,4 +321,18 @@ Public Class Form1
         TextBox1.ForeColor = Color.LightGreen
         TextBox1.BackColor = Color.Black
     End Sub
+
+    Private Sub SelectTextColorToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SelectTextColorToolStripMenuItem.Click
+        If ColorDialog1.ShowDialog = vbOK Then
+            TextBox1.ForeColor = ColorDialog1.Color
+
+        End If
+    End Sub
+
+    Private Sub SelectBackgroundColorToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SelectBackgroundColorToolStripMenuItem.Click
+        If ColorDialog1.ShowDialog = vbOK Then
+            TextBox1.BackColor = ColorDialog1.Color
+
+        End If
+    End Sub
 End Class
