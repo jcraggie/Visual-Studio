@@ -64,6 +64,14 @@ Partial Class Form1
         Me.FontDialog1 = New System.Windows.Forms.FontDialog()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
+        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BlackOnWhiteDefaultToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BlackOnLightGrayToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AmberOnBlackToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.GreenOnBlackToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator()
+        Me.SelectTextColorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SelectBackgroundColorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -226,7 +234,7 @@ Partial Class Form1
         '
         'ViewToolStripMenuItem1
         '
-        Me.ViewToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ZoomToolStripMenuItem, Me.StatusBarToolStripMenuItem})
+        Me.ViewToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1, Me.ZoomToolStripMenuItem, Me.StatusBarToolStripMenuItem})
         Me.ViewToolStripMenuItem1.Name = "ViewToolStripMenuItem1"
         Me.ViewToolStripMenuItem1.Size = New System.Drawing.Size(44, 22)
         Me.ViewToolStripMenuItem1.Text = "&View"
@@ -235,7 +243,7 @@ Partial Class Form1
         '
         Me.ZoomToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ZoomInToolStripMenuItem, Me.ZoomOutToolStripMenuItem, Me.RestoreDefaultZoomToolStripMenuItem})
         Me.ZoomToolStripMenuItem.Name = "ZoomToolStripMenuItem"
-        Me.ZoomToolStripMenuItem.Size = New System.Drawing.Size(126, 22)
+        Me.ZoomToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.ZoomToolStripMenuItem.Text = "&Zoom"
         '
         'ZoomInToolStripMenuItem
@@ -266,7 +274,7 @@ Partial Class Form1
         Me.StatusBarToolStripMenuItem.Checked = True
         Me.StatusBarToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked
         Me.StatusBarToolStripMenuItem.Name = "StatusBarToolStripMenuItem"
-        Me.StatusBarToolStripMenuItem.Size = New System.Drawing.Size(126, 22)
+        Me.StatusBarToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.StatusBarToolStripMenuItem.Text = "&Status Bar"
         '
         'HelpToolStripMenuItem
@@ -354,6 +362,54 @@ Partial Class Form1
         Me.SaveFileDialog1.DefaultExt = "txt"
         Me.SaveFileDialog1.Filter = "Text documents (*.txt)|*.txt"
         '
+        'ToolStripMenuItem1
+        '
+        Me.ToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BlackOnWhiteDefaultToolStripMenuItem, Me.BlackOnLightGrayToolStripMenuItem, Me.AmberOnBlackToolStripMenuItem, Me.GreenOnBlackToolStripMenuItem, Me.ToolStripSeparator5, Me.SelectTextColorToolStripMenuItem, Me.SelectBackgroundColorToolStripMenuItem})
+        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
+        Me.ToolStripMenuItem1.Text = "&Theme"
+        '
+        'BlackOnWhiteDefaultToolStripMenuItem
+        '
+        Me.BlackOnWhiteDefaultToolStripMenuItem.Name = "BlackOnWhiteDefaultToolStripMenuItem"
+        Me.BlackOnWhiteDefaultToolStripMenuItem.Size = New System.Drawing.Size(213, 22)
+        Me.BlackOnWhiteDefaultToolStripMenuItem.Text = "Black on &White (Default)"
+        '
+        'BlackOnLightGrayToolStripMenuItem
+        '
+        Me.BlackOnLightGrayToolStripMenuItem.Name = "BlackOnLightGrayToolStripMenuItem"
+        Me.BlackOnLightGrayToolStripMenuItem.Size = New System.Drawing.Size(213, 22)
+        Me.BlackOnLightGrayToolStripMenuItem.Text = "Black on &Light Gray"
+        '
+        'AmberOnBlackToolStripMenuItem
+        '
+        Me.AmberOnBlackToolStripMenuItem.Name = "AmberOnBlackToolStripMenuItem"
+        Me.AmberOnBlackToolStripMenuItem.Size = New System.Drawing.Size(213, 22)
+        Me.AmberOnBlackToolStripMenuItem.Text = "&Amber on Black"
+        '
+        'GreenOnBlackToolStripMenuItem
+        '
+        Me.GreenOnBlackToolStripMenuItem.Name = "GreenOnBlackToolStripMenuItem"
+        Me.GreenOnBlackToolStripMenuItem.Size = New System.Drawing.Size(213, 22)
+        Me.GreenOnBlackToolStripMenuItem.Text = "&Green on Black"
+        '
+        'ToolStripSeparator5
+        '
+        Me.ToolStripSeparator5.Name = "ToolStripSeparator5"
+        Me.ToolStripSeparator5.Size = New System.Drawing.Size(210, 6)
+        '
+        'SelectTextColorToolStripMenuItem
+        '
+        Me.SelectTextColorToolStripMenuItem.Name = "SelectTextColorToolStripMenuItem"
+        Me.SelectTextColorToolStripMenuItem.Size = New System.Drawing.Size(213, 22)
+        Me.SelectTextColorToolStripMenuItem.Text = "Select &Text Color..."
+        '
+        'SelectBackgroundColorToolStripMenuItem
+        '
+        Me.SelectBackgroundColorToolStripMenuItem.Name = "SelectBackgroundColorToolStripMenuItem"
+        Me.SelectBackgroundColorToolStripMenuItem.Size = New System.Drawing.Size(213, 22)
+        Me.SelectBackgroundColorToolStripMenuItem.Text = "Select &Background Color..."
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -418,4 +474,12 @@ Partial Class Form1
     Friend WithEvents ToolStripSeparator4 As ToolStripSeparator
     Friend WithEvents SelectAllToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents TimeDateToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents BlackOnWhiteDefaultToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents BlackOnLightGrayToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents AmberOnBlackToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents GreenOnBlackToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator5 As ToolStripSeparator
+    Friend WithEvents SelectTextColorToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents SelectBackgroundColorToolStripMenuItem As ToolStripMenuItem
 End Class

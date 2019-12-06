@@ -299,7 +299,26 @@ Public Class Form1
         PositionToolStripStatusLabel.Text =
             "Ln " +
             (TextBox1.GetLineFromCharIndex(TextBox1.SelectionStart) + 1).ToString() +
-            ", Col " + (TextBox1.SelectionStart - TextBox1.GetFirstCharIndexFromLine(TextBox1.GetLineFromCharIndex(TextBox1.SelectionStart)) + 1).ToString()
+            ", Col " + (TextBox1.SelectionStart - TextBox1.GetFirstCharIndexFromLine(TextBox1.GetLineFromCharIndex(TextBox1                               
+    End Sub
 
+    Private Sub BlackOnWhiteDefaultToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BlackOnWhiteDefaultToolStripMenuItem.Click
+        TextBox1.ForeColor = Color.Black
+        TextBox1.BackColor = Color.White
+    End Sub
+
+    Private Sub BlackOnLightGrayToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BlackOnLightGrayToolStripMenuItem.Click
+        TextBox1.ForeColor = Color.Black
+        TextBox1.BackColor = Color.LightGray
+    End Sub
+
+    Private Sub AmberOnBlackToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AmberOnBlackToolStripMenuItem.Click
+        TextBox1.ForeColor = Color.Orange
+        TextBox1.BackColor = Color.Black
+    End Sub
+
+    Private Sub GreenOnBlackToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles GreenOnBlackToolStripMenuItem.Click
+        TextBox1.ForeColor = Color.LightGreen
+        TextBox1.ForeColor = Color.Black
     End Sub
 End Class
