@@ -101,6 +101,7 @@ Public Class Form1
 
 
 
+
         My.Settings.Save()
 
         If TextHasChanged Then
@@ -157,6 +158,9 @@ Public Class Form1
         ZoomInToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+Plus"
         ZoomOutToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+Minus"
         DeleteToolStripMenuItem.ShortcutKeyDisplayString = "Del"
+
+        PageSetupDialog1.PageSettings = New Printing.PageSettings
+        PageSetupDialog1.PrinterSettings = New Printing.PrinterSettings
 
 
 
@@ -338,6 +342,16 @@ Public Class Form1
         If ColorDialog1.ShowDialog = vbOK Then
             TextBox1.BackColor = ColorDialog1.Color
 
+        End If
+    End Sub
+
+    Private Sub ToolStripMenuItem2_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem2.Click
+        Process.Start(System.Reflection.Assembly.GetEntryAssembly().Location)
+    End Sub
+
+    Private Sub ToolStripMenuItem3_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem3.Click
+        If PageSetupDialog1.ShowDialog = vbOK Then
+            '
         End If
     End Sub
 End Class
