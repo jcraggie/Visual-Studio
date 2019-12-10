@@ -345,13 +345,38 @@ Public Class Form1
         End If
     End Sub
 
-    Private Sub ToolStripMenuItem2_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem2.Click
+    Private Sub NewWindowToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NewWindowToolStripMenuItem.Click
         Process.Start(System.Reflection.Assembly.GetEntryAssembly().Location)
     End Sub
 
-    Private Sub ToolStripMenuItem3_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem3.Click
+    Private Sub PageSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PageSetupToolStripMenuItem.Click
         If PageSetupDialog1.ShowDialog = vbOK Then
             '
+            PrintDocument1.DefaultPageSettings.PaperSize = PageSetupDialog1.PageSettings.PaperSize
+            PrintDocument1.DefaultPageSettings.Landscape = PageSetupDialog1.PageSettings.Landscape
+            PrintDocument1.DefaultPageSettings.Margins = PageSetupDialog1.PageSettings.Margins
+
         End If
     End Sub
+
+    Private Sub PrintToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PrintToolStripMenuItem.Click
+        If PrintDialog1.ShowDialog() = vbOK Then
+            '
+            PrintDialog1.Document = PrintDocument1
+            PrintDocument1.DocumentName = TextBox1.Text
+
+            AddHandler PrintDocument1.PrintPage, AddressOf Me.PrintPageHandler
+
+            PrintDocument1.Print()
+
+        End If
+    End Sub
+
+    Private Sub PrintPageHandler(ByVal sender As Object, ByVal args As Printing.PrintPageEventArgs)
+        Dim MyPoint As New Point(PrintDocument1.DefaultPageSettings.Margins.Top, PrintDocument1.DefaultPageSettings.Margins.Left)
+        args.Graphics.DrawString(TextBox1.Text, TextBox1.Font, Brushes.Black, MyPoint)
+    End Sub
+
+
+
 End Class
