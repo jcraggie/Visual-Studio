@@ -82,11 +82,12 @@ Public Class Form1
             TextHasChanged = True
         End If
 
-        PositionToolStripStatusLabel.Text =
-            "Ln " +
-            (TextBox1.GetLineFromCharIndex(TextBox1.SelectionStart) + 1).ToString() +
-            ", Col " + (TextBox1.SelectionStart - TextBox1.GetFirstCharIndexFromLine(TextBox1.GetLineFromCharIndex(TextBox1.SelectionStart)) + 1).ToString()
+        'PositionToolStripStatusLabel.Text =
+        '    "Ln " +
+        '    (TextBox1.GetLineFromCharIndex(TextBox1.SelectionStart) + 1).ToString() +
+        '    ", Col " + (TextBox1.SelectionStart - TextBox1.GetFirstCharIndexFromLine(TextBox1.GetLineFromCharIndex(TextBox1.SelectionStart)) + 1).ToString()
 
+        ChangePositionToolStripStatusLabel()
 
     End Sub
 
@@ -305,10 +306,13 @@ Public Class Form1
     End Sub
 
     Private Sub TextBox1_Click(sender As Object, e As EventArgs) Handles TextBox1.Click
-        PositionToolStripStatusLabel.Text =
-            "Ln " +
-            (TextBox1.GetLineFromCharIndex(TextBox1.SelectionStart) + 1).ToString() +
-            ", Col " + (TextBox1.SelectionStart - TextBox1.GetFirstCharIndexFromLine(TextBox1.GetLineFromCharIndex(TextBox1.SelectionStart)) + 1).ToString()
+        'PositionToolStripStatusLabel.Text =
+        '    "Ln " +
+        '    (TextBox1.GetLineFromCharIndex(TextBox1.SelectionStart) + 1).ToString() +
+        '    ", Col " + (TextBox1.SelectionStart - TextBox1.GetFirstCharIndexFromLine(TextBox1.GetLineFromCharIndex(TextBox1.SelectionStart)) + 1).ToString()
+
+        ChangePositionToolStripStatusLabel()
+
     End Sub
 
     Private Sub BlackOnWhiteDefaultToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BlackOnWhiteDefaultToolStripMenuItem.Click
@@ -377,6 +381,17 @@ Public Class Form1
         args.Graphics.DrawString(TextBox1.Text, TextBox1.Font, Brushes.Black, MyPoint)
     End Sub
 
+    Private Sub TextBox1_KeyDown(sender As Object, e As KeyEventArgs) Handles TextBox1.KeyDown
+        ChangePositionToolStripStatusLabel()
+    End Sub
+
+    Private Sub ChangePositionToolStripStatusLabel()
+        PositionToolStripStatusLabel.Text =
+            "Ln " +
+            (TextBox1.GetLineFromCharIndex(TextBox1.SelectionStart) + 1).ToString() +
+            ", Col " +
+            (TextBox1.SelectionStart - TextBox1.GetFirstCharIndexFromLine(TextBox1.GetLineFromCharIndex(TextBox1.SelectionStart)) + 1).ToString()
+    End Sub
 
 
 End Class
