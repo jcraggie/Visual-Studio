@@ -393,5 +393,39 @@ Public Class Form1
             (TextBox1.SelectionStart - TextBox1.GetFirstCharIndexFromLine(TextBox1.GetLineFromCharIndex(TextBox1.SelectionStart)) + 1).ToString()
     End Sub
 
+    Private Sub ZoomToolStripStatusLabel_MouseUp(sender As Object, e As EventArgs) Handles ZoomToolStripStatusLabel.MouseUp
+        ZoomContextMenuStrip.Show(Cursor.Position)
+
+    End Sub
+
+    Private Sub Percent250_Click(sender As Object, e As EventArgs) Handles Percent250.Click
+        ZoomValue = 250
+        ChangeZoom()
+    End Sub
+
+    Private Sub Percent125_Click(sender As Object, e As EventArgs) Handles Percent125.Click
+        ZoomValue = 125
+        ChangeZoom()
+    End Sub
+
+    Private Sub Percent100_Click(sender As Object, e As EventArgs) Handles Percent100.Click
+        ZoomValue = 100
+        ChangeZoom()
+    End Sub
+
+    Private Sub Percent75_Click(sender As Object, e As EventArgs) Handles Percent75.Click
+        ZoomValue = 75
+        ChangeZoom()
+    End Sub
+
+    Private Sub Percent50_Click(sender As Object, e As EventArgs) Handles Percent50.Click
+        ZoomValue = 50
+        ChangeZoom()
+    End Sub
+
+    Private Sub ChangeZoom()
+        TextBox1.Font = New Font(TextBox1.Font.Name, ((MasterFont.Size * ZoomValue) / 100))
+        ZoomToolStripStatusLabel.Text = " " + (ZoomValue).ToString + "%"
+    End Sub
 
 End Class

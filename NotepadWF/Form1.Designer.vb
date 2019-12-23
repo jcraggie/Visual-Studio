@@ -22,14 +22,19 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.NewWindowToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.OpenToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SaveToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SaveAsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.PageSetupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PrintToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator6 = New System.Windows.Forms.ToolStripSeparator()
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.UndoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -73,15 +78,18 @@ Partial Class Form1
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
         Me.ColorDialog1 = New System.Windows.Forms.ColorDialog()
-        Me.NewWindowToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PageSetupDialog1 = New System.Windows.Forms.PageSetupDialog()
         Me.PrintDialog1 = New System.Windows.Forms.PrintDialog()
         Me.PrintDocument1 = New System.Drawing.Printing.PrintDocument()
-        Me.PageSetupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.PrintToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator6 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ZoomContextMenuStrip = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.Percent250 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Percent125 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Percent100 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Percent75 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Percent50 = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
+        Me.ZoomContextMenuStrip.SuspendLayout()
         Me.SuspendLayout()
         '
         'MenuStrip1
@@ -109,6 +117,14 @@ Partial Class Form1
         Me.NewToolStripMenuItem.Size = New System.Drawing.Size(220, 22)
         Me.NewToolStripMenuItem.Text = "&New"
         '
+        'NewWindowToolStripMenuItem
+        '
+        Me.NewWindowToolStripMenuItem.Name = "NewWindowToolStripMenuItem"
+        Me.NewWindowToolStripMenuItem.ShortcutKeys = CType(((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.Shift) _
+            Or System.Windows.Forms.Keys.N), System.Windows.Forms.Keys)
+        Me.NewWindowToolStripMenuItem.Size = New System.Drawing.Size(220, 22)
+        Me.NewWindowToolStripMenuItem.Text = "New &Window"
+        '
         'OpenToolStripMenuItem
         '
         Me.OpenToolStripMenuItem.Name = "OpenToolStripMenuItem"
@@ -135,6 +151,24 @@ Partial Class Form1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
         Me.ToolStripSeparator1.Size = New System.Drawing.Size(217, 6)
+        '
+        'PageSetupToolStripMenuItem
+        '
+        Me.PageSetupToolStripMenuItem.Name = "PageSetupToolStripMenuItem"
+        Me.PageSetupToolStripMenuItem.Size = New System.Drawing.Size(220, 22)
+        Me.PageSetupToolStripMenuItem.Text = "Page Set&up"
+        '
+        'PrintToolStripMenuItem
+        '
+        Me.PrintToolStripMenuItem.Name = "PrintToolStripMenuItem"
+        Me.PrintToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.P), System.Windows.Forms.Keys)
+        Me.PrintToolStripMenuItem.Size = New System.Drawing.Size(220, 22)
+        Me.PrintToolStripMenuItem.Text = "&Print"
+        '
+        'ToolStripSeparator6
+        '
+        Me.ToolStripSeparator6.Name = "ToolStripSeparator6"
+        Me.ToolStripSeparator6.Size = New System.Drawing.Size(217, 6)
         '
         'ExitToolStripMenuItem
         '
@@ -418,35 +452,45 @@ Partial Class Form1
         Me.SaveFileDialog1.DefaultExt = "txt"
         Me.SaveFileDialog1.Filter = "Text documents (*.txt)|*.txt"
         '
-        'NewWindowToolStripMenuItem
-        '
-        Me.NewWindowToolStripMenuItem.Name = "NewWindowToolStripMenuItem"
-        Me.NewWindowToolStripMenuItem.ShortcutKeys = CType(((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.Shift) _
-            Or System.Windows.Forms.Keys.N), System.Windows.Forms.Keys)
-        Me.NewWindowToolStripMenuItem.Size = New System.Drawing.Size(220, 22)
-        Me.NewWindowToolStripMenuItem.Text = "New &Window"
-        '
         'PrintDialog1
         '
         Me.PrintDialog1.UseEXDialog = True
         '
-        'PageSetupToolStripMenuItem
+        'ZoomContextMenuStrip
         '
-        Me.PageSetupToolStripMenuItem.Name = "PageSetupToolStripMenuItem"
-        Me.PageSetupToolStripMenuItem.Size = New System.Drawing.Size(220, 22)
-        Me.PageSetupToolStripMenuItem.Text = "Page Set&up"
+        Me.ZoomContextMenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Percent250, Me.Percent125, Me.Percent100, Me.Percent75, Me.Percent50})
+        Me.ZoomContextMenuStrip.Name = "ZoomContextMenuStrip"
+        Me.ZoomContextMenuStrip.Size = New System.Drawing.Size(181, 136)
         '
-        'PrintToolStripMenuItem
+        'Percent250
         '
-        Me.PrintToolStripMenuItem.Name = "PrintToolStripMenuItem"
-        Me.PrintToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.P), System.Windows.Forms.Keys)
-        Me.PrintToolStripMenuItem.Size = New System.Drawing.Size(220, 22)
-        Me.PrintToolStripMenuItem.Text = "&Print"
+        Me.Percent250.Name = "Percent250"
+        Me.Percent250.Size = New System.Drawing.Size(180, 22)
+        Me.Percent250.Text = "250%"
         '
-        'ToolStripSeparator6
+        'Percent125
         '
-        Me.ToolStripSeparator6.Name = "ToolStripSeparator6"
-        Me.ToolStripSeparator6.Size = New System.Drawing.Size(217, 6)
+        Me.Percent125.Name = "Percent125"
+        Me.Percent125.Size = New System.Drawing.Size(180, 22)
+        Me.Percent125.Text = "125%"
+        '
+        'Percent100
+        '
+        Me.Percent100.Name = "Percent100"
+        Me.Percent100.Size = New System.Drawing.Size(180, 22)
+        Me.Percent100.Text = "100%"
+        '
+        'Percent75
+        '
+        Me.Percent75.Name = "Percent75"
+        Me.Percent75.Size = New System.Drawing.Size(180, 22)
+        Me.Percent75.Text = "75%"
+        '
+        'Percent50
+        '
+        Me.Percent50.Name = "Percent50"
+        Me.Percent50.Size = New System.Drawing.Size(180, 22)
+        Me.Percent50.Text = "50%"
         '
         'Form1
         '
@@ -466,6 +510,7 @@ Partial Class Form1
         Me.MenuStrip1.PerformLayout()
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
+        Me.ZoomContextMenuStrip.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -528,4 +573,10 @@ Partial Class Form1
     Friend WithEvents PageSetupDialog1 As PageSetupDialog
     Friend WithEvents PrintDialog1 As PrintDialog
     Friend WithEvents PrintDocument1 As Printing.PrintDocument
+    Friend WithEvents ZoomContextMenuStrip As ContextMenuStrip
+    Friend WithEvents Percent250 As ToolStripMenuItem
+    Friend WithEvents Percent125 As ToolStripMenuItem
+    Friend WithEvents Percent100 As ToolStripMenuItem
+    Friend WithEvents Percent75 As ToolStripMenuItem
+    Friend WithEvents Percent50 As ToolStripMenuItem
 End Class
