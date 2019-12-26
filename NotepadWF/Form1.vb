@@ -99,6 +99,8 @@ Public Class Form1
         My.Settings.MyWordWrap = WordWrapToolStripMenuItem.Checked
         My.Settings.TextColor = TextBox1.ForeColor
         My.Settings.BackgroundColor = TextBox1.BackColor
+        My.Settings.MyAutoSave = AutoSaveToolStripMenuItem.Checked
+
 
 
 
@@ -153,6 +155,15 @@ Public Class Form1
             TextBox1.ScrollBars = ScrollBars.Vertical
         Else
             TextBox1.ScrollBars = ScrollBars.Both
+        End If
+
+        AutoSaveToolStripMenuItem.Checked = My.Settings.MyAutoSave
+        If AutoSaveToolStripMenuItem.Checked Then
+            Timer1.Enabled = True
+            AutoSaveToolStripStatusLabel.Text = " Auto Save: On"
+        Else
+            Timer1.Enabled = False
+            AutoSaveToolStripStatusLabel.Text = " Auto Save: Off"
         End If
 
 
@@ -428,4 +439,32 @@ Public Class Form1
         ZoomToolStripStatusLabel.Text = " " + (ZoomValue).ToString + "%"
     End Sub
 
+    Private Sub AutoSaveToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AutoSaveToolStripMenuItem.Click
+        If AutoSaveToolStripMenuItem.Checked Then
+            If MessageBox.Show(Me, "Click OK to disable Auto Save.", "Disable Auto Save", vbOKCancel) = vbOK Then
+                AutoSaveToolStripMenuItem.Checked = False
+                AutoSaveToolStripStatusLabel.Text = " Auto Save: Off"
+                Timer1.Enabled = False
+            End If
+        Else
+            If MessageBox.Show(Me, "Click OK to automatically save your document every 30 seconds.", "Enable Auto Save", vbOKCancel) = vbOK Then
+                Timer1.Enabled = False
+                AutoSaveToolStripMenuItem.Checked = True
+                AutoSaveToolStripStatusLabel.Text = " Auto Save: On"
+                Timer1.Enabled = True
+            End If
+        End If
+
+    End Sub
+
+    Private Sub AutoSaveToolStripStatusLabel_Click(sender As Object, e As EventArgs) Handles AutoSaveToolStripStatusLabel.Click
+        AutoSaveToolStripMenuItem_Click(sender, e)
+
+    End Sub
+
+    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
+        If TextHasChanged Then
+            SaveToolStripMenuItem_Click(sender, e)
+        End If
+    End Sub
 End Class
