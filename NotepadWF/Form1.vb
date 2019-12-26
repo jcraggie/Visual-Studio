@@ -160,10 +160,10 @@ Public Class Form1
         AutoSaveToolStripMenuItem.Checked = My.Settings.MyAutoSave
         If AutoSaveToolStripMenuItem.Checked Then
             Timer1.Enabled = True
-            AutoSaveToolStripStatusLabel.Text = " Auto Save: On"
+            AutoSaveToolStripStatusLabel.Text = " Auto Save: ON"
         Else
             Timer1.Enabled = False
-            AutoSaveToolStripStatusLabel.Text = " Auto Save: Off"
+            AutoSaveToolStripStatusLabel.Text = " Auto Save: OFF"
         End If
 
 
@@ -443,14 +443,14 @@ Public Class Form1
         If AutoSaveToolStripMenuItem.Checked Then
             If MessageBox.Show(Me, "Click OK to disable Auto Save.", "Disable Auto Save", vbOKCancel) = vbOK Then
                 AutoSaveToolStripMenuItem.Checked = False
-                AutoSaveToolStripStatusLabel.Text = " Auto Save: Off"
+                AutoSaveToolStripStatusLabel.Text = " Auto Save: OFF"
                 Timer1.Enabled = False
             End If
         Else
             If MessageBox.Show(Me, "Click OK to automatically save your document every 30 seconds.", "Enable Auto Save", vbOKCancel) = vbOK Then
                 Timer1.Enabled = False
                 AutoSaveToolStripMenuItem.Checked = True
-                AutoSaveToolStripStatusLabel.Text = " Auto Save: On"
+                AutoSaveToolStripStatusLabel.Text = " Auto Save: ON"
                 Timer1.Enabled = True
             End If
         End If
