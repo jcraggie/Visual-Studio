@@ -460,36 +460,36 @@ Partial Class Form1
         '
         Me.ZoomContextMenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Percent250, Me.Percent125, Me.Percent100, Me.Percent75, Me.Percent50})
         Me.ZoomContextMenuStrip.Name = "ZoomContextMenuStrip"
-        Me.ZoomContextMenuStrip.Size = New System.Drawing.Size(181, 136)
+        Me.ZoomContextMenuStrip.Size = New System.Drawing.Size(103, 114)
         '
         'Percent250
         '
         Me.Percent250.Name = "Percent250"
-        Me.Percent250.Size = New System.Drawing.Size(180, 22)
+        Me.Percent250.Size = New System.Drawing.Size(102, 22)
         Me.Percent250.Text = "250%"
         '
         'Percent125
         '
         Me.Percent125.Name = "Percent125"
-        Me.Percent125.Size = New System.Drawing.Size(180, 22)
+        Me.Percent125.Size = New System.Drawing.Size(102, 22)
         Me.Percent125.Text = "125%"
         '
         'Percent100
         '
         Me.Percent100.Name = "Percent100"
-        Me.Percent100.Size = New System.Drawing.Size(180, 22)
+        Me.Percent100.Size = New System.Drawing.Size(102, 22)
         Me.Percent100.Text = "100%"
         '
         'Percent75
         '
         Me.Percent75.Name = "Percent75"
-        Me.Percent75.Size = New System.Drawing.Size(180, 22)
+        Me.Percent75.Size = New System.Drawing.Size(102, 22)
         Me.Percent75.Text = "75%"
         '
         'Percent50
         '
         Me.Percent50.Name = "Percent50"
-        Me.Percent50.Size = New System.Drawing.Size(180, 22)
+        Me.Percent50.Size = New System.Drawing.Size(102, 22)
         Me.Percent50.Text = "50%"
         '
         'Form1
